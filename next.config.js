@@ -21,15 +21,19 @@ module.exports = withBundleAnalyzer({
     locales: ['en-US', 'ja-JP', 'zh-CN'],
     defaultLocale: 'en-US',
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
 
+    config.plugins = config.plugins.filter(plugin => {
+      return plugin.constructor.name !== "ForkTsCheckerWebpackPlugin";
+    });
+
     return config;
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
 });
