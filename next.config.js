@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+const withBundleAnalyzer =
+  process.env.ANALYZE === 'true'
+    ? require('@next/bundle-analyzer')({
+        enabled: process.env.ANALYZE === 'true',
+      })
+    : (x) => x;
 
 module.exports = withBundleAnalyzer({
   eslint: {
@@ -21,7 +24,7 @@ module.exports = withBundleAnalyzer({
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ['@svgr/webpack'],
     });
 
     return config;
