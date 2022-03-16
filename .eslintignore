@@ -1,2 +1,4 @@
 node_modules
 out
+.eslintrc.js
+next.config.js
