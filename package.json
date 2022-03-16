@@ -11,7 +11,7 @@
     "clean": "rimraf .next out",
     "lint": "next lint",
     "build-types": "tsc --noEmit --pretty",
-    "prepare": "husky install"
+    "postinstall": "if [ \"$NODE_ENV\" != production ]; then husky install; fi"
   },
   "dependencies": {
     "@monoid-dev/use-strings": "^0.0.1",
