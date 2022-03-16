@@ -1,0 +1,6 @@
+.menuItem {
+  font-family: 'DIN Condensed';
+  font-size: 40px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 32px) 100%, 0 100%);
+  @apply flex relative;
+}

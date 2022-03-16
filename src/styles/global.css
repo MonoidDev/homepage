@@ -19,3 +19,9 @@ a:hover {
 .content ul {
   @apply my-6;
 }
+
+@font-face {
+  font-family: 'DIN Condensed';
+  src: url('../assets/fonts/DINCondensed-Bold.ttf') format('opentype');
+  font-weight: 700 900;
+}
