@@ -1,13 +1,29 @@
 import { useState } from 'react';
 
 import clsx from 'clsx';
+import Lottie from 'lottie-react';
 import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
 import Slash from '@/assets/images/Slash.svg';
+import logoLoop from '@/assets/lottie/logo -2s2.json';
+import logoStart from '@/assets/lottie/logo 0-2s2.json';
 import { useSiteStrings } from '@/data/site';
 import { useAnimated } from '@/utils/animation';
+
+const AnimatedLogo = () => {
+  const [startDone, setStartDone] = useState(false);
+
+  return (
+    <Lottie
+      style={{ height: 94, width: 255 }}
+      loop={startDone}
+      animationData={startDone ? logoLoop : logoStart}
+      onComplete={() => setStartDone(true)}
+    />
+  );
+};
 
 interface NavMenuItemProps {
   index: number;
@@ -20,13 +36,13 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
   const { children, index, textWidth, action, isLast } = props;
 
   const [textExpanded, setTextExpanded] = useState(false);
-
   const [width] = useAnimated(
     (frame) => Math.sin((frame / 60) * Math.PI),
     action === 'open' ? 0 : 18 + textWidth + 50,
     action === 'open' ? 18 + textWidth + 50 : 0,
     {
-      onFinished: () => setTextExpanded(true),
+      onStart: () => action === 'close' && setTextExpanded(false),
+      onFinished: () => action === 'open' && setTextExpanded(true),
     },
   );
 
@@ -78,8 +94,8 @@ export const LayoutMenu: React.VFC = (_props) => {
 
   return (
     <div className="p-12">
-      {/* <Lottie animationData={logoData} /> */}
-      <div className="flex relative">
+      <div className="flex relative items-center">
+        <AnimatedLogo />
         <div className="flex-1" />
         <NavMenuItem
           index={0}
