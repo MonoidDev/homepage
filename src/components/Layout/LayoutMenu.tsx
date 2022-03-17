@@ -93,57 +93,60 @@ export const LayoutMenu: React.VFC = (_props) => {
   );
 
   return (
-    <div className="p-12">
-      <div className="flex relative items-center">
-        <AnimatedLogo />
-        <div className="flex-1" />
-        <NavMenuItem
-          index={0}
-          textWidth={locale === 'ja-JP' ? 64 : 48}
-          action={menuAction}
-        >
-          {strings.top}
-        </NavMenuItem>
-        <NavMenuItem
-          index={1}
-          textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120}
-          action={menuAction}
-        >
-          {strings.company}
-        </NavMenuItem>
-        <NavMenuItem
-          index={2}
-          textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84}
-          action={menuAction}
-        >
-          {strings.works}
-        </NavMenuItem>
-        <NavMenuItem
-          index={3}
-          textWidth={locale === 'ja-JP' ? 48 : 104}
-          action={menuAction}
-        >
-          {strings.recruit}
-        </NavMenuItem>
-        <NavMenuItem
-          index={4}
-          textWidth={locale === 'ja-JP' ? 48 : 104}
-          action={menuAction}
-          isLast={true}
-        >
-          {strings.contact}
-        </NavMenuItem>
+    <div className="flex flex-col">
+      <div className="px-12 pt-12 pb-8">
+        <div className="flex relative items-center">
+          <AnimatedLogo />
+          <div className="flex-1" />
+          <NavMenuItem
+            index={0}
+            textWidth={locale === 'ja-JP' ? 64 : 48}
+            action={menuAction}
+          >
+            {strings.top}
+          </NavMenuItem>
+          <NavMenuItem
+            index={1}
+            textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120}
+            action={menuAction}
+          >
+            {strings.company}
+          </NavMenuItem>
+          <NavMenuItem
+            index={2}
+            textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84}
+            action={menuAction}
+          >
+            {strings.works}
+          </NavMenuItem>
+          <NavMenuItem
+            index={3}
+            textWidth={locale === 'ja-JP' ? 48 : 104}
+            action={menuAction}
+          >
+            {strings.recruit}
+          </NavMenuItem>
+          <NavMenuItem
+            index={4}
+            textWidth={locale === 'ja-JP' ? 48 : 104}
+            action={menuAction}
+            isLast={true}
+          >
+            {strings.contact}
+          </NavMenuItem>
 
-        <div className="absolute top-0 bottom-0 right-[24px] flex items-center">
-          <LanguageMenu
-            action={languagesAction}
-            onChangeAction={(action) => {
-              setMenuAction(action === 'open' ? 'close' : 'open');
-              setLanguagesAction(action);
-            }}
-          />
+          <div className="absolute top-0 bottom-0 right-[24px] flex items-center">
+            <LanguageMenu
+              action={languagesAction}
+              onChangeAction={(action) => {
+                setMenuAction(action === 'open' ? 'close' : 'open');
+                setLanguagesAction(action);
+              }}
+            />
+          </div>
         </div>
       </div>
+      <div className="h-[1px] bg-black mx-12" />
     </div>
   );
 };

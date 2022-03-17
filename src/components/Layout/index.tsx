@@ -6,12 +6,13 @@ export interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { meta } = props;
+  const { meta, children } = props;
 
   return (
-    <div className="w-full antialiased text-black">
+    <div className="flex flex-col w-full antialiased text-black min-h-screen">
       {meta}
       <LayoutMenu />
+      {children}
     </div>
   );
 };
