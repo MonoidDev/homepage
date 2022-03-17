@@ -33,6 +33,7 @@ specifiers:
   npm-run-all: ^4.1.5
   postcss: ^8.4.6
   prettier: ^2.5.1
+  prop-types: ^15.8.1
   react: ^17.0.2
   react-dom: ^17.0.2
   rimraf: ^3.0.2
@@ -47,10 +48,11 @@ dependencies:
   autoprefixer: 10.4.3_postcss@8.4.11
   clsx: 1.1.1
   cssnano: 5.1.4_postcss@8.4.11
-  lottie-react: 2.1.0_react-dom@17.0.2+react@17.0.2
+  lottie-react: 2.1.0_75cb922c19ee1b7939faae9b4d1f4cf7
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   next-seo: 5.1.0_caa633a00319350dbda42996613fe26c
   postcss: 8.4.11
+  prop-types: 15.8.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   tailwindcss: 3.0.23_autoprefixer@10.4.3
@@ -3532,7 +3534,7 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
-  /lottie-react/2.1.0_react-dom@17.0.2+react@17.0.2:
+  /lottie-react/2.1.0_75cb922c19ee1b7939faae9b4d1f4cf7:
     resolution: {integrity: sha512-sHDJb5aeh1letUIWqwidHoHZj07ZOZQoLuUgy0gqt9FB/XiCtAZ2+421Cn+ZkHR7anVvWljKhGgctQCtgFloUA==}
     peerDependencies:
       prop-types: ^15.5.7
@@ -3540,6 +3542,7 @@ packages:
       react-dom: ^16.8.0
     dependencies:
       lottie-web: 5.9.1
+      prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: false
@@ -4290,7 +4293,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
@@ -4317,7 +4319,6 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: true
 
   /react/17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
