@@ -1,0 +1,153 @@
+import { useEffect } from 'react';
+
+import clsx from 'clsx';
+import Link from 'next/link';
+
+import CN from '@/assets/images/CN.svg';
+import EN from '@/assets/images/EN.svg';
+import JP from '@/assets/images/JP.svg';
+import Languages from '@/assets/images/Languages.svg';
+import SlashThick from '@/assets/images/SlashThick.svg';
+import { useChain } from '@/utils/animation';
+
+export interface LanguageMenuProps {
+  action: 'open' | 'close';
+  onChangeAction?: (action: 'open' | 'close') => void;
+}
+
+export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
+  const { action, onChangeAction } = props;
+
+  useEffect(() => {
+    if (action === 'open') {
+      play();
+      playBorderRadius();
+    }
+  }, [action]);
+
+  const {
+    values: [borderRadius],
+    play: playBorderRadius,
+    reverse: reverseBorderRadius,
+  } = useChain([
+    {
+      from: 32,
+      to: 40,
+      interpolate: (frame) => Math.sin(((frame / 15) * Math.PI) / 2),
+    },
+  ]);
+
+  const {
+    values: [width, slashOffsetY, buttonScale],
+    play,
+    reverse,
+    currentIndex,
+    isPlaying,
+  } = useChain([
+    {
+      from: 64,
+      to: 572,
+      interpolate: (frame) => Math.sin(((frame / 30) * Math.PI) / 2),
+    },
+    {
+      from: 80,
+      to: 0,
+      onStart: ({ reversed }) => {
+        if (reversed) {
+          reverseBorderRadius();
+          onChangeAction?.('close');
+        }
+      },
+      interpolate: (frame) => Math.sin(((frame / 15) * Math.PI) / 2),
+    },
+    {
+      from: 0,
+      to: 1,
+      interpolate: (frame) => Math.sin(((frame / 10) * Math.PI) / 2),
+    },
+  ]);
+
+  const slashOffsetX = (-45 / 80) * slashOffsetY!;
+
+  return (
+    <div className="flex">
+      <div
+        className={clsx(
+          'text-black flex overflow-hidden',
+          action === 'close' && 'hover:bg-black hover:text-white',
+          (action === 'open' || isPlaying || currentIndex >= 2) &&
+            'bg-black !text-white',
+        )}
+        style={{
+          borderRadius,
+          height: 2 * borderRadius!,
+          width,
+        }}
+      >
+        {currentIndex >= 1 && (
+          <>
+            <div className="w-[40px]" />
+            <div className="w-[100px] flex items-center justify-center">
+              <Link href="" locale="ja-JP">
+                <a
+                  style={{ transform: `scale(${buttonScale})` }}
+                  onClick={reverse}
+                >
+                  <JP />
+                </a>
+              </Link>
+            </div>
+            <SlashThick
+              style={{
+                transform: `translateY(${slashOffsetY}px) translateX(${slashOffsetX}px)`,
+              }}
+            />
+            <div className="w-[100px] flex items-center justify-center">
+              <Link href="" locale="en-US">
+                <a
+                  style={{ transform: `scale(${buttonScale})` }}
+                  onClick={reverse}
+                >
+                  <EN />
+                </a>
+              </Link>
+            </div>
+            <SlashThick
+              style={{
+                transform: `translateY(${-slashOffsetY!}px) translateX(${-slashOffsetX!}px)`,
+              }}
+            />
+            <div className="w-[100px] flex items-center justify-center">
+              <Link href="" locale="zh-CN">
+                <a
+                  style={{ transform: `scale(${buttonScale})` }}
+                  onClick={reverse}
+                >
+                  <CN />
+                </a>
+              </Link>
+            </div>
+          </>
+        )}
+
+        <div style={{ flex: 1 }} />
+        <button
+          className={clsx('block')}
+          style={{
+            padding: borderRadius! - 32 + 8, // 8 -> 16
+          }}
+          disabled={isPlaying}
+          onClick={() => {
+            if (action === 'open') {
+              reverse();
+            } else {
+              onChangeAction?.('open');
+            }
+          }}
+        >
+          <Languages />
+        </button>
+      </div>
+    </div>
+  );
+};

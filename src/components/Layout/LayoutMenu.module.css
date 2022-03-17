@@ -4,3 +4,16 @@
   clip-path: polygon(0 0, 100% 0, calc(100% - 32px) 100%, 0 100%);
   @apply flex relative;
 }
+
+html[lang="zh-CN"] .menuItem {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 2.5;
+}
+
+html[lang="ja-JP"] .menuItem {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 2.5;
+}
+
