@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
 import Slash from '@/assets/images/Slash.svg';
-import logoLoop from '@/assets/lottie/logo -2s2.json';
-import logoStart from '@/assets/lottie/logo 0-2s2.json';
+import logoLoop from '@/assets/lottie/logo -2s000_2x.json';
+import logoStart from '@/assets/lottie/logo 0-2s00_2x.json';
 import { useSiteStrings } from '@/data/site';
 import { useAnimated } from '@/utils/animation';
 

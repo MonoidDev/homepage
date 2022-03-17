@@ -27,7 +27,7 @@ specifiers:
   eslint-plugin-unused-imports: ^2.0.0
   husky: ^7.0.4
   lint-staged: ^12.3.4
-  lottie-react: ^2.2.1
+  lottie-react: ~2.1.0
   next: ^12.1.0
   next-seo: ^5.1.0
   npm-run-all: ^4.1.5
@@ -47,7 +47,7 @@ dependencies:
   autoprefixer: 10.4.3_postcss@8.4.11
   clsx: 1.1.1
   cssnano: 5.1.4_postcss@8.4.11
-  lottie-react: 2.2.1_react-dom@17.0.2+react@17.0.2
+  lottie-react: 2.1.0_react-dom@17.0.2+react@17.0.2
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   next-seo: 5.1.0_caa633a00319350dbda42996613fe26c
   postcss: 8.4.11
@@ -3532,11 +3532,12 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
-  /lottie-react/2.2.1_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-lAdIUw+zeHLX3gtyLkisa4QM9NkTUUeZTsEL53laBEsjIH4JibgwkioZuza8CtwZ7/cpPZRbCRXWKfiuaDZWww==}
+  /lottie-react/2.1.0_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-sHDJb5aeh1letUIWqwidHoHZj07ZOZQoLuUgy0gqt9FB/XiCtAZ2+421Cn+ZkHR7anVvWljKhGgctQCtgFloUA==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
+      prop-types: ^15.5.7
+      react: ^16.8.0
+      react-dom: ^16.8.0
     dependencies:
       lottie-web: 5.9.1
       react: 17.0.2
