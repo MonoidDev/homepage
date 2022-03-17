@@ -2,13 +2,13 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-type IMetaProps = {
+export interface MetaProps {
   title: string;
   description: string;
   canonical?: string;
-};
+}
 
-const Meta = (props: IMetaProps) => {
+export const Meta: React.VFC<MetaProps> = (props) => {
   const router = useRouter();
 
   return (
@@ -22,28 +22,39 @@ const Meta = (props: IMetaProps) => {
         />
         <link
           rel="apple-touch-icon"
-          href={`${router.basePath}/apple-touch-icon.png`}
-          key="apple"
+          sizes="180x180"
+          href={`${router.basePath}/favicon/apple-touch-icon.png`}
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href={`${router.basePath}/favicon-32x32.png`}
-          key="icon32"
+          href={`${router.basePath}/favicon/favicon-32x32.png`}
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href={`${router.basePath}/favicon-16x16.png`}
-          key="icon16"
+          href={`${router.basePath}/favicon/favicon-16x16.png`}
         />
         <link
           rel="icon"
-          href={`${router.basePath}/favicon.ico`}
+          href={`${router.basePath}/favicon/favicon.ico`}
           key="favicon"
         />
+        <link
+          rel="manifest"
+          href={`${router.basePath}/favicon/site.webmanifest`}
+        />
+        <link
+          rel="mask-icon"
+          href={`${router.basePath}/favicon/safari-pinned-tab.svg`}
+          color="#ffffff"
+        />
+        <meta name="apple-mobile-web-app-title" content="Snippit" />
+        <meta name="application-name" content="Monoid" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       <NextSeo
         title={props.title}
@@ -60,5 +71,3 @@ const Meta = (props: IMetaProps) => {
     </>
   );
 };
-
-export { Meta };
