@@ -2,18 +2,26 @@ import { useState } from 'react';
 
 import clsx from 'clsx';
 import Lottie from 'lottie-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
 import Slash from '@/assets/images/Slash.svg';
-import logoLoop from '@/assets/lottie/logo -2s00x2_01.json';
-import logoStart from '@/assets/lottie/logo 0-2s00x2_01.json';
+import logoBlackLoop from '@/assets/lottie/logo-black-loop.json';
+import logoBlackStart from '@/assets/lottie/logo-black-start.json';
+import logoWhiteLoop from '@/assets/lottie/logo-white-loop.json';
+import logoWhiteStart from '@/assets/lottie/logo-white-start.json';
 import { useSiteStrings } from '@/data/site';
+import { useTheme } from '@/styles/theme';
 import { useAnimated } from '@/utils/animation';
 
 const AnimatedLogo = () => {
+  const { theme } = useTheme();
   const [startDone, setStartDone] = useState(false);
+
+  const logoLoop = theme == 'black' ? logoWhiteLoop : logoBlackLoop;
+  const logoStart = theme == 'black' ? logoWhiteStart : logoBlackStart;
 
   return (
     <Lottie
@@ -30,10 +38,11 @@ interface NavMenuItemProps {
   textWidth: number;
   isLast?: boolean;
   action: 'open' | 'close';
+  href?: string;
 }
 
 const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
-  const { children, index, textWidth, action, isLast } = props;
+  const { href, children, index, textWidth, action, isLast } = props;
 
   const [textExpanded, setTextExpanded] = useState(false);
   const [width] = useAnimated(
@@ -54,29 +63,33 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
       )
     : [0, 'idle'];
 
+  const { theme } = useTheme();
+
   return (
-    <button className={styles.menuItem} style={{ marginRight: lastMargin }}>
-      <div
-        className={clsx(
-          'flex will-change-[width] will-change-[transform] transition-[transform]',
-          !textExpanded && 'translate-x-full',
-        )}
-        style={{ width, transitionDuration: '300ms' }}
-      >
-        <div className="w-[18px] shrink-0" />
+    <Link href={href ?? ''}>
+      <a className={styles.menuItem} style={{ marginRight: lastMargin }}>
         <div
-          className="whitespace-pre"
-          style={{ width: textWidth, height: 60 }}
+          className={clsx(
+            'flex will-change-[width] will-change-[transform] transition-[transform]',
+            !textExpanded && 'translate-x-full',
+          )}
+          style={{ width, transitionDuration: '300ms' }}
         >
-          {children}
+          <div className="w-[18px] shrink-0" />
+          <div
+            className="whitespace-pre"
+            style={{ width: textWidth, height: 60 }}
+          >
+            {children}
+          </div>
+          <div className="w-[50px] shrink-0" />
         </div>
-        <div className="w-[50px] shrink-0" />
-      </div>
-      <Slash
-        className="text-black absolute right-0 top-0"
-        style={{ opacity: 0.2 + 0.1 * index }}
-      />
-    </button>
+        <Slash
+          className="white:text-black black:text-white absolute right-0 top-0"
+          style={{ opacity: theme === 'black' ? 1 : 0.2 + 0.1 * index }}
+        />
+      </a>
+    </Link>
   );
 };
 
@@ -99,6 +112,7 @@ export const LayoutMenu: React.VFC = (_props) => {
           <AnimatedLogo />
           <div className="flex-1" />
           <NavMenuItem
+            href="/"
             index={0}
             textWidth={locale === 'ja-JP' ? 64 : 48}
             action={menuAction}
@@ -106,6 +120,7 @@ export const LayoutMenu: React.VFC = (_props) => {
             {strings.top}
           </NavMenuItem>
           <NavMenuItem
+            href="/company"
             index={1}
             textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120}
             action={menuAction}

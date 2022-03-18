@@ -73,10 +73,11 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
     <div className="flex">
       <div
         className={clsx(
-          'text-black flex overflow-hidden',
-          action === 'close' && 'hover:bg-black hover:text-white',
+          'white:text-black black:text-white flex overflow-hidden',
+          action === 'close' &&
+            'hover:white:bg-black hover:black:bg-white hover:white:text-white hover:black:text-black',
           (action === 'open' || isPlaying || currentIndex >= 2) &&
-            'bg-black !text-white',
+            'white:bg-black black:bg-white white:!text-white black:!text-black',
         )}
         style={{
           borderRadius,
