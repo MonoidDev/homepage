@@ -4,13 +4,14 @@ import { LayoutMenu } from './LayoutMenu';
 import { Theme, ThemeProvider } from '@/styles/theme';
 
 export interface LayoutProps {
+  loadingDone: boolean;
   meta: React.ReactNode;
   children: React.ReactNode;
   theme: Theme;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { meta, children, theme } = props;
+  const { meta, children, theme, loadingDone } = props;
 
   return (
     <ThemeProvider value={{ theme }}>
@@ -23,7 +24,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
         )}
       >
         {meta}
-        <LayoutMenu />
+        <LayoutMenu loadingDone={loadingDone} />
         {children}
       </div>
     </ThemeProvider>

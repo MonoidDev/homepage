@@ -1,37 +1,16 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import React from 'react';
 
 import clsx from 'clsx';
-import Lottie from 'lottie-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
 import Slash from '@/assets/images/Slash.svg';
-import logoBlackLoop from '@/assets/lottie/logo-black-loop.json';
-import logoBlackStart from '@/assets/lottie/logo-black-start.json';
-import logoWhiteLoop from '@/assets/lottie/logo-white-loop.json';
-import logoWhiteStart from '@/assets/lottie/logo-white-start.json';
 import { useSiteStrings } from '@/data/site';
 import { useTheme } from '@/styles/theme';
 import { useAnimated } from '@/utils/animation';
-
-const AnimatedLogo = () => {
-  const { theme } = useTheme();
-  const [startDone, setStartDone] = useState(false);
-
-  const logoLoop = theme == 'black' ? logoWhiteLoop : logoBlackLoop;
-  const logoStart = theme == 'black' ? logoWhiteStart : logoBlackStart;
-
-  return (
-    <Lottie
-      style={{ height: 94, width: 255 }}
-      loop={startDone}
-      animationData={startDone ? logoLoop : logoStart}
-      onComplete={() => setStartDone(true)}
-    />
-  );
-};
 
 interface NavMenuItemProps {
   index: number;
@@ -93,7 +72,11 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
   );
 };
 
-export const LayoutMenu: React.VFC = (_props) => {
+const AnimatedLogo = React.lazy(() => import('./AnimatedLogo'));
+
+export const LayoutMenu: React.VFC<{ loadingDone: boolean }> = ({
+  loadingDone,
+}) => {
   const strings = useSiteStrings();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -109,46 +92,58 @@ export const LayoutMenu: React.VFC = (_props) => {
     <div className="flex flex-col">
       <div className="px-12 pt-12 pb-8">
         <div className="flex relative items-center">
-          <AnimatedLogo />
+          {typeof window !== 'undefined' && (
+            <Suspense fallback={null}>
+              <AnimatedLogo loadingDone={loadingDone} />
+            </Suspense>
+          )}
           <div className="flex-1" />
-          <NavMenuItem
-            href="/"
-            index={0}
-            textWidth={locale === 'ja-JP' ? 64 : 48}
-            action={menuAction}
-          >
-            {strings.top}
-          </NavMenuItem>
-          <NavMenuItem
-            href="/company"
-            index={1}
-            textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120}
-            action={menuAction}
-          >
-            {strings.company}
-          </NavMenuItem>
-          <NavMenuItem
-            index={2}
-            textWidth={locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84}
-            action={menuAction}
-          >
-            {strings.works}
-          </NavMenuItem>
-          <NavMenuItem
-            index={3}
-            textWidth={locale === 'ja-JP' ? 48 : 104}
-            action={menuAction}
-          >
-            {strings.recruit}
-          </NavMenuItem>
-          <NavMenuItem
-            index={4}
-            textWidth={locale === 'ja-JP' ? 48 : 104}
-            action={menuAction}
-            isLast={true}
-          >
-            {strings.contact}
-          </NavMenuItem>
+          {loadingDone && (
+            <>
+              <NavMenuItem
+                href="/"
+                index={0}
+                textWidth={locale === 'ja-JP' ? 64 : 48}
+                action={menuAction}
+              >
+                {strings.top}
+              </NavMenuItem>
+              <NavMenuItem
+                href="/company"
+                index={1}
+                textWidth={
+                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120
+                }
+                action={menuAction}
+              >
+                {strings.company}
+              </NavMenuItem>
+              <NavMenuItem
+                index={2}
+                textWidth={
+                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84
+                }
+                action={menuAction}
+              >
+                {strings.works}
+              </NavMenuItem>
+              <NavMenuItem
+                index={3}
+                textWidth={locale === 'ja-JP' ? 48 : 104}
+                action={menuAction}
+              >
+                {strings.recruit}
+              </NavMenuItem>
+              <NavMenuItem
+                index={4}
+                textWidth={locale === 'ja-JP' ? 48 : 104}
+                action={menuAction}
+                isLast={true}
+              >
+                {strings.contact}
+              </NavMenuItem>
+            </>
+          )}
 
           <div className="absolute top-0 bottom-0 right-[24px] flex items-center">
             <LanguageMenu

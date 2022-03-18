@@ -117,12 +117,11 @@ export const useChain = (items: ChainItem[]): UseChainReturn => {
           ? item.to + (item.from - item.to) * interpolated
           : item.from + (item.to - item.from) * interpolated;
 
+        const indexToUpdate = currentItemIndexRef.current; // This might be changed later
         unstable_batchedUpdates(() => {
           setIsPlaying(true);
           setValues((values) =>
-            values.map((v, i) =>
-              i === currentItemIndexRef.current ? nextValue : v,
-            ),
+            values.map((v, i) => (i === indexToUpdate ? nextValue : v)),
           );
         });
 
