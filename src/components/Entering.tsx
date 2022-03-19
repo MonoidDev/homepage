@@ -30,7 +30,7 @@ const Ring: React.VFC<{
       <ringGeometry args={[RING_SIZE * 0.95, RING_SIZE, 64]} />
       <meshBasicMaterial
         side={THREE.DoubleSide}
-        color="black"
+        color="white"
         transparent={true}
         opacity={opacity}
       />
@@ -125,7 +125,7 @@ export const Entering: React.VFC<{ onDone: () => void }> = ({ onDone }) => {
       id="canvas-container"
       className={clsx('fixed top-0 right-0 bottom-0 left-0')}
       style={{
-        backgroundColor: `rgba(255, 255, 255, ${backgroundOpacity})`,
+        backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
       }}
     >
       <Canvas

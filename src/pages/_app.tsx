@@ -9,18 +9,21 @@ import { Meta } from '@/components/Meta';
 
 import '../styles/global.css';
 
+const shouldDisplayLoading = process.env.NODE_ENV === 'production';
+
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const localeValue = {
     language: router.locale ?? '',
     preferences: [router.locale ?? '', 'en-US'],
   };
 
-  const [loadingDone, setLoadingDone] = useState(false);
+  const [loadingDone, setLoadingDone] = useState(!shouldDisplayLoading);
 
   return (
     <LocaleContext.Provider value={localeValue}>
       <Layout
         loadingDone={loadingDone}
+        hideLogo={pageProps.hideLogo ?? false}
         theme={pageProps.theme}
         meta={
           <Meta title={pageProps.title} description="The Next New Things" />
@@ -28,7 +31,9 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
       >
         <Component {...pageProps} />
       </Layout>
-      {!loadingDone && <Entering onDone={() => setLoadingDone(true)} />}
+      {!loadingDone && shouldDisplayLoading && (
+        <Entering onDone={() => setLoadingDone(true)} />
+      )}
     </LocaleContext.Provider>
   );
 };

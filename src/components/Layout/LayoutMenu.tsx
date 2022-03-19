@@ -74,9 +74,10 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
 
 const AnimatedLogo = React.lazy(() => import('./AnimatedLogo'));
 
-export const LayoutMenu: React.VFC<{ loadingDone: boolean }> = ({
-  loadingDone,
-}) => {
+export const LayoutMenu: React.VFC<{
+  loadingDone: boolean;
+  hideLogo: boolean;
+}> = ({ loadingDone, hideLogo }) => {
   const strings = useSiteStrings();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -92,11 +93,13 @@ export const LayoutMenu: React.VFC<{ loadingDone: boolean }> = ({
     <div className="flex flex-col">
       <div className="px-12 pt-12 pb-8">
         <div className="flex relative items-center">
-          {typeof window !== 'undefined' && (
-            <Suspense fallback={null}>
-              <AnimatedLogo loadingDone={loadingDone} />
-            </Suspense>
-          )}
+          <div className="h-[60px] flex items-center">
+            {typeof window !== 'undefined' && !hideLogo && (
+              <Suspense fallback={null}>
+                <AnimatedLogo loadingDone={loadingDone} />
+              </Suspense>
+            )}
+          </div>
           <div className="flex-1" />
           {loadingDone && (
             <>
@@ -156,7 +159,7 @@ export const LayoutMenu: React.VFC<{ loadingDone: boolean }> = ({
           </div>
         </div>
       </div>
-      <div className="h-[1px] bg-black mx-12" />
+      <div className="h-[1px] bg-black mx-12 black:bg-white" />
     </div>
   );
 };
