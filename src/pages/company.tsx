@@ -7,7 +7,6 @@ export async function getStaticProps() {
     props: {
       theme: 'black',
       title: 'Company - Monoid',
-      hideLogo: true,
     },
   };
 }

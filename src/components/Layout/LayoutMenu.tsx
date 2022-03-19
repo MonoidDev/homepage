@@ -140,6 +140,7 @@ export const LayoutMenu: React.VFC<{
                 {strings.recruit}
               </NavMenuItem>
               <NavMenuItem
+                href="/contact"
                 index={4}
                 textWidth={locale === 'ja-JP' ? 48 : 104}
                 action={menuAction}

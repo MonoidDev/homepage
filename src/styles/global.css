@@ -14,3 +14,17 @@ a {
   src: url('../assets/fonts/DINCondensed-Bold.ttf') format('opentype');
   font-weight: 700 900;
 }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/Ubuntu-Bold.ttf') format('opentype');
+  font-weight: 700 900;
+}
+
+.ubuntu {
+  font-family: 'Ubuntu';
+}
+
+.din {
+  font-family: 'DIN Condensed';
+}
