@@ -122,6 +122,7 @@ export const LayoutMenu: React.VFC<{
                 {strings.company}
               </NavMenuItem>
               <NavMenuItem
+                href=""
                 index={2}
                 textWidth={
                   locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84
@@ -131,6 +132,7 @@ export const LayoutMenu: React.VFC<{
                 {strings.works}
               </NavMenuItem>
               <NavMenuItem
+                href="/recruit"
                 index={3}
                 textWidth={locale === 'ja-JP' ? 48 : 104}
                 action={menuAction}
