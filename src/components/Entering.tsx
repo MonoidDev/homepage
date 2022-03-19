@@ -129,6 +129,7 @@ export const Entering: React.VFC<{ onDone: () => void }> = ({ onDone }) => {
       }}
     >
       <Canvas
+        dpr={[1, 2]}
         camera={{
           fov: 75,
           near: 0.1,
