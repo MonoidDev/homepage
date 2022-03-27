@@ -115,7 +115,7 @@ export const LayoutMenu: React.VFC<{
                 href="/company"
                 index={1}
                 textWidth={
-                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 120
+                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 96 : 120
                 }
                 action={menuAction}
               >
@@ -125,7 +125,7 @@ export const LayoutMenu: React.VFC<{
                 href=""
                 index={2}
                 textWidth={
-                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 64 : 84
+                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 84
                 }
                 action={menuAction}
               >
@@ -142,7 +142,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/contact"
                 index={4}
-                textWidth={locale === 'ja-JP' ? 48 : 104}
+                textWidth={104}
                 action={menuAction}
                 isLast={true}
               >

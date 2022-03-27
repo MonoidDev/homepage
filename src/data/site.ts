@@ -18,11 +18,11 @@ export const useSiteStrings = makeStrings({
     siteName: 'Monoid',
   },
   'ja-JP': {
-    top: 'ホーム',
-    company: '会社',
-    works: 'ワーク',
+    top: 'トップ',
+    company: '会社概要',
+    works: '実績',
     recruit: '募集',
-    contact: '連絡',
+    contact: 'お問合せ',
     siteName: 'Monoid',
   },
 });
