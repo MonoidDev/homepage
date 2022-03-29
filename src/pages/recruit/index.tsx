@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
-import clsx from 'clsx';
-
-import styles from './index.module.css';
+import Link from 'next/link';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -26,10 +24,9 @@ export default function Recruit() {
 
   return (
     <main
-      className={clsx(
-        styles.recruit,
-        'flex-1 flex flex-col px-[100px] pb-[50px] justify-end text-white',
-      )}
+      className={
+        'font-dense flex-1 flex flex-col px-[100px] pb-[50px] justify-end text-white'
+      }
     >
       <h2 className="text-[140px]">{strings.title}</h2>
       <h3 className="text-[64px] opacity-[.45]">{strings.slogan}</h3>
@@ -43,9 +40,11 @@ export default function Recruit() {
           ))}
         </ul>
 
-        <button className="w-[300px] h-[120px] text-[80px] border-[5px] leading-[1.7] border-white rounded-[60px] hover:text-gray-400 hover:border-gray-400">
-          {strings.apply}
-        </button>
+        <Link href="/recruit/jobs">
+          <a className="text-center w-[300px] h-[120px] text-[80px] border-[5px] leading-[1.7] border-white rounded-[60px] hover:text-gray-400 hover:border-gray-400">
+            {strings.apply}
+          </a>
+        </Link>
       </div>
     </main>
   );

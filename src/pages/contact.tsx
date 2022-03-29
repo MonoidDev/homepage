@@ -45,18 +45,18 @@ export default function Contact() {
         </div>
 
         <div className="flex mt-[1.5rem] gap-x-8">
-          <button className="din bg-black text-white text-[40px] leading-[1.9] h-[64px] rounded-[32px] flex-1">
+          <button className="font-dense bg-black text-white text-[40px] leading-[1.9] h-[64px] rounded-[32px] flex-1">
             {strings.jumpToGoogleMap}
           </button>
           <button
             onClick={() => setIframeKey((i) => i + 1)}
-            className="flex justify-center items-center din text-black text-[40px] leading-[1.9] h-[64px] w-[120px] rounded-[32px] border-black border-2 hover:text-gray-800 hover:border-gray-800"
+            className="flex justify-center items-center font-dense text-black text-[40px] leading-[1.9] h-[64px] w-[120px] rounded-[32px] border-black border-2 hover:text-gray-800 hover:border-gray-800"
           >
             <Reset width={40} />
           </button>
         </div>
 
-        <div className="din text-[40px] leading-tight mt-[1.5rem]">
+        <div className="font-dense text-[40px] leading-tight mt-[1.5rem]">
           {strings.address}
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function Contact() {
       <div className="flex-1">
         <h2 className="ubuntu text-[80px] pb-8">{strings.contact}</h2>
 
-        <div className="grid grid-cols-[120px_1fr] gap-y-8 din text-[35px] leading-tight">
+        <div className="grid grid-cols-[120px_1fr] gap-y-8 font-dense text-[35px] leading-tight">
           <div>
             <Telephone height={45} />
           </div>

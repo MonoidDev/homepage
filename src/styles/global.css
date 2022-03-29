@@ -16,15 +16,15 @@ a {
 }
 
 @font-face {
-  font-family: 'Ubuntu';
-  src: url('../assets/fonts/Ubuntu-Bold.ttf') format('opentype');
-  font-weight: 700 900;
+  font-family: 'Avenir Next';
+  src: url('../assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+  font-weight: 100 400;
 }
 
-.ubuntu {
-  font-family: 'Ubuntu';
+.font-loose {
+  font-family: 'Avenir Next';
 }
 
-.din {
+.font-dense {
   font-family: 'DIN Condensed';
 }
