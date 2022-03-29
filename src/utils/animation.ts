@@ -74,6 +74,7 @@ export interface UseChainReturn {
   reverse: () => Promise<void>;
   currentIndex: number;
   isPlaying: boolean;
+  currentValue: number;
 }
 
 export const useChain = (items: ChainItem[]): UseChainReturn => {
@@ -149,6 +150,10 @@ export const useChain = (items: ChainItem[]): UseChainReturn => {
   return {
     values,
     currentIndex: currentItemIndexRef.current,
+    currentValue:
+      values[
+        Math.max(0, Math.min(currentItemIndexRef.current, values.length - 1))
+      ]!,
     play,
     isPlaying,
     reverse: () => play(true),

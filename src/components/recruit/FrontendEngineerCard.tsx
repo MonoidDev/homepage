@@ -34,10 +34,10 @@ export const FrontendEngineerCard: React.VFC = () => {
     255 * animated
   })`;
 
-  const initialScale = 1.5;
+  const initialScale = 1.6;
 
-  const initialTranslateY = -20;
-  const targetTranslateY = 10;
+  const initialTranslateY = -5;
+  const targetTranslateY = 30;
 
   return (
     <Card
@@ -47,7 +47,7 @@ export const FrontendEngineerCard: React.VFC = () => {
       backgroundColor={backgroundColor}
     >
       <div className="relative h-full w-full flex flex-col">
-        <h2 className="text-[3.4vw] leading-[2.7vw] z-10">{strings.title}</h2>
+        <h2 className="text-[60px] leading-[50px] z-10 h-0">{strings.title}</h2>
 
         <div
           className="flex-1"
