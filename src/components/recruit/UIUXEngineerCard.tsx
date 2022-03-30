@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { makeStrings } from '@monoid-dev/use-strings';
 
 import { Card } from './Card';
@@ -222,35 +224,36 @@ export const UIUXEngineerCard: React.VFC = () => {
 
   const scale = 1.25 + 4.75 * (1 - scaleChain.currentValue);
 
+  const step2Chains = [
+    squareXChain,
+    squareYChain,
+    squareRotateChain,
+    circleXChain,
+    circleYChain,
+    circleRChain,
+    rectXChain,
+    rectYChain,
+    rectRotateChain,
+    colorChain,
+  ];
+
+  const currentAction = useRef('enter');
+
   return (
     <Card
       onMouseEnter={async () => {
+        currentAction.current = 'enter';
         await scaleChain.play();
-        squareXChain.play();
-        squareYChain.play();
-        squareRotateChain.play();
-        circleXChain.play();
-        circleYChain.play();
-        circleRChain.play();
-        rectXChain.play();
-        rectYChain.play();
-        rectRotateChain.play();
-        colorChain.play();
+        if (currentAction.current === 'enter') {
+          await Promise.all(step2Chains.map((c) => c.play()));
+        }
       }}
       onMouseLeave={async () => {
-        await Promise.all([
-          squareXChain.reverse(),
-          squareYChain.reverse(),
-          squareRotateChain.reverse(),
-          circleXChain.reverse(),
-          circleYChain.reverse(),
-          circleRChain.reverse(),
-          rectXChain.reverse(),
-          rectYChain.reverse(),
-          rectRotateChain.reverse(),
-          colorChain.reverse(),
-        ]);
-        await scaleChain.reverse();
+        currentAction.current = 'leave';
+        await Promise.all(step2Chains.map((c) => c.reverse()));
+        if (currentAction.current === 'leave') {
+          await scaleChain.reverse();
+        }
       }}
       color={color}
       backgroundColor={backgroundColor}
