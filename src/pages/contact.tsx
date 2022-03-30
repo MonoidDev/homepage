@@ -5,6 +5,7 @@ import { makeStrings } from '@monoid-dev/use-strings';
 import Mail from '@/assets/images/Mail.svg';
 import Reset from '@/assets/images/Reset.svg';
 import Telephone from '@/assets/images/Telephone.svg';
+import { ContactDialog } from '@/components/contact/ContactDialog';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -24,11 +25,12 @@ export default function Contact() {
   const strings = useStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
+  const [contactDialogOpen, setContactDialogOpen] = useState(true);
 
   const renderAccess = () => {
     return (
       <div className="flex-1">
-        <h2 className="ubuntu text-[80px]">{strings.access}</h2>
+        <h2 className="font-loose font-bold text-[80px]">{strings.access}</h2>
         <div className="grayscale overflow-hidden rounded-[45px] border-2 border-black">
           <iframe
             key={iframeKey}
@@ -66,7 +68,9 @@ export default function Contact() {
   const renderContact = () => {
     return (
       <div className="flex-1">
-        <h2 className="ubuntu text-[80px] pb-8">{strings.contact}</h2>
+        <h2 className="font-loose font-bold text-[80px] pb-8">
+          {strings.contact}
+        </h2>
 
         <div className="grid grid-cols-[120px_1fr] gap-y-8 font-dense text-[35px] leading-tight">
           <div>
@@ -98,6 +102,10 @@ export default function Contact() {
       {renderAccess()}
       <div className="w-[1px] my-6 bg-black" />
       {renderContact()}
+      <ContactDialog
+        open={contactDialogOpen}
+        onClose={() => setContactDialogOpen(false)}
+      />
     </div>
   );
 }
