@@ -17,7 +17,7 @@ export const BackendEngineerCard: React.VFC = () => {
     {
       from: 0,
       to: 1,
-      interpolate: (frame) => frame / 45,
+      interpolate: (frame) => frame / 15,
     },
   ]);
 
