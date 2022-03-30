@@ -71,6 +71,14 @@ export const ProductManagerCard: React.VFC = () => {
     },
   ]);
 
+  const color = `rgb(${255 * (1 - faceChain.currentValue)}, ${
+    255 * (1 - faceChain.currentValue)
+  }, ${255 * (1 - faceChain.currentValue)})`;
+
+  const backgroundColor = `rgb(${255 * faceChain.currentValue}, ${
+    255 * faceChain.currentValue
+  }, ${255 * faceChain.currentValue})`;
+
   const scale = 1 + (1.9 - 1) * (1 - scaleChain.currentValue);
 
   const renderCross = (point: Point) => {
@@ -164,6 +172,8 @@ export const ProductManagerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
+      color={color}
+      backgroundColor={backgroundColor}
     >
       <div className="h-full w-full flex items-end">
         <div
