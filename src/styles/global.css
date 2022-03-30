@@ -8,7 +8,6 @@ a {
 
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'DIN Condensed';
   src: url('../assets/fonts/DINCondensed-Bold.ttf') format('opentype');
@@ -33,4 +32,16 @@ a {
 
 .font-dense {
   font-family: 'DIN Condensed';
+}
+
+.note {
+  background-attachment: local;
+  background-image: 
+    repeating-linear-gradient(
+      black,
+      black calc(37.5px - 1px),
+      #ccc calc(37.5px - 1px),
+      #ccc 37.5px,
+      black 37.5px
+    );
 }

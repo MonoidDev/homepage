@@ -22,6 +22,13 @@ const useStrings = makeStrings({
       { value: 'Application', label: 'Application' },
       { value: 'IoT', label: 'IoT' },
     ],
+    messageBoard: (
+      <>
+        MESSAGE
+        <br />
+        BOARD
+      </>
+    ),
   },
 });
 
@@ -160,7 +167,10 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
 
   const renderLeftForm = () => {
     return (
-      <div className="grid grid-cols-2 gap-x-4 gap-y-3 py-2">
+      <div
+        className="grid grid-cols-2 gap-x-4 gap-y-3 py-2"
+        style={{ gridAutoRows: 'min-content' }}
+      >
         <Input
           label={strings.firstName}
           name="first_name"
@@ -191,6 +201,18 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
     );
   };
 
+  const renderRightForm = () => {
+    return (
+      <div className="bg-black text-white rounded-[40px] p-[40px] flex flex-col">
+        <h3 className="font-loose text-[38px] font-bold leading-[1] mb-[1rem]">
+          {strings.messageBoard}
+        </h3>
+
+        <textarea className="note flex-1 bg-transparent outline-none resize-none text-[25px] text-white" />
+      </div>
+    );
+  };
+
   return (
     <div
       className={clsx(
@@ -200,12 +222,15 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
       )}
     >
       <form
-        className="w-[1300px] h-[700px] bg-white px-[80px] py-[45px]"
+        className="w-[1300px] h-[700px] bg-white px-[80px] py-[45px] flex flex-col"
         onSubmit={handleSubmit(() => {})}
       >
         <h2 className="text-[55px] font-bold">{strings.contactTitle}</h2>
 
-        <div className="grid grid-cols-2 gap-x-8">{renderLeftForm()}</div>
+        <div className="flex-1 grid grid-cols-2 gap-x-8">
+          {renderLeftForm()}
+          {renderRightForm()}
+        </div>
       </form>
     </div>
   );
