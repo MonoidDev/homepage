@@ -126,7 +126,11 @@ const ProjectTypeInput: React.VFC<{ control: Control<any> }> = (props) => {
         ))}
 
         <input
-          className="ml-3 outline-none text-[25px] leading-[1.2] shrink min-w-0 border-b border-black bg-transparent"
+          className={clsx(
+            'ml-3 outline-none text-[25px] leading-[1.2] shrink min-w-0 border-b bg-transparent',
+            error && 'border-white',
+            !error && 'border-black',
+          )}
           value={controller.field.value}
           onChange={(e) => controller.field.onChange(e.target.value)}
         />
@@ -158,6 +162,9 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
       last_name: '',
       email_address: '',
       project_type: '',
+      budget: 0,
+      delivery: 0,
+      message: '',
     },
   });
 
