@@ -172,6 +172,13 @@ export const ProductManagerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
+      onClick={() =>
+        window.open(
+          `mailto:ymao@monoidtech.com?subject=${encodeURI(
+            'Apply for Product Manager',
+          )}`,
+        )
+      }
       color={color}
       backgroundColor={backgroundColor}
     >

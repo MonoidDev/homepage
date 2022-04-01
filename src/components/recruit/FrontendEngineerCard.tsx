@@ -43,6 +43,13 @@ export const FrontendEngineerCard: React.VFC = () => {
     <Card
       onMouseEnter={() => chain.play()}
       onMouseLeave={() => chain.reverse()}
+      onClick={() =>
+        window.open(
+          `mailto:ymao@monoidtech.com?subject=${encodeURI(
+            'Apply for Frontend Engineer',
+          )}`,
+        )
+      }
       color={color}
       backgroundColor={backgroundColor}
     >

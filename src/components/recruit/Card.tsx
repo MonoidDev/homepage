@@ -17,7 +17,10 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={clsx('basis-[30%] shrink-0 font-loose', styles.card)}
+      className={clsx(
+        'basis-[30%] shrink-0 font-loose cursor-pointer',
+        styles.card,
+      )}
       style={
         {
           '--card-color': color,

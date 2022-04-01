@@ -220,7 +220,7 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
     );
   };
 
-  return (
+  return open ? (
     <div
       className={clsx(
         'fixed left-0 right-0 top-0 bottom-0 flex flex-col items-center justify-center',
@@ -240,5 +240,5 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
         </div>
       </form>
     </div>
-  );
+  ) : null;
 };

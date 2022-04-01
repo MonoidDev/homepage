@@ -121,7 +121,7 @@ export const LayoutMenu: React.VFC<{
               >
                 {strings.company}
               </NavMenuItem>
-              <NavMenuItem
+              {/* <NavMenuItem
                 href=""
                 index={2}
                 textWidth={
@@ -130,7 +130,7 @@ export const LayoutMenu: React.VFC<{
                 action={menuAction}
               >
                 {strings.works}
-              </NavMenuItem>
+              </NavMenuItem> */}
               <NavMenuItem
                 href="/recruit"
                 index={3}

@@ -52,6 +52,13 @@ export const BackendEngineerCard: React.VFC = () => {
       onMouseLeave={() => chain.reverse()}
       color={color}
       backgroundColor={backgroundColor}
+      onClick={() =>
+        window.open(
+          `mailto:ymao@monoidtech.com?subject=${encodeURI(
+            'Apply for Backend Engineer',
+          )}`,
+        )
+      }
     >
       <div className="h-full w-full flex flex-col">
         <div className="flex-1">
