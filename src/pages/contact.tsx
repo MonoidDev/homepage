@@ -25,7 +25,7 @@ export default function Contact() {
   const strings = useStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
-  const [contactDialogOpen, setContactDialogOpen] = useState(true);
+  const [contactDialogOpen, setContactDialogOpen] = useState(false);
 
   const renderAccess = () => {
     return (

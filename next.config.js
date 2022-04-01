@@ -8,6 +8,7 @@ const withBundleAnalyzer =
 
 module.exports = withBundleAnalyzer({
   eslint: {
+    ignoreDuringBuilds: true,
     dirs: ['.'],
   },
   poweredByHeader: false,
