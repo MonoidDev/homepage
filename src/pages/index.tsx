@@ -1,10 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import clsx from 'clsx';
 import { useRouter } from 'next/router';
 
+import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
+import { useId } from '@/utils/useId';
 
 const sloganSpeed = 5;
+
+const shouldDisplayEasterEgg =
+  new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
 
 const RandomCircle: React.VFC<{ fill?: string }> = (props) => {
   const { fill = 'currentColor' } = props;
@@ -43,22 +49,29 @@ const RandomCircle: React.VFC<{ fill?: string }> = (props) => {
   return <circle r={180} cx={xRef.current} cy={yRef.current} fill={fill} />;
 };
 
-const AnimatedSlogan = () => {
-  const shouldDisplayEasterEgg =
-    new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
+const AnimatedSlogan: React.VFC = () => {
+  const maskId = useId();
 
   return (
-    <svg className="mb-[20vh]" width={'80vw'} viewBox="0 0 1575 118">
-      <mask id="slogan">
+    <svg className="mb-[20vh] sm:hidden" width={'80vw'} viewBox="0 0 1575 118">
+      <mask id={String(maskId)}>
         <Slogan fill="white" />
       </mask>
 
       <Slogan />
 
-      <g mask="url(#slogan)">
+      <g mask={`url(#${maskId})`}>
         <RandomCircle fill={shouldDisplayEasterEgg ? '#0057b8' : undefined} />
         <RandomCircle fill={shouldDisplayEasterEgg ? '#ffd700' : undefined} />
       </g>
+    </svg>
+  );
+};
+
+const MobileAnimatedSlogan: React.VFC = () => {
+  return (
+    <svg className=">sm:hidden" width="80vw" viewBox="0 0 357 517">
+      <MobileSlogan />
     </svg>
   );
 };
@@ -70,10 +83,14 @@ export default function () {
     <main className="flex-1 flex flex-col justify-center items-center">
       <div className="flex flex-col">
         <AnimatedSlogan />
+        <MobileAnimatedSlogan />
 
         <button
           onClick={() => router.push('/company')}
-          className="font-loose text-[40px] font-bold self-end px-8 pb-2 pt-4 border-4 border-black hover:text-gray-700 hover:border-gray-700"
+          className={clsx(
+            'sm:hidden font-loose text-[40px] font-bold self-end px-8 pb-2 pt-4',
+            'border-4 border-black hover:text-gray-700 hover:border-gray-700',
+          )}
         >
           LEARN MORE
         </button>

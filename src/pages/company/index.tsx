@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
+import clsx from 'clsx';
 
 import { AnimatedSwitch } from '@/components/company/AnimatedSwitch';
 
@@ -46,9 +47,11 @@ const Vision: React.VFC = () => {
   const strings = useStrings();
 
   return (
-    <main className="flex-1 font-dense px-[75px] pt-[15vh]">
-      <h1 className="text-[70px] leading-[1] mb-[2.5vw]">{strings.title}</h1>
-      <p className="text-[40px] leading-[55px] opacity-75 max-w-[60vw]">
+    <main className="flex-1 font-dense px-[75px] sm:px-[32px] pt-[15vh] sm:pt-[60px]">
+      <h1 className="text-[70px] sm:text-[45px] leading-[1] mb-[2.5vw] sm:mb-[25px]">
+        {strings.title}
+      </h1>
+      <p className="text-[40px] sm:text-[35px] sm:leading-[1.1] leading-[55px] opacity-75 max-w-[60vw] sm:max-w-[290px] sm:mb-[50px]">
         {strings.content}
       </p>
     </main>
@@ -60,7 +63,10 @@ const Info: React.VFC = () => {
 
   return (
     <main
-      className="relative grid grid-cols-[300px_1fr] text-[32px] font-loose font-bold px-[75px] pt-[15vh] gap-x-[4rem] gap-y-[1rem]"
+      className={clsx(
+        'relative grid grid-cols-[300px_1fr] text-[32px] font-loose font-bold',
+        'px-[75px] sm:px-[32px] pt-[15vh] gap-x-[4rem] gap-y-[1rem]',
+      )}
       style={{ gridAutoRows: 'min-content' }}
     >
       {strings.info?.map(([k, v]) => (
@@ -78,8 +84,8 @@ export default function () {
   const [current, setCurrent] = useState('vision');
 
   return (
-    <div className="flex-1 flex flex-col text-white relative">
-      <div className="fixed right-0 bottom-0 w-[526px] h-[275px]">
+    <div className="flex-1 flex flex-col text-white relative overflow-scroll min-h-0">
+      <div className="sm:hidden fixed right-0 bottom-0 w-[526px] h-[275px]">
         <AnimatedSwitch current={current} onChangeCurrent={setCurrent} />
       </div>
       {current === 'vision' && <Vision />}

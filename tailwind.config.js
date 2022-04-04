@@ -15,6 +15,10 @@ module.exports = {
       '5xl': '3rem',
       '6xl': '4rem',
     },
+    screens: {
+      sm: { max: '639px' },
+      '>sm': { min: '640px' },
+    },
     extend: {
       colors: {
         gray: {

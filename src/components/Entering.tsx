@@ -123,7 +123,7 @@ export const Entering: React.VFC<{ onDone: () => void }> = ({ onDone }) => {
   return (
     <div
       id="canvas-container"
-      className={clsx('z-50 fixed top-0 right-0 bottom-0 left-0')}
+      className={clsx('z-50 fixed top-0 right-0 bottom-0 left-0 sm:hidden')}
       style={{
         backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
       }}

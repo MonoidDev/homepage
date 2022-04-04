@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 
 import { Entering } from '@/components/Entering';
 import { Layout } from '@/components/Layout';
+import { MobileLayout } from '@/components/Layout/MobileLayout';
 import { Meta } from '@/components/Meta';
 
 import '../styles/global.css';
@@ -31,6 +32,18 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
       >
         <Component {...pageProps} />
       </Layout>
+
+      <MobileLayout
+        loadingDone={true}
+        hideLogo={pageProps.hideLogo ?? false}
+        theme={pageProps.theme}
+        meta={
+          <Meta title={pageProps.title} description="The Next New Things" />
+        }
+      >
+        <Component {...pageProps} />
+      </MobileLayout>
+
       {!loadingDone && shouldDisplayLoading && (
         <Entering onDone={() => setLoadingDone(true)} />
       )}

@@ -45,3 +45,11 @@ a {
       black 37.5px
     );
 }
+
+_::-webkit-full-page-media, _:future, :root .fill-available {
+  height: -webkit-fill-available;
+}
+
+.fill-available {
+  height: 100vh;
+}

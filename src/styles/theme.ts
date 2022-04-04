@@ -6,6 +6,7 @@ export interface ThemeContextValue {
   theme: Theme;
   navbarHeight: number;
   loadingDone: boolean;
+  screen: 'desktop' | 'mobile';
 }
 
 export const ThemeContext = React.createContext<ThemeContextValue>({} as any);

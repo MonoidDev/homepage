@@ -133,7 +133,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
 
         <div style={{ flex: 1 }} />
         <button
-          className={clsx('block')}
+          className="block"
           style={{
             padding: borderRadius! - 32 + 8, // 8 -> 16
           }}
@@ -146,7 +146,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
             }
           }}
         >
-          <Languages />
+          <Languages width={48} />
         </button>
       </div>
     </div>
