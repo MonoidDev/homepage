@@ -46,9 +46,9 @@ const Vision: React.VFC = () => {
   const strings = useStrings();
 
   return (
-    <main className="flex-1 font-dense px-[75px] pt-[200px]">
-      <h1 className="text-[83px] leading-[1] mb-[4rem]">{strings.title}</h1>
-      <p className="text-[50px] leading-[55px] opacity-75 max-w-[1400px]">
+    <main className="flex-1 font-dense px-[75px] pt-[15vh]">
+      <h1 className="text-[70px] leading-[1] mb-[2.5vw]">{strings.title}</h1>
+      <p className="text-[40px] leading-[55px] opacity-75 max-w-[60vw]">
         {strings.content}
       </p>
     </main>
@@ -60,7 +60,7 @@ const Info: React.VFC = () => {
 
   return (
     <main
-      className="relative grid grid-cols-[300px_1fr] text-[38px] font-loose font-bold px-[75px] pt-[200px] gap-x-[4rem] gap-y-[1rem]"
+      className="relative grid grid-cols-[300px_1fr] text-[32px] font-loose font-bold px-[75px] pt-[15vh] gap-x-[4rem] gap-y-[1rem]"
       style={{ gridAutoRows: 'min-content' }}
     >
       {strings.info?.map(([k, v]) => (
@@ -69,7 +69,7 @@ const Info: React.VFC = () => {
           <div className="opacity-75">{v}</div>
         </Fragment>
       ))}
-      <div className="absolute w-[2px] top-[200px] bottom-0 left-[360px] bg-white" />
+      <div className="absolute w-[2px] top-[15vh] bottom-0 left-[360px] bg-white" />
     </main>
   );
 };

@@ -48,7 +48,7 @@ const AnimatedSlogan = () => {
     new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
 
   return (
-    <svg className="mb-[20rem]" width={'80vw'} viewBox="0 0 1575 118">
+    <svg className="mb-[20vh]" width={'80vw'} viewBox="0 0 1575 118">
       <mask id="slogan">
         <Slogan fill="white" />
       </mask>

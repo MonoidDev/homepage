@@ -30,9 +30,9 @@ export default function Recruit() {
     >
       <h2 className="text-[140px]">{strings.title}</h2>
       <h3 className="text-[64px] opacity-[.45]">{strings.slogan}</h3>
-      <div className="h-[3rem]" />
+      <div className="h-[2vh]" />
       <div className="flex justify-between items-end flex-wrap gap-y-4">
-        <ul className="text-[45px] grid grid-cols-[4fr_6fr] w-[1200px]">
+        <ul className="text-[35px] grid grid-cols-[5fr_6fr] w-[60vw] gap-x-4">
           {strings.benefits.map((s) => (
             <li key={s} className="list-disc list-inside">
               {s}
