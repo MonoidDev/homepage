@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useId } from 'react';
+import React, { useEffect, useState, useId } from 'react';
 
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -11,17 +11,21 @@ const sloganSpeed = 5;
 const shouldDisplayEasterEgg =
   new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
 
-const initialX = Math.random() * 1575;
-const initialY = Math.random() * 118;
+const initialX = 0;
+const initialY = 0;
 
-const RandomCircle: React.VFC<{ fill?: string }> = (props) => {
-  const { fill = 'currentColor' } = props;
+const RandomCircle: React.VFC<{ fill?: string; maxX: number; maxY: number }> = (
+  props,
+) => {
+  const { fill = 'currentColor', maxX, maxY } = props;
 
-  const xRef = useRef(initialX);
-  const yRef = useRef(initialY);
-  const [, forceUpdate] = useState({});
+  const [x, setX] = useState(initialX);
+  const [y, setY] = useState(initialY);
 
   useEffect(() => {
+    let curX = x;
+    let curY = y;
+
     (async () => {
       while (true) {
         const theta = 2 * Math.PI * Math.random();
@@ -31,24 +35,25 @@ const RandomCircle: React.VFC<{ fill?: string }> = (props) => {
 
         for (let i = 0; i < 600; i++) {
           await new Promise((r) => requestAnimationFrame(r));
-          xRef.current += xSpeed;
-          yRef.current += ySpeed;
 
-          if (xRef.current > 1575 + 100 || xRef.current < 0 - 100) {
+          if (curX > maxX + 100 || curX < 0 - 100) {
             xSpeed *= -1;
           }
 
-          if (yRef.current > 118 + 100 || yRef.current < 0 - 100) {
+          if (curY > maxY + 100 || curY < 0 - 100) {
             ySpeed *= -1;
           }
 
-          forceUpdate({});
+          curX = curX + xSpeed;
+          curY = curY + ySpeed;
+          setX(curX);
+          setY(curY);
         }
       }
     })();
   }, []);
 
-  return <circle r={180} cx={xRef.current} cy={yRef.current} fill={fill} />;
+  return <circle r={180} cx={x} cy={y} fill={fill} />;
 };
 
 const AnimatedSlogan: React.VFC = () => {
@@ -63,17 +68,43 @@ const AnimatedSlogan: React.VFC = () => {
       <Slogan />
 
       <g mask={`url(#${maskId})`}>
-        <RandomCircle fill={shouldDisplayEasterEgg ? '#0057b8' : undefined} />
-        <RandomCircle fill={shouldDisplayEasterEgg ? '#ffd700' : undefined} />
+        <RandomCircle
+          fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
+          maxX={1575}
+          maxY={118}
+        />
+        <RandomCircle
+          fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+          maxX={1575}
+          maxY={118}
+        />
       </g>
     </svg>
   );
 };
 
 const MobileAnimatedSlogan: React.VFC = () => {
+  const maskId = useId();
+
   return (
     <svg className=">sm:hidden" width="80vw" viewBox="0 0 357 517">
+      <mask id={String(maskId)}>
+        <MobileSlogan fill="white" />
+      </mask>
+
       <MobileSlogan />
+      <g mask={`url(#${maskId})`}>
+        <RandomCircle
+          fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
+          maxX={357}
+          maxY={517}
+        />
+        <RandomCircle
+          fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+          maxX={357}
+          maxY={517}
+        />
+      </g>
     </svg>
   );
 };
