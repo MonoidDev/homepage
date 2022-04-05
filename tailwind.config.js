@@ -16,8 +16,8 @@ module.exports = {
       '6xl': '4rem',
     },
     screens: {
-      sm: { max: '639px' },
-      '>sm': { min: '640px' },
+      sm: { max: '899px' },
+      '>sm': { min: '900px' },
     },
     extend: {
       colors: {
