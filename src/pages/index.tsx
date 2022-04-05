@@ -1,22 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useId } from 'react';
 
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
-import { useId } from '@/utils/useId';
 
 const sloganSpeed = 5;
 
 const shouldDisplayEasterEgg =
   new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
 
+const initialX = Math.random() * 1575;
+const initialY = Math.random() * 118;
+
 const RandomCircle: React.VFC<{ fill?: string }> = (props) => {
   const { fill = 'currentColor' } = props;
 
-  const xRef = useRef(Math.random() * 1575);
-  const yRef = useRef(Math.random() * 118);
+  const xRef = useRef(initialX);
+  const yRef = useRef(initialY);
   const [, forceUpdate] = useState({});
 
   useEffect(() => {

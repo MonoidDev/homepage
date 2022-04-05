@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { MenuTick } from './MenuTick';
-import LanguagesSvg from '@/assets/images/Languages.svg';
+import { MobileLanguageMenu } from './MobileLanguageMenu';
 import { useSiteStrings } from '@/data/site';
 import { useChain } from '@/utils/animation';
 
@@ -41,7 +41,7 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
         <Link href={link}>
           <a
             className={clsx(
-              'mt-4 font-dense text-[48px] leading-none',
+              'mt-4 font-dense text-[48px] leading-none mr-[28px]',
               (locale === 'ja-JP' || locale === 'zh-CN') && 'text-[36px]',
             )}
             onClick={async () => {
@@ -54,7 +54,7 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
         </Link>
         {hasTick && (
           <MenuTick
-            className="text-black mr-1"
+            className="text-black mr-[30px]"
             style={{ opacity: tickOpacity }}
             strokeWidth={6}
           />
@@ -70,10 +70,10 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
   return (
     <div
       ref={backgroundRef}
-      className=">sm:hidden fixed z-50 left-0 top-0 right-0 bottom-0 bg-white px-[28px] py-[40px] flex flex-col items-end"
+      className=">sm:hidden fixed z-50 left-0 top-0 right-0 bottom-0 bg-white py-[22px] flex flex-col items-end"
       style={
         {
-          '--tw-bg-opacity': opacityChain.currentValue * 0.9,
+          '--tw-bg-opacity': opacityChain.currentValue * 0.95,
           opacity: opacityChain.currentValue,
         } as any
       }
@@ -84,7 +84,7 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
         }
       }}
     >
-      <LanguagesSvg height={58} className="mb-[36px]" />
+      <MobileLanguageMenu />
       {renderLink('/', siteStrings.top, 0.4)}
       {renderLink('/company', siteStrings.company, 0.3)}
       {renderLink('/', siteStrings.works, 0.2)}

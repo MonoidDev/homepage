@@ -94,7 +94,7 @@ export const LayoutMenu: React.VFC<{
       <div className="px-12 pt-12 pb-8">
         <div className="flex relative items-center">
           <div className="h-[60px] flex items-center">
-            {typeof window !== 'undefined' && !hideLogo && (
+            {!hideLogo && (
               <Suspense fallback={null}>
                 <AnimatedLogo loadingDone={loadingDone} />
               </Suspense>
