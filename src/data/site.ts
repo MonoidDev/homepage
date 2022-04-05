@@ -7,7 +7,7 @@ export const useSiteStrings = makeStrings({
     works: 'WORKS',
     recruit: 'RECRUIT',
     contact: 'CONTACT',
-    siteName: 'Monoid',
+    siteName: 'G.K. Monoid | 合同会社Monoid',
   },
   'zh-CN': {
     top: '首页',
@@ -15,7 +15,7 @@ export const useSiteStrings = makeStrings({
     works: '作品',
     recruit: '加入我们',
     contact: '联系方式',
-    siteName: 'Monoid',
+    siteName: '合同会社Monoid | G.K. Monoid',
   },
   'ja-JP': {
     top: 'トップ',
@@ -23,6 +23,6 @@ export const useSiteStrings = makeStrings({
     works: '実績',
     recruit: '募集',
     contact: 'お問合せ',
-    siteName: 'Monoid',
+    siteName: '合同会社Monoid | G.K. Monoid',
   },
 });
