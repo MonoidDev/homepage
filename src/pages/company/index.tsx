@@ -4,6 +4,7 @@ import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 
 import { AnimatedSwitch } from '@/components/company/AnimatedSwitch';
+import { MobileAnimatedSwitch } from '@/components/company/MobileAnimatedSwitch';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -22,6 +23,7 @@ const useStrings = makeStrings({
         technical decisions.
       </>
     ),
+    companyInfo: 'COMPANY INFO',
     info: [
       ['Name', 'G.K. Monoid'],
       ['Established', '2019年12月24日'],
@@ -64,6 +66,7 @@ const Info: React.VFC = () => {
   return (
     <main
       className={clsx(
+        'sm:hidden',
         'relative grid grid-cols-[300px_1fr] text-[32px] font-loose font-bold',
         'px-[75px] sm:px-[32px] pt-[15vh] gap-x-[4rem] gap-y-[1rem]',
       )}
@@ -80,6 +83,30 @@ const Info: React.VFC = () => {
   );
 };
 
+const MobileInfo: React.VFC = () => {
+  const strings = useStrings();
+
+  return (
+    <main
+      className={clsx(
+        '>sm:hidden',
+        'pt-[60px] px-[32px] leading-[65px] font-loose font-bold',
+      )}
+    >
+      <h2 className="mb-[3rem] text-[55px]">{strings.companyInfo}</h2>
+
+      <div className="grid grid-cols-[0.8fr_2fr] text-[20px] leading-tight gap-x-[1rem] gap-y-[2rem] mr-4">
+        {strings.info?.map(([k, v]) => (
+          <Fragment key={k}>
+            <div className="text-center">{k}</div>
+            <div className="opacity-75 whitespace-pre-wrap">{v}</div>
+          </Fragment>
+        ))}
+      </div>
+    </main>
+  );
+};
+
 export default function () {
   const [current, setCurrent] = useState('vision');
 
@@ -88,8 +115,16 @@ export default function () {
       <div className="sm:hidden fixed right-0 bottom-0 w-[526px] h-[275px]">
         <AnimatedSwitch current={current} onChangeCurrent={setCurrent} />
       </div>
+      <div className=">sm:hidden fixed right-0 bottom-0 w-[38px] h-[280px]">
+        <MobileAnimatedSwitch current={current} onChangeCurrent={setCurrent} />
+      </div>
       {current === 'vision' && <Vision />}
-      {current === 'info' && <Info />}
+      {current === 'info' && (
+        <>
+          <Info />
+          <MobileInfo />
+        </>
+      )}
     </div>
   );
 }
