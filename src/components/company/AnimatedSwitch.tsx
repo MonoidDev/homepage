@@ -1,14 +1,7 @@
-import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 
+import { useCompanyStrings } from '@/data/company';
 import { useAnimated } from '@/utils/animation';
-
-const useStrings = makeStrings({
-  'en-US': {
-    vision: 'VISION',
-    info: 'COMPANY INFO',
-  },
-});
 
 export interface AnimatedSwitchProps {
   current: string;
@@ -20,7 +13,7 @@ export const AnimatedSwitch: React.VFC<AnimatedSwitchProps> = (props) => {
 
   const target = current === 'vision' ? 65 : 42;
 
-  const strings = useStrings();
+  const strings = useCompanyStrings();
 
   const [a] = useAnimated(
     (x) => Math.sin((x * (Math.PI / 2)) / 45),
