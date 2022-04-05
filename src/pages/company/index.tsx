@@ -23,17 +23,17 @@ const useStrings = makeStrings({
       </>
     ),
     info: [
-      ['会社名', '合同会社MONOID'],
-      ['設立', '2019年12月24日'],
-      ['資本金', '1,000万円［2022年6月末時点］'],
+      ['Name', 'G.K. Monoid'],
+      ['Established', '2019年12月24日'],
+      ['Capital', '1,000万円［2022年6月末時点］'],
       ['事業内容', '企画・開発・運用'],
-      ['代表者', 'YANRU MAO'],
-      ['所在地', '東京都大手町1-7-2 東京サンケイビル 27F'],
+      ['Representative', 'YANRU MAO'],
+      ['Location', 'Tokyo Sankei Building 27F, 1-7-2 Otemachi, Tokyo'],
     ],
   },
   'ja-JP': {
     info: [
-      ['会社名', '合同会社MONOID'],
+      ['会社名', '合同会社Monoid'],
       ['設立', '2019年12月24日'],
       ['資本金', '1,000万円［2022年6月末時点］'],
       ['事業内容', '企画・開発・運用'],
@@ -98,7 +98,7 @@ export async function getStaticProps() {
   return {
     props: {
       theme: 'black',
-      title: 'Monoid',
+      title: 'About | 合同会社Monoid | G.K. Monoid | Monoid',
     },
   };
 }

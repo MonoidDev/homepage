@@ -103,7 +103,7 @@ export async function getStaticProps() {
   return {
     props: {
       theme: 'white',
-      title: 'Monoid',
+      title: '合同会社Monoid | G.K. Monoid | Monoid',
     },
   };
 }

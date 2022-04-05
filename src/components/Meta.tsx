@@ -64,8 +64,8 @@ export const Meta: React.VFC<MetaProps> = (props) => {
           title: props.title,
           description: props.description,
           url: props.canonical,
-          locale: 'en',
-          site_name: 'Monoid',
+          locale: router.locale,
+          site_name: 'G.K. Monoid | 合同会社Monoid | Monoid',
         }}
       />
     </>
