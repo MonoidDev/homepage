@@ -70,7 +70,7 @@ export async function getStaticProps() {
   return {
     props: {
       theme: 'black',
-      title: 'Recruit - Monoid',
+      title: 'Recruit | 合同会社Monoid | G.K. Monoid | Monoid',
     },
   };
 }
