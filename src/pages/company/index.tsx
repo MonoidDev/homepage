@@ -95,7 +95,7 @@ const MobileInfo: React.VFC = () => {
     >
       <h2 className="mb-[3rem] text-[55px]">{strings.companyInfo}</h2>
 
-      <div className="grid grid-cols-[0.8fr_2fr] text-[20px] leading-tight gap-x-[1rem] gap-y-[2rem] mr-4">
+      <div className="grid grid-cols-[0.8fr_2fr] text-[20px] leading-tight gap-x-[1rem] gap-y-[2rem] mr-4 mb-[3rem]">
         {strings.info?.map(([k, v]) => (
           <Fragment key={k}>
             <div className="text-center">{k}</div>
