@@ -21,7 +21,7 @@ export const useDescriptionStrings = makeStrings({
   'ja-JP': {
     home: 'Monoidはソフトウェア・ハードウェア開発を従事する、情熱的でダイナミックなテクノロジーカンパニーである。',
     company:
-      'Monoidは最先端の技術を通じて、前に立ちはかる障害の障壁を取り除き、探求精神を元に我々の未来を拓く。',
+      'Monoidは最先端の技術を通じて、前に立ちはかる壁を乗り越え、探求精神を元に我々の未来を拓く。',
     works: 'Monoidが長い時間で積み重ねてきた作品一覧。',
     recruit:
       'Monoidは天才エンジニアと創造者のオアシスで、以下は募集要項です。',
