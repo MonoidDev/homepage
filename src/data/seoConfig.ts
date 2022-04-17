@@ -19,13 +19,13 @@ export const useDescriptionStrings = makeStrings({
     contact: 'Monoid 的联系地址以及联系方式。',
   },
   'ja-JP': {
-    home: 'Monoidは情熱的で活気のあるソフトウェアハードウェア開発に従事する科学技術会社です。',
+    home: 'Monoidはソフトウェア・ハードウェア開発を従事する、情熱的でダイナミックなテクノロジーカンパニーである。',
     company:
-      'Monoidは有効で厳格な新技術を通じて、障害の障壁を取り除き、探索精神で未来のために道を舗装した。',
-    works: 'Monoidが長い間積み重ねてきた作品展示。',
+      'Monoidは有効で厳格な新技術を通じて、立ちはだかる壁を乗り越え、探索精神で未来を拓く。',
+    works: 'Monoidが長い時間で積み重ねてきた作品一覧。',
     recruit:
-      'Monoidは天才エンジニアと創造者のオアシスで、以下は募集の詳細です。',
-    contact: 'Monoidの連絡先と連絡先。',
+      'Monoidは天才エンジニアと創造者のオアシスで、以下は募集要項です。',
+    contact: 'Monoidの住所と連絡先。',
   },
 });
 
@@ -45,7 +45,7 @@ export const useKeywordsStrings = makeStrings({
     contact: 'Monoid,Monoid联络',
   },
   'ja-JP': {
-    home: 'Monoid,科学技術会社,インターネット+ソリューション,プログラム設計開発',
+    home: 'Monoid,テクノロジーカンパニー,インターネット・ソリューション・ログラム設計開発',
     company: 'Monoid,Monoidの概要',
     works: 'Monoid,Monoid作品',
     recruit: 'Monoid，Monoid募集',
