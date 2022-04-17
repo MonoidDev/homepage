@@ -90,18 +90,18 @@ const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
   return (
     <div
       className={clsx(
-        'w-[864px] h-[215px] absolute z-50 left-[40px] bottom-[40px] px-[52px] py-[20px]',
+        'w-[864px] h-[215px] absolute z-50 left-[40px] bottom-[40px] px-[52px] py-[20px] pointer-events-none',
         'bg-black bg-opacity-80 border-[3px] border-white text-white shadow-lg',
         'font-dense',
         'transition-opacity',
-        !open && 'opacity-0 pointer-events-none',
+        !open && 'opacity-0',
       )}
     >
       <div className="flex border-b-2 border-white items-center">
-        <h4 className="text-[95px] leading-[93px] mt-[0.5rem] shrink-0">
+        <h4 className="text-[95px] leading-[93px] mt-[0.5rem] shrink-0 pointer-events-none">
           {workDescription?.name}
         </h4>
-        <p className="font-loose font-bold text-[35px] leading-[37px] pl-[1.5rem] mb-[0.75rem]">
+        <p className="font-loose font-bold text-[35px] leading-[37px] pl-[1.5rem] mb-[0.75rem] pointer-events-none">
           {workDescription?.summary}
         </p>
       </div>
@@ -112,6 +112,7 @@ const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
             className={clsx(
               'border-2 border-white bg-black h-[46px] rounded-[23px] font-loose font-bold text-[26px] px-[23px]',
               'flex items-center leading-none pt-[4px]',
+              'pointer-events-none',
             )}
           >
             {tag}
