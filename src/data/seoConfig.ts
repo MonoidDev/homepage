@@ -31,24 +31,24 @@ export const useDescriptionStrings = makeStrings({
 
 export const useKeywordsStrings = makeStrings({
   'en-US': {
-    home: 'Monoid,technology company,Internet plus solution,programming development',
-    company: 'Monoid,Monoid company profile',
-    works: 'Monoid,Monoid works',
-    recruit: 'Monoid,Monoid recruit',
+    home: 'Monoid,technology company,Internet plus solution,programming development,G.K. Monoid,合同会社Monoid',
+    company: 'Monoid,Monoid company profile,G.K. Monoid,合同会社Monoid',
+    works: 'Monoid,Monoid works,G.K. Monoid,合同会社Monoid',
+    recruit: 'Monoid,Monoid recruit,G.K. Monoid,合同会社Monoid',
     contact: 'Monoid,Monoid contact information,G.K. Monoid,合同会社Monoid',
   },
   'zh-CN': {
-    home: 'Monoid,科技公司,互联网+解决方案,程序设计开发',
-    company: 'Monoid,Monoid简介',
-    works: 'Monoid,Monoid作品',
-    recruit: 'Monoid,Monoid招募',
+    home: 'Monoid,科技公司,互联网+解决方案,程序设计开发,G.K. Monoid,合同会社Monoid',
+    company: 'Monoid,Monoid简介,G.K. Monoid,合同会社Monoid',
+    works: 'Monoid,Monoid作品,G.K. Monoid,合同会社Monoid',
+    recruit: 'Monoid,Monoid招募,G.K. Monoid,合同会社Monoid',
     contact: 'Monoid,Monoid联络,G.K. Monoid,合同会社Monoid',
   },
   'ja-JP': {
-    home: 'Monoid,テクノロジーカンパニー,インターネット・ソリューション・ログラム設計開発',
-    company: 'Monoid,Monoidの概要',
-    works: 'Monoid,Monoid作品',
-    recruit: 'Monoid,Monoid募集',
+    home: 'Monoid,テクノロジーカンパニー,インターネット・ソリューション・ログラム設計開発,G.K. Monoid,合同会社Monoid',
+    company: 'Monoid,Monoidの概要,G.K. Monoid,合同会社Monoid',
+    works: 'Monoid,Monoid作品,G.K. Monoid,合同会社Monoid',
+    recruit: 'Monoid,Monoid募集,G.K. Monoid,合同会社Monoid',
     contact: 'Monoid,Monoid連絡,G.K. Monoid,合同会社Monoid',
   },
 });
