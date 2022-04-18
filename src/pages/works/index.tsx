@@ -3,6 +3,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 
 import { useWorksStrings, WorkDescription } from '@/data/works';
+import { useLocale } from '@/utils/useLocale';
 
 interface WorkCardProps {
   workDescription: WorkDescription;
@@ -82,11 +83,11 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
       />
       <div
         className={clsx(
-          'relative w-[93vw] h-[52vw] bg-black mt-[-37vw] ml-[3.5vw] text-white px-[4px] flex flex-col',
+          'relative w-[93vw] h-[52vw] bg-black mt-[-38vw] ml-[3.5vw] text-white px-[4px] flex flex-col',
           focused && 'z-50',
         )}
       >
-        <div className="h-[38vw] border-b px-[24px] text-[22px] leading-tight font-bold border-white flex justify-center items-center">
+        <div className="shrink-0 h-[38vw] border-b px-[24px] text-[22px] leading-tight font-bold border-white flex justify-center items-center">
           {workDescription.summary}
         </div>
 
@@ -166,6 +167,8 @@ interface WorkInfoProps {
 const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
   const { workDescription, open } = props;
 
+  const locale = useLocale();
+
   return (
     <div
       className={clsx(
@@ -180,7 +183,13 @@ const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
         <h4 className="text-[95px] leading-[93px] mt-[0.5rem] shrink-0 pointer-events-none">
           {workDescription?.name}
         </h4>
-        <p className="font-loose font-bold text-[35px] leading-[37px] pl-[1.5rem] mb-[0.75rem] pointer-events-none">
+        <p
+          className={clsx(
+            'font-loose font-bold text-[35px] leading-[37px] pl-[1.5rem] mb-[0.75rem] pointer-events-none',
+            locale === 'ja-JP' && 'text-[30px]',
+            locale === 'zh-CN' && 'text-[30px]',
+          )}
+        >
           {workDescription?.summary}
         </p>
       </div>
