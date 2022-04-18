@@ -71,7 +71,7 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
       <div
         className={clsx(
           'relative w-[93vw] h-[52vw] bg-[#3692da] bg-cover bg-center',
-          variant === 'right' && 'ml-[9vw]',
+          variant === 'right' && 'ml-[7vw]',
           !focused && 'z-50',
         )}
         style={{
@@ -96,7 +96,10 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
           </h4>
           <div className="flex-1" />
           {workDescription.mobileTags.map((tag) => (
-            <div className="text-[10px] h-[26px] ml-[10px] rounded-[13px] px-[10px] border border-white font-bold flex justify-center items-center">
+            <div
+              key={tag}
+              className="text-[10px] h-[26px] ml-[10px] rounded-[13px] px-[10px] border border-white font-bold flex justify-center items-center"
+            >
               {tag}
             </div>
           ))}
@@ -243,7 +246,7 @@ export default function () {
 
   const renderMobile = () => {
     return (
-      <div className=">sm:hidden flex-1 flex flex-col overflow-scroll relative z-0 pb-[2rem]">
+      <div className=">sm:hidden flex-1 flex flex-col overflow-scroll overflow-x-hidden relative z-0 pb-[2rem]">
         <h2 className="font-loose font-bold text-[90px] leading-none">WORKS</h2>
 
         <MobileWorksGallery />
