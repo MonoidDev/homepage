@@ -87,7 +87,7 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
       <MobileLanguageMenu />
       {renderLink('/', siteStrings.top, 0.4)}
       {renderLink('/company', siteStrings.company, 0.3)}
-      {renderLink('/', siteStrings.works, 0.2)}
+      {renderLink('/works', siteStrings.works, 0.2)}
       {renderLink('/recruit', siteStrings.recruit, 0.15)}
       {renderLink('/contact', siteStrings.contact, 0, false)}
     </div>

@@ -56,6 +56,56 @@ const WorkCard: React.VFC<WorkCardProps> = (props) => {
   );
 };
 
+interface MobileWorkCardProps {
+  workDescription: WorkDescription;
+  variant: 'left' | 'right';
+  focused: boolean;
+  onFocus: () => void;
+}
+
+const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
+  const { workDescription, variant, focused, onFocus } = props;
+
+  return (
+    <div onClick={onFocus} className="relative z-0">
+      <div
+        className={clsx(
+          'relative w-[93vw] h-[52vw] bg-[#3692da] bg-cover bg-center',
+          variant === 'right' && 'ml-[9vw]',
+          !focused && 'z-50',
+        )}
+        style={{
+          backgroundImage: `url(${JSON.stringify(
+            workDescription.mobileImage,
+          )})`,
+        }}
+      />
+      <div
+        className={clsx(
+          'relative w-[93vw] h-[52vw] bg-black mt-[-37vw] ml-[3.5vw] text-white px-[4px] flex flex-col',
+          focused && 'z-50',
+        )}
+      >
+        <div className="h-[38vw] border-b px-[24px] text-[22px] leading-tight font-bold border-white flex justify-center items-center">
+          {workDescription.summary}
+        </div>
+
+        <div className="flex flex-1 items-center px-[8px]">
+          <h4 className="text-[13vw] leading-none font-dense mt-[8px]">
+            {workDescription.name}
+          </h4>
+          <div className="flex-1" />
+          {workDescription.mobileTags.map((tag) => (
+            <div className="text-[10px] h-[26px] ml-[10px] rounded-[13px] px-[10px] border border-white font-bold flex justify-center items-center">
+              {tag}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 interface WorksGalleryProps {
   onChangeCurrentWork: (name: string) => void;
 }
@@ -73,6 +123,32 @@ const WorksGallery: React.VFC<WorksGalleryProps> = (props) => {
           workDescription={work}
           onMouseEnter={() => onChangeCurrentWork(work.name)}
           onMouseLeave={() => onChangeCurrentWork('')}
+        />
+      ))}
+    </div>
+  );
+};
+
+const MobileWorksGallery: React.VFC = () => {
+  const { works } = useWorksStrings();
+
+  const [focused, setFocused] = useState<string>('');
+
+  return (
+    <div className="flex flex-col pt-2 gap-y-6">
+      {works.map((work, i) => (
+        <MobileWorkCard
+          key={work.name}
+          focused={work.name === focused}
+          onFocus={() => {
+            if (work.name === focused) {
+              setFocused('');
+            } else {
+              setFocused(work.name);
+            }
+          }}
+          variant={(['left', 'right'] as const)[i % 2]!}
+          workDescription={work}
         />
       ))}
     </div>
@@ -133,34 +209,53 @@ export default function () {
     (w) => w.name === currentWork,
   );
 
-  const baseWorks =
-    'z-[-1] text-[240px] font-loose font-bold absolute pointer-events-none left-[24px] top-[42px] leading-[1]';
+  const renderDesktop = () => {
+    const baseWorks =
+      'z-[-1] text-[240px] font-loose font-bold absolute pointer-events-none left-[24px] top-[42px] leading-[1]';
+
+    return (
+      <div className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
+        <h2 className={baseWorks}>WORKS</h2>
+        <WorksGallery
+          onChangeCurrentWork={(work) => {
+            if (work) {
+              setCurrentWork(work);
+            }
+            setCurrentWorkOpen(!!work);
+          }}
+        />
+        <h2
+          className={clsx(
+            baseWorks,
+            '!z-10 mix-blend-color-dodge text-[#868383]',
+          )}
+        >
+          WORKS
+        </h2>
+
+        <WorkInfo
+          workDescription={currentWorkDescription}
+          open={currentWorkOpen}
+        />
+      </div>
+    );
+  };
+
+  const renderMobile = () => {
+    return (
+      <div className=">sm:hidden flex-1 flex flex-col overflow-scroll relative z-0 pb-[2rem]">
+        <h2 className="font-loose font-bold text-[90px] leading-none">WORKS</h2>
+
+        <MobileWorksGallery />
+      </div>
+    );
+  };
 
   return (
-    <div className="flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
-      <h2 className={baseWorks}>WORKS</h2>
-      <WorksGallery
-        onChangeCurrentWork={(work) => {
-          if (work) {
-            setCurrentWork(work);
-          }
-          setCurrentWorkOpen(!!work);
-        }}
-      />
-      <h2
-        className={clsx(
-          baseWorks,
-          '!z-10 mix-blend-color-dodge text-[#868383]',
-        )}
-      >
-        WORKS
-      </h2>
-
-      <WorkInfo
-        workDescription={currentWorkDescription}
-        open={currentWorkOpen}
-      />
-    </div>
+    <>
+      {renderDesktop()}
+      {renderMobile()}
+    </>
   );
 }
 
