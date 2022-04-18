@@ -26,12 +26,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         loadingDone={loadingDone}
         hideLogo={pageProps.hideLogo ?? false}
         theme={pageProps.theme}
-        meta={
-          <Meta
-            title={pageProps.title}
-            description="THE NEXT NEW THING | With effective and rigid new techniques, we clear the path of old obstructions and pave the way to the future. We embrace and respect traditional values; we understand the struggles and challenges people face whilst re-inventing themselves for a new era. We aim to be trustworthy partners who can help both modern and traditional companies make the right technical decisions."
-          />
-        }
+        meta={<Meta title={pageProps.title} />}
       >
         <Component {...pageProps} />
       </Layout>
@@ -40,12 +35,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         loadingDone={true}
         hideLogo={pageProps.hideLogo ?? false}
         theme={pageProps.theme}
-        meta={
-          <Meta
-            title={pageProps.title}
-            description="THE NEXT NEW THING | With effective and rigid new techniques, we clear the path of old obstructions and pave the way to the future. We embrace and respect traditional values; we understand the struggles and challenges people face whilst re-inventing themselves for a new era. We aim to be trustworthy partners who can help both modern and traditional companies make the right technical decisions."
-          />
-        }
+        meta={<Meta title={pageProps.title} />}
       >
         <Component {...pageProps} />
       </MobileLayout>

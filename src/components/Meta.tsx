@@ -1,15 +1,49 @@
+import { useEffect, useState } from 'react';
+
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { useDescriptionStrings, useKeywordsStrings } from '@/data/seoConfig';
+
+// import { useSeoStrings } from '@/data/seoConfig';
+
 export interface MetaProps {
   title: string;
-  description: string;
   canonical?: string;
 }
 
 export const Meta: React.VFC<MetaProps> = (props) => {
   const router = useRouter();
+  const descriptionStrings = useDescriptionStrings();
+  const keywordsStrings = useKeywordsStrings();
+
+  const [location, setLocation] = useState<
+    'home' | 'company' | 'works' | 'recruit' | 'contact'
+  >('home');
+
+  useEffect(() => {
+    switch (router.route) {
+      case '/':
+        setLocation('home');
+        break;
+      case '/company':
+        setLocation('company');
+        break;
+      case '/works':
+        setLocation('works');
+        break;
+      case '/recruit':
+        setLocation('recruit');
+        break;
+
+      case '/contact':
+        setLocation('contact');
+        break;
+      default:
+        setLocation('home');
+    }
+  });
 
   return (
     <>
@@ -55,14 +89,15 @@ export const Meta: React.VFC<MetaProps> = (props) => {
         <meta name="application-name" content="Monoid" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
+        <meta name="keywords" content={keywordsStrings[location]} />
       </Head>
       <NextSeo
         title={props.title}
-        description={props.description}
+        description={descriptionStrings[location]}
         canonical={props.canonical}
         openGraph={{
           title: props.title,
-          description: props.description,
+          description: descriptionStrings[location],
           url: props.canonical,
           locale: router.locale,
           site_name: 'G.K. Monoid | 合同会社Monoid | Monoid',
