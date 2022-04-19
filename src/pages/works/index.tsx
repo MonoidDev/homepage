@@ -173,6 +173,7 @@ const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
     <div
       className={clsx(
         'w-[864px] h-[215px] absolute z-50 left-[40px] bottom-[40px] px-[52px] py-[20px] pointer-events-none',
+        locale === 'en-US' && '!w-[1400px]',
         'bg-black bg-opacity-80 border-[3px] border-white text-white shadow-lg',
         'font-dense',
         'transition-opacity',

@@ -62,7 +62,8 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
       },
       {
         name: 'iHEAL',
-        summary: 'Smart Aromatherapy Device Project',
+        summary:
+          'Remote wellness device with audio-visual stimuli & unique aromatherapy component',
         tags: ['RasPi', 'APP', 'WEB', 'UIUX DESIGN'],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
         displayImage: ihealNormal.src,
@@ -71,7 +72,8 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
       },
       {
         name: 'POLIJOB',
-        summary: 'Online Recruiting Platform',
+        summary:
+          'Recruitment & Matching platform allows Scouts, Employers & Candidates to find each other',
         tags: ['SYSTEM DESIGN', 'UIUX DESIGN'],
         mobileTags: ['System Design', 'UIUX'],
         displayImage: polijobNormal.src,
@@ -80,7 +82,8 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
       },
       {
         name: 'UPTIME MONITOR',
-        summary: 'Observability Service',
+        summary:
+          'System Status Monitor service + application (SSMAAS), including configurable alerts',
         tags: ['OBSERVABILITY', 'ALARM SYSTEM'],
         mobileTags: [],
         displayImage: uptimeMonitorNormal.src,
