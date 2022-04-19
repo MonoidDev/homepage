@@ -29,7 +29,7 @@ export default function Contact() {
   const [contactDialogOpen, setContactDialogOpen] = useState(false);
 
   const googleMapUrl =
-    'https://maps.google.com/maps?width=720&amp;height=400&amp;hl=en&amp;q=Tokyo%20Sankei+(Monoid)&amp;t=&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed';
+    'https://maps.google.com/maps?width=720&height=400&hl=en&q=Tokyo%20Sankei+(Monoid)&t=&z=18&ie=UTF8&iwloc=B&output=embed';
 
   const renderAccess = () => {
     return (
