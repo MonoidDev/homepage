@@ -28,6 +28,9 @@ export default function Contact() {
   const [iframeKey, setIframeKey] = useState(1);
   const [contactDialogOpen, setContactDialogOpen] = useState(false);
 
+  const googleMapUrl =
+    'https://maps.google.com/maps?width=720&amp;height=400&amp;hl=en&amp;q=Tokyo%20Sankei+(Monoid)&amp;t=&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed';
+
   const renderAccess = () => {
     return (
       <div className="flex-1">
@@ -43,12 +46,17 @@ export default function Contact() {
             scrolling="no"
             marginHeight={0}
             marginWidth={0}
-            src="https://maps.google.com/maps?width=720&amp;height=400&amp;hl=en&amp;q=Tokyo%20Sankei+(Monoid)&amp;t=&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src={googleMapUrl}
           />
         </div>
 
         <div className="flex mt-[1.5rem] gap-x-8 sm:gap-x-2">
-          <button className="font-loose font-bold bg-black text-white text-[27px] sm:text-[20px] pt-[4px] sm:pt-[3px] leading-[1.9] h-[64px] sm:h-[40px] rounded-[32px] flex-1">
+          <button
+            onClick={() => {
+              window.open(googleMapUrl, '_blank');
+            }}
+            className="font-loose font-bold bg-black text-white text-[27px] sm:text-[20px] pt-[4px] sm:pt-[3px] leading-[1.9] h-[64px] sm:h-[40px] rounded-[32px] flex-1"
+          >
             {strings.jumpToGoogleMap}
           </button>
           <button
