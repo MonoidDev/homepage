@@ -10,7 +10,7 @@ import UIUXEngineerCardSvg from '@/assets/images/UIUXEngineerCard.svg';
 import { BackendEngineerCard } from '@/components/recruit/BackendEngineerCard';
 import { FrontendEngineerCard } from '@/components/recruit/FrontendEngineerCard';
 import { ProductManagerCard } from '@/components/recruit/ProductManagerCard';
-import { UIUXEngineerCard } from '@/components/recruit/UIUXEngineerCard';
+import { UIUXDesignerCard } from '@/components/recruit/UIUXDesignerCard';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -83,7 +83,7 @@ function DesktopRecruit() {
     <main className="flex-1 sm:hidden px-[120px] py-[64px] overflow-y-auto gap-x-10 flex">
       <FrontendEngineerCard />
       <BackendEngineerCard />
-      <UIUXEngineerCard />
+      <UIUXDesignerCard />
       <ProductManagerCard />
     </main>
   );

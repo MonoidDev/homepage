@@ -1,4 +1,5 @@
 import { makeStrings } from '@monoid-dev/use-strings';
+import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import FrontendEngineerArray from '@/assets/images/FrontendEngineerArray.svg';
@@ -13,6 +14,8 @@ const useStrings = makeStrings({
 
 export const FrontendEngineerCard: React.VFC = () => {
   const strings = useStrings();
+
+  const router = useRouter();
 
   const chain = useChain([
     {
@@ -43,13 +46,7 @@ export const FrontendEngineerCard: React.VFC = () => {
     <Card
       onMouseEnter={() => chain.play()}
       onMouseLeave={() => chain.reverse()}
-      onClick={() =>
-        window.open(
-          `mailto:ymao@monoidtech.com?subject=${encodeURI(
-            'Apply for Frontend Engineer',
-          )}`,
-        )
-      }
+      onClick={() => router.push('/recruit/FRONTEND ENGINEER')}
       color={color}
       backgroundColor={backgroundColor}
     >

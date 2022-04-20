@@ -26,6 +26,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         loadingDone={loadingDone}
         hideLogo={pageProps.hideLogo ?? false}
         theme={pageProps.theme}
+        screenHeight={pageProps.screenHeight}
         meta={<Meta title={pageProps.title} />}
       >
         <Component {...pageProps} />

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
+import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -16,6 +17,7 @@ type Point = readonly [number, number];
 
 export const ProductManagerCard: React.VFC = () => {
   const strings = useStrings();
+  const router = useRouter();
 
   const actionRef = useRef('enter');
 
@@ -172,13 +174,7 @@ export const ProductManagerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
-      onClick={() =>
-        window.open(
-          `mailto:ymao@monoidtech.com?subject=${encodeURI(
-            'Apply for Product Manager',
-          )}`,
-        )
-      }
+      onClick={() => router.push('/recruit/PRODUCT MANAGER')}
       color={color}
       backgroundColor={backgroundColor}
     >

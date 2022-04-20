@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
+import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -17,8 +18,9 @@ const useStrings = makeStrings({
   },
 });
 
-export const UIUXEngineerCard: React.VFC = () => {
+export const UIUXDesignerCard: React.VFC = () => {
   const strings = useStrings();
+  const router = useRouter();
 
   const interpolate1 = (frame: number) =>
     Math.sin(((Math.PI / 2) * frame) / 20);
@@ -255,13 +257,7 @@ export const UIUXEngineerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
-      onClick={() =>
-        window.open(
-          `mailto:ymao@monoidtech.com?subject=${encodeURI(
-            'Apply for UI/UX Engineer',
-          )}`,
-        )
-      }
+      onClick={() => router.push('/recruit/UIUX DESIGNER')}
       color={color}
       backgroundColor={backgroundColor}
     >

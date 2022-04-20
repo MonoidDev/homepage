@@ -26,7 +26,7 @@ const useStrings = makeStrings({
     companyInfo: 'COMPANY INFO',
     info: [
       ['Name', 'G.K. Monoid'],
-      ['Established', '2019/12/24'],
+      ['Established', '2020/12/24'],
       ['Capital', '10,000,000 JPY'],
       ['Business', 'Design & Development'],
       ['Representative', 'Yanru Mao'],
@@ -44,7 +44,7 @@ const useStrings = makeStrings({
     ),
     info: [
       ['公司名称', '合同会社Monoid'],
-      ['成立日期', '2019年12月24日'],
+      ['成立日期', '2020年12月24日'],
       ['注册资金', '1,000万日元［截止至2022年6月末］'],
       ['业务内容', '设计・开发・维护'],
       ['公司法人', 'Mao Yanru'],
@@ -64,7 +64,7 @@ const useStrings = makeStrings({
     ),
     info: [
       ['会社名', '合同会社Monoid'],
-      ['設立', '2019年12月24日'],
+      ['設立', '2020年12月24日'],
       ['資本金', '1,000万円［2022年6月末時点］'],
       ['事業内容', '企画・開発・運用'],
       ['代表者', 'Mao Yanru'],

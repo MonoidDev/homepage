@@ -8,10 +8,11 @@ export interface LayoutProps {
   hideLogo: boolean;
   meta: React.ReactNode;
   theme: Theme;
+  screenHeight: boolean;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { meta, children, theme, loadingDone, hideLogo } = props;
+  const { meta, children, theme, loadingDone, hideLogo, screenHeight } = props;
 
   return (
     <ThemeProvider
@@ -20,6 +21,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
       <div
         className={clsx(
           'flex flex-col w-full antialiased min-h-screen sm:hidden',
+          screenHeight && '!h-screen',
           theme,
           theme === 'black' && 'bg-black text-white',
           theme === 'white' && 'bg-white text-black',

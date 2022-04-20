@@ -5,11 +5,17 @@ import { useRouter } from 'next/router';
 
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
+import { LgbtCircle } from '@/components/LgbtCircle';
 
 const sloganSpeed = 5;
 
 const shouldDisplayEasterEgg =
   new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
+
+const shouldDisplayLGBT =
+  new Date().getMonth() === 4 - 1 &&
+  new Date().getDate() >= 20 &&
+  new Date().getDate() <= 30;
 
 const initialX = 0;
 const initialY = 0;
@@ -53,6 +59,9 @@ const RandomCircle: React.VFC<{ fill?: string; maxX: number; maxY: number }> = (
     })();
   }, []);
 
+  if (shouldDisplayLGBT) {
+    return <LgbtCircle r={180} cx={x} cy={y} />;
+  }
   return <circle r={180} cx={x} cy={y} fill={fill} />;
 };
 

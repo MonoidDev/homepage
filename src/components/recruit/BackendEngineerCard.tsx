@@ -1,4 +1,5 @@
 import { makeStrings } from '@monoid-dev/use-strings';
+import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -12,6 +13,8 @@ const useStrings = makeStrings({
 
 export const BackendEngineerCard: React.VFC = () => {
   const strings = useStrings();
+
+  const router = useRouter();
 
   const chain = useChain([
     {
@@ -52,13 +55,7 @@ export const BackendEngineerCard: React.VFC = () => {
       onMouseLeave={() => chain.reverse()}
       color={color}
       backgroundColor={backgroundColor}
-      onClick={() =>
-        window.open(
-          `mailto:ymao@monoidtech.com?subject=${encodeURI(
-            'Apply for Backend Engineer',
-          )}`,
-        )
-      }
+      onClick={() => router.push('/recruit/BACKEND ENGINEER')}
     >
       <div className="h-full w-full flex flex-col">
         <div className="flex-1">

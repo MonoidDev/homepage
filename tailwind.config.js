@@ -3,6 +3,10 @@ const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    fontFamily: {
+      'loose': ['"Avenir Next"'],
+      'dense': ['"DIN Condensed"'],
+    },
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',

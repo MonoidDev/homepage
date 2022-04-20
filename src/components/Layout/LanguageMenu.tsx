@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import CN from '@/assets/images/CN.svg';
 import EN from '@/assets/images/EN.svg';
@@ -17,6 +18,8 @@ export interface LanguageMenuProps {
 
 export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
   const { action, onChangeAction } = props;
+
+  const router = useRouter();
 
   useEffect(() => {
     if (action === 'open') {
@@ -89,7 +92,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
           <>
             <div className="w-[40px]" />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href="" locale="ja-JP">
+              <Link href={router.asPath} locale="ja-JP">
                 <a
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
@@ -104,7 +107,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
               }}
             />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href="" locale="en-US">
+              <Link href={router.asPath} locale="en-US">
                 <a
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
@@ -119,7 +122,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
               }}
             />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href="" locale="zh-CN">
+              <Link href={router.asPath} locale="zh-CN">
                 <a
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
