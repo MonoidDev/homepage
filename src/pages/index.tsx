@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useId } from 'react';
 
 import clsx from 'clsx';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
@@ -69,26 +70,42 @@ const AnimatedSlogan: React.VFC = () => {
   const maskId = useId();
 
   return (
-    <svg className="mb-[20vh] sm:hidden" width={'80vw'} viewBox="0 0 1575 118">
-      <mask id={String(maskId)}>
-        <Slogan fill="white" />
-      </mask>
+    <Link
+      href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
+    >
+      <a
+        title={
+          shouldDisplayLGBT
+            ? 'Monoid supports LGBT rights!'
+            : 'Learn More about Monoid'
+        }
+      >
+        <svg
+          className="mb-[20vh] sm:hidden"
+          width={'80vw'}
+          viewBox="0 0 1575 118"
+        >
+          <mask id={String(maskId)}>
+            <Slogan fill="white" />
+          </mask>
 
-      <Slogan />
+          <Slogan />
 
-      <g mask={`url(#${maskId})`}>
-        <RandomCircle
-          fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
-          maxX={1575}
-          maxY={118}
-        />
-        <RandomCircle
-          fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
-          maxX={1575}
-          maxY={118}
-        />
-      </g>
-    </svg>
+          <g mask={`url(#${maskId})`}>
+            <RandomCircle
+              fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
+              maxX={1575}
+              maxY={118}
+            />
+            <RandomCircle
+              fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+              maxX={1575}
+              maxY={118}
+            />
+          </g>
+        </svg>
+      </a>
+    </Link>
   );
 };
 
@@ -96,25 +113,37 @@ const MobileAnimatedSlogan: React.VFC = () => {
   const maskId = useId();
 
   return (
-    <svg className=">sm:hidden" width="80vw" viewBox="0 0 357 517">
-      <mask id={String(maskId)}>
-        <MobileSlogan fill="white" />
-      </mask>
+    <Link
+      href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
+    >
+      <a>
+        <svg
+          className=">sm:hidden [shape-rendering:optimizeSpeed]"
+          width="80vw"
+          viewBox="0 0 357 517"
+        >
+          <mask id={String(maskId)}>
+            <MobileSlogan fill="white" />
+          </mask>
 
-      <MobileSlogan />
-      <g mask={`url(#${maskId})`}>
-        <RandomCircle
-          fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
-          maxX={357}
-          maxY={517}
-        />
-        <RandomCircle
-          fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
-          maxX={357}
-          maxY={517}
-        />
-      </g>
-    </svg>
+          <MobileSlogan />
+          <g mask={`url(#${maskId})`}>
+            {!shouldDisplayLGBT && (
+              <RandomCircle
+                fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
+                maxX={357}
+                maxY={517}
+              />
+            )}
+            <RandomCircle
+              fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+              maxX={357}
+              maxY={517}
+            />
+          </g>
+        </svg>
+      </a>
+    </Link>
   );
 };
 
