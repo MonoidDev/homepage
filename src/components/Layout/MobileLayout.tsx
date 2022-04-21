@@ -60,7 +60,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
               <MenuTick
                 className={clsx(
                   'white:text-black black:text-white',
-                  !tickOpacity.isPlaying && 'animate-pulse',
+                  !tickOpacity.isPlaying && 'animate-pulse-lg',
                 )}
                 style={{ opacity: tickOpacity.currentValue }}
               />
