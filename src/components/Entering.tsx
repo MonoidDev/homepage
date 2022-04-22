@@ -127,6 +127,7 @@ export const Entering: React.VFC<{ onDone: () => void }> = ({ onDone }) => {
       style={{
         backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
       }}
+      onClick={() => play()}
     >
       <Canvas
         dpr={[1, 2]}
