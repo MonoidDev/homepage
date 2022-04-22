@@ -104,7 +104,7 @@ export default function Contact() {
               href="mailto:ymao@monoidtech.com"
               className="hover:text-gray-700"
             >
-              ymao@monoidtech.com
+              info@monoidtech.com
             </a>
           </div>
         </div>
