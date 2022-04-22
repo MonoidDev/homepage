@@ -49,7 +49,7 @@ module.exports = {
         },
       },
       animation: {
-        'pulse-lg': 'pulse-lg 2s linear infinite',
+        'pulse-lg': 'pulse-lg 1s linear infinite',
       },
       keyframes: {
         'pulse-lg': {
