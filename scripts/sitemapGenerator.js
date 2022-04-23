@@ -1,16 +1,15 @@
-import fs from 'fs';
-
+const fs = require('fs');
 (async () => {
   const baseUrl = 'https://monoid.co.jp/';
-  const languages: string[] = ['en-US', 'ja-JP', 'zh-CN'];
+  const languages = ['en-US', 'ja-JP', 'zh-CN'];
   const allJobNames = [
     'FRONTEND ENGINEER',
     'BACKEND ENGINEER',
     'UIUX DESIGNER',
     'PRODUCT MANAGER',
   ];
-  let staticPages: string[] = [];
-  languages.map((language: string) => {
+  let staticPages = [];
+  languages.map((language) => {
     fs.readdirSync('./src/pages')
       .filter((staticPage) => {
         return !['_app.tsx', 'index.tsx'].includes(staticPage);
@@ -30,7 +29,7 @@ import fs from 'fs';
               `${baseUrl}/${language}/${staticPagePath.split('.')[0]}`,
             );
             staticPagePath.indexOf('jobs') > -1
-              ? allJobNames.map((job: string) => {
+              ? allJobNames.map((job) => {
                   staticPages.push(
                     `${baseUrl}/${language}/${
                       staticPagePath.split('.')[0]

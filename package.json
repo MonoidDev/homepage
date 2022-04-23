@@ -12,7 +12,7 @@
     "lint": "next lint",
     "build-types": "tsc --noEmit --pretty",
     "postinstall": "if [ \"$NODE_ENV\" != production ]; then husky install; fi",
-    "create-sitemap": "ts-node scripts/sitemapGenerator.ts"
+    "create-sitemap": "node scripts/sitemapGenerator.js"
   },
   "dependencies": {
     "@monoid-dev/use-strings": "^0.0.1",
@@ -61,6 +61,5 @@
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2"
   },
-  "license": "ISC",
-  "type": "module"
+  "license": "ISC"
 }
