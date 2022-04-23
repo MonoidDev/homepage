@@ -33,3 +33,4 @@ local
 
 # vercel
 .vercel
+public/sitemap.xml
