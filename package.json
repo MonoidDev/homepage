@@ -11,7 +11,8 @@
     "clean": "rimraf .next out",
     "lint": "next lint",
     "build-types": "tsc --noEmit --pretty",
-    "postinstall": "if [ \"$NODE_ENV\" != production ]; then husky install; fi"
+    "postinstall": "if [ \"$NODE_ENV\" != production ]; then husky install; fi",
+    "create-sitemap": "ts-node scripts/sitemapGenerator.ts"
   },
   "dependencies": {
     "@monoid-dev/use-strings": "^0.0.1",
@@ -33,6 +34,7 @@
     "react-hook-form": "^7.29.0",
     "tailwindcss": "^3.0.23",
     "three": "^0.138.3",
+    "ts-node": "^10.7.0",
     "typescript": "^4.5.5"
   },
   "devDependencies": {
@@ -59,5 +61,6 @@
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
