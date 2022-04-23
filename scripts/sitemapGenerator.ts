@@ -42,7 +42,6 @@ import fs from 'fs';
       });
   });
 
-  console.info(staticPages);
   const lastmodDate = new Date().toISOString();
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
