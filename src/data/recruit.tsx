@@ -1,4 +1,5 @@
 import { makeStrings } from '@monoid-dev/use-strings';
+import { levenshteinEditDistance } from 'levenshtein-edit-distance';
 
 export const allJobNames = [
   'FRONTEND ENGINEER',
@@ -201,3 +202,111 @@ export const useRecruitStrings = makeStrings({
     ],
   },
 });
+
+export const allSkills: string[] = [
+  // Security
+  'Security',
+  'Network Security',
+  'Physical Security',
+  'Penetration Testing',
+  'Hacking',
+  // Programming
+  'Programming',
+  'Python',
+  'C',
+  'C++',
+  'C#',
+  'Objective-C',
+  'JavaScript',
+  'TypeScript',
+  'Bash',
+  'Rust',
+  'Ruby',
+  'Java',
+  'Golang',
+  'Haskell',
+  'OCaml',
+  'Scala',
+  'Visual Basic',
+  'Swift',
+  'PHP',
+  // Frontend Framework
+  'React',
+  'Angular',
+  'Vue',
+  'SolidJS',
+  'Svelte',
+  'Wordpress',
+  'Ember',
+  'Meteor',
+  // State management
+  'Mobx',
+  'Redux',
+  'Jotai',
+  'Zustand',
+  'DVA',
+  // React-based framework
+  'NextJS',
+  'Docusaurus',
+  'React Static',
+  'UmiJS',
+  'Create React App',
+  // Component Library
+  'Material UI',
+  'Ant Design',
+  'Daisy UI',
+  // CSS Library
+  'Tailwind CSS',
+  'SASS',
+  'SCSS',
+  'CSS in JS',
+  'CSS Module',
+  'Bootstrap',
+  'Semantic UI',
+  // Mobile App
+  'React Native',
+  'Flutter',
+  'Cordova',
+  'Phone Gap',
+  'Ionic',
+  'Xamarin',
+  'SwiftUI',
+  'iOS Native',
+  'Android Native',
+  // Desktop
+  'Electron',
+  'Tauri',
+  'Qt',
+  'UWP',
+  // JS Build Tool
+  'Webpack',
+  'Rollup',
+  'Vite',
+  'esbuild',
+  'SWC',
+  'Gulp',
+  'PostCSS',
+  'Grunt',
+  'Parcel',
+  'Snowpack',
+  'Browserify',
+  'Rome',
+];
+
+export const getSkillResults = (input: string) => {
+  const results = allSkills
+    .map((skill) => ({
+      skill,
+      score: levenshteinEditDistance(input, skill, true) / skill.length,
+    }))
+    .filter((item) => item.score < 1)
+    .sort((a, b) => a.score - b.score);
+
+  if (results.length > 0) {
+    return results;
+  } else {
+    return ['JavaScript', 'Python', 'React', 'Django', 'TypeScript'].map(
+      (skill) => ({ skill, score: 1 }),
+    );
+  }
+};

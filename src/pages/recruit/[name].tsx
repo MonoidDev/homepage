@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import styles from './jobDescription.module.css';
+import styles from './recruit.module.css';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
+import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
 import { allJobNames, useRecruitStrings } from '@/data/recruit';
 
 export default function JobDescription() {
@@ -16,13 +17,27 @@ export default function JobDescription() {
   const description = descriptions.jobs.find((item) => item.name === name);
 
   const renderHeader = () => (
-    <div className="flex gap-x-[40px] mb-[1rem]">
+    <div className="flex gap-x-[40px] mb-[1rem] font-loose">
       <Link href="/recruit/jobs">
         <LeftTriangleSvg className="cursor-pointer" />
       </Link>
-      <span className="text-[80px] font-loose font-bold leading-none mt-[5px]">
+      <span className="text-[80px] font-bold leading-none mt-[5px]">
         {name}
       </span>
+
+      <div className="flex-1" />
+
+      {name !== 'UIUX DESIGNER' && (
+        <>
+          <Link href={`/recruit/apply/${name}`}>
+            <a className={styles.nextTitle}>APPLY</a>
+          </Link>
+
+          <Link href="">
+            <RightTriangleOutlineSvg className="cursor-pointer mt-3" />
+          </Link>
+        </>
+      )}
     </div>
   );
 
