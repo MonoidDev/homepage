@@ -10,19 +10,19 @@ a {
 
 @font-face {
   font-family: 'DIN Condensed';
-  src: url('../assets/fonts/DINCondensed-Bold.ttf') format('opentype');
+  src: url('/fonts/DINCondensed-Bold.ttf') format('opentype');
   font-weight: 700 900;
 }
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('../assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+  src: url('/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
   font-weight: 100 400;
 }
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('../assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
+  src: url('/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
   font-weight: 500 900;
 }
 

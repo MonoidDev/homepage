@@ -14,7 +14,7 @@ const fs = require('fs');
       staticPages.push(`${baseUrl}/${language}`);
       fs.readdirSync('./src/pages')
         .filter((staticPage) => {
-          return !['_app.tsx', 'index.tsx'].includes(staticPage);
+          return !['_app.tsx', '_document.tsx', 'index.tsx'].includes(staticPage);
         })
         .map((staticPagePath) => {
           staticPages.push(`${baseUrl}/${language}/${staticPagePath}`);
@@ -62,6 +62,6 @@ const fs = require('fs');
     fs.writeFileSync(`${process.cwd()}/public/sitemap.xml`, sitemap);
     console.info('sitemap.xml generator success');
   } catch (e) {
-    throw new Error('sitemap.xml generator error');
+    throw new Error(e);
   }
 })();
