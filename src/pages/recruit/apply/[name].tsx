@@ -58,7 +58,7 @@ export default function Apply() {
 
   const renderHeader = () => (
     <div className="flex gap-x-[40px] mb-[1rem] font-loose">
-      <Link href="/recruit/jobs">
+      <Link href={`/recruit/${name}`}>
         <a>
           <LeftTriangleSvg className="cursor-pointer" />
         </a>
