@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import styles from '../recruit.module.css';
+import { usePostRecruits } from '@/apis/recruit';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
+import { MutationAlert } from '@/components/MutationAlert';
 import { FileInput, FileItem } from '@/components/recruit/FileInput';
 import { ScrollInput } from '@/components/recruit/ScrollInput';
 import { SkillInput, SkillItem } from '@/components/recruit/SkillInput';
@@ -26,6 +28,8 @@ export default function Apply() {
     query: { name },
   } = useRouter();
 
+  const postRecruits = usePostRecruits();
+
   const isProgrammer = ['FRONTEND ENGINEER', 'BACKEND ENGINEER'].includes(
     name as string,
   );
@@ -43,9 +47,10 @@ export default function Apply() {
     language_chinese: 0.7,
     language_japanese: 0.5,
     technology_skills: [] as SkillItem[],
-    resume_files: [] as FileItem[],
-    education: '',
+    resume_urls: [] as FileItem[],
+    education_experience: '',
     work_experience: '',
+    cover_letter: '',
   };
 
   const { control, register, handleSubmit, formState } = useForm({
@@ -53,7 +58,21 @@ export default function Apply() {
   });
 
   const onSubmit = handleSubmit(async (values: typeof defaultValues) => {
-    console.info(values);
+    await postRecruits.mutateAsync({
+      recruit_type: name as string,
+      name: values.name,
+      email: values.email,
+      github_id: values.github_id,
+      website: values.website,
+      language_english: Math.round(values.language_english * 100),
+      language_chinese: Math.round(values.language_chinese * 100),
+      language_japanese: Math.round(values.language_japanese * 100),
+      technology_skills: values.technology_skills.map((item) => item.value),
+      resume_urls: values.resume_urls.map((item) => item.url!),
+      education_experience: values.education_experience,
+      work_experience: values.work_experience,
+      cover_letter: values.cover_letter,
+    });
   });
 
   const renderHeader = () => (
@@ -172,8 +191,8 @@ export default function Apply() {
             label="Education"
             multiline
             placeholder={educationPlaceholder}
-            error={formState.errors.education}
-            {...register('education', {
+            error={formState.errors.education_experience}
+            {...register('education_experience', {
               required: 'This field is required. ',
             })}
           />
@@ -202,7 +221,7 @@ export default function Apply() {
             <h3 className={clsx(styles.formSectionTitle, 'mb-[1rem]')}>
               Resume etc.
             </h3>
-            <FileInput name="resume_files" control={control} />
+            <FileInput name="resume_urls" control={control} />
           </div>
 
           <div>
@@ -231,6 +250,7 @@ export default function Apply() {
 
   return (
     <div className="flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] overflow-hidden">
+      <MutationAlert mutation={postRecruits} />
       {renderHeader()}
       {renderContent()}
     </div>
