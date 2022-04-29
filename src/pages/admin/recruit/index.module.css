@@ -1,0 +1,15 @@
+.table {
+  @apply font-loose;
+}
+
+.table th {
+  @apply text-left p-[0.5rem] bg-slate-300;
+}
+
+.table tr:nth-child(odd) td {
+  @apply bg-slate-300;
+}
+
+.table td {
+  @apply p-[0.5rem];
+}

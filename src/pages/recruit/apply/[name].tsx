@@ -26,6 +26,7 @@ const workExperiencePlaceholder = `
 export default function Apply() {
   const {
     query: { name },
+    push,
   } = useRouter();
 
   const postRecruits = usePostRecruits();
@@ -73,6 +74,9 @@ export default function Apply() {
       work_experience: values.work_experience,
       cover_letter: values.cover_letter,
     });
+
+    alert('Thank you for your application!');
+    push('/recruit');
   });
 
   const renderHeader = () => (

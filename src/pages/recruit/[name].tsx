@@ -35,7 +35,7 @@ export default function JobDescription() {
             <a className={styles.nextTitle}>APPLY</a>
           </Link>
 
-          <Link href="">
+          <Link href={`/recruit/apply/${name}`}>
             <RightTriangleOutlineSvg className="cursor-pointer mt-3" />
           </Link>
         </>
