@@ -40,7 +40,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
           theme === 'white' && 'bg-white text-black',
         )}
       >
-        <div className="h-[110px] flex items-center justify-between px-[28px] shrink-0">
+        <div className="h-[110px] flex items-center px-[28px] shrink-0">
           {!hideLogo && (
             <>
               <a href="/">
@@ -49,6 +49,8 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
               </a>
             </>
           )}
+
+          <div className="flex-1" />
 
           {!menuOpen && (
             <button

@@ -2,11 +2,12 @@ import React, { useRef } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 import BackendEngineerCardSvg from '@/assets/images/BackendEngineerCard.svg';
 import FrontendEngineerCardSvg from '@/assets/images/FrontendEngineerCard.svg';
 import ProductManagerCardSvg from '@/assets/images/ProductManagerCard.svg';
-import UIUXEngineerCardSvg from '@/assets/images/UIUXEngineerCard.svg';
+import UIUXDesignerCardSvg from '@/assets/images/UIUXDesignerCard.svg';
 import { BackendEngineerCard } from '@/components/recruit/BackendEngineerCard';
 import { FrontendEngineerCard } from '@/components/recruit/FrontendEngineerCard';
 import { ProductManagerCard } from '@/components/recruit/ProductManagerCard';
@@ -18,8 +19,14 @@ const useStrings = makeStrings({
   },
 });
 
-const MobileCardContainer: React.FC = (props) => {
-  const { children } = props;
+interface MobileCardContainerProps {
+  name: string;
+}
+
+const MobileCardContainer: React.FC<MobileCardContainerProps> = (props) => {
+  const { name, children } = props;
+
+  const router = useRouter();
 
   return (
     <div
@@ -28,6 +35,7 @@ const MobileCardContainer: React.FC = (props) => {
         'transition-transform duration-300 shrink-0',
         'hover:translate-y-[-10px]',
       )}
+      onClick={() => router.push(`/recruit/${name}`)}
     >
       {children}
     </div>
@@ -41,19 +49,19 @@ function MobileRecruit() {
 
   return (
     <main className="flex-1 >sm:hidden flex flex-col items-center pt-[32px] gap-y-6 overflow-auto">
-      <MobileCardContainer>
+      <MobileCardContainer name="FRONTEND ENGINEER">
         <FrontendEngineerCardSvg />
       </MobileCardContainer>
 
-      <MobileCardContainer>
+      <MobileCardContainer name="BACKEND ENGINEER">
         <BackendEngineerCardSvg />
       </MobileCardContainer>
 
-      <MobileCardContainer>
-        <UIUXEngineerCardSvg />
+      <MobileCardContainer name="UIUX DESIGNER">
+        <UIUXDesignerCardSvg />
       </MobileCardContainer>
 
-      <MobileCardContainer>
+      <MobileCardContainer name="PRODUCT MANAGER">
         <ProductManagerCardSvg />
       </MobileCardContainer>
 

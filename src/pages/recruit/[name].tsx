@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import styles from './recruit.module.css';
+import LeftArrowSvg from '@/assets/images/LeftArrow.svg';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
+import RightArrowSvg from '@/assets/images/RightArrow.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
 import { allJobNames, useRecruitStrings } from '@/data/recruit';
 
@@ -16,7 +18,7 @@ export default function JobDescription() {
 
   const description = descriptions.jobs.find((item) => item.name === name);
 
-  const renderHeader = () => (
+  const renderDesktopHeader = () => (
     <div className="flex gap-x-[40px] mb-[1rem] font-loose">
       <Link href="/recruit/jobs">
         <LeftTriangleSvg className="cursor-pointer" />
@@ -41,7 +43,7 @@ export default function JobDescription() {
     </div>
   );
 
-  const renderContent = () => (
+  const renderDesktopContent = () => (
     <div className="shrink overflow-scroll">
       <div
         className={clsx(
@@ -54,11 +56,55 @@ export default function JobDescription() {
     </div>
   );
 
-  return (
-    <div className="flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] overflow-hidden">
-      {renderHeader()}
-      {renderContent()}
+  const renderDesktop = () => (
+    <div className="sm:hidden flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] overflow-hidden">
+      {renderDesktopHeader()}
+      {renderDesktopContent()}
     </div>
+  );
+
+  const renderMobile = () => (
+    <div className=">sm:hidden flex-1 shrink flex flex-col min-h-0">
+      <h2 className="font-loose font-bold text-[60px] leading-[50px] px-[26px] mt-[-3rem] mb-[1rem]">
+        {description?.mobileName}
+      </h2>
+
+      <div className="flex-1 shrink min-h-0 overflow-auto pt-[1rem] pb-[3rem]">
+        <div
+          className={clsx(
+            'bg-[#DFDFDF] p-[2rem] rounded-[2rem]',
+            styles.contentMobile,
+          )}
+        >
+          {description?.description}
+        </div>
+      </div>
+
+      <div className="px-[10px] h-[150px] flex items-center justify-between bg-white shadow-[0px_-1px_4px_rgba(0,0,0,0.25)]">
+        <Link href="/recruit/jobs">
+          <button>
+            <div className="font-loose font-bold text-[26px] leading-none">
+              BACK
+            </div>
+            <LeftArrowSvg />
+          </button>
+        </Link>
+
+        <button>
+          <RightArrowSvg />
+          <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
+            APPLY
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {renderDesktop()}
+      {renderMobile()}
+    </>
   );
 }
 
@@ -79,6 +125,7 @@ export async function getStaticProps() {
       theme: 'white',
       title: 'Jobs | 合同会社Monoid | G.K. Monoid | Monoid',
       screenHeight: true,
+      hideLogo: true,
     },
   };
 }

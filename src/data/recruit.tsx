@@ -13,6 +13,7 @@ export const useRecruitStrings = makeStrings({
     jobs: [
       {
         name: 'FRONTEND ENGINEER',
+        mobileName: 'Frontend Engineer',
         description: (
           <>
             <h3>About the job</h3>
@@ -70,6 +71,7 @@ export const useRecruitStrings = makeStrings({
       },
       {
         name: 'BACKEND ENGINEER',
+        mobileName: 'Backend Engineer',
         description: (
           <>
             <h3>About the job</h3>
@@ -124,6 +126,7 @@ export const useRecruitStrings = makeStrings({
       },
       {
         name: 'UIUX DESIGNER',
+        mobileName: 'UIUX Designer',
         description: (
           <>
             <h3 className="text-center">
@@ -134,6 +137,7 @@ export const useRecruitStrings = makeStrings({
       },
       {
         name: 'PRODUCT MANAGER',
+        mobileName: 'Product Manager',
         description: (
           <>
             <h3>About the job</h3>
