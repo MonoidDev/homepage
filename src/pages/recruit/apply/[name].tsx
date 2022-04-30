@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import styles from '../recruit.module.css';
+import { usePostFile } from '@/apis/files';
 import { usePostRecruits } from '@/apis/recruit';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
@@ -30,6 +31,8 @@ export default function Apply() {
   } = useRouter();
 
   const postRecruits = usePostRecruits();
+
+  const postFiles = usePostFile();
 
   const isProgrammer = ['FRONTEND ENGINEER', 'BACKEND ENGINEER'].includes(
     name as string,
@@ -59,6 +62,13 @@ export default function Apply() {
   });
 
   const onSubmit = handleSubmit(async (values: typeof defaultValues) => {
+    const resume_urls: string[] = [];
+
+    for (const { file } of values.resume_urls) {
+      const { url } = await postFiles.mutateAsync(file!);
+      resume_urls.push(url);
+    }
+
     await postRecruits.mutateAsync({
       recruit_type: name as string,
       name: values.name,
@@ -69,7 +79,7 @@ export default function Apply() {
       language_chinese: Math.round(values.language_chinese * 100),
       language_japanese: Math.round(values.language_japanese * 100),
       technology_skills: values.technology_skills.map((item) => item.value),
-      resume_urls: values.resume_urls.map((item) => item.url!),
+      resume_urls,
       education_experience: values.education_experience,
       work_experience: values.work_experience,
       cover_letter: values.cover_letter,
@@ -255,6 +265,7 @@ export default function Apply() {
   return (
     <div className="flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] overflow-hidden">
       <MutationAlert mutation={postRecruits} />
+      <MutationAlert mutation={postFiles} />
       {renderHeader()}
       {renderContent()}
     </div>

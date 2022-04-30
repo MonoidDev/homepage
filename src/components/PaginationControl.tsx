@@ -12,7 +12,10 @@ export const PaginationControl = <N extends string, T>(props: {
 
   return (
     <div className="flex font-loose text-md gap-x-[0.5rem]">
-      <span>Page {page}</span>
+      <span>
+        Page {page}, {result?.count} items
+      </span>
+
       <button
         disabled={page <= 1}
         onClick={() => onChangeOffset(offset - limit)}

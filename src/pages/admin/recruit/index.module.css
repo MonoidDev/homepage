@@ -13,3 +13,11 @@
 .table td {
   @apply p-[0.5rem];
 }
+
+.recruit {
+  @apply grid grid-cols-[1fr_3fr] gap-y-1 mb-[2rem];
+}
+
+.recruit a {
+  @apply text-green-500;
+}

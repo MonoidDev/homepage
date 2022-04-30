@@ -20,7 +20,7 @@ export interface NewRecruit {
 }
 
 export interface Recruit extends NewRecruit {
-  id: string;
+  id: number;
   created_at: string;
   updated_at: string;
 }
@@ -44,4 +44,6 @@ export const getRecruits = async (params: PageParams) => {
   >('get', '/recruits', params, undefined);
 };
 
-export const useRecruits = () => useMutation(getRecruits);
+export const getRecruitById = async (id: number) => {
+  return await invokeHttp<{ recruit: Recruit }>('get', `/recruits/${id}`);
+};
