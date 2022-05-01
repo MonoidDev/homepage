@@ -76,7 +76,7 @@ const AnimatedLogo = React.lazy(() => import('./AnimatedLogo'));
 
 export const LayoutMenu: React.VFC<{
   loadingDone: boolean;
-  hideLogo: boolean;
+  hideLogo: boolean | 'mobile';
 }> = ({ loadingDone, hideLogo }) => {
   const strings = useSiteStrings();
 
@@ -93,8 +93,13 @@ export const LayoutMenu: React.VFC<{
     <div className="flex flex-col">
       <div className="px-12 pt-12 pb-8">
         <div className="flex relative items-center">
-          <div className="h-[60px] flex items-center">
-            {!hideLogo && (
+          <div
+            className={clsx(
+              'h-[60px] flex items-center',
+              hideLogo === 'mobile' && 'sm:hidden',
+            )}
+          >
+            {hideLogo !== true && (
               <Suspense fallback={null}>
                 <AnimatedLogo loadingDone={loadingDone} />
               </Suspense>

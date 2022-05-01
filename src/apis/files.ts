@@ -1,5 +1,10 @@
 import { useMutation } from 'react-query';
 
+export interface FileItem {
+  file?: File;
+  url?: string;
+}
+
 export interface UploadedFile {
   url: string;
 }

@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import styles from './recruit.module.css';
 import LeftArrowSvg from '@/assets/images/LeftArrow.svg';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
 import RightArrowSvg from '@/assets/images/RightArrow.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
+import styles from '@/components/recruit/index.module.css';
 import { allJobNames, useRecruitStrings } from '@/data/recruit';
 
 export default function JobDescription() {
@@ -21,7 +21,9 @@ export default function JobDescription() {
   const renderDesktopHeader = () => (
     <div className="flex gap-x-[40px] mb-[1rem] font-loose">
       <Link href="/recruit/jobs">
-        <LeftTriangleSvg className="cursor-pointer" />
+        <a>
+          <LeftTriangleSvg className="cursor-pointer" />
+        </a>
       </Link>
       <span className="text-[80px] font-bold leading-none mt-[5px]">
         {name}
@@ -80,7 +82,7 @@ export default function JobDescription() {
         </div>
       </div>
 
-      <div className="px-[10px] h-[150px] flex items-center justify-between bg-white shadow-[0px_-1px_4px_rgba(0,0,0,0.25)]">
+      <div className="px-[10px] h-[150px] shrink-0 flex items-center justify-between bg-white shadow-[0px_-1px_4px_rgba(0,0,0,0.25)]">
         <Link href="/recruit/jobs">
           <button>
             <div className="font-loose font-bold text-[26px] leading-none">
@@ -89,13 +91,14 @@ export default function JobDescription() {
             <LeftArrowSvg />
           </button>
         </Link>
-
-        <button>
-          <RightArrowSvg />
-          <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
-            APPLY
-          </div>
-        </button>
+        <Link href={`/recruit/apply/${name}`}>
+          <button>
+            <RightArrowSvg />
+            <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
+              APPLY
+            </div>
+          </button>
+        </Link>
       </div>
     </div>
   );

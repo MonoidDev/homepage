@@ -2,22 +2,18 @@ import clsx from 'clsx';
 import { Control, FieldError, useController } from 'react-hook-form';
 import selectFiles from 'select-files';
 
+import { FileItem } from '@/apis/files';
 import CloseSvg from '@/assets/images/Close.svg';
 import CloudUploadSvg from '@/assets/images/CloudUpload.svg';
 import HamburgerSvg from '@/assets/images/Hamburger.svg';
 import PdfSvg from '@/assets/images/Pdf.svg';
 
-export interface FileItem {
-  file?: File;
-  url?: string;
-}
-
-export interface FileItemProps {
+export interface FileInputItemProps {
   item: FileItem;
   onDelete?: () => void;
 }
 
-export const FileItem: React.VFC<FileItemProps> = (props) => {
+export const FileInputItem: React.VFC<FileInputItemProps> = (props) => {
   const { item, onDelete } = props;
 
   return (
@@ -125,7 +121,7 @@ export const FileInput: React.VFC<FileInputProps> = (props) => {
       <div className="flex flex-wrap gap-x-8 gap-y-6">
         {renderUploadButton()}
         {value.map((item, i) => (
-          <FileItem
+          <FileInputItem
             key={i}
             item={item}
             onDelete={() =>

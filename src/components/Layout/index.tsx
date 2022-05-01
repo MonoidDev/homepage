@@ -5,7 +5,7 @@ import { Theme, ThemeProvider } from '@/styles/theme';
 
 export interface LayoutProps {
   loadingDone: boolean;
-  hideLogo: boolean;
+  hideLogo: boolean | 'mobile';
   meta: React.ReactNode;
   theme: Theme;
   screenHeight: boolean;
