@@ -4,27 +4,27 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { getRecruits, Recruit } from '@/apis/recruit';
+import { Contact, getContacts } from '@/apis/contact';
 import { Paginated } from '@/apis/utils';
 import { AdminContainer } from '@/components/Layout/AdminContainer';
 import { PaginationControl } from '@/components/PaginationControl';
 import styles from '@/pages/admin/index.module.css';
 import { withAuth } from '@/utils/withAuth';
 
-interface RecruitProps {
-  data: Paginated<'recruits', Recruit>;
+interface ContactIndexProps {
+  data: Paginated<'contacts', Contact>;
   limit: number;
   offset: number;
 }
 
-export default function RecruitIndex(props: RecruitProps) {
+export default function ContactIndex(props: ContactIndexProps) {
   const { data, limit, offset } = props;
   const router = useRouter();
 
   return (
     <AdminContainer>
       <div className="px-[4rem] py-[2rem]">
-        <h2 className="text-[36px] font-loose mb-[1rem]">Job Applications</h2>
+        <h2 className="text-[36px] font-loose mb-[1rem]">Contacts</h2>
         <table className={clsx('w-full', styles.table)}>
           <tbody>
             <tr>
@@ -34,10 +34,12 @@ export default function RecruitIndex(props: RecruitProps) {
               <th>Type</th>
               <th />
             </tr>
-            {data.recruits.map((item) => (
+            {data.contacts.map((item) => (
               <tr key={item.id}>
                 <td>{dayjs(item.created_at).format('YYYY-MM-DD HH:mm')}</td>
-                <td>{item.name}</td>
+                <td>
+                  {item.first_name} {item.last_name}
+                </td>
                 <td>
                   <a
                     className="text-lime-700 underline"
@@ -47,9 +49,9 @@ export default function RecruitIndex(props: RecruitProps) {
                     {item.email}
                   </a>
                 </td>
-                <td>{item.recruit_type}</td>
+                <td>{item.project_type}</td>
                 <td className="text-lime-700 underline">
-                  <Link href={`/admin/recruit/${item.id}`}>
+                  <Link href={`/admin/contact/${item.id}`}>
                     <a>Detail</a>
                   </Link>
                 </td>
@@ -63,7 +65,7 @@ export default function RecruitIndex(props: RecruitProps) {
           limit={limit}
           offset={offset}
           onChangeOffset={(offset) =>
-            router.push(`/admin/recruit?offset=${offset}`)
+            router.push(`/admin/contact?offset=${offset}`)
           }
         />
       </div>
@@ -71,12 +73,12 @@ export default function RecruitIndex(props: RecruitProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<RecruitProps> = withAuth(
-  async (context) => {
+export const getServerSideProps: GetServerSideProps<ContactIndexProps> =
+  withAuth(async (context) => {
     const limit = Number(context.query?.limit ?? 10);
     const offset = Number(context.query?.offset ?? 0);
 
-    const data = await getRecruits({
+    const data = await getContacts({
       limit,
       offset,
     });
@@ -91,5 +93,4 @@ export const getServerSideProps: GetServerSideProps<RecruitProps> = withAuth(
         screenHeight: true,
       },
     };
-  },
-);
+  });

@@ -29,6 +29,7 @@ export const AdminContainer: React.FC = (props) => {
       <div className="flex flex-col w-[300px] ml-[2rem] my-[2rem] border-r border-black text-[20px]">
         <h2 className="font-bold">Admin</h2>
         {renderNavigationButton('Recruit', '/admin/recruit')}
+        {renderNavigationButton('Contact', '/admin/contact')}
         {renderNavigationButton('Log out', '/admin/login')}
       </div>
       <div className="flex-1 flex-col overflow-auto">{children}</div>

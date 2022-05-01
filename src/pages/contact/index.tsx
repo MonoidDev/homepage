@@ -26,7 +26,6 @@ export default function Contact() {
   const strings = useStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
-  const [contactDialogOpen, setContactDialogOpen] = useState(true);
 
   const googleMapUrl =
     'https://maps.google.com/maps?width=720&height=400&hl=en&q=Tokyo%20Sankei+(Monoid)&t=&z=18&ie=UTF8&iwloc=B&output=embed';
@@ -123,10 +122,7 @@ export default function Contact() {
       <div className="w-[1px] my-6 bg-black sm:hidden" />
       <div className="h-[2rem] >sm:hidden shrink-0" />
       {renderContact()}
-      <ContactDialog
-        open={contactDialogOpen}
-        onClose={() => setContactDialogOpen(false)}
-      />
+      <ContactDialog />
     </div>
   );
 }

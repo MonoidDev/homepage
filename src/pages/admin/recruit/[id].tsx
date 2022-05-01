@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './index.module.css';
 import { getRecruitById, Recruit } from '@/apis/recruit';
 import { AdminContainer } from '@/components/Layout/AdminContainer';
+import styles from '@/pages/admin/index.module.css';
 import { withAuth } from '@/utils/withAuth';
 
 interface RecruitIdProps {
