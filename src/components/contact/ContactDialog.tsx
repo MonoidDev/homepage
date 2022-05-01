@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import clsx from 'clsx';
 
 import { ContactForm } from './ContactForm';
@@ -8,9 +10,13 @@ export const ContactDialog: React.VFC = () => {
     {
       from: 0,
       to: 1,
-      interpolate: (f) => Math.sin(((f / 30) * Math.PI) / 2),
+      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
     },
   ]);
+
+  const onClose = useCallback(async () => {
+    await chain.reverse();
+  }, []);
 
   const t = chain.values[0]!;
 
@@ -52,9 +58,7 @@ export const ContactDialog: React.VFC = () => {
       >
         <ContactForm
           open={t === 1}
-          onClose={async () => {
-            await chain.reverse();
-          }}
+          onClose={onClose}
           className={t === 1 ? undefined : 'pointer-events-none'}
         />
       </div>

@@ -34,16 +34,32 @@ a {
   font-family: 'DIN Condensed';
 }
 
-.note {
-  background-attachment: local;
-  background-image: 
-    repeating-linear-gradient(
-      var(--note-bg),
-      var(--note-bg) calc(37.5px - 1px),
-      var(--note-line) calc(37.5px - 1px),
-      var(--note-line) 37.5px,
-      var(--note-bg) 37.5px
-    );
+@media (min-width: 900px) {
+  .note {
+    background-attachment: local;
+    background-image: 
+      repeating-linear-gradient(
+        var(--note-bg),
+        var(--note-bg) calc(37.5px - 1px),
+        var(--note-line) calc(37.5px - 1px),
+        var(--note-line) 37.5px,
+        var(--note-bg) 37.5px
+      );
+  }
+}
+
+@media (max-width: 899px) {
+  .note {
+    background-attachment: local;
+    background-image: 
+      repeating-linear-gradient(
+        var(--note-bg),
+        var(--note-bg) calc(25px - 1px),
+        var(--note-line) calc(25px - 1px),
+        var(--note-line) 25px,
+        var(--note-bg) 25px
+      );
+  }
 }
 
 _::-webkit-full-page-media, _:future, :root .fill-available {

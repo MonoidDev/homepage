@@ -52,12 +52,7 @@ export default function ContactId(props: ContactIdProps) {
             </a>,
           )}
 
-          {renderInfo(
-            'Project Type',
-            <a href={`mailto:${data.project_type}`} target="_blank">
-              {data.project_type}
-            </a>,
-          )}
+          {renderInfo('Project Type', data.project_type)}
 
           {renderInfo('Budget', mapContactBudgetToLabel(data.budget))}
           {renderInfo('Delivery', mapContactDeliveryToLabel(data.delivery))}

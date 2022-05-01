@@ -7,6 +7,7 @@ import Mail from '@/assets/images/Mail.svg';
 import Reset from '@/assets/images/Reset.svg';
 import Telephone from '@/assets/images/Telephone.svg';
 import { ContactDialog } from '@/components/contact/ContactDialog';
+import { MobileNavigation } from '@/components/recruit/MobileNavigation';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -112,18 +113,21 @@ export default function Contact() {
   };
 
   return (
-    <div
-      className={clsx(
-        'flex-1 flex flex-inline sm:flex-col overflow-auto',
-        'px-[100px] sm:px-[28px] py-[40px] sm:py-[0px] gap-x-[3rem]',
-      )}
-    >
-      {renderAccess()}
-      <div className="w-[1px] my-6 bg-black sm:hidden" />
-      <div className="h-[2rem] >sm:hidden shrink-0" />
-      {renderContact()}
-      <ContactDialog />
-    </div>
+    <>
+      <MobileNavigation />
+      <div
+        className={clsx(
+          'flex-1 flex flex-inline sm:flex-col overflow-auto',
+          'px-[100px] sm:px-[28px] py-[40px] sm:py-[28px] gap-x-[3rem]',
+        )}
+      >
+        {renderAccess()}
+        <div className="w-[1px] my-6 bg-black sm:hidden" />
+        <div className="h-[2rem] >sm:hidden shrink-0" />
+        {renderContact()}
+        <ContactDialog />
+      </div>
+    </>
   );
 }
 
