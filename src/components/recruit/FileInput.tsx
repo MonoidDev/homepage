@@ -24,7 +24,10 @@ export const FileInputItem: React.VFC<FileInputItemProps> = (props) => {
       )}
     >
       <PdfSvg />
-      <div className="self-stretch font-bold leading-none mt-[0.25rem] overflow-hidden text-center whitespace-pre text-ellipsis">
+      <div
+        title={item.file?.name ?? 'File'}
+        className="self-stretch font-bold leading-none mt-[0.25rem] overflow-hidden text-center whitespace-pre text-ellipsis"
+      >
         {item.file?.name ?? 'File'}
       </div>
 

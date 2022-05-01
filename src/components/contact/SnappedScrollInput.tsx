@@ -1,22 +1,26 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
+import clsx from 'clsx';
 import { Control, useController } from 'react-hook-form';
 
-export interface ScrollInputProps {
-  label: string;
+export const SnappedScrollInput: React.VFC<{
   name: string;
+  label: string;
   control: Control<any>;
-}
-
-export const ScrollInput: React.VFC<ScrollInputProps> = (props) => {
-  const { label, name, control } = props;
+  unit: number;
+  mapValueToLabel?: (v: number) => string;
+}> = (props) => {
+  const { name, label, control, unit, mapValueToLabel } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const controller = useController<{ [K in string]: number }>({
+  const controller = useController({
     name,
     control,
+    rules: { validate: (v) => v > 0 },
   });
+
+  const { error } = controller.fieldState;
 
   const { value } = controller.field;
 
@@ -45,7 +49,11 @@ export const ScrollInput: React.VFC<ScrollInputProps> = (props) => {
           Math.min(clientX - startOffset - left + offsetBase, width),
         );
 
-        controller.field.onChange(offset / width);
+        const percent = offset / width;
+
+        const units = Math.floor(percent / unit);
+
+        controller.field.onChange(units * unit);
       }
 
       function onEnd() {
@@ -62,27 +70,27 @@ export const ScrollInput: React.VFC<ScrollInputProps> = (props) => {
     };
 
   return (
-    <div className="flex">
-      <label className="text-[23px] sm:text-[18px] font-loose font-bold leading-tight flex mb-[1rem] w-[156px] sm:w-[110px]">
-        {label}
+    <div
+      className={clsx(
+        'h-[50px] rounded-[25px] border-[3px] border-black pl-8',
+        'flex items-center',
+        error && 'bg-black text-white',
+        !error && 'bg-white text-black',
+      )}
+    >
+      <label className="text-[22px] leading-[0.8] font-bold pt-[2px] w-[140px] shrink-0 select-none whitespace-pre">
+        {mapValueToLabel ? mapValueToLabel(value) : label}
       </label>
-
-      <div
-        ref={containerRef}
-        className="flex flex-1 bg-white h-[30px] sm:h-[20px] rounded-[15px] sm:rounded-[10px] relative"
-      >
+      <div ref={containerRef} className="flex-1 relative mr-[52px]">
         <div
-          className="sm:hidden absolute h-[60px] w-[60px] top-[-15px] bg-black rounded-[30px] cursor-pointer"
-          style={{ left: `calc(${value * 100}% - 30px)` }}
-          onTouchStart={onStart(15)}
-          onMouseDown={onStart(15)}
-        />
-
-        <div
-          className=">sm:hidden absolute h-[30px] w-[30px] top-[-5px] bg-black rounded-[15px] cursor-pointer"
-          style={{ left: `calc(${value * 100}% - 15px)` }}
-          onTouchStart={onStart(7.5)}
-          onMouseDown={onStart(7.5)}
+          className={clsx(
+            'absolute top-[-28px] w-[56px] h-[56px] rounded-full border-[5px] border-black bg-white',
+            'cursor-pointer',
+            !error && '!bg-black',
+          )}
+          style={{ left: `calc(${value * 100}%)` }}
+          onTouchStart={onStart(0)}
+          onMouseDown={onStart(0)}
         />
       </div>
     </div>

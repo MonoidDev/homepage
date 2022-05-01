@@ -10,6 +10,12 @@ import {
   Control,
 } from 'react-hook-form';
 
+import { SnappedScrollInput } from './SnappedScrollInput';
+import {
+  mapContactBudgetToLabel,
+  mapContactDeliveryToLabel,
+} from '@/apis/contact';
+
 const useStrings = makeStrings({
   'en-US': {
     contactTitle: 'CONTACT SHEET',
@@ -58,7 +64,7 @@ const Input: React.VFC<InputProps> = (props) => {
   return (
     <div
       className={clsx(
-        'h-[80px] rounded-[40px] px-8 py-3 bg-black text-white border-2 border-black',
+        'h-[80px] rounded-[40px] px-8 py-3 border-2 border-black',
         error && 'bg-black text-white',
         !error && 'bg-white text-black',
         className,
@@ -92,10 +98,14 @@ const ProjectTypeInput: React.VFC<{ control: Control<any> }> = (props) => {
 
   const error = controller.fieldState.error;
 
+  const isProvidedType = strings.projectOptions
+    .map((p) => p.value)
+    .includes(controller.field.value);
+
   return (
     <div
       className={clsx(
-        'h-[110px] rounded-[40px] px-8 py-3 bg-black text-white border-2 border-black col-span-2',
+        'h-[110px] rounded-[40px] px-8 py-3 border-2 border-black col-span-2',
         error && 'bg-black text-white',
         !error && 'bg-white text-black',
       )}
@@ -131,7 +141,7 @@ const ProjectTypeInput: React.VFC<{ control: Control<any> }> = (props) => {
             error && 'border-white',
             !error && 'border-black',
           )}
-          value={controller.field.value}
+          value={isProvidedType ? '' : controller.field.value}
           onChange={(e) => controller.field.onChange(e.target.value)}
         />
       </div>
@@ -175,7 +185,7 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
   const renderLeftForm = () => {
     return (
       <div
-        className="grid grid-cols-2 gap-x-4 gap-y-3 py-2"
+        className="grid grid-cols-2 gap-x-4 gap-y-7"
         style={{ gridAutoRows: 'min-content' }}
       >
         <Input
@@ -204,18 +214,64 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
         />
 
         <ProjectTypeInput control={control} />
+
+        <div className="col-span-2">
+          <SnappedScrollInput
+            name="budget"
+            label="Budget"
+            control={control}
+            unit={1 / 15}
+            mapValueToLabel={mapContactBudgetToLabel}
+          />
+        </div>
+
+        <div className="col-span-2">
+          <SnappedScrollInput
+            name="delivery"
+            label="Delivery"
+            control={control}
+            unit={1 / 9}
+            mapValueToLabel={mapContactDeliveryToLabel}
+          />
+        </div>
       </div>
     );
   };
 
   const renderRightForm = () => {
     return (
-      <div className="bg-black text-white rounded-[40px] p-[40px] flex flex-col">
+      <div
+        className={clsx(
+          'bg-black text-white rounded-[40px] p-[40px] flex flex-col',
+          !errors.message && '!bg-white text-black border-[3px] border-black',
+        )}
+      >
         <h3 className="font-loose text-[38px] font-bold leading-[1] mb-[1rem]">
           {strings.messageBoard}
         </h3>
 
-        <textarea className="note flex-1 bg-transparent outline-none resize-none text-[25px] text-white" />
+        <textarea
+          className={clsx(
+            'note flex-1 bg-transparent outline-none resize-none text-[25px]',
+          )}
+          style={
+            {
+              '--note-bg': errors.message ? 'black' : 'white',
+              '--note-line': errors.message ? '#ccc' : 'black',
+            } as any
+          }
+          {...register('message', { required: true })}
+        />
+
+        <button
+          className={clsx(
+            'self-end w-[182px] h-[48px] rounded-[24px] text-[30px] font-loose font-bold pt-[2px] mt-[1rem] bg-[#C4C4C4]',
+            errors.message && 'opacity-0',
+          )}
+          disabled={!!errors.message}
+        >
+          SEND
+        </button>
       </div>
     );
   };
@@ -229,7 +285,7 @@ export const ContactDialog: React.VFC<ContactDialogProps> = (props) => {
       )}
     >
       <form
-        className="w-[1300px] h-[700px] bg-white px-[80px] py-[45px] flex flex-col"
+        className="w-[1300px] h-[650px] bg-white px-[80px] py-[45px] flex flex-col"
         onSubmit={handleSubmit(() => {})}
       >
         <h2 className="text-[55px] font-bold">{strings.contactTitle}</h2>

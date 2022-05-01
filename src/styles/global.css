@@ -38,11 +38,11 @@ a {
   background-attachment: local;
   background-image: 
     repeating-linear-gradient(
-      black,
-      black calc(37.5px - 1px),
-      #ccc calc(37.5px - 1px),
-      #ccc 37.5px,
-      black 37.5px
+      var(--note-bg),
+      var(--note-bg) calc(37.5px - 1px),
+      var(--note-line) calc(37.5px - 1px),
+      var(--note-line) 37.5px,
+      var(--note-bg) 37.5px
     );
 }
 

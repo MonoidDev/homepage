@@ -26,7 +26,7 @@ export default function Contact() {
   const strings = useStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
-  const [contactDialogOpen, setContactDialogOpen] = useState(false);
+  const [contactDialogOpen, setContactDialogOpen] = useState(true);
 
   const googleMapUrl =
     'https://maps.google.com/maps?width=720&height=400&hl=en&q=Tokyo%20Sankei+(Monoid)&t=&z=18&ie=UTF8&iwloc=B&output=embed';
