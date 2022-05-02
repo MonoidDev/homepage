@@ -22,7 +22,7 @@ export const ContactMessageInput = React.forwardRef<
     <div
       className={clsx(
         'bg-black text-white rounded-[40px] sm:rounded-[25px] p-[40px] sm:p-[24px] sm:pb-[16px] flex flex-col',
-        !error && '!bg-white text-black border-[3px] border-black',
+        !error && '!bg-white text-black border-2 border-black',
       )}
     >
       <h3 className="font-loose text-[38px] sm:text-[24px] font-bold leading-[1] mb-[1rem]">

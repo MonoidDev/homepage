@@ -35,7 +35,7 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
   return (
     <div
       className={clsx(
-        'h-[110px] rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
+        'h-[110px] sm:h-[90px] rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
         error && 'bg-black text-white',
         !error && 'bg-white text-black',
       )}
@@ -51,8 +51,9 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
         {strings.projectOptions.map((option) => (
           <button
             key={option.value}
+            type="button"
             className={clsx(
-              'text-[25px] sm:text-[16px] py-2 px-3 sm:px-0 rounded-[20px] leading-[1.2]',
+              'text-[25px] sm:text-[16px] py-2 px-3 sm:px-2 rounded-[20px] leading-[1.2]',
               !error &&
                 controller.field.value === option.value &&
                 'bg-black text-white',
@@ -67,7 +68,7 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
 
         <input
           className={clsx(
-            'ml-3 outline-none text-[25px] leading-[1.2] shrink min-w-0 border-b bg-transparent',
+            'ml-3 outline-none text-[25px] sm:text-[16px] leading-[1.2] sm:leading-none shrink min-w-0 border-b bg-transparent',
             error && 'border-white',
             !error && 'border-black',
           )}

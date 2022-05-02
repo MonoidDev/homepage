@@ -67,7 +67,7 @@ export const SnappedScrollInput: React.VFC<{
   return (
     <div
       className={clsx(
-        'font-loose h-[50px] sm:h-[40px] rounded-[25px] sm:rounded-[20px] border-[3px] border-black pl-8 sm:pl-5',
+        'font-loose h-[50px] sm:h-[40px] rounded-[25px] sm:rounded-[20px] border-2 border-black pl-8 sm:pl-5',
         'flex items-center',
         error && 'bg-black text-white',
         !error && 'bg-white text-black',
