@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { LocaleContext } from '@monoid-dev/use-strings';
+import PlausibleProvider from 'next-plausible';
 import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -26,34 +27,42 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [loadingDone, setLoadingDone] = useState(!shouldDisplayLoading);
 
   return (
-    <LocaleContext.Provider value={localeValue}>
-      <AuthContext.Provider value={token}>
-        <QueryClientProvider client={client}>
-          <Layout
-            loadingDone={loadingDone}
-            hideLogo={pageProps.hideLogo ?? false}
-            theme={pageProps.theme}
-            screenHeight={pageProps.screenHeight}
-            meta={<Meta title={pageProps.title} />}
-          >
-            <Component {...pageProps} />
-          </Layout>
+    <PlausibleProvider
+      domain="monoid.co.jp"
+      customDomain="https://plausible.monoid.co.jp"
+      scriptProps={{
+        src: 'https://plausible.monoid.co.jp/js/plausible.js',
+      }}
+    >
+      <LocaleContext.Provider value={localeValue}>
+        <AuthContext.Provider value={token}>
+          <QueryClientProvider client={client}>
+            <Layout
+              loadingDone={loadingDone}
+              hideLogo={pageProps.hideLogo ?? false}
+              theme={pageProps.theme}
+              screenHeight={pageProps.screenHeight}
+              meta={<Meta title={pageProps.title} />}
+            >
+              <Component {...pageProps} />
+            </Layout>
 
-          <MobileLayout
-            loadingDone={true}
-            hideLogo={pageProps.hideLogo ?? false}
-            theme={pageProps.theme}
-            meta={<Meta title={pageProps.title} />}
-          >
-            <Component {...pageProps} />
-          </MobileLayout>
+            <MobileLayout
+              loadingDone={true}
+              hideLogo={pageProps.hideLogo ?? false}
+              theme={pageProps.theme}
+              meta={<Meta title={pageProps.title} />}
+            >
+              <Component {...pageProps} />
+            </MobileLayout>
 
-          {!loadingDone && shouldDisplayLoading && (
-            <Entering onDone={() => setLoadingDone(true)} />
-          )}
-        </QueryClientProvider>
-      </AuthContext.Provider>
-    </LocaleContext.Provider>
+            {!loadingDone && shouldDisplayLoading && (
+              <Entering onDone={() => setLoadingDone(true)} />
+            )}
+          </QueryClientProvider>
+        </AuthContext.Provider>
+      </LocaleContext.Provider>
+    </PlausibleProvider>
   );
 };
 
