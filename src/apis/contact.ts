@@ -7,9 +7,9 @@ export const mapContactBudgetToLabel = (v: number) => {
   if (v === 0) {
     return 'Budget';
   } else if (v < 2 / 3) {
-    return `${Math.floor(v / (1 / 15))}M JPY`;
+    return `${Math.floor(v / (1 / 45))}M JPY`;
   } else {
-    return `10M JPY~`;
+    return `30M JPY~`;
   }
 };
 
