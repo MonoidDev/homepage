@@ -12,10 +12,15 @@ export const AdminContainer: React.FC = (props) => {
       <Link href={href}>
         <a
           className="ml-[1rem]"
-          onClick={() => {
+          onClick={(e) => {
             if (href === '/admin/login') {
-              Cookies.remove('token');
-              auth.setToken(null);
+              if (confirm('Do you really want to log out?')) {
+                Cookies.remove('token');
+                auth.setToken(null);
+              } else {
+                e.preventDefault();
+                e.stopPropagation();
+              }
             }
           }}
         >
