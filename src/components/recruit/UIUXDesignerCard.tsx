@@ -12,7 +12,7 @@ const useStrings = makeStrings({
       <>
         UI/UX
         <br />
-        Engineer
+        Designer
       </>
     ),
   },
