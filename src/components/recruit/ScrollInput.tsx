@@ -49,9 +49,9 @@ export const ScrollInput: React.VFC<ScrollInputProps> = (props) => {
       }
 
       function onEnd() {
-        window.addEventListener('touchmove', onMove);
+        window.removeEventListener('touchmove', onMove);
         window.removeEventListener('mousemove', onMove);
-        window.addEventListener('touchend', onEnd);
+        window.removeEventListener('touchend', onEnd);
         window.removeEventListener('mouseup', onEnd);
       }
 
