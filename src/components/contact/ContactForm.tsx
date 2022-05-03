@@ -116,6 +116,7 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
       onSubmit={handleSubmit(async (values) => {
         await postContacts.mutateAsync(values);
         reset();
+        alert('Thank you for your message!');
         onClose();
       })}
     >
