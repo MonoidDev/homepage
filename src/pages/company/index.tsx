@@ -48,7 +48,10 @@ const useStrings = makeStrings({
       ['注册资金', '1,000万日元［截止至2022年6月末］'],
       ['业务内容', '设计・开发・维护'],
       ['公司法人', 'Mao Yanru'],
-      ['所在地', 'Tokyo Sankei Building 27F, 1-7-2 Otemachi, Tokyo'],
+      [
+        '所在地',
+        'Tokyo Sankei Building 27F, 1-7-2 Otemachi, Chiyoda-Ku, Tokyo',
+      ],
     ],
   },
   'ja-JP': {
@@ -68,7 +71,7 @@ const useStrings = makeStrings({
       ['資本金', '1,000万円［2022年6月末時点］'],
       ['事業内容', '企画・開発・運用'],
       ['代表者', 'Mao Yanru'],
-      ['所在地', '東京都大手町1-7-2 東京サンケイビル 27F'],
+      ['所在地', '東京都千代田区大手町1-7-2 東京サンケイビル 27F'],
     ],
   },
 } as const);
