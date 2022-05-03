@@ -2,13 +2,37 @@ import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 import { useController, Control } from 'react-hook-form';
 
+import { useLocale } from '@/utils/useLocale';
+
 const useStrings = makeStrings({
   'en-US': {
     projectType: 'Project Type',
     projectOptions: [
-      { value: 'Web', label: 'Web' },
+      { value: 'IT Consulting', label: 'IT Consulting' },
+      { value: 'System', label: 'System' },
       { value: 'Application', label: 'Application' },
-      { value: 'IoT', label: 'IoT' },
+      { value: 'Website', label: 'Website' },
+      { value: 'Other', label: 'Other' },
+    ],
+  },
+  'ja-JP': {
+    projectType: 'お問い合わせの種別',
+    projectOptions: [
+      { value: 'IT Consulting', label: 'ITコンサルティング' },
+      { value: 'System', label: 'システム開発' },
+      { value: 'Application', label: 'アプリ開発' },
+      { value: 'Website', label: 'ウェブ制作' },
+      { value: 'Other', label: 'その他' },
+    ],
+  },
+  'zh-CN': {
+    projectType: '项目类型',
+    projectOptions: [
+      { value: 'IT Consulting', label: 'IT咨询' },
+      { value: 'System', label: '系统开发' },
+      { value: 'Application', label: 'App开发' },
+      { value: 'Website', label: '网页开发' },
+      { value: 'Other', label: '其他' },
     ],
   },
 });
@@ -19,6 +43,7 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
   const { control } = props;
 
   const strings = useStrings();
+  const locale = useLocale();
 
   const controller = useController({
     name: 'project_type',
@@ -28,14 +53,12 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
 
   const error = controller.fieldState.error;
 
-  const isProvidedType = strings.projectOptions
-    .map((p) => p.value)
-    .includes(controller.field.value);
+  const value = controller.field.value;
 
   return (
     <div
       className={clsx(
-        'h-[110px] sm:h-[90px] rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
+        'h-[95px] sm:h-[90px] rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
         error && 'bg-black text-white',
         !error && 'bg-white text-black',
       )}
@@ -47,34 +70,27 @@ export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
         {strings.projectType} <span>*</span>
       </label>
 
-      <div className="flex gap-x-2">
+      <div className="flex gap-x-2 overflow-scroll pb-[10px]">
         {strings.projectOptions.map((option) => (
           <button
             key={option.value}
             type="button"
             className={clsx(
-              'text-[25px] sm:text-[16px] py-2 px-3 sm:px-2 rounded-[20px] leading-[1.2]',
-              !error &&
-                controller.field.value === option.value &&
-                'bg-black text-white',
+              'text-[25px] sm:text-[16px] pt-[4px] pb-[2px] px-3 sm:px-2 rounded-[20px] leading-[1.2] whitespace-pre',
+              locale === 'ja-JP' && 'font-bold',
+              !error && value.includes(option.value) && 'bg-black text-white',
             )}
             onClick={() => {
-              controller.field.onChange(option.value);
+              controller.field.onChange(
+                value.includes(option.value)
+                  ? value.filter((v: string) => v !== option.value)
+                  : [...value, option.value],
+              );
             }}
           >
             {option.label}
           </button>
         ))}
-
-        <input
-          className={clsx(
-            'ml-3 outline-none text-[25px] sm:text-[16px] leading-[1.2] sm:leading-none shrink min-w-0 border-b bg-transparent',
-            error && 'border-white',
-            !error && 'border-black',
-          )}
-          value={isProvidedType ? '' : controller.field.value}
-          onChange={(e) => controller.field.onChange(e.target.value)}
-        />
       </div>
     </div>
   );

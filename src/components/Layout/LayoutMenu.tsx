@@ -120,7 +120,7 @@ export const LayoutMenu: React.VFC<{
                 href="/company"
                 index={1}
                 textWidth={
-                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 96 : 120
+                  locale === 'zh-CN' ? 96 : locale === 'ja-JP' ? 96 : 120
                 }
                 action={menuAction}
               >
@@ -130,7 +130,7 @@ export const LayoutMenu: React.VFC<{
                 href="/works"
                 index={2}
                 textWidth={
-                  locale === 'zh-CN' ? 48 : locale === 'ja-JP' ? 48 : 84
+                  locale === 'zh-CN' ? 64 : locale === 'ja-JP' ? 96 : 84
                 }
                 action={menuAction}
               >

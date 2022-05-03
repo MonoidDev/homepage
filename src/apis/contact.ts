@@ -3,9 +3,9 @@ import { useMutation } from 'react-query';
 import { PageParams, Paginated } from './utils';
 import { invokeHttp } from '@/utils/invokeHttp';
 
-export const mapContactBudgetToLabel = (v: number) => {
+export const mapContactBudgetToLabel = (v: number, defaultLabel: string) => {
   if (v === 0) {
-    return 'Budget';
+    return defaultLabel;
   } else if (v < 2 / 3) {
     return `${Math.floor(v / (1 / 45))}M JPY`;
   } else {
@@ -13,9 +13,9 @@ export const mapContactBudgetToLabel = (v: number) => {
   }
 };
 
-export const mapContactDeliveryToLabel = (v: number) => {
+export const mapContactDeliveryToLabel = (v: number, defaultLabel: string) => {
   if (v === 0) {
-    return 'Delivery';
+    return defaultLabel;
   } else if (v < 2 / 3) {
     return `${Math.floor(v / (1 / 9))} mo.`;
   } else {
@@ -27,7 +27,7 @@ export interface NewContact {
   first_name: string;
   last_name: string;
   email: string;
-  project_type: string;
+  project_type: string[];
   budget: number;
   delivery: number;
   message: string;

@@ -101,20 +101,24 @@ export default function Form() {
           <div className="col-span-2">
             <SnappedScrollInput
               name="budget"
-              label="Budget"
+              label={contactStrings.budget}
               control={control}
               unit={1 / 15}
-              mapValueToLabel={mapContactBudgetToLabel}
+              mapValueToLabel={(v) =>
+                mapContactBudgetToLabel(v, contactStrings.budget)
+              }
             />
           </div>
 
           <div className="col-span-2">
             <SnappedScrollInput
               name="delivery"
-              label="Delivery"
+              label={contactStrings.delivery}
               control={control}
               unit={1 / 9}
-              mapValueToLabel={mapContactDeliveryToLabel}
+              mapValueToLabel={(v) =>
+                mapContactDeliveryToLabel(v, contactStrings.delivery)
+              }
             />
           </div>
           <div className="col-span-2">

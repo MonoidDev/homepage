@@ -78,6 +78,10 @@ export const MobileFileInput: React.VFC<MobileFileInputProps> = (props) => {
           // Safari doesn't work with select-files
           const files = e.target.files ?? [];
           if (files[0]) {
+            if (files[0].size >= 8 * 1024 * 1024) {
+              alert('Sorry, we cannot upload files bigger than 8Mb. ');
+              return;
+            }
             controller.field.onChange([
               ...controller.field.value,
               { file: files[0] },

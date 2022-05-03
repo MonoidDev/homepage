@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 
 import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
 
 import { MutationAlert } from '../MutationAlert';
 import { ContactInput } from './ContactInput';
 import { ContactMessageInput } from './ContactMessageInput';
 import { ContactProjectTypeInput } from './ContactProjectTypeInput';
-import { useContactStrings } from './contactUtils';
+import { useContactForm, useContactStrings } from './contactUtils';
 import { SnappedScrollInput } from './SnappedScrollInput';
 import {
   mapContactBudgetToLabel,
@@ -35,18 +34,7 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
     control,
     reset,
     formState: { errors },
-  } = useForm({
-    mode: 'onChange',
-    defaultValues: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      project_type: '',
-      budget: 0,
-      delivery: 0,
-      message: '',
-    },
-  });
+  } = useContactForm();
 
   useEffect(() => {
     trigger();
@@ -88,20 +76,22 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
         <div className="col-span-2">
           <SnappedScrollInput
             name="budget"
-            label="Budget"
+            label={strings.budget}
             control={control}
             unit={1 / 15}
-            mapValueToLabel={mapContactBudgetToLabel}
+            mapValueToLabel={(v) => mapContactBudgetToLabel(v, strings.budget)}
           />
         </div>
 
         <div className="col-span-2">
           <SnappedScrollInput
             name="delivery"
-            label="Delivery"
+            label={strings.delivery}
             control={control}
             unit={1 / 9}
-            mapValueToLabel={mapContactDeliveryToLabel}
+            mapValueToLabel={(v) =>
+              mapContactDeliveryToLabel(v, strings.delivery)
+            }
           />
         </div>
       </div>
