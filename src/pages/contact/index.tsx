@@ -8,6 +8,7 @@ import Reset from '@/assets/images/Reset.svg';
 import Telephone from '@/assets/images/Telephone.svg';
 import { ContactDialog } from '@/components/contact/ContactDialog';
 import { MobileNavigation } from '@/components/recruit/MobileNavigation';
+import { useLocale } from '@/utils/useLocale';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -21,12 +22,22 @@ const useStrings = makeStrings({
       </>
     ),
   },
+  'ja-JP': {
+    jumpToGoogleMap: 'GOOGLE MAPで開く',
+    address: <>〒100-0004 東京都大手町1-7-2 東京サンケイビル 27F</>,
+  },
+  'zh-CN': {
+    access: '访问我们',
+    contact: '联系方式',
+    jumpToGoogleMap: '在 GOOGLE MAP 打开',
+  },
 });
 
 export default function Contact() {
   const strings = useStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
+  const locale = useLocale();
 
   const googleMapUrl =
     'https://maps.google.com/maps?width=720&height=400&hl=en&q=Tokyo%20Sankei+(Monoid)&t=&z=18&ie=UTF8&iwloc=B&output=embed';
@@ -34,7 +45,12 @@ export default function Contact() {
   const renderAccess = () => {
     return (
       <div className="flex-1">
-        <h2 className="font-loose font-bold text-[80px] sm:hidden">
+        <h2
+          className={clsx(
+            'font-loose font-bold text-[80px] sm:hidden',
+            locale === 'zh-CN' && '!text-[60px]',
+          )}
+        >
           {strings.access}
         </h2>
         <div className="grayscale overflow-hidden rounded-[45px] sm:rounded-[25px] border-2 border-black">
@@ -71,7 +87,12 @@ export default function Contact() {
           </button>
         </div>
 
-        <div className="font-dense text-[40px] sm:text-[30px] leading-tight mt-[1.5rem]">
+        <div
+          className={clsx(
+            'font-dense text-[40px] sm:text-[30px] leading-tight mt-[1.5rem]',
+            locale === 'ja-JP' && '!text-[35px] sm:!text-[24px] font-bold',
+          )}
+        >
           {strings.address}
         </div>
       </div>
@@ -81,7 +102,12 @@ export default function Contact() {
   const renderContact = () => {
     return (
       <div className="flex-1">
-        <h2 className="font-loose font-bold text-[80px] pb-8 sm:hidden">
+        <h2
+          className={clsx(
+            'font-loose font-bold text-[80px] sm:hidden',
+            locale === 'zh-CN' && '!text-[60px]',
+          )}
+        >
           {strings.contact}
         </h2>
 

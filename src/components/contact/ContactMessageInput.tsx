@@ -52,7 +52,7 @@ export const ContactMessageInput = React.forwardRef<
         )}
         disabled={!!error}
       >
-        SEND
+        {strings.send}
       </button>
     </div>
   );

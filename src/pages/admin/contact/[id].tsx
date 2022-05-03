@@ -52,10 +52,13 @@ export default function ContactId(props: ContactIdProps) {
             </a>,
           )}
 
-          {renderInfo('Project Type', data.project_type)}
+          {renderInfo('Project Type', data.project_type.join(', '))}
 
-          {renderInfo('Budget', mapContactBudgetToLabel(data.budget))}
-          {renderInfo('Delivery', mapContactDeliveryToLabel(data.delivery))}
+          {renderInfo('Budget', mapContactBudgetToLabel(data.budget, '-'))}
+          {renderInfo(
+            'Delivery',
+            mapContactDeliveryToLabel(data.delivery, '-'),
+          )}
 
           {renderMultilineInfo('Message', data.message)}
         </div>

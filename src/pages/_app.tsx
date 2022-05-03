@@ -24,7 +24,9 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const client = useMemo(() => new QueryClient(), []);
 
   const token = useToken();
-  const [loadingDone, setLoadingDone] = useState(!shouldDisplayLoading);
+  const [loadingDone, setLoadingDone] = useState(
+    !shouldDisplayLoading || router.pathname.startsWith('/admin'),
+  );
 
   return (
     <PlausibleProvider

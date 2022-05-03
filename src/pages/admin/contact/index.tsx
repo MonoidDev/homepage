@@ -23,7 +23,7 @@ export default function ContactIndex(props: ContactIndexProps) {
 
   return (
     <AdminContainer>
-      <div className="px-[4rem] py-[2rem]">
+      <div className="px-[4rem] sm:px-[1rem] py-[2rem] sm:py-0">
         <h2 className="text-[36px] font-loose mb-[1rem]">Contacts</h2>
         <table className={clsx('w-full', styles.table)}>
           <tbody>

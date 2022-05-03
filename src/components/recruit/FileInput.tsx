@@ -56,6 +56,10 @@ export const FileInput: React.VFC<FileInputProps> = (props) => {
   const { value } = controller.field;
 
   const onAddFiles = (files: File[]) => {
+    if (files.some((f) => f.size >= 8 * 1024 * 1024)) {
+      alert('Sorry, we cannot upload files bigger than 8Mb. ');
+      return;
+    }
     controller.field.onChange([...value, ...files.map((file) => ({ file }))]);
   };
 
