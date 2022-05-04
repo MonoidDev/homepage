@@ -6,8 +6,6 @@ import { useRouter } from 'next/router';
 
 import { useDescriptionStrings, useKeywordsStrings } from '@/data/seoConfig';
 
-// import { useSeoStrings } from '@/data/seoConfig';
-
 export interface MetaProps {
   title: string;
   canonical?: string;
@@ -86,6 +84,7 @@ export const Meta: React.VFC<MetaProps> = (props) => {
           color="#ffffff"
         />
         <meta name="apple-mobile-web-app-title" content="Snippit" />
+
         <meta name="application-name" content="Monoid" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
@@ -102,6 +101,8 @@ export const Meta: React.VFC<MetaProps> = (props) => {
           locale: router.locale,
           site_name: 'G.K. Monoid | 合同会社Monoid | Monoid',
         }}
+        noindex={router.route.includes('admin')}
+        nofollow={router.route.includes('admin')}
       />
     </>
   );
