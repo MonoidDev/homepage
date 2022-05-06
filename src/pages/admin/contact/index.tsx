@@ -29,17 +29,20 @@ export default function ContactIndex(props: ContactIndexProps) {
           <tbody>
             <tr>
               <th>Date</th>
+              <th>Company</th>
               <th>Name</th>
               <th>Email</th>
               <th>Type</th>
+              <th>Budget</th>
+              <th>Delivery</th>
+              <th>Message</th>
               <th />
             </tr>
             {data.contacts.map((item) => (
               <tr key={item.id}>
                 <td>{dayjs(item.created_at).format('YYYY-MM-DD HH:mm')}</td>
-                <td>
-                  {item.first_name} {item.last_name}
-                </td>
+                <td>{item.company}</td>
+                <td>{item.name}</td>
                 <td>
                   <a
                     className="text-lime-700 underline"
@@ -49,7 +52,12 @@ export default function ContactIndex(props: ContactIndexProps) {
                     {item.email}
                   </a>
                 </td>
-                <td>{item.project_type}</td>
+                <td>{item.project_type.join('/')}</td>
+                <td>{item.budget}</td>
+                <td>{item.delivery}</td>
+                <td className="whitespace-pre overflow-hidden text-ellipsis max-w-[100px]">
+                  {item.message}
+                </td>
                 <td className="text-lime-700 underline">
                   <Link href={`/admin/contact/${item.id}`}>
                     <a>Detail</a>

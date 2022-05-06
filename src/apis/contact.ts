@@ -24,13 +24,14 @@ export const mapContactDeliveryToLabel = (v: number, defaultLabel: string) => {
 };
 
 export interface NewContact {
-  first_name: string;
-  last_name: string;
+  company: string;
+  name: string;
   email: string;
   project_type: string[];
-  budget: number;
-  delivery: number;
+  budget: string;
+  delivery: string;
   message: string;
+  locale: string;
 }
 export interface Contact extends NewContact {
   id: number;

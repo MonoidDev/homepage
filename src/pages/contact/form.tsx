@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 import {
   mapContactBudgetToLabel,
@@ -16,6 +17,7 @@ import { useContactStrings } from '@/components/contact/contactUtils';
 import { SnappedScrollInput } from '@/components/contact/SnappedScrollInput';
 import { MutationAlert } from '@/components/MutationAlert';
 import { MobileNavigation } from '@/components/recruit/MobileNavigation';
+import { useLocale } from '@/utils/useLocale';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -32,6 +34,8 @@ const useStrings = makeStrings({
 
 export default function Form() {
   const strings = useStrings();
+  const locale = useLocale();
+  const router = useRouter();
 
   const postContacts = usePostContacts();
   const contactStrings = useContactStrings();
@@ -58,9 +62,19 @@ export default function Form() {
           'flex-1 flex flex-col sm:px-[28px] sm:py-[28px] overflow-auto',
         )}
         onSubmit={handleSubmit(async (values) => {
-          await postContacts.mutateAsync(values);
+          await postContacts.mutateAsync({
+            company: values.company,
+            name: values.name,
+            email: values.email,
+            project_type: values.project_type,
+            budget: mapContactBudgetToLabel(values.budget, '-'),
+            delivery: mapContactDeliveryToLabel(values.delivery, '-'),
+            message: values.message,
+            locale,
+          });
           reset();
           alert(strings.success);
+          router.push('/contact');
         })}
       >
         <h2 className="font-loose font-bold text-[40px] leading-none mb-[1rem]">
@@ -72,18 +86,18 @@ export default function Form() {
           style={{ gridAutoRows: 'min-content' }}
         >
           <ContactInput
-            label={contactStrings.firstName}
-            name="first_name"
+            label={contactStrings.company}
+            name="company"
             register={register}
-            error={errors.first_name}
+            error={errors.company}
             required
           />
 
           <ContactInput
-            label={contactStrings.lastName}
-            name="last_name"
+            label={contactStrings.name}
+            name="name"
             register={register}
-            error={errors.last_name}
+            error={errors.name}
             required
           />
 

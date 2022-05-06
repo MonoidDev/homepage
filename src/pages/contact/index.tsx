@@ -113,10 +113,10 @@ export default function Contact() {
 
         <div className="grid grid-cols-[120px_1fr] sm:grid-cols-[60px_1fr] gap-y-8 sm:gap-y-2 font-dense text-[35px] sm:text-[30px] sm:items-center sm:mb-[3rem] leading-tight">
           <div>
-            <Telephone height={45} className="sm:hidden" />
-            <Telephone width={30} className=">sm:hidden relative top-[-2px]" />
+            <Telephone height={48} className="sm:hidden relative left-[8px]" />
+            <Telephone width={25} className=">sm:hidden relative top-[-2px]" />
           </div>
-          <div>
+          <div className="pt-[4px]">
             <a href="tel:+81-03-3242-3072" className="hover:text-gray-700">
               03-3242-3072
             </a>
@@ -125,7 +125,7 @@ export default function Contact() {
             <Mail height={45} className="sm:hidden" />
             <Mail width={30} className=">sm:hidden" />
           </div>
-          <div>
+          <div className="pt-[4px]">
             <a
               href="mailto:ymao@monoidtech.com"
               className="hover:text-gray-700"

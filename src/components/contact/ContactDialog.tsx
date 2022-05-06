@@ -41,7 +41,7 @@ export const ContactDialog: React.VFC = () => {
         style={
           t !== 1
             ? {
-                left: `${40 * (1 - t)}vw`,
+                left: `${50 * (1 - t)}vw`,
                 top: `${30 * (1 - t)}vh`,
                 opacity: 0.5 + (1 - 0.5) * t,
                 transform: `scale(${0.9 + 0.1 * t}) rotate(${

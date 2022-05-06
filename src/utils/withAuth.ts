@@ -17,7 +17,7 @@ export const withAuth = <T>(get: GetServerSideProps<T>) => {
             return {
               redirect: {
                 statusCode: 301 as const,
-                destination: `/admin/login?next=${context.req.url}`,
+                destination: `/admin/login?next=${context.resolvedUrl}`,
               },
             };
           }

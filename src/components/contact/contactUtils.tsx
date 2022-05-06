@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 export const useContactStrings = makeStrings({
   'en-US': {
     contactTitle: 'CONTACT SHEET',
-    firstName: 'First Name',
-    lastName: 'Last Name',
+    company: 'Company',
+    name: 'Name',
     emailAddress: 'Email Address',
     messageBoard: (
       <>
@@ -20,8 +20,8 @@ export const useContactStrings = makeStrings({
   },
   'ja-JP': {
     contactTitle: 'CONTACT SHEET',
-    firstName: '姓',
-    lastName: '名',
+    company: '会社名',
+    name: 'お名前',
     emailAddress: 'Eメール',
     messageBoard: (
       <>
@@ -36,8 +36,8 @@ export const useContactStrings = makeStrings({
   },
   'zh-CN': {
     contactTitle: '联系我们',
-    firstName: '姓',
-    lastName: '名',
+    company: '公司名',
+    name: '姓名',
     emailAddress: '邮箱号',
     messageBoard: (
       <>
@@ -56,8 +56,8 @@ export const useContactForm = () => {
   return useForm({
     mode: 'onChange',
     defaultValues: {
-      first_name: '',
-      last_name: '',
+      company: '',
+      name: '',
       email: '',
       project_type: [] as string[],
       budget: 0,

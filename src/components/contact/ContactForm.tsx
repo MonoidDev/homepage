@@ -14,6 +14,7 @@ import {
   usePostContacts,
 } from '@/apis/contact';
 import ContactClose from '@/assets/images/ContactClose.svg';
+import { useLocale } from '@/utils/useLocale';
 
 export interface ContactFormProps {
   open: boolean;
@@ -26,6 +27,8 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
 
   const strings = useContactStrings();
   const postContacts = usePostContacts();
+
+  const locale = useLocale();
 
   const {
     register,
@@ -47,18 +50,18 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
         style={{ gridAutoRows: 'min-content' }}
       >
         <ContactInput
-          label={strings.firstName}
-          name="first_name"
+          label={strings.company}
+          name="company"
           register={register}
-          error={errors.first_name}
+          error={errors.company}
           required
         />
 
         <ContactInput
-          label={strings.lastName}
-          name="last_name"
+          label={strings.name}
+          name="name"
           register={register}
-          error={errors.last_name}
+          error={errors.name}
           required
         />
 
@@ -114,7 +117,16 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
         className,
       )}
       onSubmit={handleSubmit(async (values) => {
-        await postContacts.mutateAsync(values);
+        await postContacts.mutateAsync({
+          company: values.company,
+          name: values.name,
+          email: values.email,
+          project_type: values.project_type,
+          budget: mapContactBudgetToLabel(values.budget, '-'),
+          delivery: mapContactDeliveryToLabel(values.delivery, '-'),
+          message: values.message,
+          locale,
+        });
         reset();
         alert('Thank you for your message!');
         onClose();
