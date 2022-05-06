@@ -14,7 +14,7 @@ const fs = require('fs');
       staticPages.push(`${baseUrl}/${language}`);
       fs.readdirSync('./src/pages')
         .filter((staticPage) => {
-          return !['_app.tsx', '_document.tsx', 'index.tsx'].includes(staticPage);
+          return !['_app.tsx', '_document.tsx', 'index.tsx','admin'].includes(staticPage);
         })
         .map((staticPagePath) => {
           staticPages.push(`${baseUrl}/${language}/${staticPagePath}`);
