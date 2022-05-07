@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { NextSeo } from 'next-seo';
+import { NextSeo, JobPostingJsonLd, LogoJsonLd } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -20,22 +20,23 @@ export const Meta: React.VFC<MetaProps> = (props) => {
     'home' | 'company' | 'works' | 'recruit' | 'contact'
   >('home');
 
+  const routeString = router.route.split('/')[1];
+
   useEffect(() => {
-    switch (router.route) {
-      case '/':
+    switch (routeString) {
+      case '':
         setLocation('home');
         break;
-      case '/company':
+      case 'company':
         setLocation('company');
         break;
-      case '/works':
+      case 'works':
         setLocation('works');
         break;
-      case '/recruit':
+      case 'recruit':
         setLocation('recruit');
         break;
-
-      case '/contact':
+      case 'contact':
         setLocation('contact');
         break;
       default:
@@ -104,6 +105,37 @@ export const Meta: React.VFC<MetaProps> = (props) => {
         noindex={router.route.includes('admin')}
         nofollow={router.route.includes('admin')}
       />
+      <LogoJsonLd
+        logo="https://monoid.co.jp/logo.png"
+        url="https://monoid.co.jp"
+      />
+      {routeString === 'recruit' && router.query.name && (
+        <JobPostingJsonLd
+          datePosted={new Date().toISOString()}
+          description={descriptionStrings.company}
+          hiringOrganization={{
+            name: 'Monoid',
+            sameAs: 'monoid.co.jp',
+          }}
+          jobLocation={{
+            streetAddress: 'Tokyo Sankei Building, 27F',
+            addressLocality: 'Tokyo',
+            addressRegion: 'Tokyo',
+            postalCode: '100-0004',
+            addressCountry: 'Japan',
+          }}
+          title={router.query.name.toString()}
+          baseSalary={{
+            currency: 'JPY',
+            value: 3000,
+            unitText: 'HOUR',
+          }}
+          employmentType="CONTRACTOR"
+          jobLocationType="TELECOMMUTE"
+          validThrough={new Date().toISOString()}
+          applicantLocationRequirements="ANY"
+        />
+      )}
     </>
   );
 };
