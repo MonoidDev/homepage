@@ -8,12 +8,16 @@ interface RecruitSuccessCanvasProps {
   onDone?: () => void;
 }
 
-useGLTF.preload('/models/post1.glb');
+const MODEL_SOURCE = '/models/post0505动画22.glb';
+
+if (typeof window !== 'undefined') {
+  useGLTF.preload(MODEL_SOURCE);
+}
 
 const RecruitSuccessCanvas: React.VFC<RecruitSuccessCanvasProps> = (props) => {
   const { onDone } = props;
 
-  const gltf = useGLTF('/models/post1.glb');
+  const gltf = useGLTF(MODEL_SOURCE);
   const { camera } = useThree();
 
   const { actions, mixer } = useAnimations(gltf.animations, gltf.scene);
