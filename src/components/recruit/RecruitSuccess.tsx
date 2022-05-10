@@ -27,7 +27,7 @@ const RecruitSuccessCanvas: React.VFC<RecruitSuccessCanvasProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    requestIdleCallback(() => {
+    (window.requestIdleCallback || setTimeout)(() => {
       const mail = actions['平面.002Action.002']!;
       const gate = actions['柱体.003Action.001']!;
       const postbox = actions['空物体Action.001']!;
