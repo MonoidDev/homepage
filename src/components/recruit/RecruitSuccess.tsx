@@ -5,8 +5,10 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { AxesHelper, LoopOnce } from 'three';
 
 interface RecruitSuccessCanvasProps {
-  onDone: () => void;
+  onDone?: () => void;
 }
+
+useGLTF.preload('/models/post1.glb');
 
 const RecruitSuccessCanvas: React.VFC<RecruitSuccessCanvasProps> = (props) => {
   const { onDone } = props;
@@ -39,9 +41,7 @@ const RecruitSuccessCanvas: React.VFC<RecruitSuccessCanvasProps> = (props) => {
 
       mixer.addEventListener('finished', (e) => {
         if (e.action.getClip() === gate.getClip()) {
-          setTimeout(() => {
-            onDone();
-          }, 2000);
+          onDone?.();
         }
       });
     });
@@ -56,28 +56,30 @@ const RecruitSuccessCanvas: React.VFC<RecruitSuccessCanvasProps> = (props) => {
 };
 
 export interface RecruitSuccessProps {
-  onDone: () => void;
+  shouldLoad: boolean;
+  zoom?: number;
+  onDone?: () => void;
 }
 
 export const RecruitSuccess: React.VFC<RecruitSuccessProps> = (props) => {
-  const { onDone } = props;
+  const { shouldLoad, onDone, zoom = 6.5 } = props;
 
   return (
-    <div className="bg-white self-stretch w-[550px]">
-      <Canvas
-        dpr={[1, 2]}
-        camera={{
-          fov: 75,
-          near: 0.1,
-          far: 1000,
-          zoom: 6.5,
-          position: [-17, 17, -25],
-        }}
-      >
+    <Canvas
+      dpr={[1, 2]}
+      camera={{
+        fov: 75,
+        near: 0.1,
+        far: 1000,
+        zoom,
+        position: [-17, 17, -25],
+      }}
+    >
+      {shouldLoad && (
         <Suspense fallback={null}>
           <RecruitSuccessCanvas onDone={onDone} />
         </Suspense>
-      </Canvas>
-    </div>
+      )}
+    </Canvas>
   );
 };

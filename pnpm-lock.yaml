@@ -43,6 +43,7 @@ specifiers:
   prettier: ^2.5.1
   prop-types: ^15.8.1
   react: ^18.0.0
+  react-countdown-hook: ^1.1.1
   react-dom: ^18.0.0
   react-hook-form: ^7.29.0
   react-query: ^3.38.0
@@ -75,6 +76,7 @@ dependencies:
   postcss: 8.4.11
   prop-types: 15.8.1
   react: 18.0.0
+  react-countdown-hook: 1.1.1_react@18.0.0
   react-dom: 18.0.0_react@18.0.0
   react-hook-form: 7.29.0_react@18.0.0
   react-query: 3.38.0_react-dom@18.0.0+react@18.0.0
@@ -4716,6 +4718,14 @@ packages:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       prop-types: 15.8.1
+      react: 18.0.0
+    dev: false
+
+  /react-countdown-hook/1.1.1_react@18.0.0:
+    resolution: {integrity: sha512-+/vH6zK2H0yM9dPWJOa3hnLsBWWjwwi/6KOXDBc6F65lrc8vmuMozjTOlLhG4AtyyOTJAd2bvJhlph8IPqrXxg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+    dependencies:
       react: 18.0.0
     dev: false
 
