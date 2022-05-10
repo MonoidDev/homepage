@@ -127,7 +127,7 @@ export default function Contact() {
           </div>
           <div className="pt-[4px]">
             <a
-              href="mailto:ymao@monoidtech.com"
+              href="mailto:info@monoidtech.com"
               className="hover:text-gray-700"
             >
               info@monoidtech.com

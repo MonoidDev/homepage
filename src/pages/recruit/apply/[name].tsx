@@ -42,7 +42,7 @@ export default function Apply() {
       cover_letter: values.cover_letter,
     });
 
-    push('/recruit');
+    push('/recruit/success');
   };
 
   return (
