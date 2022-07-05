@@ -21,7 +21,7 @@
     "@svgr/webpack": "^6.2.1",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^17.0.18",
-    "@types/react": "^17.0.43",
+    "@types/react": "18.0.15",
     "@types/three": "^0.138.0",
     "autoprefixer": "^10.4.2",
     "clsx": "^1.1.1",
