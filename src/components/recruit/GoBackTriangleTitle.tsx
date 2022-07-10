@@ -3,6 +3,7 @@ import LeftTriangleMobile from '@/assets/images/LeftTriangleMobile.svg';
 export interface GoBackTriangleTitle {
   noIcon?: boolean;
   onClick?: () => void;
+  children: React.ReactNode;
 }
 
 export const GoBackTriangleTitle: React.FC<GoBackTriangleTitle> = (props) => {

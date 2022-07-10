@@ -4,7 +4,11 @@ import Link from 'next/link';
 
 import { auth } from '@/utils/auth';
 
-export const AdminContainer: React.FC = (props) => {
+export interface AdminContainerProps {
+  children: React.ReactNode;
+}
+
+export const AdminContainer: React.FC<AdminContainerProps> = (props) => {
   const { children } = props;
 
   const renderNavigationButton = (label: string, href: string) => {

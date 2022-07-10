@@ -18,6 +18,7 @@ interface NavMenuItemProps {
   isLast?: boolean;
   action: 'open' | 'close';
   href?: string;
+  children: React.ReactNode;
 }
 
 const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
@@ -90,7 +91,7 @@ export const LayoutMenu: React.VFC<{
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col z-[10]">
       <div className="px-12 pt-12 pb-8">
         <div className="flex relative items-center">
           <div

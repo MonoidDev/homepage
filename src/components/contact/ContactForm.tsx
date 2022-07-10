@@ -22,7 +22,7 @@ export interface ContactFormProps {
   className?: string;
 }
 
-export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
+export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
   const { open, onClose, className } = props;
 
   const strings = useContactStrings();
@@ -80,7 +80,7 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
           <SnappedScrollInput
             name="budget"
             label={strings.budget}
-            control={control}
+            control={control as any}
             unit={1 / 15}
             mapValueToLabel={(v) => mapContactBudgetToLabel(v, strings.budget)}
           />
@@ -90,7 +90,7 @@ export const ContactForm: React.VFC<ContactFormProps> = React.memo((props) => {
           <SnappedScrollInput
             name="delivery"
             label={strings.delivery}
-            control={control}
+            control={control as any}
             unit={1 / 9}
             mapValueToLabel={(v) =>
               mapContactDeliveryToLabel(v, strings.delivery)

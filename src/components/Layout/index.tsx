@@ -9,6 +9,7 @@ export interface LayoutProps {
   meta: React.ReactNode;
   theme: Theme;
   screenHeight: boolean;
+  children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {

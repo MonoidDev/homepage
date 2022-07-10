@@ -37,16 +37,18 @@ const useStrings = makeStrings({
   },
 });
 
-export const ContactProjectTypeInput: React.VFC<{ control: Control<any> }> = (
-  props,
-) => {
+export const ContactProjectTypeInput = <
+  T extends { project_type: string[] },
+>(props: {
+  control: Control<T>;
+}) => {
   const { control } = props;
 
   const strings = useStrings();
   const locale = useLocale();
 
   const controller = useController({
-    name: 'project_type',
+    name: 'project_type' as any,
     control,
     rules: { required: true },
   });

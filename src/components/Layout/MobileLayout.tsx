@@ -13,6 +13,7 @@ export interface MobileLayoutProps {
   loadingDone: boolean;
   hideLogo: boolean;
   meta: React.ReactNode;
+  children: React.ReactNode;
   theme: Theme;
 }
 
@@ -40,7 +41,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
           theme === 'white' && 'bg-white text-black',
         )}
       >
-        <div className="h-[110px] flex items-center px-[28px] shrink-0">
+        <div className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
           {!hideLogo && (
             <>
               <a href="/">

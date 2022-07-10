@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import clsx from 'clsx';
 import { Control, useController } from 'react-hook-form';
 
-export const SnappedScrollInput: React.VFC<{
+export const SnappedScrollInput: React.FC<{
   name: string;
   label: string;
   control: Control<any>;

@@ -52,7 +52,7 @@ export const MobileFileInput: React.VFC<MobileFileInputProps> = (props) => {
 
   const controller = useController<{ [K in string]: FileItem[] }>({
     name,
-    control,
+    control: control as any,
   });
 
   const uploadRef = useRef<HTMLInputElement>(null);

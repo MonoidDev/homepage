@@ -21,6 +21,7 @@ const useStrings = makeStrings({
 
 interface MobileCardContainerProps {
   name: string;
+  children: React.ReactNode;
 }
 
 const MobileCardContainer: React.FC<MobileCardContainerProps> = (props) => {

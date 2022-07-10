@@ -113,17 +113,17 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
             <ScrollInput
               label="English"
               name="language_english"
-              control={control}
+              control={control as any}
             />
             <ScrollInput
               label="Chinese"
               name="language_chinese"
-              control={control}
+              control={control as any}
             />
             <ScrollInput
               label="Japanese"
               name="language_japanese"
-              control={control}
+              control={control as any}
             />
           </div>
         </div>
@@ -148,7 +148,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
 
           <SkillInput
             label="Technology Skills"
-            control={control}
+            control={control as any}
             error={formState.errors.technology_skills as any}
             {...registry.technology_skills()}
           />
@@ -165,7 +165,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
             <h3 className={clsx(styles.formSectionTitle, 'mb-[1rem]')}>
               Resume etc.
             </h3>
-            <FileInput name="resume_urls" control={control} />
+            <FileInput name="resume_urls" control={control as any} />
           </div>
 
           <div>

@@ -255,7 +255,7 @@ export const SkillInput: React.VFC<SkillInputProps> = React.forwardRef(
 
     const controller = useController<{ [K in string]: SkillItem[] }>({
       name,
-      control,
+      control: control as any,
     });
 
     const { value } = controller.field;

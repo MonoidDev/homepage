@@ -116,7 +116,7 @@ export default function Form() {
             <SnappedScrollInput
               name="budget"
               label={contactStrings.budget}
-              control={control}
+              control={control as any}
               unit={1 / 15}
               mapValueToLabel={(v) =>
                 mapContactBudgetToLabel(v, contactStrings.budget)
@@ -128,7 +128,7 @@ export default function Form() {
             <SnappedScrollInput
               name="delivery"
               label={contactStrings.delivery}
-              control={control}
+              control={control as any}
               unit={1 / 9}
               mapValueToLabel={(v) =>
                 mapContactDeliveryToLabel(v, contactStrings.delivery)

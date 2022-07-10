@@ -15,7 +15,7 @@ export const ScrollInput: React.VFC<ScrollInputProps> = (props) => {
 
   const controller = useController<{ [K in string]: number }>({
     name,
-    control,
+    control: control as any,
   });
 
   const { value } = controller.field;

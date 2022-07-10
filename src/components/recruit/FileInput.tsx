@@ -50,7 +50,7 @@ export const FileInput: React.VFC<FileInputProps> = (props) => {
 
   const controller = useController<{ [K in string]: FileItem[] }>({
     name,
-    control,
+    control: control as any,
   });
 
   const { value } = controller.field;

@@ -149,12 +149,20 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
       )}
 
       {renderTitle('Language Skills')}
-      <ScrollInput label="English" name="language_english" control={control} />
-      <ScrollInput label="Chinese" name="language_chinese" control={control} />
+      <ScrollInput
+        label="English"
+        name="language_english"
+        control={control as any}
+      />
+      <ScrollInput
+        label="Chinese"
+        name="language_chinese"
+        control={control as any}
+      />
       <ScrollInput
         label="Japanese"
         name="language_japanese"
-        control={control}
+        control={control as any}
       />
     </>
   );
@@ -172,7 +180,7 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
       {programmer && (
         <SkillInput
           label="Technology Skills"
-          control={control}
+          control={control as any}
           error={formState.errors.technology_skills as any}
           {...registry.technology_skills()}
         />
@@ -191,7 +199,7 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
   const renderStep3 = () => (
     <>
       {renderTitle('Resume')}
-      <MobileFileInput name="resume_urls" control={control} />
+      <MobileFileInput name="resume_urls" control={control as any} />
     </>
   );
 
