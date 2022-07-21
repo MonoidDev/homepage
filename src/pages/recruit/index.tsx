@@ -29,6 +29,7 @@ export default function Recruit() {
         autoPlay
         muted
         loop
+        playsInline
         className="object-cover w-[100vw] h-[100vh] fixed z-[1]"
       >
         <source src="/videos/recruit.mp4" type="video/mp4" />
