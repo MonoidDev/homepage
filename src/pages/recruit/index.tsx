@@ -30,9 +30,19 @@ export default function Recruit() {
         muted
         loop
         playsInline
-        className="object-cover w-[100vw] h-[100vh] fixed z-[1]"
+        className="object-cover w-[100vw] h-[100vh] fixed z-[1] sm:hidden"
       >
         <source src="/videos/recruit.mp4" type="video/mp4" />
+      </video>
+
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="object-cover w-[100vw] h-[100vh] fixed z-[1] >sm:hidden"
+      >
+        <source src="/videos/recruit-mobile.mp4" type="video/mp4" />
       </video>
 
       <div className="w-[100vw] h-[100vh] fixed z-[1] bg-black bg-opacity-70" />
