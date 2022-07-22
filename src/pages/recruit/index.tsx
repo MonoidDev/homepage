@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 import Link from 'next/link';
+
+import { useScreen } from '@/utils/useScreen';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -22,28 +24,34 @@ const useStrings = makeStrings({
 
 export default function Recruit() {
   const strings = useStrings();
+  const screen = useScreen();
+
+  const [shouldShowVideo, setShouldShowVideo] = useState(false);
+
+  useEffect(() => {
+    setShouldShowVideo(true);
+  }, []);
 
   return (
     <>
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="object-cover w-[100vw] h-[100vh] fixed z-[1] sm:hidden"
-      >
-        <source src="/videos/recruit.mp4" type="video/mp4" />
-      </video>
+      {screen === 'desktop' && shouldShowVideo && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="object-cover w-[100vw] h-[100vh] fixed z-[1]"
+        >
+          <source src="/videos/recruit.mp4" type="video/mp4" />
+        </video>
+      )}
 
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="object-cover w-[100vw] h-[100vh] fixed z-[1] >sm:hidden"
-      >
-        <source src="/videos/recruit-mobile.mp4" type="video/mp4" />
-      </video>
+      {screen === 'mobile' && shouldShowVideo && (
+        <img
+          className="object-cover w-[100vw] h-[100vh] fixed z-[1]"
+          src="/videos/recruit-mobile.gif"
+        />
+      )}
 
       <div className="w-[100vw] h-[100vh] fixed z-[1] bg-black bg-opacity-70" />
 
