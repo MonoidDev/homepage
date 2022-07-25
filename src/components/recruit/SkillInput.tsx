@@ -7,6 +7,7 @@ import { Control, FieldError, useController } from 'react-hook-form';
 import { GoBackTriangleTitle } from './GoBackTriangleTitle';
 import Add from '@/assets/images/Add.svg';
 import ClearSmall from '@/assets/images/ClearSmall.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { getSkillResults } from '@/data/recruit';
 import { useScreen } from '@/utils/useScreen';
 
@@ -88,7 +89,10 @@ const MobileSkillItemInputHint: React.VFC<MobileSkillItemInputHintProps> = (
           className="flex-1 font-bold text-[18px] outline-none"
           placeholder="Skill (ex Python)"
         />
-        <button onClick={() => setValue('')}>
+        <button
+          aria-label={ariaLabelStrings.clear}
+          onClick={() => setValue('')}
+        >
           <ClearSmall />
         </button>
       </div>
@@ -252,6 +256,7 @@ export interface SkillInputProps {
 export const SkillInput: React.VFC<SkillInputProps> = React.forwardRef(
   (props, ref) => {
     const { label, name, error, control } = props;
+    const ariaLabelStrings = useAriaLabelStrings();
 
     const controller = useController<{ [K in string]: SkillItem[] }>({
       name,
@@ -304,6 +309,7 @@ export const SkillInput: React.VFC<SkillInputProps> = React.forwardRef(
           ))}
 
           <button
+            aria-label={ariaLabelStrings.add}
             type="button"
             className={clsx(
               'h-[42px] w-[42px] p-[7px] bg-[#DFDFDF] rounded-full flex justify-center items-center',

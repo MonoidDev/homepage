@@ -1,0 +1,40 @@
+import { makeStrings } from '@monoid-dev/use-strings';
+
+export const useAriaLabelStrings = makeStrings({
+  'en-US': {
+    close: 'Close',
+    languages: 'Languages',
+    menu: 'Menu',
+    delete: 'Delete',
+    upload: 'Upload',
+    clear: 'Clear',
+    add: 'Add',
+    reset: 'Reset',
+    back: 'Back',
+    apply: 'Apply',
+  },
+  'zh-CN': {
+    close: '关闭',
+    languages: '语言',
+    menu: '菜单',
+    delete: '删除',
+    upload: '上传',
+    clear: '清除',
+    add: '添加',
+    reset: '重置',
+    back: '后退',
+    apply: '申请',
+  },
+  'ja-JP': {
+    close: 'クローズ',
+    languages: '言語',
+    menu: 'メニュー',
+    delete: '削除',
+    upload: 'アップロード',
+    clear: 'クリア',
+    add: '追加',
+    reset: 'リセット',
+    back: '戻る',
+    apply: '申し込み',
+  },
+});

@@ -7,6 +7,7 @@ import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
 import RightArrowSvg from '@/assets/images/RightArrow.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
 import styles from '@/components/recruit/index.module.css';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { allJobNames, useRecruitStrings } from '@/data/recruit';
 
 export default function JobDescription() {
@@ -15,6 +16,7 @@ export default function JobDescription() {
   } = useRouter();
 
   const descriptions = useRecruitStrings();
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const description = descriptions.jobs.find((item) => item.name === name);
 
@@ -84,7 +86,7 @@ export default function JobDescription() {
 
       <div className="px-[10px] h-[150px] shrink-0 flex items-center justify-between bg-white shadow-[0px_-1px_4px_rgba(0,0,0,0.25)]">
         <Link href="/recruit/jobs">
-          <button>
+          <button aria-label={ariaLabelStrings.back}>
             <div className="font-loose font-bold text-[26px] leading-none">
               BACK
             </div>
@@ -92,7 +94,7 @@ export default function JobDescription() {
           </button>
         </Link>
         <Link href={`/recruit/apply/${name}`}>
-          <button>
+          <button aria-label={ariaLabelStrings.apply}>
             <RightArrowSvg />
             <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
               APPLY

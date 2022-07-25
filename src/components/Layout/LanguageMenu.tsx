@@ -9,8 +9,8 @@ import EN from '@/assets/images/EN.svg';
 import JP from '@/assets/images/JP.svg';
 import Languages from '@/assets/images/Languages.svg';
 import SlashThick from '@/assets/images/SlashThick.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useChain } from '@/utils/animation';
-
 export interface LanguageMenuProps {
   action: 'open' | 'close';
   onChangeAction?: (action: 'open' | 'close') => void;
@@ -20,6 +20,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
   const { action, onChangeAction } = props;
 
   const router = useRouter();
+  const ariaLabelStrings = useAriaLabelStrings();
 
   useEffect(() => {
     if (action === 'open') {
@@ -136,6 +137,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
 
         <div style={{ flex: 1 }} />
         <button
+          aria-label={ariaLabelStrings.languages}
           className="block"
           style={{
             padding: borderRadius! - 32 + 8, // 8 -> 16

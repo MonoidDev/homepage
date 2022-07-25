@@ -7,6 +7,7 @@ import { FileItem } from '@/apis/files';
 import CloudUploadSvg from '@/assets/images/CloudUpload.svg';
 import DeleteBlack from '@/assets/images/DeleteBlack.svg';
 import PdfSvg from '@/assets/images/Pdf.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 
 interface MobileFileInputItemProps {
   item: FileItem;
@@ -15,6 +16,7 @@ interface MobileFileInputItemProps {
 
 const MobileFileInputItem: React.VFC<MobileFileInputItemProps> = (props) => {
   const { item, onDelete } = props;
+  const ariaLabelStrings = useAriaLabelStrings();
 
   return (
     <div
@@ -33,7 +35,7 @@ const MobileFileInputItem: React.VFC<MobileFileInputItemProps> = (props) => {
         {item.file?.name}
       </div>
       <div className="flex-1" />
-      <button onClick={onDelete}>
+      <button aria-label={ariaLabelStrings.delete} onClick={onDelete}>
         <DeleteBlack />
       </button>
     </div>
@@ -49,6 +51,7 @@ export interface MobileFileInputProps {
 
 export const MobileFileInput: React.VFC<MobileFileInputProps> = (props) => {
   const { name, control } = props;
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const controller = useController<{ [K in string]: FileItem[] }>({
     name,
@@ -60,6 +63,7 @@ export const MobileFileInput: React.VFC<MobileFileInputProps> = (props) => {
   const renderUploadButton = () => (
     <>
       <button
+        aria-label={ariaLabelStrings.upload}
         className={clsx(
           'w-[216px] h-[60px] flex items-center justify-center gap-x-[1rem] mb-[1rem]',
           'bg-white border border-black rounded-[5px] font-loose font-bold',

@@ -7,10 +7,12 @@ import CN from '@/assets/images/CN.svg';
 import EN from '@/assets/images/EN.svg';
 import JP from '@/assets/images/JP.svg';
 import LanguagesSvg from '@/assets/images/Languages.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useChain } from '@/utils/animation';
 
 export const MobileLanguageMenu = () => {
   const [open, setOpen] = useState(false);
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const menuChain = useChain([
     {
@@ -76,6 +78,7 @@ export const MobileLanguageMenu = () => {
         {renderLanguageButton('en-US', <EN />)}
       </div>
       <button
+        aria-label={ariaLabelStrings.languages}
         onClick={async () => {
           if (!open) {
             await onOpen();

@@ -14,6 +14,7 @@ import {
   usePostContacts,
 } from '@/apis/contact';
 import ContactClose from '@/assets/images/ContactClose.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useLocale } from '@/utils/useLocale';
 
 export interface ContactFormProps {
@@ -26,6 +27,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
   const { open, onClose, className } = props;
 
   const strings = useContactStrings();
+  const ariaLabelStrings = useAriaLabelStrings();
   const postContacts = usePostContacts();
 
   const locale = useLocale();
@@ -132,7 +134,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
         onClose();
       })}
     >
-      <button onClick={() => onClose()}>
+      <button aria-label={ariaLabelStrings.close} onClick={() => onClose()}>
         <ContactClose className="absolute right-[30px] top-[30px]" />
       </button>
 

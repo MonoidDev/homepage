@@ -6,6 +6,7 @@ import { MenuTick } from './MenuTick';
 import { MobileLayoutMenu } from './MobileLayoutMenu';
 import LogoSvg from '@/assets/images/Logo.svg';
 import LogoWhiteSvg from '@/assets/images/LogoWhite.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { Theme, ThemeProvider } from '@/styles/theme';
 import { useChain } from '@/utils/animation';
 
@@ -19,6 +20,7 @@ export interface MobileLayoutProps {
 
 export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
   const { loadingDone, hideLogo, theme, children } = props;
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const tickOpacity = useChain([
@@ -55,6 +57,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
 
           {!menuOpen && (
             <button
+              aria-label={ariaLabelStrings.menu}
               onClick={async () => {
                 await tickOpacity.play();
                 setMenuOpen(true);

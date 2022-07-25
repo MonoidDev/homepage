@@ -7,6 +7,7 @@ import CloseSvg from '@/assets/images/Close.svg';
 import CloudUploadSvg from '@/assets/images/CloudUpload.svg';
 import HamburgerSvg from '@/assets/images/Hamburger.svg';
 import PdfSvg from '@/assets/images/Pdf.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 
 export interface FileInputItemProps {
   item: FileItem;
@@ -15,6 +16,7 @@ export interface FileInputItemProps {
 
 export const FileInputItem: React.VFC<FileInputItemProps> = (props) => {
   const { item, onDelete } = props;
+  const ariaLabelStrings = useAriaLabelStrings();
 
   return (
     <div
@@ -31,7 +33,11 @@ export const FileInputItem: React.VFC<FileInputItemProps> = (props) => {
         {item.file?.name ?? 'File'}
       </div>
 
-      <button className="absolute right-[-20px] top-[-20px]" onClick={onDelete}>
+      <button
+        aria-label={ariaLabelStrings.close}
+        className="absolute right-[-20px] top-[-20px]"
+        onClick={onDelete}
+      >
         <CloseSvg />
       </button>
     </div>

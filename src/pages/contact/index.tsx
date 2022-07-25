@@ -8,6 +8,7 @@ import Reset from '@/assets/images/Reset.svg';
 import Telephone from '@/assets/images/Telephone.svg';
 import { ContactDialog } from '@/components/contact/ContactDialog';
 import { MobileNavigation } from '@/components/recruit/MobileNavigation';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useLocale } from '@/utils/useLocale';
 
 const useStrings = makeStrings({
@@ -35,6 +36,7 @@ const useStrings = makeStrings({
 
 export default function Contact() {
   const strings = useStrings();
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const [iframeKey, setIframeKey] = useState(1);
   const locale = useLocale();
@@ -76,6 +78,7 @@ export default function Contact() {
             {strings.jumpToGoogleMap}
           </button>
           <button
+            aria-label={ariaLabelStrings.reset}
             onClick={() => setIframeKey((i) => i + 1)}
             className={clsx(
               'flex justify-center items-center font-dense text-black text-[40px] leading-[1.9] h-[64px] sm:h-[40px] w-[120px] sm:w-[40px] rounded-[32px]',
