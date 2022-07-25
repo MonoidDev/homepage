@@ -95,6 +95,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
             <div className="w-[100px] flex items-center justify-center">
               <Link href={router.asPath} locale="ja-JP">
                 <a
+                  aria-label={ariaLabelStrings.jp}
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
                 >
@@ -110,6 +111,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
             <div className="w-[100px] flex items-center justify-center">
               <Link href={router.asPath} locale="en-US">
                 <a
+                  aria-label={ariaLabelStrings.en}
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
                 >
@@ -125,6 +127,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
             <div className="w-[100px] flex items-center justify-center">
               <Link href={router.asPath} locale="zh-CN">
                 <a
+                  aria-label={ariaLabelStrings.cn}
                   style={{ transform: `scale(${buttonScale})` }}
                   onClick={reverse}
                 >

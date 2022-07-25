@@ -46,7 +46,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
         <div className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
           {!hideLogo && (
             <>
-              <a href="/">
+              <a aria-label={ariaLabelStrings.home} href="/">
                 {theme === 'white' && <LogoSvg height={62} />}
                 {theme === 'black' && <LogoWhiteSvg height={62} />}
               </a>

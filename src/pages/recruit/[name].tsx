@@ -23,7 +23,7 @@ export default function JobDescription() {
   const renderDesktopHeader = () => (
     <div className="flex gap-x-[40px] mb-[1rem] font-loose">
       <Link href="/recruit/jobs">
-        <a>
+        <a aria-label={ariaLabelStrings.back}>
           <LeftTriangleSvg className="cursor-pointer" />
         </a>
       </Link>

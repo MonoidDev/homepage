@@ -74,6 +74,11 @@ const AnimatedSlogan: React.VFC = () => {
       href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
     >
       <a
+        aria-label={
+          shouldDisplayLGBT
+            ? 'Monoid supports LGBT rights!'
+            : 'Learn More about Monoid'
+        }
         title={
           shouldDisplayLGBT
             ? 'Monoid supports LGBT rights!'
@@ -116,7 +121,13 @@ const MobileAnimatedSlogan: React.VFC = () => {
     <Link
       href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
     >
-      <a>
+      <a
+        aria-label={
+          shouldDisplayLGBT
+            ? 'Monoid supports LGBT rights!'
+            : 'Learn More about Monoid'
+        }
+      >
         <svg
           className=">sm:hidden [shape-rendering:optimizeSpeed]"
           width="80vw"

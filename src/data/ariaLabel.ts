@@ -2,6 +2,7 @@ import { makeStrings } from '@monoid-dev/use-strings';
 
 export const useAriaLabelStrings = makeStrings({
   'en-US': {
+    home: 'Home',
     close: 'Close',
     languages: 'Languages',
     menu: 'Menu',
@@ -12,8 +13,12 @@ export const useAriaLabelStrings = makeStrings({
     reset: 'Reset',
     back: 'Back',
     apply: 'Apply',
+    jp: 'Japanese',
+    cn: 'Chinese',
+    en: 'English',
   },
   'zh-CN': {
+    home: '首页',
     close: '关闭',
     languages: '语言',
     menu: '菜单',
@@ -24,8 +29,12 @@ export const useAriaLabelStrings = makeStrings({
     reset: '重置',
     back: '后退',
     apply: '申请',
+    jp: '日文',
+    cn: '中文',
+    en: '英文',
   },
   'ja-JP': {
+    home: 'トップページ',
     close: 'クローズ',
     languages: '言語',
     menu: 'メニュー',
@@ -36,5 +45,8 @@ export const useAriaLabelStrings = makeStrings({
     reset: 'リセット',
     back: '戻る',
     apply: '申し込み',
+    jp: '日本語',
+    cn: '中国語',
+    en: '英語',
   },
 });

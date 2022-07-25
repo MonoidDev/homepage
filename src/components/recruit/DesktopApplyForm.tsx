@@ -33,7 +33,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
   const renderHeader = () => (
     <div className="flex gap-x-[40px] mb-[1rem] font-loose">
       <Link href={`/recruit/${name}`}>
-        <a>
+        <a aria-label={name}>
           <LeftTriangleSvg className="cursor-pointer" />
         </a>
       </Link>

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
 import Slash from '@/assets/images/Slash.svg';
+import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useSiteStrings } from '@/data/site';
 import { useTheme } from '@/styles/theme';
 import { useAnimated } from '@/utils/animation';
@@ -34,6 +35,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
       onFinished: () => action === 'open' && setTextExpanded(true),
     },
   );
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const [lastMargin] = isLast
     ? useAnimated(
@@ -47,7 +49,11 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
 
   return (
     <Link href={href ?? ''}>
-      <a className={styles.menuItem} style={{ marginRight: lastMargin }}>
+      <a
+        aria-label={children?.toString() || ariaLabelStrings.menu}
+        className={styles.menuItem}
+        style={{ marginRight: lastMargin }}
+      >
         <div
           className={clsx(
             'flex will-change-[width] will-change-[transform] transition-[transform]',
