@@ -49,7 +49,7 @@ export default function Recruit() {
       {screen === 'mobile' && shouldShowVideo && (
         <img
           className="object-cover w-[100vw] h-[100vh] fixed z-[1]"
-          src="/videos/recruit-mobile.gif"
+          src="/videos/recruit-mobile-2.gif"
         />
       )}
 
