@@ -58,6 +58,7 @@ const MobileSkillItemInputHint: React.VFC<MobileSkillItemInputHintProps> = (
   props,
 ) => {
   const { initialItem, onClose } = props;
+  const ariaLabelStrings = useAriaLabelStrings();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(initialItem.value);

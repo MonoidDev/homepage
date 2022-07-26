@@ -162,7 +162,10 @@ export default function () {
   const router = useRouter();
 
   return (
-    <main className="flex-1 flex flex-col justify-center items-center">
+    <main
+      className="flex-1 flex flex-col justify-center items-center"
+      role="main"
+    >
       <div className="flex flex-col">
         <AnimatedSlogan />
         <MobileAnimatedSlogan />

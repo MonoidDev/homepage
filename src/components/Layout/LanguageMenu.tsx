@@ -88,6 +88,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
           height: 2 * borderRadius!,
           width,
         }}
+        aria-expanded={action === 'open'}
       >
         {currentIndex >= 1 && (
           <>

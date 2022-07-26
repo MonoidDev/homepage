@@ -59,6 +59,7 @@ export default function Recruit() {
         className={
           'font-dense flex-1 flex flex-col overflow-auto px-[100px] sm:px-[32px] pb-[50px] >sm:justify-end text-white z-[10]'
         }
+        role="main"
       >
         <h2 className="text-[140px] sm:text-[80px] sm:leading-[1] sm:mt-[2rem]">
           {strings.title}

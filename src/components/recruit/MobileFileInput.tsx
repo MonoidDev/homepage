@@ -78,6 +78,7 @@ export const MobileFileInput: React.VFC<MobileFileInputProps> = (props) => {
         accept="application/pdf"
         className="hidden"
         ref={uploadRef}
+        alt="pdf upload"
         onChange={async (e) => {
           // Safari doesn't work with select-files
           const files = e.target.files ?? [];

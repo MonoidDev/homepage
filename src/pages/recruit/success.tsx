@@ -30,7 +30,10 @@ export default function Success() {
   const [timeLeft, { start }] = useCountDown(15 * 1000);
 
   const renderDesktop = () => (
-    <main className="flex-1 sm:hidden px-[120px] py-[64px] flex items-center justify-around">
+    <main
+      className="flex-1 sm:hidden px-[120px] py-[64px] flex items-center justify-around"
+      role="main"
+    >
       <h2 className="font-loose font-bold text-[110px] shrink">THANK YOU</h2>
       <div className="bg-white self-stretch w-[550px]">
         <RecruitSuccess
@@ -42,7 +45,7 @@ export default function Success() {
   );
 
   const renderMobile = () => (
-    <main className="flex-1 >sm:hidden flex flex-col pt-[4rem]">
+    <main className="flex-1 >sm:hidden flex flex-col pt-[4rem]" role="main">
       <div className="fixed top-0 left-0 flex flex-col pl-[1rem]">
         <GoBackTriangleTitle noIcon>THANK YOU</GoBackTriangleTitle>
       </div>

@@ -24,19 +24,21 @@ export default function ContactIndex(props: ContactIndexProps) {
   return (
     <AdminContainer>
       <div className="px-[4rem] sm:px-[1rem] py-[2rem] sm:py-0">
-        <h2 className="text-[36px] font-loose mb-[1rem]">Contacts</h2>
         <table className={clsx('w-full', styles.table)}>
           <tbody>
+            <caption className="text-[36px] font-loose mb-[1rem]">
+              Contacts
+            </caption>
             <tr>
-              <th>Date</th>
-              <th>Company</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Type</th>
-              <th>Budget</th>
-              <th>Delivery</th>
-              <th>Message</th>
-              <th />
+              <th scope="col">Date</th>
+              <th scope="col">Company</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Type</th>
+              <th scope="col">Budget</th>
+              <th scope="col">Delivery</th>
+              <th scope="col">Message</th>
+              <th scope="col" />
             </tr>
             {data.contacts.map((item) => (
               <tr key={item.id}>

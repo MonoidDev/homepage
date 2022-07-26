@@ -58,6 +58,7 @@ export default function Contact() {
         <div className="grayscale overflow-hidden rounded-[45px] sm:rounded-[25px] border-2 border-black">
           <iframe
             key={iframeKey}
+            title="mapFrame"
             width="100%"
             className="h-[400px] sm:h-[340px]"
             frameBorder="0"

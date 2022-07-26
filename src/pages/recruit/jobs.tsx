@@ -49,7 +49,10 @@ function MobileRecruit() {
   const lastElement = useRef<HTMLDivElement>(null);
 
   return (
-    <main className="flex-1 >sm:hidden flex flex-col items-center pt-[32px] gap-y-6 overflow-auto">
+    <main
+      className="flex-1 >sm:hidden flex flex-col items-center pt-[32px] gap-y-6 overflow-auto"
+      role="main"
+    >
       <MobileCardContainer name="FRONTEND ENGINEER">
         <FrontendEngineerCardSvg />
       </MobileCardContainer>
@@ -89,7 +92,10 @@ function MobileRecruit() {
 
 function DesktopRecruit() {
   return (
-    <main className="flex-1 sm:hidden px-[120px] py-[64px] overflow-y-auto gap-x-10 flex">
+    <main
+      className="flex-1 sm:hidden px-[120px] py-[64px] overflow-y-auto gap-x-10 flex"
+      role="main"
+    >
       <FrontendEngineerCard />
       <BackendEngineerCard />
       <UIUXDesignerCard />

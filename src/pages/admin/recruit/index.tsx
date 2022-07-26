@@ -24,15 +24,17 @@ export default function RecruitIndex(props: RecruitProps) {
   return (
     <AdminContainer>
       <div className="px-[4rem] sm:px-[1rem] py-[2rem] sm:py-0">
-        <h2 className="text-[36px] font-loose mb-[1rem]">Job Applications</h2>
         <table className={clsx('w-full', styles.table)}>
           <tbody>
+            <caption className="text-[36px] font-loose mb-[1rem]">
+              Job Applications
+            </caption>
             <tr>
-              <th>Date</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Type</th>
-              <th />
+              <th scope="col">Date</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Type</th>
+              <th scope="col" />
             </tr>
             {data.recruits.map((item) => (
               <tr key={item.id}>

@@ -112,6 +112,7 @@ const Info: React.VFC = () => {
         'px-[75px] sm:px-[32px] pt-[15vh] gap-x-[4rem] gap-y-[1rem]',
       )}
       style={{ gridAutoRows: 'min-content' }}
+      role="main"
     >
       {strings.info?.map(([k, v]) => (
         <Fragment key={k}>
