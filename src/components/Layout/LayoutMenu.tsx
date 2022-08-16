@@ -3,7 +3,6 @@ import React from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
@@ -28,8 +27,8 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
   const [textExpanded, setTextExpanded] = useState(false);
   const [width] = useAnimated(
     (frame) => Math.sin((frame / 60) * Math.PI),
-    action === 'open' ? 0 : 18 + textWidth + 50,
-    action === 'open' ? 18 + textWidth + 50 : 0,
+    action === 'open' ? 0 : 18 + textWidth + 40,
+    action === 'open' ? 18 + textWidth + 40 : 0,
     {
       onStart: () => action === 'close' && setTextExpanded(false),
       onFinished: () => action === 'open' && setTextExpanded(true),
@@ -68,7 +67,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
           >
             {children}
           </div>
-          <div className="w-[50px] shrink-0" />
+          <div className="w-[40px] shrink-0" />
         </div>
         <Slash
           className="white:text-black black:text-white absolute right-0 top-0"
@@ -90,15 +89,13 @@ export const LayoutMenu: React.VFC<{
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [menuAction, setMenuAction] = useState<'open' | 'close'>('open');
 
-  const { locale = 'en-US' } = useRouter();
-
   const [languagesAction, setLanguagesAction] = useState<'open' | 'close'>(
     'close',
   );
 
   return (
     <div className="flex flex-col z-[10]">
-      <div className="px-12 pt-12 pb-8">
+      <div className="px-12 pt-[26px] pb-[18px]">
         <div className="flex relative items-center">
           <div
             className={clsx(
@@ -118,7 +115,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/"
                 index={0}
-                textWidth={locale === 'ja-JP' ? 64 : 48}
+                textWidth={36}
                 action={menuAction}
               >
                 {strings.top}
@@ -126,9 +123,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/company"
                 index={1}
-                textWidth={
-                  locale === 'zh-CN' ? 96 : locale === 'ja-JP' ? 96 : 120
-                }
+                textWidth={90}
                 action={menuAction}
               >
                 {strings.company}
@@ -136,9 +131,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/works"
                 index={2}
-                textWidth={
-                  locale === 'zh-CN' ? 64 : locale === 'ja-JP' ? 96 : 84
-                }
+                textWidth={60}
                 action={menuAction}
               >
                 {strings.works}
@@ -146,7 +139,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/recruit"
                 index={3}
-                textWidth={locale === 'ja-JP' ? 48 : 104}
+                textWidth={77}
                 action={menuAction}
               >
                 {strings.recruit}
@@ -154,7 +147,7 @@ export const LayoutMenu: React.VFC<{
               <NavMenuItem
                 href="/contact"
                 index={4}
-                textWidth={104}
+                textWidth={81}
                 action={menuAction}
                 isLast={true}
               >

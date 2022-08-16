@@ -12,7 +12,7 @@ const AnimatedLogo: React.VFC<{ loadingDone: boolean }> = ({ loadingDone }) => {
   return (
     <Lottie
       autoplay={loadingDone}
-      style={{ height: 94, width: 255, transform: 'scale(1.32)' }}
+      style={{ height: 94, width: 255, transform: 'scale(1.16)' }}
       loop={false}
       animationData={logoStart}
     />

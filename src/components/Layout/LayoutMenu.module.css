@@ -1,19 +1,8 @@
 .menuItem {
   font-family: 'DIN Condensed';
-  font-size: 40px;
+  font-size: 30px;
   clip-path: polygon(0 0, 100% 0, calc(100% - 32px) 100%, 0 100%);
+  margin-top: 1rem;
   @apply flex relative;
-}
-
-html[lang="zh-CN"] .menuItem {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 2.5;
-}
-
-html[lang="ja-JP"] .menuItem {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 2.5;
 }
 
