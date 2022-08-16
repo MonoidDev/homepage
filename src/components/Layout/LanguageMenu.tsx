@@ -16,6 +16,16 @@ export interface LanguageMenuProps {
   onChangeAction?: (action: 'open' | 'close') => void;
 }
 
+const LANGUAGES_WIDTH = 33;
+
+const INITIAL_PADDING = 8;
+
+const FINAL_PADDING = 13;
+
+const INITIAL_RADIUS = LANGUAGES_WIDTH / 2 + INITIAL_PADDING;
+
+const FINAL_RADIUS = LANGUAGES_WIDTH / 2 + FINAL_PADDING;
+
 export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
   const { action, onChangeAction } = props;
 
@@ -35,8 +45,8 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
     reverse: reverseBorderRadius,
   } = useChain([
     {
-      from: 32,
-      to: 40,
+      from: INITIAL_RADIUS,
+      to: FINAL_RADIUS,
       interpolate: (frame) => Math.sin(((frame / 15) * Math.PI) / 2),
     },
   ]);
@@ -49,8 +59,8 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
     isPlaying,
   } = useChain([
     {
-      from: 64,
-      to: 572,
+      from: INITIAL_RADIUS * 2,
+      to: 470,
       interpolate: (frame) => Math.sin(((frame / 30) * Math.PI) / 2),
     },
     {
@@ -144,7 +154,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
           aria-label={ariaLabelStrings.languages}
           className="block"
           style={{
-            padding: borderRadius! - 32 + 8, // 8 -> 16
+            padding: borderRadius! - INITIAL_RADIUS + INITIAL_PADDING,
           }}
           disabled={isPlaying}
           onClick={() => {
@@ -155,7 +165,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
             }
           }}
         >
-          <Languages width={48} />
+          <Languages width={33} />
         </button>
       </div>
     </div>
