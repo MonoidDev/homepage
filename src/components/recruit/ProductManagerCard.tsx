@@ -184,8 +184,8 @@ export const ProductManagerCard: React.VFC = () => {
           style={{
             transform: `
               scale(${scale})
-              translateX(${8 * (1 - scaleChain.currentValue)}%)
-              translateY(${0 * (1 - scaleChain.currentValue)}%)
+              translateX(${6 * (1 - scaleChain.currentValue)}%)
+              translateY(${-5 * (1 - scaleChain.currentValue)}%)
             `,
           }}
         >
@@ -220,7 +220,7 @@ export const ProductManagerCard: React.VFC = () => {
           </svg>
         </div>
 
-        <h2 className="absolute bottom-[2rem] z-20 text-[60px] leading-[50px] text-left">
+        <h2 className="absolute bottom-[2rem] z-20 text-[40px] leading-[40px] text-left">
           {strings.title}
         </h2>
       </div>

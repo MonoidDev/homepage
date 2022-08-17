@@ -64,14 +64,14 @@ export default function Recruit() {
         <h2 className="text-[140px] sm:text-[80px] sm:leading-[1] sm:mt-[2rem]">
           {strings.title}
         </h2>
-        <h3 className="text-[64px] sm:text-[30px] sm:leading-[1] sm:my-[2rem] opacity-[.45]">
+        <h3 className="text-[50px] sm:text-[30px] sm:leading-[1] sm:my-[2rem] opacity-[.45]">
           {strings.slogan}
         </h3>
         <div className="h-[2vh] sm:h-[2vh]" />
         <div className="flex justify-between items-end sm:flex-col sm:justify-start sm:items-center flex-wrap gap-y-4 sm:gap-y-8">
           <ul
             className={clsx(
-              'text-[35px] sm:text-[25px] sm:opacity-80 sm:leading-tight',
+              'text-[30px] leading-tight sm:text-[25px] sm:opacity-80 sm:leading-tight',
               'grid grid-cols-[5fr_6fr] sm:flex sm:flex-col gap-x-4',
               'w-[60vw] sm:w-full',
             )}

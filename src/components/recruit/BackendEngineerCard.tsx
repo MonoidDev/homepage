@@ -117,7 +117,7 @@ export const BackendEngineerCard: React.VFC = () => {
           </svg>
         </div>
 
-        <h2 className="text-[60px] leading-[50px] text-right">
+        <h2 className="text-[40px] leading-[40px] text-right">
           {strings.title}
         </h2>
       </div>

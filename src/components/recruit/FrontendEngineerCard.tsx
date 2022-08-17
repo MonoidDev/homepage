@@ -51,7 +51,7 @@ export const FrontendEngineerCard: React.VFC = () => {
       backgroundColor={backgroundColor}
     >
       <div className="relative h-full w-full flex flex-col">
-        <h2 className="text-[60px] leading-[50px] z-10 h-0">{strings.title}</h2>
+        <h2 className="text-[40px] leading-[40px] z-10 h-0">{strings.title}</h2>
 
         <div
           className="flex-1"

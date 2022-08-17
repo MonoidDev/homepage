@@ -146,7 +146,7 @@ export const UIUXDesignerCard: React.VFC = () => {
 
   const rectXChain = useChain([
     {
-      from: 37,
+      from: 35,
       to: 55,
       interpolate: interpolate1,
     },
@@ -164,7 +164,7 @@ export const UIUXDesignerCard: React.VFC = () => {
 
   const rectYChain = useChain([
     {
-      from: 74,
+      from: 72,
       to: 80,
       interpolate: interpolate1,
     },
@@ -304,7 +304,7 @@ export const UIUXDesignerCard: React.VFC = () => {
         </svg>
       </div>
 
-      <h2 className="absolute text-[60px] leading-[50px] z-20">
+      <h2 className="absolute text-[40px] leading-[40px] z-20">
         {strings.title}
       </h2>
     </Card>
