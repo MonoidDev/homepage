@@ -1,61 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
+import { useDebounce } from 'usehooks-ts';
 
-import { useWorksStrings, WorkDescription } from '@/data/works';
-import { useLocale } from '@/utils/useLocale';
+import auditAppPng from '@/assets/images/works/v2/audit-app.png';
+import d2dBackgroundPng from '@/assets/images/works/v2/d2d-background.png';
+import d2dPng from '@/assets/images/works/v2/d2d.png';
+import ihealPng from '@/assets/images/works/v2/iheal.png';
+import MonozipBackgroundSvg from '@/assets/images/works/v2/monozip-background.svg';
+import monozipPng from '@/assets/images/works/v2/monozip.png';
+import PolijobBackgroundSvg from '@/assets/images/works/v2/polijob-background.svg';
+import polijobPng from '@/assets/images/works/v2/polijob.png';
+import UptimeMonitorSvg from '@/assets/images/works/v2/uptime-monitor-background.svg';
+import uptimeMonitorPng from '@/assets/images/works/v2/uptime-monitor.png';
+import wopalPng from '@/assets/images/works/v2/wopal.png';
+import { useWorksStrings, WorkDescription, WorkTab } from '@/data/works';
 
-interface WorkCardProps {
-  workDescription: WorkDescription;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+interface CardContent {
+  name: string;
+  display: React.ReactNode;
+  background: React.ReactNode;
+  tab: number;
 }
-
-const WorkCard: React.VFC<WorkCardProps> = (props) => {
-  const { workDescription, onMouseEnter, onMouseLeave } = props;
-
-  const { name, displayImage, hoverImage } = workDescription;
-
-  const [hover, setHover] = useState(false);
-
-  return (
-    <div className="shrink-0 w-[43vh]">
-      <div
-        className="h-[59.6vh] bg-[#191b28] shrink-0 shadow-[0_10px_15px_-3px_rgb(0_0_0_/_0.4)] relative"
-        onMouseEnter={() => {
-          setHover(true);
-          onMouseEnter();
-        }}
-        onMouseLeave={() => {
-          setHover(false);
-          onMouseLeave();
-        }}
-        style={{
-          backgroundImage: `url(${JSON.stringify(
-            hover ? hoverImage : displayImage,
-          )})`,
-        }}
-      >
-        <div
-          className="absolute left-0 top-0 right-0 bottom-0 bg-contain"
-          style={{
-            backgroundImage: `url(${displayImage})`,
-          }}
-        />
-        <div
-          className={clsx(
-            'absolute left-0 top-0 right-0 bottom-0 bg-contain transition-opacity',
-            !hover && 'opacity-0',
-          )}
-          style={{
-            backgroundImage: `url(${hoverImage})`,
-          }}
-        />
-      </div>
-      <h3 className="font-dense text-[50px] pt-[8px]">{name}</h3>
-    </div>
-  );
-};
 
 interface MobileWorkCardProps {
   workDescription: WorkDescription;
@@ -110,29 +76,6 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
   );
 };
 
-interface WorksGalleryProps {
-  onChangeCurrentWork: (name: string) => void;
-}
-
-const WorksGallery: React.VFC<WorksGalleryProps> = (props) => {
-  const { onChangeCurrentWork } = props;
-
-  const { works } = useWorksStrings();
-
-  return (
-    <div className="w-full overflow-x-auto flex gap-x-[40px] pt-[13vh] pb-[2rem] px-[122px] transform-gpu">
-      {works.map((work) => (
-        <WorkCard
-          key={work.name}
-          workDescription={work}
-          onMouseEnter={() => onChangeCurrentWork(work.name)}
-          onMouseLeave={() => onChangeCurrentWork('')}
-        />
-      ))}
-    </div>
-  );
-};
-
 const MobileWorksGallery: React.VFC = () => {
   const { works } = useWorksStrings();
 
@@ -159,55 +102,98 @@ const MobileWorksGallery: React.VFC = () => {
   );
 };
 
-interface WorkInfoProps {
-  workDescription?: WorkDescription;
+const WorkCard: React.FC<{
   open: boolean;
-}
+  onClick: () => void;
+  content: CardContent;
+  description: WorkDescription;
+}> = (props) => {
+  const { open, onClick, content, description } = props;
 
-const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
-  const { workDescription, open } = props;
+  const debouncedOpen = useDebounce(open, 150);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const locale = useLocale();
+  useEffect(() => {
+    if (debouncedOpen) {
+      requestIdleCallback(() => {
+        containerRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'start',
+        });
+      });
+    }
+  }, [debouncedOpen]);
 
   return (
     <div
+      ref={containerRef}
       className={clsx(
-        'w-[864px] h-[215px] absolute z-50 left-[40px] bottom-[40px] px-[52px] py-[20px] pointer-events-none',
-        locale === 'en-US' && '!w-[1400px]',
-        'bg-black bg-opacity-80 border-[3px] border-white text-white shadow-lg',
-        'font-dense',
-        'transition-opacity',
-        !open && 'opacity-0',
+        'flex flex-col cursor-pointer relative z-0 shrink-0 overflow-hidden',
+        'transition-[width] will-change-[width]',
+        open ? 'w-[780px]' : 'w-[280px]',
+        '[filter:drop-shadow(18.9107px_18.9107px_18.9107px_rgba(0,0,0,0.1))]',
       )}
+      onClick={onClick}
     >
-      <div className="flex border-b-2 border-white items-center">
-        <h4 className="text-[95px] leading-[93px] mt-[0.5rem] shrink-0 pointer-events-none">
-          {workDescription?.name}
-        </h4>
-        <p
+      <div className={clsx('flex-1 w-[280px] flex relative z-30')}>
+        {content?.display}
+      </div>
+      {(open || debouncedOpen) && (
+        <div
           className={clsx(
-            'font-loose font-bold text-[35px] leading-[37px] pl-[1.5rem] mb-[0.75rem] pointer-events-none',
-            locale === 'ja-JP' && 'text-[30px]',
-            locale === 'zh-CN' && 'text-[30px]',
+            'z-20 absolute top-0 right-0 bottom-[70px] left-0 flex flex-col',
+            'fill-mode-forwards',
+            open && 'animate-in fade-in',
+            !open && 'animate-out fade-out',
           )}
         >
-          {workDescription?.summary}
-        </p>
+          {content.background}
+        </div>
+      )}
+
+      <div className="z-10 absolute top-0 right-0 bottom-[70px] left-0 bg-[#191B28]" />
+      <div className="h-[70px] font-dense text-[48px]">{description.name}</div>
+    </div>
+  );
+};
+
+const TabNavigation: React.FC<{
+  index: number;
+  onChangeIndex: (index: number) => void;
+}> = (props) => {
+  const { index: currentIndex, onChangeIndex } = props;
+
+  const workStrings = useWorksStrings();
+
+  const renderTab = (tab: WorkTab, index: number) => {
+    return (
+      <div
+        className={clsx(
+          'cursor-pointer transition-opacity',
+          index !== currentIndex && 'opacity-20',
+        )}
+        key={index}
+        onClick={() => onChangeIndex(index)}
+      >
+        <h3 className="font-dense text-[36px] font-bold">{tab.title}</h3>
+        <p className="font-dense text-base font-bold">{tab.description}</p>
+        <div
+          className={clsx(
+            index === currentIndex && 'bg-black',
+            'h-[3px] mt-[4px]',
+          )}
+        />
       </div>
-      <div className="flex gap-x-[20px] pt-[20px]">
-        {workDescription?.tags.map((tag) => (
-          <div
-            key={tag}
-            className={clsx(
-              'border-2 border-white bg-black h-[46px] rounded-[23px] font-loose font-bold text-[26px] px-[23px]',
-              'flex items-center leading-none pt-[4px]',
-              'pointer-events-none',
-            )}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
+    );
+  };
+
+  return (
+    <div
+      className={
+        'pb-[70px] flex flex-col justify-end gap-y-[55px] w-[180px] mr-[40px]'
+      }
+    >
+      {workStrings.tabs.map((tab, index) => renderTab(tab, index))}
     </div>
   );
 };
@@ -215,41 +201,128 @@ const WorkInfo: React.VFC<WorkInfoProps> = (props) => {
 export default function () {
   const worksStrings = useWorksStrings();
 
-  const [currentWork, setCurrentWork] = useState<string>('');
-  const [currentWorkOpen, setCurrentWorkOpen] = useState(false);
+  const [currentTab, setCurrentTab] = useState(0);
+  const [currentWork, setCurrentWork] = useState('');
 
-  const currentWorkDescription = worksStrings.works.find(
-    (w) => w.name === currentWork,
-  );
+  const cardContents: CardContent[] = [
+    {
+      name: 'WOPAL',
+      display: (
+        <div className="flex-1 flex justify-center items-center">
+          <img src={wopalPng.src} className="w-[160px] h-[322px]" />
+        </div>
+      ),
+      tab: 0,
+      background: (
+        <div className="flex-1 [background:linear-gradient(0deg,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(98.04deg,#73D2FB_4.17%,#3BB2E6_30.55%,_#367ED3_67.14%)]" />
+      ),
+    },
+    {
+      name: 'MONOZIP',
+      display: (
+        <div className="flex-1 flex flex-col justify-end">
+          <img
+            src={monozipPng.src}
+            className="self-start w-[308px] h-[322px] max-w-[initial]"
+          />
+        </div>
+      ),
+      tab: 0,
+      background: <MonozipBackgroundSvg />,
+    },
+    {
+      name: 'D2D',
+      display: (
+        <div className="flex-1 flex flex-col justify-center items-start">
+          <img src={d2dPng.src} className="w-[238.5] h-[234px]" />
+        </div>
+      ),
+      tab: 1,
+      background: (
+        <img
+          src={d2dBackgroundPng.src}
+          className="h-[380px] w-[780px] max-w-none"
+        />
+      ),
+    },
+    {
+      name: 'iHEAL',
+      display: (
+        <div className="flex-1 flex flex-col justify-end">
+          <img src={ihealPng.src} className="w-[280px] h-[286.5px]" />
+        </div>
+      ),
+      tab: 0,
+      background: <></>,
+    },
+    {
+      name: 'POLIJOB',
+      display: (
+        <div className="flex-1 flex flex-col">
+          <img src={polijobPng.src} className="w-[280px] h-[380px]" />
+        </div>
+      ),
+      tab: 0,
+      background: <PolijobBackgroundSvg />,
+    },
+    {
+      name: 'UPTIME MONITOR',
+      display: (
+        <div className="flex-1 flex flex-col justify-center">
+          <img src={uptimeMonitorPng.src} className="w-[280px] h-[243px]" />
+        </div>
+      ),
+      tab: 0,
+      background: <UptimeMonitorSvg />,
+    },
+    {
+      name: 'AUDIT APP',
+      display: (
+        <div className="flex-1 flex flex-col justify-center">
+          <img src={auditAppPng.src} className="w-[258px] h-[264px]" />
+        </div>
+      ),
+      tab: 1,
+      background: <UptimeMonitorSvg />,
+    },
+  ];
 
   const renderDesktop = () => {
     const baseWorks =
-      'z-[-1] text-[240px] font-loose font-bold absolute pointer-events-none left-[24px] top-[42px] leading-[1]';
+      'z-[-1] text-[160px] font-loose font-bold absolute pointer-events-none left-[96px] top-[42px] leading-[1]';
 
     return (
       <div className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
         <h2 className={baseWorks}>WORKS</h2>
-        <WorksGallery
-          onChangeCurrentWork={(work) => {
-            if (work) {
-              setCurrentWork(work);
-            }
-            setCurrentWorkOpen(!!work);
-          }}
-        />
-        <h2
-          className={clsx(
-            baseWorks,
-            '!z-10 mix-blend-color-dodge text-[#868383]',
-          )}
-        >
-          WORKS
-        </h2>
+        <div className="mt-[140px] px-[96px] h-[450px] flex">
+          <TabNavigation index={currentTab} onChangeIndex={setCurrentTab} />
 
-        <WorkInfo
-          workDescription={currentWorkDescription}
-          open={currentWorkOpen}
-        />
+          <div className="flex-1 overflow-x-scroll flex shrink gap-x-[40px]">
+            {worksStrings.works
+              .filter(
+                (work) =>
+                  cardContents.find((c) => c.name === work.name)!.tab ===
+                  currentTab,
+              )
+              .map((work) => (
+                <WorkCard
+                  key={work.name}
+                  content={cardContents.find((c) => c.name === work.name)!}
+                  description={work}
+                  open={currentWork === work.name}
+                  onClick={() =>
+                    currentWork !== work.name
+                      ? setCurrentWork(work.name)
+                      : setCurrentWork('')
+                  }
+                />
+              ))}
+
+            <div className="w-[280px] shrink-0" />
+            <div className="w-[280px] shrink-0" />
+            <div className="w-[280px] shrink-0" />
+          </div>
+        </div>
       </div>
     );
   };

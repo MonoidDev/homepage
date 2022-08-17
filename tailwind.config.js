@@ -63,6 +63,7 @@ module.exports = {
     plugin(({ addVariant }) => {
       addVariant('black', '.black &');
       addVariant('white', '.white &');
-    })
+    }),
+    require("tailwindcss-animate"),
   ],
 };

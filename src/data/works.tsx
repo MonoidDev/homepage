@@ -19,6 +19,11 @@ import wopalHover from '@/assets/images/works/wopal-hover.png';
 import wopalMobile from '@/assets/images/works/wopal-mobile.png';
 import wopalNormal from '@/assets/images/works/wopal-normal.png';
 
+export interface WorkTab {
+  title: string;
+  description: React.ReactNode;
+}
+
 export interface WorkDescription {
   name: string;
   summary: React.ReactNode;
@@ -29,8 +34,21 @@ export interface WorkDescription {
   mobileImage: string;
 }
 
-export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
+export const useWorksStrings = makeStrings<{
+  tabs: WorkTab[];
+  works: WorkDescription[];
+}>({
   'en-US': {
+    tabs: [
+      {
+        title: 'Creative Projects',
+        description: 'Initiate and support services',
+      },
+      {
+        title: 'Digital Transformation',
+        description: 'Boost traditional industry with digital technology',
+      },
+    ],
     works: [
       {
         name: 'WOPAL',
@@ -90,9 +108,28 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
         hoverImage: uptimeMonitorHover.src,
         mobileImage: uptimeMonitorMobile.src,
       },
+      {
+        name: 'AUDIT APP',
+        summary: '1423',
+        tags: [],
+        mobileTags: [],
+        displayImage: uptimeMonitorNormal.src,
+        hoverImage: uptimeMonitorHover.src,
+        mobileImage: uptimeMonitorMobile.src,
+      },
     ],
   },
   'zh-CN': {
+    tabs: [
+      {
+        title: '创造新事业',
+        description: '致力于开创新服务',
+      },
+      {
+        title: '信息化转型',
+        description: '为传统企业注入信息化动力',
+      },
+    ],
     works: [
       {
         name: 'WOPAL',
@@ -150,9 +187,42 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
         hoverImage: uptimeMonitorHover.src,
         mobileImage: uptimeMonitorMobile.src,
       },
+      {
+        name: 'AUDIT APP',
+        summary: '1423',
+        tags: [],
+        mobileTags: [],
+        displayImage: uptimeMonitorNormal.src,
+        hoverImage: uptimeMonitorHover.src,
+        mobileImage: uptimeMonitorMobile.src,
+      },
     ],
   },
   'ja-JP': {
+    tabs: [
+      {
+        title: '新事業創造',
+        description: (
+          <>
+            サービスの新規
+            <br />
+            立ち上げ支援・共創に
+            <br />
+            尽力します
+          </>
+        ),
+      },
+      {
+        title: 'DX推進',
+        description: (
+          <>
+            デジタルを浸透させ
+            <br />
+            革新的なイノベーションを起こす
+          </>
+        ),
+      },
+    ],
     works: [
       {
         name: 'WOPAL',
@@ -237,6 +307,20 @@ export const useWorksStrings = makeStrings<{ works: WorkDescription[] }>({
           </>
         ),
         tags: ['システム設計', 'システム開発', 'UIUXデザイン'],
+        mobileTags: [],
+        displayImage: uptimeMonitorNormal.src,
+        hoverImage: uptimeMonitorHover.src,
+        mobileImage: uptimeMonitorMobile.src,
+      },
+      {
+        name: 'AUDIT APP',
+        summary: '工場内の設備の状態を検査するモバイルアプリケーション',
+        tags: [
+          'IT資産の分析・評価',
+          'UIUXデザイン',
+          'システム開発',
+          'モバイルアプリ開発',
+        ],
         mobileTags: [],
         displayImage: uptimeMonitorNormal.src,
         hoverImage: uptimeMonitorHover.src,
