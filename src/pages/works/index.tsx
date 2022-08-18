@@ -4,11 +4,13 @@ import clsx from 'clsx';
 import { useDebounce } from 'usehooks-ts';
 
 import auditAppPng from '@/assets/images/works/v2/audit-app.png';
+import CollapseSvg from '@/assets/images/works/v2/collapse.svg';
 import d2dBackgroundPng from '@/assets/images/works/v2/d2d-background.png';
 import d2dPng from '@/assets/images/works/v2/d2d.png';
 import ihealPng from '@/assets/images/works/v2/iheal.png';
 import MonozipBackgroundSvg from '@/assets/images/works/v2/monozip-background.svg';
 import monozipPng from '@/assets/images/works/v2/monozip.png';
+import NewPageSvg from '@/assets/images/works/v2/new-page.svg';
 import PolijobBackgroundSvg from '@/assets/images/works/v2/polijob-background.svg';
 import polijobPng from '@/assets/images/works/v2/polijob.png';
 import UptimeMonitorSvg from '@/assets/images/works/v2/uptime-monitor-background.svg';
@@ -21,6 +23,7 @@ interface CardContent {
   display: React.ReactNode;
   background: React.ReactNode;
   tab: number;
+  url: string;
 }
 
 interface MobileWorkCardProps {
@@ -118,25 +121,103 @@ const WorkCard: React.FC<{
       requestIdleCallback(() => {
         containerRef.current?.scrollIntoView({
           behavior: 'smooth',
-          inline: 'start',
+          inline: 'center',
         });
       });
     }
   }, [debouncedOpen]);
 
+  const renderCollapseButton = () => {
+    return (
+      <button
+        className="absolute top-[22px] right-[18px] z-[40]"
+        onClick={onClick}
+      >
+        <CollapseSvg />
+      </button>
+    );
+  };
+
+  const renderWorkDescriptionTag = (tag: string) => {
+    return (
+      <div
+        key={tag}
+        className={clsx(
+          'h-[26px] px-[11px] rounded-full text-base leading-none font-bold',
+          'border-[2px] border-black',
+          'pt-[4px]',
+        )}
+      >
+        {tag}
+      </div>
+    );
+  };
+
+  const renderVisitButtion = () => {
+    return (
+      <a
+        href={content.url}
+        target="_blank"
+        className={clsx(
+          'self-end',
+          'block h-[40px] border-black border-2 py-[6px] px-[8px] font-dense text-[21px]',
+        )}
+      >
+        VISIT {description.name}
+        <NewPageSvg className="inline-block ml-[0.5rem] relative top-[-2px]" />
+      </a>
+    );
+  };
+
+  const renderWorkDescription = () => {
+    return (
+      <div
+        className={clsx(
+          'flex-1 flex flex-col',
+          'pl-[20px] pt-[65px] pr-[80px]',
+        )}
+      >
+        <div className="flex gap-x-[8px]">
+          <h3 className="font-dense text-[50px] leading-none shrink-0">
+            {description.name}
+          </h3>
+
+          <div className="text-[16px] font-bold leading-tight">
+            {description.summary}
+          </div>
+        </div>
+
+        <div className="bg-black h-[2px] mb-[10px]" />
+
+        <div className="flex flex-wrap gap-[10px] mb-[10px]">
+          {description.tags.map((t) => renderWorkDescriptionTag(t))}
+        </div>
+
+        <div className="text-[16px] font-bold mb-[10px]">
+          {description.details}
+        </div>
+
+        {content.url && renderVisitButtion()}
+      </div>
+    );
+  };
+
   return (
     <div
       ref={containerRef}
       className={clsx(
-        'flex flex-col cursor-pointer relative z-0 shrink-0 overflow-hidden',
+        'flex flex-col relative z-0 shrink-0 overflow-hidden',
         'transition-[width] will-change-[width]',
-        open ? 'w-[780px]' : 'w-[280px]',
+        open ? 'w-[780px]' : 'w-[280px] cursor-pointer',
         '[filter:drop-shadow(18.9107px_18.9107px_18.9107px_rgba(0,0,0,0.1))]',
       )}
-      onClick={onClick}
+      onClick={open ? undefined : onClick}
     >
-      <div className={clsx('flex-1 w-[280px] flex relative z-30')}>
-        {content?.display}
+      <div className="flex-1 relative z-30 flex w-[780px]">
+        <div className={clsx('w-[280px] flex shrink-0')}>
+          {content?.display}
+        </div>
+        {renderWorkDescription()}
       </div>
       {(open || debouncedOpen) && (
         <div
@@ -150,6 +231,8 @@ const WorkCard: React.FC<{
           {content.background}
         </div>
       )}
+
+      {(open || debouncedOpen) && renderCollapseButton()}
 
       <div className="z-10 absolute top-0 right-0 bottom-[70px] left-0 bg-[#191B28]" />
       <div className="h-[70px] font-dense text-[48px]">{description.name}</div>
@@ -216,9 +299,10 @@ export default function () {
       background: (
         <div className="flex-1 [background:linear-gradient(0deg,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(98.04deg,#73D2FB_4.17%,#3BB2E6_30.55%,_#367ED3_67.14%)]" />
       ),
+      url: 'https://wopal.dev',
     },
     {
-      name: 'MONOZIP',
+      name: 'MONOZIP API',
       display: (
         <div className="flex-1 flex flex-col justify-end">
           <img
@@ -229,6 +313,7 @@ export default function () {
       ),
       tab: 0,
       background: <MonozipBackgroundSvg />,
+      url: 'https://www.monozip.com',
     },
     {
       name: 'D2D',
@@ -244,6 +329,7 @@ export default function () {
           className="h-[380px] w-[780px] max-w-none"
         />
       ),
+      url: 'https://member.d2dasia.com',
     },
     {
       name: 'iHEAL',
@@ -254,6 +340,7 @@ export default function () {
       ),
       tab: 0,
       background: <></>,
+      url: '',
     },
     {
       name: 'POLIJOB',
@@ -264,6 +351,7 @@ export default function () {
       ),
       tab: 0,
       background: <PolijobBackgroundSvg />,
+      url: '',
     },
     {
       name: 'UPTIME MONITOR',
@@ -274,6 +362,7 @@ export default function () {
       ),
       tab: 0,
       background: <UptimeMonitorSvg />,
+      url: '',
     },
     {
       name: 'AUDIT APP',
@@ -284,6 +373,7 @@ export default function () {
       ),
       tab: 1,
       background: <UptimeMonitorSvg />,
+      url: 'https://apps.apple.com/jp/app/audit-app/id1440477614',
     },
   ];
 
@@ -317,10 +407,6 @@ export default function () {
                   }
                 />
               ))}
-
-            <div className="w-[280px] shrink-0" />
-            <div className="w-[280px] shrink-0" />
-            <div className="w-[280px] shrink-0" />
           </div>
         </div>
       </div>
