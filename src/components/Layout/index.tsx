@@ -17,11 +17,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <ThemeProvider
-      value={{ loadingDone, theme, navbarHeight: 140, screen: 'desktop' }}
+      value={{ loadingDone, theme, navbarHeight: 121, screen: 'desktop' }}
     >
       <div
         className={clsx(
-          'flex flex-col w-full antialiased min-h-screen sm:hidden',
+          'flex flex-col w-full antialiased h-screen sm:hidden',
           screenHeight && '!h-screen',
           theme,
           theme === 'black' && 'bg-black text-white',

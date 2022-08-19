@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useId } from 'react';
+import React, { useEffect, useState, useId, useRef } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
 import { LgbtCircle } from '@/components/LgbtCircle';
+import { useTheme } from '@/styles/theme';
 
 const sloganSpeed = 5;
 
@@ -161,9 +162,45 @@ const MobileAnimatedSlogan: React.VFC = () => {
 export default function () {
   const router = useRouter();
 
-  return (
+  const { navbarHeight } = useTheme();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const getScrollPercent = () => {
+    return (
+      containerRef.current!.scrollTop /
+      (containerRef.current!.scrollHeight - containerRef.current!.clientHeight)
+    );
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    function step() {
+      if (videoRef.current!.duration && !isNaN(getScrollPercent())) {
+        videoRef.current!.currentTime =
+          getScrollPercent() * videoRef.current!.duration;
+      }
+
+      if (!cancelled) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const renderTopScreen = () => (
     <main
-      className="flex-1 flex flex-col justify-center items-center"
+      style={{
+        height: `calc(100vh - ${navbarHeight}px)`,
+      }}
+      className="flex flex-col justify-center items-center overflow-scroll shrink-0"
       role="main"
     >
       <div className="flex flex-col">
@@ -181,6 +218,29 @@ export default function () {
         </button>
       </div>
     </main>
+  );
+
+  const renderVideo = () => {
+    return (
+      <video
+        className="fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]"
+        style={{ top: navbarHeight, height: `calc(100vh - ${navbarHeight}px)` }}
+        ref={videoRef}
+        playsInline
+        preload="true"
+        muted
+      >
+        <source src="/videos/opening.mp4" type="video/mp4" />
+      </video>
+    );
+  };
+
+  return (
+    <div className="flex flex-col shrink overflow-scroll" ref={containerRef}>
+      {renderTopScreen()}
+      {renderTopScreen()}
+      {renderVideo()}
+    </div>
   );
 }
 
