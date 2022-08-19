@@ -167,6 +167,10 @@ export default function () {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const hookedRef = useRef(false);
+
+  const seekingRef = useRef(false);
+
   const getScrollPercent = () => {
     return (
       containerRef.current!.scrollTop /
@@ -175,12 +179,34 @@ export default function () {
   };
 
   useEffect(() => {
+    console.log(hookedRef.current);
+    if (hookedRef.current) {
+      return;
+    }
+
+    videoRef.current?.addEventListener('seeking', () => {
+      seekingRef.current = true;
+    });
+
+    videoRef.current?.addEventListener('seeked', () => {
+      seekingRef.current = false;
+    });
+
+    hookedRef.current = true;
+
     let cancelled = false;
 
     function step() {
       if (videoRef.current!.duration && !isNaN(getScrollPercent())) {
-        videoRef.current!.currentTime =
-          getScrollPercent() * videoRef.current!.duration;
+        // console.log(
+        //   videoRef.current!.seekable.start(0),
+        //   videoRef.current!.seekable.end(0),
+        // );
+        // console.log(videoRef.current!.currentTime);
+        if (!seekingRef.current) {
+          videoRef.current!.currentTime =
+            getScrollPercent() * videoRef.current!.duration;
+        }
       }
 
       if (!cancelled) {
@@ -188,10 +214,11 @@ export default function () {
       }
     }
 
+    console.log('reqruied');
     requestAnimationFrame(step);
 
     return () => {
-      cancelled = true;
+      // cancelled = true;
     };
   }, []);
 
@@ -204,8 +231,8 @@ export default function () {
       role="main"
     >
       <div className="flex flex-col">
-        <AnimatedSlogan />
-        <MobileAnimatedSlogan />
+        {/* <AnimatedSlogan />
+        <MobileAnimatedSlogan /> */}
 
         <button
           onClick={() => router.push('/company')}
@@ -223,20 +250,25 @@ export default function () {
   const renderVideo = () => {
     return (
       <video
-        className="fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]"
+        className={clsx(
+          'transform-gpu',
+          'pointer-events-none z-[50] fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
+        )}
         style={{ top: navbarHeight, height: `calc(100vh - ${navbarHeight}px)` }}
         ref={videoRef}
-        playsInline
         preload="true"
         muted
       >
-        <source src="/videos/opening.mp4" type="video/mp4" />
+        <source src="/videos/opening2.mp4" type="video/mp4" />
       </video>
     );
   };
 
   return (
     <div className="flex flex-col shrink overflow-scroll" ref={containerRef}>
+      {renderTopScreen()}
+      {renderTopScreen()}
+      {renderTopScreen()}
       {renderTopScreen()}
       {renderTopScreen()}
       {renderVideo()}

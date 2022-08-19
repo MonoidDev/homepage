@@ -49,14 +49,14 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
               <Component {...pageProps} />
             </Layout>
 
-            <MobileLayout
+            {/* <MobileLayout
               loadingDone={true}
               hideLogo={pageProps.hideLogo ?? false}
               theme={pageProps.theme}
               meta={<Meta title={pageProps.title} />}
             >
               <Component {...pageProps} />
-            </MobileLayout>
+            </MobileLayout> */}
 
             {!loadingDone && shouldDisplayLoading && (
               <Entering onDone={() => setLoadingDone(true)} />
