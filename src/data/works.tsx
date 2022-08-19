@@ -63,7 +63,7 @@ export const useWorksStrings = makeStrings<{
         mobileImage: wopalMobile.src,
       },
       {
-        name: 'MONOZIP',
+        name: 'MONOZIP API',
         summary: 'Open Postal Code & Address Service',
         details:
           'MONOZIP a geographic information api provider platform, with support for conversion between addresses, zipcode and latitude/longitude.',
@@ -172,7 +172,7 @@ export const useWorksStrings = makeStrings<{
         mobileImage: wopalMobile.src,
       },
       {
-        name: 'MONOZIP',
+        name: 'MONOZIP API',
         summary: '中日邮编&地址信息数据检索软件及服务',
         details:
           'MONOZIP是一个提供地理信息api的网络平台，支持中日两国的地址、邮编和地理坐标等信息之间的转换。在物流，旅游等行业有着广泛的应用前景。',
@@ -276,7 +276,7 @@ export const useWorksStrings = makeStrings<{
         name: 'WOPAL',
         summary: (
           <>
-            高校生・大学生を中心とした、学生スポーツのためのトレーニングサービス
+            学生を中心にアスリートのために開発されたトレーニング・管理サービス
           </>
         ),
         details: (
@@ -307,7 +307,7 @@ export const useWorksStrings = makeStrings<{
         ),
         details: (
           <>
-            MONOZIPは、地理情報サービスAPI提供プラットフォームです。国際住所、郵便番号、経緯度の変換などのサービスを提供しています。
+            MONOZIPは、地理情報サービスAPI提供プラットフォームサービスです。国際住所、郵便番号、経緯度の変換を簡単に、かつわかりやすく行うことができます。
           </>
         ),
         tags: ['LOGO/VIデザイン', 'UIUXデザイン', 'システム開発', '運営保守'],
@@ -327,7 +327,8 @@ export const useWorksStrings = makeStrings<{
         ),
         details: (
           <>
-            D2Dは、日中国際海運ロジスティクス企業のために構築されたオンライン予約管理プラットフォームで、クライアント向けのオンライン予約システムと内部の予約管理システムで構成されています。
+            D2D
+            は、日中国際海運ロジスティクス企業のために構築されたオンライン予約管理プラットフォームで、顧客向けのオンライン予約システムと企業内部の予約管理システムで構成されています。
           </>
         ),
         tags: [
@@ -345,17 +346,16 @@ export const useWorksStrings = makeStrings<{
         name: 'iHEAL',
         summary: (
           <>
-            スマートアロマディフューザー
+            スマートアロマディフューザーIoT
             <br />
-            IoTプロジェクト
+            プロジェクト（MVPステージ）
           </>
         ),
         details: (
           <>
-            iHealは、スマートアロマディフューザー「iHeal
-            Cube」を中心としたIoTプロジェクトです。開発案件にはiHeal
-            モバイルアプリ、iHeal
-            Cube内部ソフトウェア、iHeal公式ウェブサイトなどが含まれます。
+            iHealはスマートアロマディフューザー「iHeal
+            cube」を中心としたIotプロジェクトです。
+            構想段階からブランディングも視野に入れ、モバイルアプリのデザイン・開発、RasPiによる内部ソフトウェアの構築、公式Webサイトの作成などシステム・デザイン案件を一貫して実施しました。
           </>
         ),
         tags: [
@@ -374,18 +374,14 @@ export const useWorksStrings = makeStrings<{
       {
         name: 'POLIJOB',
         summary: (
-          <>
-            人材紹介業者・求人企業・求職者
-            <br />
-            皆で使える採用プラットフォーム
-          </>
+          <>ヘッドハンター・企業・求職者皆で使える採用プラットフォーム</>
         ),
         details: (
           <>
             PoliJobは、ヘッドハンター・企業・求職者という複数のユーザーロールに対応したオンライン求人サイトです。
             アジャイル開発手法を採用することで、プロトタイプアーキテクチャ、設計、開発、QA
             などの必要なプロセスを 3 か月以内に完了し、
-            MVPステージをスムーズに進めることを確保しました。
+            MVPステージをスムーズに進めることを実現しました。
           </>
         ),
         tags: [

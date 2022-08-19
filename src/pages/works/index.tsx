@@ -182,7 +182,7 @@ const WorkCard: React.FC<{
             {description.name}
           </h3>
 
-          <div className="text-[16px] font-bold leading-tight">
+          <div className="text-[16px] font-bold leading-tight mt-[-1px]">
             {description.summary}
           </div>
         </div>
@@ -339,7 +339,7 @@ export default function () {
         </div>
       ),
       tab: 0,
-      background: <></>,
+      background: <div className="flex-1 bg-[#FCD4C2]" />,
       url: '',
     },
     {
