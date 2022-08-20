@@ -364,7 +364,7 @@ export const useWorksStrings = makeStrings<{
           'PoC開発',
           'システム開発',
           'モバイルアプリ開発',
-          'ラズパイ',
+          'RasPi',
         ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
         displayImage: ihealNormal.src,
@@ -381,7 +381,7 @@ export const useWorksStrings = makeStrings<{
             PoliJobは、ヘッドハンター・企業・求職者という複数のユーザーロールに対応したオンライン求人サイトです。
             アジャイル開発手法を採用することで、プロトタイプアーキテクチャ、設計、開発、QA
             などの必要なプロセスを 3 か月以内に完了し、
-            MVPステージをスムーズに進めることを実現しました。
+            MVPステージをスムーズに進めることに成功しました。
           </>
         ),
         tags: [

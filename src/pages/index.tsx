@@ -8,6 +8,7 @@ import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
 import { LgbtCircle } from '@/components/LgbtCircle';
 import { useTheme } from '@/styles/theme';
+import { useScrolledVideo } from '@/utils/useScrolledVideo';
 
 const sloganSpeed = 5;
 
@@ -167,60 +168,7 @@ export default function () {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const hookedRef = useRef(false);
-
-  const seekingRef = useRef(false);
-
-  const getScrollPercent = () => {
-    return (
-      containerRef.current!.scrollTop /
-      (containerRef.current!.scrollHeight - containerRef.current!.clientHeight)
-    );
-  };
-
-  useEffect(() => {
-    console.log(hookedRef.current);
-    if (hookedRef.current) {
-      return;
-    }
-
-    videoRef.current?.addEventListener('seeking', () => {
-      seekingRef.current = true;
-    });
-
-    videoRef.current?.addEventListener('seeked', () => {
-      seekingRef.current = false;
-    });
-
-    hookedRef.current = true;
-
-    let cancelled = false;
-
-    function step() {
-      if (videoRef.current!.duration && !isNaN(getScrollPercent())) {
-        // console.log(
-        //   videoRef.current!.seekable.start(0),
-        //   videoRef.current!.seekable.end(0),
-        // );
-        // console.log(videoRef.current!.currentTime);
-        if (!seekingRef.current) {
-          videoRef.current!.currentTime =
-            getScrollPercent() * videoRef.current!.duration;
-        }
-      }
-
-      if (!cancelled) {
-        requestAnimationFrame(step);
-      }
-    }
-
-    console.log('reqruied');
-    requestAnimationFrame(step);
-
-    return () => {
-      // cancelled = true;
-    };
-  }, []);
+  useScrolledVideo(containerRef, videoRef);
 
   const renderTopScreen = () => (
     <main
@@ -231,8 +179,8 @@ export default function () {
       role="main"
     >
       <div className="flex flex-col">
-        {/* <AnimatedSlogan />
-        <MobileAnimatedSlogan /> */}
+        <AnimatedSlogan />
+        <MobileAnimatedSlogan />
 
         <button
           onClick={() => router.push('/company')}
@@ -259,7 +207,7 @@ export default function () {
         preload="true"
         muted
       >
-        <source src="/videos/opening2.mp4" type="video/mp4" />
+        <source src="/videos/0820hpvideo-keyframe.mp4" type="video/mp4" />
       </video>
     );
   };
