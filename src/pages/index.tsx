@@ -3,12 +3,15 @@ import React, { useEffect, useState, useId, useRef } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { createInterpolator } from 'range-interpolator';
 
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import Slogan from '@/assets/images/Slogan.svg';
 import { LgbtCircle } from '@/components/LgbtCircle';
+import { useOpeningStrings } from '@/data/opening';
 import { useTheme } from '@/styles/theme';
 import { useScrolledVideo } from '@/utils/useScrolledVideo';
+import { useScrollPercent } from '@/utils/useScrollPercent';
 
 const sloganSpeed = 5;
 
@@ -160,6 +163,8 @@ const MobileAnimatedSlogan: React.VFC = () => {
   );
 };
 
+const VIDEO_RANGE = 0.5;
+
 export default function () {
   const router = useRouter();
 
@@ -167,8 +172,13 @@ export default function () {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const openingStrings = useOpeningStrings();
 
-  useScrolledVideo(containerRef, videoRef);
+  useScrolledVideo(containerRef, videoRef, VIDEO_RANGE);
+
+  const y = useScrollPercent(containerRef);
+
+  const yVideo = Math.min(1, y / VIDEO_RANGE);
 
   const renderTopScreen = () => (
     <main
@@ -199,8 +209,7 @@ export default function () {
     return (
       <video
         className={clsx(
-          'transform-gpu',
-          'pointer-events-none z-[50] fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
+          'pointer-events-none z-40 fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
         )}
         style={{ top: navbarHeight, height: `calc(100vh - ${navbarHeight}px)` }}
         ref={videoRef}
@@ -212,18 +221,91 @@ export default function () {
     );
   };
 
+  const renderVideoTexts = () => {
+    const sloganOpacity = createInterpolator({
+      inputRange: [0.001, 0.04, 0.06, 0.07],
+      outputRange: [0, 1, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const introOpacity = createInterpolator({
+      inputRange: [0.123, 0.16, 0.6, 0.64],
+      outputRange: [0, 1, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const technologyOpacity = createInterpolator({
+      inputRange: [0.7, 0.75, 0.78, 0.8],
+      outputRange: [0, 1, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    return (
+      <div
+        className={clsx(
+          'pointer-events-none z-50 fixed right-0 bottom-0 left-0',
+          'text-white',
+        )}
+        style={{ top: navbarHeight }}
+      >
+        <div className="h-full w-full relative">
+          <div>{yVideo}</div>
+
+          <div
+            className="font-dense absolute text-[80px] left-[10vw] bottom-[20vh]"
+            style={{
+              opacity: sloganOpacity(yVideo),
+            }}
+          >
+            {openingStrings.slogan}
+          </div>
+
+          <div
+            className={clsx(
+              'font-dense absolute bottom-[80px] left-[0] right-[0] flex justify-center',
+            )}
+            style={{
+              opacity: introOpacity(yVideo),
+            }}
+          >
+            <div className="w-[860px]">
+              <h2 className="text-[40px] font-bold">
+                {openingStrings.introTitle}
+              </h2>
+
+              <p className="text-[24px]">{openingStrings.introDetails}</p>
+            </div>
+          </div>
+
+          <div
+            className={clsx(
+              'font-dense absolute right-[140px] top-0 bottom-0 flex flex-col justify-center',
+              'w-[690px]',
+            )}
+            style={{
+              opacity: technologyOpacity(yVideo),
+            }}
+          >
+            <h2 className="text-[40px] font-bold">
+              {openingStrings.technologyTitle}
+            </h2>
+
+            <p className="text-[24px]">{openingStrings.technologyDetails}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col shrink overflow-scroll" ref={containerRef}>
       {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
-      {renderTopScreen()}
+
+      <div className="pt-[400vh] shrink-0"></div>
 
       {renderVideo()}
+
+      {renderVideoTexts()}
     </div>
   );
 }

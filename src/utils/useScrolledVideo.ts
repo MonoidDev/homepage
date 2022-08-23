@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 export const useScrolledVideo = (
   containerRef: React.RefObject<HTMLDivElement>,
   videoRef: React.RefObject<HTMLVideoElement>,
+  range: number,
 ) => {
   const seekingRef = useRef(false);
 
@@ -10,8 +11,12 @@ export const useScrolledVideo = (
   const unwrapVideo = () => videoRef.current!;
 
   const getScrollPercent = () =>
-    unwrapContainer().scrollTop /
-    (unwrapContainer().scrollHeight - unwrapContainer().clientHeight);
+    Math.min(
+      1,
+      unwrapContainer().scrollTop /
+        (range *
+          (unwrapContainer().scrollHeight - unwrapContainer().clientHeight)),
+    );
 
   useEffect(() => {
     // To avoid "double seeking" that make Chrome stutter
