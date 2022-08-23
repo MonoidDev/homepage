@@ -16,13 +16,17 @@ export const useScrolledVideo = (
   useEffect(() => {
     // To avoid "double seeking" that make Chrome stutter
 
-    unwrapVideo().addEventListener('seeking', () => {
+    function setSeekingTrue() {
       seekingRef.current = true;
-    });
+    }
 
-    unwrapVideo().addEventListener('seeked', () => {
+    function setSeekingFalse() {
       seekingRef.current = false;
-    });
+    }
+
+    unwrapVideo().addEventListener('seeking', setSeekingTrue);
+
+    unwrapVideo().addEventListener('seeked', setSeekingFalse);
 
     let cancelled = false;
 
@@ -42,6 +46,9 @@ export const useScrolledVideo = (
     requestAnimationFrame(step);
 
     return () => {
+      unwrapVideo().removeEventListener('seeking', setSeekingTrue);
+      unwrapVideo().removeEventListener('seeked', setSeekingFalse);
+
       cancelled = true;
     };
   }, []);

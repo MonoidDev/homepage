@@ -207,7 +207,7 @@ export default function () {
         preload="true"
         muted
       >
-        <source src="/videos/0820hpvideo-keyframe.mp4" type="video/mp4" />
+        <source src="/videos/opening.mp4" type="video/mp4" />
       </video>
     );
   };
@@ -219,6 +219,10 @@ export default function () {
       {renderTopScreen()}
       {renderTopScreen()}
       {renderTopScreen()}
+      {renderTopScreen()}
+      {renderTopScreen()}
+      {renderTopScreen()}
+
       {renderVideo()}
     </div>
   );
