@@ -4,8 +4,11 @@ export const useScrolledVideo = (
   containerRef: React.RefObject<HTMLDivElement>,
   videoRef: React.RefObject<HTMLVideoElement>,
   range: number,
+  offset: number,
 ) => {
   const seekingRef = useRef(false);
+  const offsetRef = useRef(offset);
+  offsetRef.current = offset;
 
   const unwrapContainer = () => containerRef.current!;
   const unwrapVideo = () => videoRef.current!;
@@ -13,7 +16,7 @@ export const useScrolledVideo = (
   const getScrollPercent = () =>
     Math.min(
       1,
-      unwrapContainer().scrollTop /
+      Math.max(0, unwrapContainer().scrollTop - offsetRef.current) /
         (range *
           (unwrapContainer().scrollHeight - unwrapContainer().clientHeight)),
     );

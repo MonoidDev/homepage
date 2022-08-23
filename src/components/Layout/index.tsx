@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import clsx from 'clsx';
 
 import { LayoutMenu } from './LayoutMenu';
@@ -15,17 +17,30 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = (props) => {
   const { meta, children, theme, loadingDone, hideLogo, screenHeight } = props;
 
+  const [currentTheme, setCurrentTheme] = useState(theme);
+
+  useEffect(() => {
+    setCurrentTheme(theme);
+  }, [theme]);
+
   return (
     <ThemeProvider
-      value={{ loadingDone, theme, navbarHeight: 121, screen: 'desktop' }}
+      value={{
+        loadingDone,
+        theme: currentTheme,
+        navbarHeight: 121,
+        screen: 'desktop',
+        setTheme: setCurrentTheme,
+      }}
     >
       <div
         className={clsx(
           'flex flex-col w-full antialiased h-screen sm:hidden',
           screenHeight && '!h-screen',
-          theme,
-          theme === 'black' && 'bg-black text-white',
-          theme === 'white' && 'bg-white text-black',
+          currentTheme,
+          currentTheme === 'black' && 'bg-black text-white',
+          currentTheme === 'white' && 'bg-white text-black',
+          'transition-colors duration-300',
         )}
       >
         {meta}

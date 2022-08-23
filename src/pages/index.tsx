@@ -12,8 +12,8 @@ import { OpeningLink } from '@/components/OpeningLink';
 import { useOpeningStrings } from '@/data/opening';
 import { useTheme } from '@/styles/theme';
 import { useLocale } from '@/utils/useLocale';
+import { useScroll } from '@/utils/useScroll';
 import { useScrolledVideo } from '@/utils/useScrolledVideo';
-import { useScrollPercent } from '@/utils/useScrollPercent';
 
 const sloganSpeed = 5;
 
@@ -168,7 +168,7 @@ const MobileAnimatedSlogan: React.VFC = () => {
 const VIDEO_RANGE = 0.5;
 
 export default function () {
-  const { navbarHeight } = useTheme();
+  const { navbarHeight, setTheme } = useTheme();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -176,16 +176,30 @@ export default function () {
 
   const locale = useLocale();
 
-  useScrolledVideo(containerRef, videoRef, VIDEO_RANGE);
+  const { scrollTop, clientHeight, scrollHeight } = useScroll(containerRef);
 
-  const y = useScrollPercent(containerRef);
+  const yVideo =
+    clientHeight === undefined || scrollHeight === undefined
+      ? 0
+      : Math.max(
+          0,
+          Math.min(
+            1,
+            (scrollTop - clientHeight) /
+              (scrollHeight - clientHeight) /
+              VIDEO_RANGE,
+          ),
+        );
 
-  const yVideo = Math.min(1, y / VIDEO_RANGE);
+  useScrolledVideo(containerRef, videoRef, VIDEO_RANGE, clientHeight ?? 99999);
 
-  const videoOpacity = createInterpolator({
-    inputRange: [0, 0.025, 0.999, 1],
-    outputRange: [0, 1, 1, 0],
-  });
+  useEffect(() => {
+    if (yVideo > 0) {
+      setTheme('black');
+    } else {
+      setTheme('white');
+    }
+  }, [yVideo === 0]);
 
   const renderTopScreen = () => (
     <main
@@ -198,15 +212,26 @@ export default function () {
       <AnimatedSlogan />
       <MobileAnimatedSlogan />
 
-      <div className="pt-[30vh] sm:hidden animate-bounce-scroll">
+      <div
+        className={clsx(
+          'pt-[30vh] sm:hidden',
+          scrollTop === 0 && 'animate-bounce-scroll',
+        )}
+      >
         <MouseSvg />
-
         <div className="text-[20px] text-center text-black font-dense mt-[6px]">
           scroll
         </div>
       </div>
     </main>
   );
+
+  const videoOffset =
+    clientHeight === undefined
+      ? 9999
+      : scrollTop < clientHeight
+      ? clientHeight - scrollTop
+      : 0;
 
   const renderVideo = () => {
     return (
@@ -217,7 +242,7 @@ export default function () {
         style={{
           top: navbarHeight,
           height: `calc(100vh - ${navbarHeight}px)`,
-          opacity: videoOpacity(yVideo),
+          transform: `translateY(${videoOffset}px)`,
         }}
         ref={videoRef}
         preload="true"
@@ -230,8 +255,8 @@ export default function () {
 
   const renderVideoTexts = () => {
     const sloganOpacity = createInterpolator({
-      inputRange: [0.001, 0.08, 0.1, 0.12],
-      outputRange: [0, 1, 1, 0],
+      inputRange: [0.08, 0.1, 0.12],
+      outputRange: [1, 1, 0],
       extrapolate: 'clamp',
     });
 
@@ -253,7 +278,7 @@ export default function () {
           'pointer-events-none z-50 fixed right-0 bottom-0 left-0',
           'text-white',
         )}
-        style={{ top: navbarHeight }}
+        style={{ top: navbarHeight, transform: `translateY(${videoOffset}px)` }}
       >
         <div className="h-full w-full relative">
           <div>{yVideo}</div>
