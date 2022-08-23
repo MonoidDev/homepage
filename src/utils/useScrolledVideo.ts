@@ -36,9 +36,9 @@ export const useScrolledVideo = (
     let cancelled = false;
 
     function step() {
-      if (videoRef.current!.duration && !isNaN(getScrollPercent())) {
+      if (videoRef.current?.duration && !isNaN(getScrollPercent())) {
         if (!seekingRef.current) {
-          videoRef.current!.currentTime =
+          videoRef.current.currentTime =
             getScrollPercent() * videoRef.current!.duration;
         }
       }
@@ -51,8 +51,8 @@ export const useScrolledVideo = (
     requestAnimationFrame(step);
 
     return () => {
-      unwrapVideo().removeEventListener('seeking', setSeekingTrue);
-      unwrapVideo().removeEventListener('seeked', setSeekingFalse);
+      unwrapVideo()?.removeEventListener('seeking', setSeekingTrue);
+      unwrapVideo()?.removeEventListener('seeked', setSeekingFalse);
 
       cancelled = true;
     };

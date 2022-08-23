@@ -2,14 +2,16 @@ import React, { useEffect, useState, useId, useRef } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { createInterpolator } from 'range-interpolator';
 
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
+import MouseSvg from '@/assets/images/Mouse.svg';
 import Slogan from '@/assets/images/Slogan.svg';
 import { LgbtCircle } from '@/components/LgbtCircle';
+import { OpeningLink } from '@/components/OpeningLink';
 import { useOpeningStrings } from '@/data/opening';
 import { useTheme } from '@/styles/theme';
+import { useLocale } from '@/utils/useLocale';
 import { useScrolledVideo } from '@/utils/useScrolledVideo';
 import { useScrollPercent } from '@/utils/useScrollPercent';
 
@@ -91,7 +93,7 @@ const AnimatedSlogan: React.VFC = () => {
         }
       >
         <svg
-          className="mb-[20vh] sm:hidden"
+          className="w-[1056px] h-[76px] sm:hidden"
           width={'80vw'}
           viewBox="0 0 1575 118"
         >
@@ -166,13 +168,13 @@ const MobileAnimatedSlogan: React.VFC = () => {
 const VIDEO_RANGE = 0.5;
 
 export default function () {
-  const router = useRouter();
-
   const { navbarHeight } = useTheme();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const openingStrings = useOpeningStrings();
+
+  const locale = useLocale();
 
   useScrolledVideo(containerRef, videoRef, VIDEO_RANGE);
 
@@ -180,27 +182,28 @@ export default function () {
 
   const yVideo = Math.min(1, y / VIDEO_RANGE);
 
+  const videoOpacity = createInterpolator({
+    inputRange: [0, 0.025, 0.999, 1],
+    outputRange: [0, 1, 1, 0],
+  });
+
   const renderTopScreen = () => (
     <main
       style={{
         height: `calc(100vh - ${navbarHeight}px)`,
       }}
-      className="flex flex-col justify-center items-center overflow-scroll shrink-0"
+      className="flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] pb-[40px]"
       role="main"
     >
-      <div className="flex flex-col">
-        <AnimatedSlogan />
-        <MobileAnimatedSlogan />
+      <AnimatedSlogan />
+      <MobileAnimatedSlogan />
 
-        <button
-          onClick={() => router.push('/company')}
-          className={clsx(
-            'sm:hidden font-loose text-[40px] font-bold self-end px-8 pb-2 pt-4',
-            'border-4 border-black hover:text-gray-700 hover:border-gray-700',
-          )}
-        >
-          LEARN MORE
-        </button>
+      <div className="pt-[30vh] sm:hidden animate-bounce-scroll">
+        <MouseSvg />
+
+        <div className="text-[20px] text-center text-black font-dense mt-[6px]">
+          scroll
+        </div>
       </div>
     </main>
   );
@@ -211,7 +214,11 @@ export default function () {
         className={clsx(
           'pointer-events-none z-40 fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
         )}
-        style={{ top: navbarHeight, height: `calc(100vh - ${navbarHeight}px)` }}
+        style={{
+          top: navbarHeight,
+          height: `calc(100vh - ${navbarHeight}px)`,
+          opacity: videoOpacity(yVideo),
+        }}
         ref={videoRef}
         preload="true"
         muted
@@ -223,7 +230,7 @@ export default function () {
 
   const renderVideoTexts = () => {
     const sloganOpacity = createInterpolator({
-      inputRange: [0.001, 0.04, 0.06, 0.07],
+      inputRange: [0.001, 0.08, 0.1, 0.12],
       outputRange: [0, 1, 1, 0],
       extrapolate: 'clamp',
     });
@@ -252,7 +259,11 @@ export default function () {
           <div>{yVideo}</div>
 
           <div
-            className="font-dense absolute text-[80px] left-[10vw] bottom-[20vh]"
+            className={clsx(
+              'font-dense absolute text-[80px] left-[10vw] bottom-[20vh]',
+              (locale === 'en-US' || locale === 'zh-CN') &&
+                'text-[100px] leading-[0.95]',
+            )}
             style={{
               opacity: sloganOpacity(yVideo),
             }}
@@ -269,11 +280,23 @@ export default function () {
             }}
           >
             <div className="w-[860px]">
-              <h2 className="text-[40px] font-bold">
+              <h2
+                className={clsx(
+                  'text-[40px] font-bold',
+                  locale === 'en-US' && 'text-[50px] leading-tight',
+                )}
+              >
                 {openingStrings.introTitle}
               </h2>
 
-              <p className="text-[24px]">{openingStrings.introDetails}</p>
+              <p
+                className={clsx(
+                  'text-[24px]',
+                  locale === 'en-US' && 'text-[30px] leading-tight',
+                )}
+              >
+                {openingStrings.introDetails}
+              </p>
             </div>
           </div>
 
@@ -286,11 +309,36 @@ export default function () {
               opacity: technologyOpacity(yVideo),
             }}
           >
-            <h2 className="text-[40px] font-bold">
+            <h2
+              className={clsx(
+                'text-[40px] font-bold',
+                locale === 'en-US' && 'text-[50px] leading-tight',
+              )}
+            >
               {openingStrings.technologyTitle}
             </h2>
 
-            <p className="text-[24px]">{openingStrings.technologyDetails}</p>
+            <p
+              className={clsx(
+                'text-[24px]',
+                locale === 'en-US' && 'text-[30px] opacity-60',
+                locale === 'zh-CN' && 'opacity-60',
+              )}
+            >
+              {openingStrings.technologyDetails}
+            </p>
+
+            <div
+              className="flex justify-end mt-[40px]"
+              style={{
+                pointerEvents:
+                  technologyOpacity(yVideo) === 0 ? 'none' : 'auto',
+              }}
+            >
+              <OpeningLink color="white" href="/company">
+                COMPANY
+              </OpeningLink>
+            </div>
           </div>
         </div>
       </div>
