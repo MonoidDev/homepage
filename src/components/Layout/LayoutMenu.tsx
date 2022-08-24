@@ -80,10 +80,11 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
 
 const AnimatedLogo = React.lazy(() => import('./AnimatedLogo'));
 
-export const LayoutMenu: React.VFC<{
+export const LayoutMenu: React.FC<{
   loadingDone: boolean;
   hideLogo: boolean | 'mobile';
-}> = ({ loadingDone, hideLogo }) => {
+  headerTransparent: boolean;
+}> = ({ loadingDone, hideLogo, headerTransparent }) => {
   const strings = useSiteStrings();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -98,7 +99,7 @@ export const LayoutMenu: React.VFC<{
   return (
     <div
       className="flex flex-col z-[10] shrink-0"
-      style={{ background: theme }}
+      style={{ background: headerTransparent ? undefined : theme }}
     >
       <div className="px-12 pt-[26px] pb-[18px]">
         <div className="flex relative items-center">

@@ -8,6 +8,7 @@ import { Theme, ThemeProvider } from '@/styles/theme';
 export interface LayoutProps {
   loadingDone: boolean;
   hideLogo: boolean | 'mobile';
+  headerTransparent?: boolean;
   meta: React.ReactNode;
   theme: Theme;
   screenHeight: boolean;
@@ -15,7 +16,15 @@ export interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { meta, children, theme, loadingDone, hideLogo, screenHeight } = props;
+  const {
+    meta,
+    children,
+    theme,
+    loadingDone,
+    hideLogo,
+    screenHeight,
+    headerTransparent,
+  } = props;
 
   const [currentTheme, setCurrentTheme] = useState(theme);
 
@@ -49,7 +58,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
         }
       >
         {meta}
-        <LayoutMenu loadingDone={loadingDone} hideLogo={hideLogo} />
+        <LayoutMenu
+          loadingDone={loadingDone}
+          hideLogo={hideLogo}
+          headerTransparent={headerTransparent ?? false}
+        />
         {children}
       </div>
     </ThemeProvider>

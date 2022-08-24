@@ -104,6 +104,7 @@ export async function getStaticProps() {
     props: {
       theme: 'black',
       title: 'Recruit | 合同会社Monoid | G.K. Monoid | Monoid',
+      headerTransparent: true,
     },
   };
 }

@@ -21,13 +21,13 @@ export default function JobDescription() {
   const description = descriptions.jobs.find((item) => item.name === name);
 
   const renderDesktopHeader = () => (
-    <div className="flex gap-x-[40px] mb-[1rem] font-loose">
+    <div className="flex gap-x-[20px] mb-[1rem] font-loose">
       <Link href="/recruit/jobs">
         <a aria-label={ariaLabelStrings.back}>
-          <LeftTriangleSvg className="cursor-pointer" />
+          <LeftTriangleSvg className="cursor-pointer mt-[2px]" />
         </a>
       </Link>
-      <span className="text-[80px] font-bold leading-none mt-[5px]">
+      <span className="text-[60px] font-bold leading-none mt-[5px]">
         {name}
       </span>
 
@@ -40,7 +40,7 @@ export default function JobDescription() {
           </Link>
 
           <Link href={`/recruit/apply/${name}`}>
-            <RightTriangleOutlineSvg className="cursor-pointer mt-3" />
+            <RightTriangleOutlineSvg className="cursor-pointer mt-[6px]" />
           </Link>
         </>
       )}

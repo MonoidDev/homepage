@@ -19,9 +19,10 @@ const useStrings = makeStrings({
     projectType: 'お問い合わせの種別',
     projectOptions: [
       { value: 'IT Consulting', label: 'ITコンサルティング' },
+      { value: 'System Rebuilding', label: '基幹システム再構築' },
+      { value: 'SaaS Import', label: 'SaaS導入運用支援' },
       { value: 'System', label: 'システム開発' },
-      { value: 'Application', label: 'アプリ開発' },
-      { value: 'Website', label: 'ウェブ制作' },
+      { value: 'Application', label: 'モバイルアプリ開発' },
       { value: 'Other', label: 'その他' },
     ],
   },
@@ -66,8 +67,8 @@ export const ContactProjectTypeInput = <
       )}
     >
       <label
-        htmlFor="first_name"
-        className="text-[22px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal mb-4 block"
+        htmlFor="project_type"
+        className="text-[18px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal mb-4 block"
       >
         {strings.projectType} <span>*</span>
       </label>
@@ -78,7 +79,7 @@ export const ContactProjectTypeInput = <
             key={option.value}
             type="button"
             className={clsx(
-              'text-[25px] sm:text-[16px] pt-[4px] pb-[2px] px-3 sm:px-2 rounded-[20px] leading-[1.2] whitespace-pre',
+              'text-[18px] sm:text-[16px] pt-[4px] pb-[2px] px-3 sm:px-2 rounded-[20px] leading-[1.5] whitespace-pre',
               locale === 'ja-JP' && 'font-bold',
               !error && value.includes(option.value) && 'bg-black text-white',
             )}

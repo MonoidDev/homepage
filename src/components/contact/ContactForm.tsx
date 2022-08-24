@@ -115,7 +115,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
   return (
     <form
       className={clsx(
-        'w-[1300px] h-[650px] bg-white px-[80px] pt-[45px] pb-[70px] flex flex-col relative rounded-[10px] border border-black',
+        'w-[1000px] h-[600px] bg-white px-[80px] pt-[45px] pb-[70px] flex flex-col relative rounded-[10px] border border-black',
         className,
       )}
       onSubmit={handleSubmit(async (values) => {
@@ -140,7 +140,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
 
       <MutationAlert mutation={postContacts} />
 
-      <h2 className="text-[55px] font-bold">{strings.contactTitle}</h2>
+      <h2 className="text-[40px] font-bold">{strings.contactTitle}</h2>
 
       <div className="flex-1 grid grid-cols-2 gap-x-8">
         {renderLeftForm()}

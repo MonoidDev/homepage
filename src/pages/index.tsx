@@ -629,12 +629,12 @@ export default function () {
     return (
       <div
         id="#businessContent"
-        className="shrink-0 px-[160px] flex flex-col gap-y-[37px] justify-center"
+        className="shrink-0 w-[1056px] self-center flex flex-col gap-y-[37px] justify-center relative z-40"
         style={{
           height: `calc(1 * (100vh - ${navbarHeight}px))`,
         }}
       >
-        <div className="h-[1px] bg-black absolute left-[30px] right-[30px] rotate-[-20deg]" />
+        <div className="h-[1px] bg-black absolute left-[100px] right-[100px] rotate-[-20deg]" />
 
         <div className="flex h-[254px] gap-x-[100px]">
           <div className="relative">
