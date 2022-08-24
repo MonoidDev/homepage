@@ -95,6 +95,8 @@ export const useOpeningStrings = makeStrings({
       <>UIUXデザイン</>,
       <>LOGO/VIデザイン</>,
     ],
+    letsCreate: <>さあ、一緒に</>,
+    together: <>を創造しましょう</>,
   },
   'zh-CN': {
     slogan: (

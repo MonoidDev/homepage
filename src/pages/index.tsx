@@ -10,6 +10,8 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { createInterpolator } from 'range-interpolator';
 
+import BackToTopSvg from '@/assets/images/BackToTop.svg';
+import DotsSvg from '@/assets/images/dots.svg';
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import MouseSvg from '@/assets/images/Mouse.svg';
 import Slogan from '@/assets/images/Slogan.svg';
@@ -79,51 +81,63 @@ const RandomCircle: React.VFC<{ fill?: string; maxX: number; maxY: number }> = (
   return <circle r={180} cx={x} cy={y} fill={fill} />;
 };
 
-const AnimatedSlogan: React.VFC = () => {
+const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
+  isBottom = false,
+}) => {
   const maskId = useId();
 
+  const openingStrings = useOpeningStrings();
+
   return (
-    <Link
-      href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
-    >
-      <a
-        aria-label={
-          shouldDisplayLGBT
-            ? 'Monoid supports LGBT rights!'
-            : 'Learn More about Monoid'
-        }
-        title={
-          shouldDisplayLGBT
-            ? 'Monoid supports LGBT rights!'
-            : 'Learn More about Monoid'
-        }
-      >
-        <svg
-          className="w-[1056px] h-[76px] sm:hidden"
-          width={'80vw'}
-          viewBox="0 0 1575 118"
-        >
-          <mask id={String(maskId)}>
-            <Slogan fill="white" />
-          </mask>
+    <span>
+      {isBottom && (
+        <div className="h-0 relative text-[80px]">
+          <DotsSvg className="absolute bottom-[43px] left-[-30px]" />
 
-          <Slogan />
+          <h2 className="absolute bottom-0 left-[10px] font-dense font-bold">
+            {openingStrings.letsCreate}
+          </h2>
+        </div>
+      )}
+      <svg className="w-[1056px] h-[76px] sm:hidden" viewBox="0 0 1575 118">
+        <mask id={String(maskId)}>
+          <Slogan fill="white" />
+        </mask>
 
-          <g mask={`url(#${maskId})`}>
-            <RandomCircle
-              fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
-              maxX={1575}
-              maxY={118}
-            />
-            <RandomCircle
-              fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
-              maxX={1575}
-              maxY={118}
-            />
-          </g>
-        </svg>
-      </a>
-    </Link>
+        <Slogan />
+
+        <g mask={`url(#${maskId})`}>
+          <RandomCircle
+            fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
+            maxX={1575}
+            maxY={118}
+          />
+          <RandomCircle
+            fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+            maxX={1575}
+            maxY={118}
+          />
+        </g>
+      </svg>
+
+      {isBottom && (
+        <div className="h-0 relative text-[80px]">
+          <h2 className="absolute top-[30px] left-[10px] font-dense font-bold">
+            {openingStrings.together}
+          </h2>
+
+          <div className="absolute top-[220px] left-[10px] flex gap-x-[80px]">
+            <OpeningLink color="black" target="_blank" href="/contact">
+              CONTACT US
+            </OpeningLink>
+
+            <OpeningLink color="black" target="_blank" href="/recruit">
+              JOIN US
+            </OpeningLink>
+          </div>
+        </div>
+      )}
+    </span>
   );
 };
 
@@ -185,7 +199,8 @@ export default function () {
 
   const locale = useLocale();
 
-  const { scrollTop, clientHeight, scrollHeight } = useScroll(containerRef);
+  const { scrollTop, clientHeight, scrollPercent, scrollHeight } =
+    useScroll(containerRef);
 
   const id = useId();
 
@@ -306,7 +321,7 @@ export default function () {
         style={{ top: navbarHeight, transform: `translateY(${videoOffset}px)` }}
       >
         <div className="h-full w-full relative">
-          <div className="text-green-500">{yVideo}</div>
+          {/* <div className="text-green-500">{yVideo}</div> */}
 
           <div
             className={clsx(
@@ -323,7 +338,7 @@ export default function () {
 
           <div
             className={clsx(
-              'font-dense absolute bottom-[80px] left-[0] right-[0] flex justify-center',
+              'font-dense absolute top-[67.5%] left-[0] right-[0] flex justify-center',
             )}
             style={{
               opacity: introOpacity(yVideo),
@@ -385,7 +400,7 @@ export default function () {
                   technologyOpacity(yVideo) === 0 ? 'none' : 'auto',
               }}
             >
-              <OpeningLink color="white" href="/company">
+              <OpeningLink color="white" href="/company" target="_blank">
                 COMPANY
               </OpeningLink>
             </div>
@@ -412,6 +427,12 @@ export default function () {
   };
 
   const renderBusinessContent = () => {
+    const ratio = createInterpolator({
+      inputRange: [7 / 9, 8 / 9],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    });
+
     const renderDX = () => {
       const renderTexts = () => (
         <>
@@ -438,7 +459,9 @@ export default function () {
       );
 
       const renderCircle = (props: ComponentProps<'circle'>) => {
-        return <circle cx="250" cy="132" r="120" {...props} />;
+        return (
+          <circle cx="250" cy="132" r={120 * ratio(scrollPercent)} {...props} />
+        );
       };
 
       return (
@@ -494,13 +517,14 @@ export default function () {
       const [centerX, centerY] = [x + width / 2, y + height / 2];
 
       const renderRect = (props?: ComponentProps<'rect'>) => {
+        const r = ratio(scrollPercent) * 360 + 30;
         return (
           <rect
             x={x}
             y={y}
             width={width}
             height={height}
-            transform={`rotate(45, ${centerX}, ${centerY})`}
+            transform={`rotate(${r}, ${centerX}, ${centerY})`}
             {...props}
           />
         );
@@ -555,8 +579,9 @@ export default function () {
 
             <OpeningLink
               color="black"
-              href=""
+              href="/works"
               className="absolute left-0 bottom-0"
+              target="_blank"
             >
               SEE WORKS
             </OpeningLink>
@@ -585,12 +610,38 @@ export default function () {
               color="black"
               href=""
               className="absolute right-0 bottom-0"
+              target="_blank"
             >
               SEE WORKS
             </OpeningLink>
           </div>
         </div>
       </div>
+    );
+  };
+
+  const renderBottomScreen = () => {
+    return (
+      <main
+        style={{
+          height: `calc(100vh - ${navbarHeight}px)`,
+        }}
+        className={clsx(
+          'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] pb-[40px]',
+          'relative',
+        )}
+        role="main"
+      >
+        <AnimatedSlogan isBottom />
+        <MobileAnimatedSlogan />
+
+        <BackToTopSvg
+          className="absolute bottom-0 right-0 cursor-pointer"
+          onClick={() => {
+            containerRef.current!.scrollTop = 0;
+          }}
+        />
+      </main>
     );
   };
 
@@ -617,12 +668,7 @@ export default function () {
       {renderBusinessContent()}
 
       {/* 1/9 */}
-      <div
-        className="shrink-0"
-        style={{
-          height: `calc(1 * (100vh - ${navbarHeight}px))`,
-        }}
-      ></div>
+      {renderBottomScreen()}
     </div>
   );
 }
