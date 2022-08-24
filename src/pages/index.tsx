@@ -274,19 +274,19 @@ export default function () {
 
   const renderVideoTexts = () => {
     const sloganOpacity = createInterpolator({
-      inputRange: [0, 0.04],
-      outputRange: [1, 0],
+      inputRange: [0, 0.06, 0.073],
+      outputRange: [1, 1, 0],
       extrapolate: 'clamp',
     });
 
     const introOpacity = createInterpolator({
-      inputRange: [0.0815, 0.1063, 0.4096, 0.4382],
+      inputRange: [0.151, 0.1724, 0.4456, 0.4817],
       outputRange: [0, 1, 1, 0],
       extrapolate: 'clamp',
     });
 
     const technologyOpacity = createInterpolator({
-      inputRange: [0.4728, 0.4788, 0.5344, 0.5425],
+      inputRange: [0.5034, 0.5159, 0.5672, 0.5771],
       outputRange: [0, 1, 1, 0],
       extrapolate: 'clamp',
     });
