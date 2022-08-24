@@ -259,7 +259,7 @@ export default function () {
     <main
       className={clsx(
         'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] sm:!pt-[0px] pb-[40px]',
-        'h-[calc(100dvh-var(--navbarHeight))] h-[calc(100vh-var(--navbarHeight))]',
+        'h-[calc(100vh-var(--navbarHeight))] h-[calc(100dvh-var(--navbarHeight))]',
       )}
       role="main"
     >
