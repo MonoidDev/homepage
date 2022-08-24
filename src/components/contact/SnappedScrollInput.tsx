@@ -73,7 +73,7 @@ export const SnappedScrollInput: React.FC<{
         !error && 'bg-white text-black',
       )}
     >
-      <label className="text-[22px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal pt-[2px] w-[140px] sm:w-[90px] shrink-0 select-none whitespace-pre">
+      <label className="text-[18px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal pt-[2px] w-[100px] sm:w-[90px] shrink-0 select-none whitespace-pre">
         {mapValueToLabel ? mapValueToLabel(value) : label}
       </label>
       <div

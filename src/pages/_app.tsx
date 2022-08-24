@@ -45,6 +45,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
               theme={pageProps.theme}
               screenHeight={pageProps.screenHeight}
               meta={<Meta title={pageProps.title} />}
+              headerTransparent={pageProps.headerTransparent}
             >
               <Component {...pageProps} />
             </Layout>

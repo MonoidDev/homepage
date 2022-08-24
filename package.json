@@ -35,6 +35,7 @@
     "next-seo": "^5.4.0",
     "postcss": "^8.4.14",
     "prop-types": "^15.8.1",
+    "range-interpolator": "^1.0.2",
     "react": "^18.2.0",
     "react-countdown-hook": "^1.1.1",
     "react-dom": "^18.2.0",

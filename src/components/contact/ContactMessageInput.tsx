@@ -25,7 +25,7 @@ export const ContactMessageInput = React.forwardRef<
         !error && '!bg-white text-black border-2 border-black',
       )}
     >
-      <h3 className="font-loose text-[38px] sm:text-[24px] font-bold leading-[1] mb-[1rem]">
+      <h3 className="font-loose text-[28px] sm:text-[24px] font-bold leading-[1] mb-[1rem]">
         {strings.messageBoard}
       </h3>
 
@@ -46,8 +46,8 @@ export const ContactMessageInput = React.forwardRef<
       <button
         className={clsx(
           'self-end w-[182px] sm:w-[122px] h-[48px] sm:h-[32px] rounded-[24px]',
-          'sm:rounded-[12px] text-[30px] sm:text-[22px] sm:text-white',
-          'font-loose font-bold pt-[2px] mt-[1rem] sm:mt-[0] bg-[#C4C4C4] sm:bg-black',
+          'sm:rounded-[12px] text-[24px] sm:text-[22px] sm:text-white',
+          'font-loose font-bold pt-[3px] mt-[1rem] sm:mt-[0] bg-[#C4C4C4] sm:bg-black',
           error && 'opacity-0',
         )}
         disabled={!!error}

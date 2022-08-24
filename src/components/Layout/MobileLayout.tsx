@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import clsx from 'clsx';
 
@@ -31,24 +31,41 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
     },
   ]);
 
+  const [currentTheme, setCurrentTheme] = useState(theme);
+
+  useEffect(() => {
+    setCurrentTheme(theme);
+  }, [theme]);
+
   return (
     <ThemeProvider
-      value={{ loadingDone, theme, navbarHeight: 110, screen: 'mobile' }}
+      value={{
+        loadingDone,
+        theme: currentTheme,
+        navbarHeight: 110,
+        screen: 'mobile',
+        setTheme: setCurrentTheme,
+      }}
     >
       <div
         className={clsx(
           '>sm:hidden fill-available flex flex-col overflow-hidden relative z-0',
-          theme,
-          theme === 'black' && 'bg-black text-white',
-          theme === 'white' && 'bg-white text-black',
+          currentTheme,
+          currentTheme === 'black' && 'bg-black text-white',
+          currentTheme === 'white' && 'bg-white text-black',
         )}
+        style={
+          {
+            '--navbarHeight': '110px',
+          } as any
+        }
       >
         <div className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
           {!hideLogo && (
             <>
               <a aria-label={ariaLabelStrings.home} href="/">
-                {theme === 'white' && <LogoSvg height={62} />}
-                {theme === 'black' && <LogoWhiteSvg height={62} />}
+                {currentTheme === 'white' && <LogoSvg height={62} />}
+                {currentTheme === 'black' && <LogoWhiteSvg height={62} />}
               </a>
             </>
           )}

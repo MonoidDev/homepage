@@ -20,3 +20,9 @@ yarn dev
 ```
 yarn build
 ```
+
+## Environments
+
+Development: https://homepage-git-develop-monoid.vercel.app/zh-CN/
+
+Production: https://monoid.co.jp

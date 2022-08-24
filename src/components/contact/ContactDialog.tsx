@@ -24,6 +24,7 @@ export const ContactDialog: React.VFC = () => {
     <div
       className={clsx(
         'sm:hidden fixed left-0 right-0 top-0 bottom-0 flex flex-col items-center justify-center',
+        'pt-[var(--navbarHeight)]',
         'bg-black',
         'font-loose pointer-events-none',
       )}

@@ -50,11 +50,22 @@ module.exports = {
       },
       animation: {
         'pulse-lg': 'pulse-lg 1s linear infinite',
+        'bounce-scroll': 'bounce-scroll 1s linear infinite',
       },
       keyframes: {
         'pulse-lg': {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0 },
+        },
+        'bounce-scroll': {
+          '0%, 100%': {
+            transform: 'translateY(-2.5%)',
+            'animation-timing-function': 'ease',
+          },
+          '50%': {
+            transform: 'none',
+            'animation-timing-function': 'ease',
+          }
         }
       },
     },

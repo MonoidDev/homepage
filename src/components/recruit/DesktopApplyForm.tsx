@@ -31,13 +31,13 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
   const { control, handleSubmit, formState, registry } = useRecruitForm();
 
   const renderHeader = () => (
-    <div className="flex gap-x-[40px] mb-[1rem] font-loose">
+    <div className="flex gap-x-[20px] mb-[1rem] font-loose">
       <Link href={`/recruit/${name}`}>
         <a aria-label={name}>
           <LeftTriangleSvg className="cursor-pointer" />
         </a>
       </Link>
-      <span className="text-[80px] font-bold leading-none mt-[5px]">
+      <span className="text-[60px] font-bold leading-none mt-[5px]">
         APPLICATION
       </span>
 
@@ -49,7 +49,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
 
       <RightTriangleOutlineSvg
         onClick={handleSubmit(onSubmit)}
-        className="cursor-pointer mt-3"
+        className="cursor-pointer mt-[6px]"
       />
     </div>
   );

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import clsx from 'clsx';
 
 import { LayoutMenu } from './LayoutMenu';
@@ -6,6 +8,7 @@ import { Theme, ThemeProvider } from '@/styles/theme';
 export interface LayoutProps {
   loadingDone: boolean;
   hideLogo: boolean | 'mobile';
+  headerTransparent?: boolean;
   meta: React.ReactNode;
   theme: Theme;
   screenHeight: boolean;
@@ -13,23 +16,53 @@ export interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { meta, children, theme, loadingDone, hideLogo, screenHeight } = props;
+  const {
+    meta,
+    children,
+    theme,
+    loadingDone,
+    hideLogo,
+    screenHeight,
+    headerTransparent,
+  } = props;
+
+  const [currentTheme, setCurrentTheme] = useState(theme);
+
+  useEffect(() => {
+    setCurrentTheme(theme);
+  }, [theme]);
 
   return (
     <ThemeProvider
-      value={{ loadingDone, theme, navbarHeight: 140, screen: 'desktop' }}
+      value={{
+        loadingDone,
+        theme: currentTheme,
+        navbarHeight: 121,
+        screen: 'desktop',
+        setTheme: setCurrentTheme,
+      }}
     >
       <div
         className={clsx(
-          'flex flex-col w-full antialiased min-h-screen sm:hidden',
+          'flex flex-col w-full antialiased h-screen sm:hidden',
           screenHeight && '!h-screen',
-          theme,
-          theme === 'black' && 'bg-black text-white',
-          theme === 'white' && 'bg-white text-black',
+          currentTheme,
+          currentTheme === 'black' && 'bg-black text-white',
+          currentTheme === 'white' && 'bg-white text-black',
+          'transition-colors duration-300',
         )}
+        style={
+          {
+            '--navbarHeight': '121px',
+          } as any
+        }
       >
         {meta}
-        <LayoutMenu loadingDone={loadingDone} hideLogo={hideLogo} />
+        <LayoutMenu
+          loadingDone={loadingDone}
+          hideLogo={hideLogo}
+          headerTransparent={headerTransparent ?? false}
+        />
         {children}
       </div>
     </ThemeProvider>
