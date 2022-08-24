@@ -408,7 +408,10 @@ export default function () {
 
           <div className="absolute left-0 right-0 top-[45vh] flex justify-center">
             <div
-              className="text-[100px] leading-none"
+              className={clsx(
+                'text-[100px] leading-none font-dense',
+                (locale === 'en-US' || locale === 'zh-CN') && 'text-[120px]',
+              )}
               style={
                 {
                   '-webkit-text-fill-color': 'white',
@@ -436,13 +439,35 @@ export default function () {
     const renderDX = () => {
       const renderTexts = () => (
         <>
-          <text
-            x={0}
-            y={78}
-            className="font-dense font-bold text-[80px] text-black"
-          >
-            {openingStrings.DXAcceleration}
-          </text>
+          {(locale === 'ja-JP' || locale === 'zh-CN') && (
+            <text
+              x={0}
+              y={78}
+              className="font-dense font-bold text-[80px] text-black"
+            >
+              {openingStrings.DXAcceleration}
+            </text>
+          )}
+          {locale === 'en-US' && (
+            <>
+              <text
+                x={0}
+                y={70}
+                className="font-dense font-bold text-[80px] text-black"
+                opacity={0.6}
+              >
+                DX
+              </text>
+
+              <text
+                x={40}
+                y={107}
+                className="font-dense font-bold text-[80px] text-black"
+              >
+                Acceleration
+              </text>
+            </>
+          )}
 
           <text
             x={0}
@@ -466,9 +491,9 @@ export default function () {
 
       return (
         <svg
-          width={380}
+          width={395}
           height={254}
-          viewBox="0 0 380 254"
+          viewBox="0 0 395 254"
           xmlns="http://www.w3.org/2000/svg"
         >
           <mask id={`${id}:businessContentDXMask`}>
@@ -488,13 +513,36 @@ export default function () {
       const renderTexts = () => {
         return (
           <>
-            <text
-              x={150}
-              y={150}
-              className="font-dense font-bold text-[80px] text-black"
-            >
-              {openingStrings.newBusiness}
-            </text>
+            {(locale === 'ja-JP' || locale === 'zh-CN') && (
+              <text
+                x={150}
+                y={150}
+                className="font-dense font-bold text-[80px] text-black"
+              >
+                {openingStrings.newBusiness}
+              </text>
+            )}
+
+            {locale === 'en-US' && (
+              <>
+                <text
+                  x={150}
+                  y={138}
+                  className="font-dense font-bold text-[80px] text-black"
+                  opacity={0.6}
+                >
+                  Product
+                </text>
+
+                <text
+                  x={204}
+                  y={175}
+                  className="font-dense font-bold text-[80px] text-black"
+                >
+                  Incubation
+                </text>
+              </>
+            )}
 
             <text
               y={180}
@@ -573,6 +621,8 @@ export default function () {
           height: `calc(1 * (100vh - ${navbarHeight}px))`,
         }}
       >
+        <div className="h-[1px] bg-black absolute left-[30px] right-[30px] rotate-[-20deg]" />
+
         <div className="flex h-[254px] gap-x-[100px]">
           <div className="relative">
             {renderDX()}
