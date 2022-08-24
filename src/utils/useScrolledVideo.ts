@@ -32,9 +32,9 @@ export const useScrolledVideo = (
       seekingRef.current = false;
     }
 
-    unwrapVideo().addEventListener('seeking', setSeekingTrue);
+    unwrapVideo()?.addEventListener('seeking', setSeekingTrue);
 
-    unwrapVideo().addEventListener('seeked', setSeekingFalse);
+    unwrapVideo()?.addEventListener('seeked', setSeekingFalse);
 
     let cancelled = false;
 

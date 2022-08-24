@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 
-export const useScroll = (containerRef: React.RefObject<HTMLDivElement>) => {
+export const useScroll = (
+  containerRef: React.RefObject<HTMLDivElement>,
+  shouldReturn: boolean,
+) => {
   const unwrapContainer = () => containerRef.current!;
   const getScrollPercent = () =>
     unwrapContainer().scrollTop /
@@ -15,7 +18,7 @@ export const useScroll = (containerRef: React.RefObject<HTMLDivElement>) => {
     let cancelled = false;
 
     function step() {
-      if (unwrapContainer()) {
+      if (unwrapContainer() && shouldReturn) {
         setScrollPercent(getScrollPercent);
         setScrollTop(unwrapContainer().scrollTop);
         setClientHeight(unwrapContainer().clientHeight);
@@ -32,7 +35,7 @@ export const useScroll = (containerRef: React.RefObject<HTMLDivElement>) => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [shouldReturn]);
 
   return {
     scrollTop,

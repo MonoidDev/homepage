@@ -42,6 +42,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
           currentTheme === 'white' && 'bg-white text-black',
           'transition-colors duration-300',
         )}
+        style={
+          {
+            '--navbarHeight': '121px',
+          } as any
+        }
       >
         {meta}
         <LayoutMenu loadingDone={loadingDone} hideLogo={hideLogo} />

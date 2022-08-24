@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { createInterpolator } from 'range-interpolator';
 
 import BackToTopSvg from '@/assets/images/BackToTop.svg';
-import DotsSvg from '@/assets/images/dots.svg';
+import DotsSvg from '@/assets/images/Dots.svg';
 import MobileSlogan from '@/assets/images/MobileSlogan.svg';
 import MouseSvg from '@/assets/images/Mouse.svg';
 import Slogan from '@/assets/images/Slogan.svg';
@@ -20,6 +20,8 @@ import { OpeningLink } from '@/components/OpeningLink';
 import { useOpeningStrings } from '@/data/opening';
 import { useTheme } from '@/styles/theme';
 import { useLocale } from '@/utils/useLocale';
+import { useRendered } from '@/utils/useRendered';
+import { useScreen } from '@/utils/useScreen';
 import { useScroll } from '@/utils/useScroll';
 import { useScrolledVideo } from '@/utils/useScrolledVideo';
 
@@ -197,15 +199,24 @@ export default function () {
   const videoRef = useRef<HTMLVideoElement>(null);
   const openingStrings = useOpeningStrings();
 
+  const rendered = useRendered();
+  const screen = useScreen();
+
   const locale = useLocale();
 
-  const { scrollTop, clientHeight, scrollPercent, scrollHeight } =
-    useScroll(containerRef);
+  const shouldDisplayVideo = rendered === true && screen === 'desktop';
+
+  const { scrollTop, clientHeight, scrollPercent, scrollHeight } = useScroll(
+    containerRef,
+    shouldDisplayVideo,
+  );
 
   const id = useId();
 
   const yVideo =
-    clientHeight === undefined || scrollHeight === undefined
+    clientHeight === undefined ||
+    scrollHeight === undefined ||
+    !shouldDisplayVideo
       ? 0
       : Math.max(
           0,
@@ -220,7 +231,9 @@ export default function () {
   useScrolledVideo(containerRef, videoRef, VIDEO_RANGE, clientHeight ?? 99999);
 
   const videoOffset =
-    clientHeight === undefined || scrollHeight === undefined
+    clientHeight === undefined ||
+    scrollHeight === undefined ||
+    !shouldDisplayVideo
       ? 9999
       : createInterpolator({
           inputRange: [
@@ -244,10 +257,10 @@ export default function () {
 
   const renderTopScreen = () => (
     <main
-      style={{
-        height: `calc(100vh - ${navbarHeight}px)`,
-      }}
-      className="flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] pb-[40px]"
+      className={clsx(
+        'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] sm:!pt-[0px] pb-[40px]',
+        'h-[calc(100dvh-var(--navbarHeight))] h-[calc(100vh-var(--navbarHeight))]',
+      )}
       role="main"
     >
       <AnimatedSlogan />
@@ -702,23 +715,26 @@ export default function () {
     >
       {/* 1/9 */}
       {renderTopScreen()}
+      {rendered && screen === 'desktop' && (
+        <>
+          {renderVideo()}
 
-      {renderVideo()}
+          {renderVideoTexts()}
 
-      {renderVideoTexts()}
+          {/* 7/9 */}
+          <div
+            className="shrink-0"
+            style={{
+              height: `calc(7 * (100vh - ${navbarHeight}px))`,
+            }}
+          />
+          {/* 1/9 */}
+          {renderBusinessContent()}
 
-      {/* 7/9 */}
-      <div
-        className="shrink-0"
-        style={{
-          height: `calc(7 * (100vh - ${navbarHeight}px))`,
-        }}
-      />
-      {/* 1/9 */}
-      {renderBusinessContent()}
-
-      {/* 1/9 */}
-      {renderBottomScreen()}
+          {/* 1/9 */}
+          {renderBottomScreen()}
+        </>
+      )}
     </div>
   );
 }

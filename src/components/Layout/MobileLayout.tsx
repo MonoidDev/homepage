@@ -54,6 +54,11 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
           currentTheme === 'black' && 'bg-black text-white',
           currentTheme === 'white' && 'bg-white text-black',
         )}
+        style={
+          {
+            '--navbarHeight': '110px',
+          } as any
+        }
       >
         <div className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
           {!hideLogo && (
