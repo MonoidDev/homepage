@@ -31,7 +31,33 @@ export const useOpeningStrings = makeStrings({
       </>
     ),
     services: <>事業内容</>,
-    DXAcceleration: 'DX推進',
+    DXAcceleration: <>DX推進</>,
+    DXAccelerationSummary: [
+      <>デジタルを浸透させ革新的な</>,
+      <>イノベーションを起こす</>,
+    ],
+    DXAccelarationItems: [
+      <>IT資産の分析・評価</>,
+      <>IT資産計画</>,
+      <>SaaS導入運用支援</>,
+      <>基幹システム再構築</>,
+      <>IT人材採用育成サポート</>,
+    ],
+    newBusiness: <>新事業創造</>,
+    newBusinessSummary: [
+      <>ITサービスの新規立ち上げ</>,
+      <>支援・共創に尽力します</>,
+    ],
+    newBusinessItems: [
+      <>MVP開発</>,
+      <>POC開発</>,
+      <>システム開発</>,
+      <>モバイルアプリ開発</>,
+      <>UIUXデザイン</>,
+      <>LOGO/VIデザイン</>,
+    ],
+    letsCreate: <>さあ、一緒に</>,
+    together: <>を創造しましょう</>,
   },
   'en-US': {
     slogan: (
