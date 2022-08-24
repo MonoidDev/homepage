@@ -7,18 +7,20 @@ export const OpeningLink = (props: {
   children: React.ReactNode;
   color: Theme;
   href: string;
+  className?: string;
 }) => {
-  const { children, color, href } = props;
+  const { children, color, href, className } = props;
 
   return (
     <Link href={href}>
       <a
         className={clsx(
-          color === 'white' && 'text-white',
-          color === 'black' && 'text-black',
-          'font-bold text-[32px] leading-none',
-          'border-b border-white',
+          color === 'white' && 'text-white border-white',
+          color === 'black' && 'text-black border-black',
+          'font-dense font-bold text-[32px] leading-none',
+          'border-b',
           'flex justify-center items-center gap-x-[0.6rem]',
+          className,
         )}
       >
         {children}
@@ -33,8 +35,8 @@ export const OpeningLink = (props: {
         >
           <path
             d="M0.500002 1.38357L14.0673 10L0.500001 18.6164L0.500002 1.38357Z"
-            fill="white"
-            stroke="white"
+            fill={color}
+            stroke={color}
           />
         </svg>
       </a>

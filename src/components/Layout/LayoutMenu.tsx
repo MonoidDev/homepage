@@ -93,8 +93,13 @@ export const LayoutMenu: React.VFC<{
     'close',
   );
 
+  const { theme } = useTheme();
+
   return (
-    <div className="flex flex-col z-[10] shrink-0">
+    <div
+      className="flex flex-col z-[10] shrink-0"
+      style={{ background: theme }}
+    >
       <div className="px-12 pt-[26px] pb-[18px]">
         <div className="flex relative items-center">
           <div

@@ -30,6 +30,8 @@ export const useOpeningStrings = makeStrings({
         ただ新しい技術を押しつけるのではなく、旧来の価値観や手法が新しいものに移行していく際に生じる摩擦や軋轢などのリスクも含め、お客様の技術的な意思決定を包括的にサポートします。
       </>
     ),
+    services: <>事業内容</>,
+    DXAcceleration: 'DX推進',
   },
   'en-US': {
     slogan: (
@@ -67,6 +69,32 @@ export const useOpeningStrings = makeStrings({
         technical decisions.
       </>
     ),
+    services: <>SERVICES</>,
+    DXAcceleration: <>DX推進</>,
+    DXAccelerationSummary: [
+      <>デジタルを浸透させ革新的な</>,
+      <>イノベーションを起こす</>,
+    ],
+    DXAccelarationItems: [
+      <>IT資産の分析・評価</>,
+      <>IT資産計画</>,
+      <>SaaS導入運用支援</>,
+      <>基幹システム再構築</>,
+      <>IT人材採用育成サポート</>,
+    ],
+    newBusiness: <>新事業創造</>,
+    newBusinessSummary: [
+      <>ITサービスの新規立ち上げ</>,
+      <>支援・共創に尽力します</>,
+    ],
+    newBusinessItems: [
+      <>MVP開発</>,
+      <>POC開発</>,
+      <>システム開発</>,
+      <>モバイルアプリ開発</>,
+      <>UIUXデザイン</>,
+      <>LOGO/VIデザイン</>,
+    ],
   },
   'zh-CN': {
     slogan: (
@@ -96,5 +124,7 @@ export const useOpeningStrings = makeStrings({
         我们使用高效，严谨的新技术和新框架，解决旧患旧疾，为新时代的来临铺平道路。
       </>
     ),
+    services: <>SERVICES</>,
+    DXAcceleration: <>数字化转型</>,
   },
 });

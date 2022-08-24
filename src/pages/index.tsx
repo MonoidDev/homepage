@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useId, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useId,
+  useRef,
+  ComponentProps,
+} from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -165,7 +171,10 @@ const MobileAnimatedSlogan: React.VFC = () => {
   );
 };
 
-const VIDEO_RANGE = 0.5;
+const VIDEO_START = 1 / 9;
+const VIDEO_RANGE = 6 / 9;
+
+const VIDEO_WHITE_START = 0.7255;
 
 export default function () {
   const { navbarHeight, setTheme } = useTheme();
@@ -177,6 +186,8 @@ export default function () {
   const locale = useLocale();
 
   const { scrollTop, clientHeight, scrollHeight } = useScroll(containerRef);
+
+  const id = useId();
 
   const yVideo =
     clientHeight === undefined || scrollHeight === undefined
@@ -193,13 +204,28 @@ export default function () {
 
   useScrolledVideo(containerRef, videoRef, VIDEO_RANGE, clientHeight ?? 99999);
 
+  const videoOffset =
+    clientHeight === undefined || scrollHeight === undefined
+      ? 9999
+      : createInterpolator({
+          inputRange: [
+            0,
+            clientHeight,
+            (scrollHeight - clientHeight) * (VIDEO_START + VIDEO_RANGE),
+            (scrollHeight - clientHeight) * (VIDEO_START + VIDEO_RANGE) +
+              clientHeight,
+          ],
+          outputRange: [clientHeight, 0, 0, -clientHeight],
+          extrapolate: 'clamp',
+        })(scrollTop);
+
   useEffect(() => {
-    if (yVideo > 0) {
-      setTheme('black');
-    } else {
+    if (yVideo >= VIDEO_WHITE_START || yVideo === 0) {
       setTheme('white');
+    } else {
+      setTheme('black');
     }
-  }, [yVideo === 0]);
+  }, [yVideo === 0, yVideo >= VIDEO_WHITE_START]);
 
   const renderTopScreen = () => (
     <main
@@ -226,18 +252,11 @@ export default function () {
     </main>
   );
 
-  const videoOffset =
-    clientHeight === undefined
-      ? 9999
-      : scrollTop < clientHeight
-      ? clientHeight - scrollTop
-      : 0;
-
   const renderVideo = () => {
     return (
       <video
         className={clsx(
-          'pointer-events-none z-40 fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
+          'pointer-events-none z-30 fixed right-0 bottom-0 left-0 object-cover w-screen max-w-[initial]',
         )}
         style={{
           top: navbarHeight,
@@ -255,20 +274,26 @@ export default function () {
 
   const renderVideoTexts = () => {
     const sloganOpacity = createInterpolator({
-      inputRange: [0.08, 0.1, 0.12],
-      outputRange: [1, 1, 0],
+      inputRange: [0, 0.04],
+      outputRange: [1, 0],
       extrapolate: 'clamp',
     });
 
     const introOpacity = createInterpolator({
-      inputRange: [0.123, 0.16, 0.6, 0.64],
+      inputRange: [0.0815, 0.1063, 0.4096, 0.4382],
       outputRange: [0, 1, 1, 0],
       extrapolate: 'clamp',
     });
 
     const technologyOpacity = createInterpolator({
-      inputRange: [0.7, 0.75, 0.78, 0.8],
+      inputRange: [0.4728, 0.4788, 0.5344, 0.5425],
       outputRange: [0, 1, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const servicesOpacity = createInterpolator({
+      inputRange: [0.95, 0.9914, 1],
+      outputRange: [0, 1, 1],
       extrapolate: 'clamp',
     });
 
@@ -281,7 +306,7 @@ export default function () {
         style={{ top: navbarHeight, transform: `translateY(${videoOffset}px)` }}
       >
         <div className="h-full w-full relative">
-          <div>{yVideo}</div>
+          <div className="text-green-500">{yVideo}</div>
 
           <div
             className={clsx(
@@ -365,20 +390,239 @@ export default function () {
               </OpeningLink>
             </div>
           </div>
+
+          <div className="absolute left-0 right-0 top-[45vh] flex justify-center">
+            <div
+              className="text-[100px] leading-none"
+              style={
+                {
+                  '-webkit-text-fill-color': 'white',
+                  '-webkit-text-stroke-width': '1px',
+                  '-webkit-text-stroke-color': 'black',
+                  opacity: servicesOpacity(yVideo),
+                } as any
+              }
+            >
+              {openingStrings.services}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderBusinessContent = () => {
+    const renderDX = () => {
+      const renderTexts = () => (
+        <>
+          <text
+            x={0}
+            y={78}
+            className="font-dense font-bold text-[80px] text-black"
+          >
+            {openingStrings.DXAcceleration}
+          </text>
+
+          <text
+            x={0}
+            y={110}
+            className="font-dense font-bold text-[20px] text-black"
+          >
+            {openingStrings.DXAccelerationSummary?.map((s, i) => (
+              <tspan key={i} x="0" dy="1.2em">
+                {s}
+              </tspan>
+            ))}
+          </text>
+        </>
+      );
+
+      const renderCircle = (props: ComponentProps<'circle'>) => {
+        return <circle cx="250" cy="132" r="120" {...props} />;
+      };
+
+      return (
+        <svg
+          width={380}
+          height={254}
+          viewBox="0 0 380 254"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <mask id={`${id}:businessContentDXMask`}>
+            {renderCircle({ fill: 'white' })}
+            {renderTexts()}
+          </mask>
+          {renderTexts()}
+
+          {renderCircle({ fill: 'white' })}
+
+          {renderCircle({ mask: `url(#${id}:businessContentDXMask)` })}
+        </svg>
+      );
+    };
+
+    const renderNewBusiness = () => {
+      const renderTexts = () => {
+        return (
+          <>
+            <text
+              x={150}
+              y={150}
+              className="font-dense font-bold text-[80px] text-black"
+            >
+              {openingStrings.newBusiness}
+            </text>
+
+            <text
+              y={180}
+              className="font-dense font-bold text-[20px] text-black"
+            >
+              {openingStrings.newBusinessSummary?.map((s, i) => (
+                <tspan key={i} x="320" dy="1.2em" textAnchor="right">
+                  {s}
+                </tspan>
+              ))}
+            </text>
+          </>
+        );
+      };
+
+      const x = 59;
+      const y = 61;
+      const width = 288;
+      const height = 288;
+      const [centerX, centerY] = [x + width / 2, y + height / 2];
+
+      const renderRect = (props?: ComponentProps<'rect'>) => {
+        return (
+          <rect
+            x={x}
+            y={y}
+            width={width}
+            height={height}
+            transform={`rotate(45, ${centerX}, ${centerY})`}
+            {...props}
+          />
+        );
+      };
+
+      return (
+        <svg
+          width={551}
+          height={408}
+          viewBox="0 0 551 408"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <mask id={`${id}:businessContentNewBusinessMask`}>
+            {renderRect({ fill: 'white' })}
+            {renderTexts()}
+          </mask>
+
+          {renderTexts()}
+          {renderRect({
+            fill: 'white',
+          })}
+          <g mask={`url(#${id}:businessContentNewBusinessMask)`}>
+            {renderRect({})}
+          </g>
+        </svg>
+      );
+    };
+
+    const renderItem = (index: number, title: React.ReactNode) => {
+      return (
+        <li key={index} className="list-none">
+          <span className="font-dense text-[36px] font-bold mr-[10px]">
+            {index.toString().padStart(2, '0')}
+          </span>
+
+          <span className="font-dense text-[24px] font-bold">{title}</span>
+        </li>
+      );
+    };
+
+    return (
+      <div
+        id="#businessContent"
+        className="shrink-0 px-[160px] flex flex-col gap-y-[37px] justify-center"
+        style={{
+          height: `calc(1 * (100vh - ${navbarHeight}px))`,
+        }}
+      >
+        <div className="flex h-[254px] gap-x-[100px]">
+          <div className="relative">
+            {renderDX()}
+
+            <OpeningLink
+              color="black"
+              href=""
+              className="absolute left-0 bottom-0"
+            >
+              SEE WORKS
+            </OpeningLink>
+          </div>
+
+          <div className="flex-1">
+            {openingStrings.DXAccelarationItems?.map((v, index) =>
+              renderItem(index, v),
+            )}
+          </div>
+        </div>
+
+        <div className="flex h-[408px]">
+          <div className="flex-1 flex justify-end">
+            <div className="pt-[80px]">
+              {openingStrings.newBusinessItems?.map((v, index) =>
+                renderItem(index, v),
+              )}
+            </div>
+          </div>
+
+          <div className="relative">
+            {renderNewBusiness()}
+
+            <OpeningLink
+              color="black"
+              href=""
+              className="absolute right-0 bottom-0"
+            >
+              SEE WORKS
+            </OpeningLink>
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col shrink overflow-scroll" ref={containerRef}>
+    <div
+      className="flex flex-col shrink overflow-scroll relative z-0"
+      ref={containerRef}
+    >
+      {/* 1/9 */}
       {renderTopScreen()}
-
-      <div className="pt-[400vh] shrink-0"></div>
 
       {renderVideo()}
 
       {renderVideoTexts()}
+
+      {/* 7/9 */}
+      <div
+        className="shrink-0"
+        style={{
+          height: `calc(7 * (100vh - ${navbarHeight}px))`,
+        }}
+      />
+      {/* 1/9 */}
+      {renderBusinessContent()}
+
+      {/* 1/9 */}
+      <div
+        className="shrink-0"
+        style={{
+          height: `calc(1 * (100vh - ${navbarHeight}px))`,
+        }}
+      ></div>
     </div>
   );
 }
