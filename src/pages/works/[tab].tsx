@@ -65,7 +65,7 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
 
         <div className="flex flex-1 items-center px-[8px]">
           <h4 className="text-[13vw] leading-none font-dense mt-[8px]">
-            {workDescription.name}
+            {workDescription.mobileName ?? workDescription.name}
           </h4>
           <div className="flex-1" />
           {workDescription.mobileTags.map((tag) => (
@@ -326,8 +326,12 @@ const TabNavigation: React.FC<{
         key={index}
         onClick={() => onChangeIndex(index)}
       >
-        <h3 className="font-dense text-[36px] font-bold">{tab.title}</h3>
-        <p className="font-dense text-base font-bold">{tab.description}</p>
+        <h3 className="font-dense text-[36px] leading-none font-bold">
+          {tab.title}
+        </h3>
+        <p className="font-dense text-base font-bold leading-tight">
+          {tab.description}
+        </p>
         <div
           className={clsx(
             index === currentIndex && 'bg-black',

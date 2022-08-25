@@ -63,14 +63,16 @@ const useStrings = makeStrings({
     ],
   },
   'ja-JP': {
-    title: <>新しい時代の技術を、全ての人に。</>,
+    title: (
+      <>
+        私たちは、あなたの「テクノロジーパートナー」として、次世代へ向けた新しいものを発明します。
+      </>
+    ),
     content: (
       <>
-        私たちは、最先端かつ信頼性の高い新技術によって、日々の課題を解決し、新しい未来への道を切り拓いていく会社です。
+        デザイナーとエンジニアの専門チームによるクリエイティブな課題解決で、より良い世界の実現にコミットしています。{' '}
         <br />
-        高い専門性を持ったエンジニアチームによって、クリエイティブに日々の課題を解決し、より良い世界を創っていくことに私たちはコミットしています。
-        <br />
-        それと同時に、単純に新しい技術を押し付けるのではなく、旧来の価値観や手法が新しいものに移行していく際に生じる摩擦や軋轢などのリスクも含めてお客様の技術的な意思決定をサポートする、信頼できるテクノロジーパートナーです。
+        ただ新しい技術を押しつけるのではなく、旧来の価値観や手法が新しいものに移行していく際に生じる摩擦や軋轢などのリスクも含め、お客様の技術的な意思決定を包括的にサポートします。
       </>
     ),
     info: [
@@ -91,23 +93,24 @@ const Vision: React.FC = () => {
 
   return (
     <main className="flex-1 flex font-dense px-[75px] sm:px-[32px] pt-[100px] sm:pt-[60px]">
-      <div className="px-[150px]">
+      <div className="px-[150px] sm:hidden">
         <KeySvg />
       </div>
 
-      <div className="pr-[100px]">
+      <div className=">sm:pr-[100px]">
         <h1
           className={clsx(
-            'text-[40px] sm:text-[45px] leading-[1.25] mb-[2.5vw] sm:mb-[25px] font-bold',
-            locale === 'en-US' && 'text-[50px]',
+            'text-[40px] sm:!text-[28px] sm:!leading-[55px] leading-[1.25] mb-[2.5vw] sm:mb-[25px] font-bold',
+            locale === 'en-US' && '!text-[50px] sm:!text-[40px]',
           )}
         >
           {strings.title}
         </h1>
         <p
           className={clsx(
-            'text-[30px] sm:text-[35px] sm:leading-[1.1] leading-[1.25]',
+            'text-[24px] sm:text-[20px] leading-[1.25]',
             'opacity-75 max-w-[78vw] sm:max-w-[290px] sm:mb-[50px]',
+            locale === 'en-US' && '!text-[30px]',
             locale === 'ja-JP' && '!font-bold',
           )}
         >
@@ -140,6 +143,7 @@ const Services: React.FC = () => {
       className={clsx(
         'flex-1 px-[120px] py-[85px] font-dense text-white',
         'flex flex-col gap-y-[70px]',
+        'sm:hidden',
       )}
     >
       <div className="flex gap-x-[60px]">
@@ -236,6 +240,81 @@ const Services: React.FC = () => {
   );
 };
 
+const MobileServices: React.FC = () => {
+  const locale = useLocale();
+
+  const openingStrings = useOpeningStrings();
+
+  return (
+    <main
+      className={clsx(
+        'py-[60px] px-[32px] font-dense text-white',
+        '>sm:hidden',
+      )}
+    >
+      <h2 className="text-[28px] mb-[0.5rem]">
+        {openingStrings.DXAcceleration}
+      </h2>
+      <p
+        className={clsx(
+          'text-[20px] mb-[0.5rem]',
+          locale === 'en-US' && 'opacity-60',
+        )}
+      >
+        {openingStrings.DXAccelerationSummary.map((d, i) => (
+          <Fragment key={i}>
+            {d}
+            <br />
+          </Fragment>
+        ))}
+      </p>
+
+      <div className="flex flex-col gap-y-[10px]">
+        {openingStrings.DXAccelarationItems.map((item, i) => (
+          <div key={i} className="text-[20px] flex">
+            {String(i + 1).padStart(2, '0')}
+            <div className="w-[20px]" />
+            {item}
+          </div>
+        ))}
+      </div>
+
+      <div className="h-[45px]" />
+
+      <h2 className="text-[28px] mb-[0.5rem]">{openingStrings.newBusiness}</h2>
+      <p
+        className={clsx(
+          'text-[20px] mb-[0.5rem]',
+          locale === 'en-US' && 'opacity-60',
+        )}
+      >
+        {openingStrings.newBusinessSummary.map((d, i) => (
+          <Fragment key={i}>
+            {d}
+            <br />
+          </Fragment>
+        ))}
+      </p>
+
+      <div className="flex flex-col gap-y-[10px]">
+        {openingStrings.newBusinessItems.map((item, i) => (
+          <div key={i} className="text-[20px] flex">
+            {String(i + 1).padStart(2, '0')}
+            <div className="w-[20px]" />
+            {item}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex mt-[50px]">
+        <OpeningLink href="/works/0" color="white">
+          SEE WORKS
+        </OpeningLink>
+      </div>
+    </main>
+  );
+};
+
 const Info: React.FC = () => {
   const strings = useStrings();
 
@@ -268,6 +347,7 @@ const Info: React.FC = () => {
 
 const MobileInfo: React.VFC = () => {
   const strings = useStrings();
+  const locale = useLocale();
 
   return (
     <main
@@ -276,9 +356,14 @@ const MobileInfo: React.VFC = () => {
         'pt-[60px] px-[32px] leading-[65px] font-loose font-bold',
       )}
     >
-      <h2 className="mb-[3rem] text-[55px]">{strings.companyInfo}</h2>
+      <h2 className="mb-[3rem] text-[50px]">{strings.companyInfo}</h2>
 
-      <div className="grid grid-cols-[0.8fr_2fr] text-[20px] leading-tight gap-x-[1rem] gap-y-[2rem] mr-4 mb-[3rem]">
+      <div
+        className={clsx(
+          'grid grid-cols-[0.8fr_2fr] text-[20px] leading-tight gap-x-[1rem] gap-y-[2rem] mr-4 mb-[3rem]',
+          locale === 'en-US' && '!text-[16px]',
+        )}
+      >
         {strings.info?.map(([k, v]) => (
           <Fragment key={k}>
             <div className="text-center">{k}</div>
@@ -302,7 +387,7 @@ export default function () {
           onChangeCurrent={(v) => router.push(v)}
         />
       </div>
-      <div className=">sm:hidden fixed right-0 bottom-0 w-[38px] h-[280px]">
+      <div className=">sm:hidden fixed right-0 bottom-0 w-[38px] h-[360px]">
         <MobileAnimatedSwitch
           current={current}
           onChangeCurrent={(v) => router.push(v)}
@@ -310,7 +395,12 @@ export default function () {
       </div>
       {current === 'vision' && <Vision />}
 
-      {current === 'services' && <Services />}
+      {current === 'services' && (
+        <>
+          <Services />
+          <MobileServices />
+        </>
+      )}
 
       {current === 'info' && (
         <>

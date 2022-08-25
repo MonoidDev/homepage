@@ -26,6 +26,7 @@ export interface WorkTab {
 
 export interface WorkDescription {
   name: string;
+  mobileName?: string;
   summary: React.ReactNode;
   details: React.ReactNode;
   tags: string[];
@@ -42,12 +43,13 @@ export const useWorksStrings = makeStrings<{
   'en-US': {
     tabs: [
       {
-        title: 'Creative Projects',
-        description: 'Initiate and support services',
+        title: 'Product Incubation',
+        description: 'Get your new IT business off to a good start.',
       },
       {
-        title: 'Digital Transformation',
-        description: 'Boost traditional industry with digital technology',
+        title: 'DX Acceleration',
+        description:
+          'Accelerate the digital transformation process of your business and innovate new business models.',
       },
     ],
     works: [
@@ -64,6 +66,7 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'MONOZIP API',
+        mobileName: 'MONOZIP',
         summary: 'Open Postal Code & Address Service',
         details:
           'MONOZIP a geographic information api provider platform, with support for conversion between addresses, zipcode and latitude/longitude.',
@@ -150,12 +153,18 @@ export const useWorksStrings = makeStrings<{
   'zh-CN': {
     tabs: [
       {
-        title: '创造新事业',
-        description: '致力于开创新服务',
+        title: '新事业创造',
+        description: (
+          <>
+            作为您的技术合伙人
+            <br />
+            助力孵化新IT事业
+          </>
+        ),
       },
       {
         title: '信息化转型',
-        description: '为传统企业注入信息化动力',
+        description: <>加速传统业务的数字化转型进程，打造新业务模式</>,
       },
     ],
     works: [
@@ -173,6 +182,7 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'MONOZIP API',
+        mobileName: 'MONOZIP',
         summary: '中日邮编&地址信息数据检索软件及服务',
         details:
           'MONOZIP是一个提供地理信息api的网络平台，支持中日两国的地址、邮编和地理坐标等信息之间的转换。在物流，旅游等行业有着广泛的应用前景。',
@@ -298,6 +308,7 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'MONOZIP API',
+        mobileName: 'MONOZIP',
         summary: (
           <>
             郵便番号と住所データへの
