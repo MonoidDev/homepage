@@ -109,12 +109,25 @@ const MobileWorksGallery: React.VFC = () => {
 };
 
 const WorkCard: React.FC<{
+  index: number;
+  total: number;
   open: boolean;
+  onOpenPrev: () => void;
+  onOpenNext: () => void;
   onClick: () => void;
   content: CardContent;
   description: WorkDescription;
 }> = (props) => {
-  const { open, onClick, content, description } = props;
+  const {
+    index,
+    total,
+    open,
+    onClick,
+    onOpenNext,
+    onOpenPrev,
+    content,
+    description,
+  } = props;
 
   const debouncedOpen = useDebounce(open, 150);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -250,7 +263,47 @@ const WorkCard: React.FC<{
       {(open || debouncedOpen) && renderCollapseButton()}
 
       <div className="z-10 absolute top-0 right-0 bottom-[70px] left-0 bg-[#191B28]" />
-      <div className="h-[70px] font-dense text-[48px]">{description.name}</div>
+      <div className="h-[70px] font-dense text-[48px] flex justify-between">
+        {description.name}
+
+        {debouncedOpen && (
+          <div className="flex items-center gap-x-[8px]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="20"
+              viewBox="0 0 19 20"
+              fill="none"
+              className={clsx(
+                'relative top-[-5px] cursor-pointer',
+                index <= 0 && 'opacity-0 pointer-events-none',
+              )}
+              onClick={() => onOpenPrev()}
+            >
+              <path
+                d="M0 9.99999L18.75 0.435221L18.75 19.5648L0 9.99999Z"
+                fill="black"
+              />
+            </svg>
+            {String(index + 1).padStart(2, '0')}/
+            {String(total).padStart(2, '0')}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="20"
+              viewBox="0 0 19 20"
+              fill="none"
+              className={clsx(
+                'relative top-[-5px] cursor-pointer',
+                index >= total - 1 && 'opacity-0 pointer-events-none',
+              )}
+              onClick={() => onOpenNext()}
+            >
+              <path d="M19 10L0.25 19.5648V0.435242L19 10Z" fill="black" />
+            </svg>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -406,7 +459,9 @@ export default function () {
   const renderDesktop = () => {
     const baseWorks =
       'z-[-1] text-[160px] font-loose font-bold absolute pointer-events-none left-[96px] top-[42px] leading-[1]';
-
+    const allWorks = worksStrings.works.filter(
+      (work) => cardContents.find((c) => c.name === work.name)!.tab === tab,
+    );
     return (
       <div className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
         <h2 className={baseWorks}>WORKS</h2>
@@ -417,24 +472,23 @@ export default function () {
           />
 
           <div className="flex-1 overflow-x-scroll flex shrink gap-x-[40px]">
-            {worksStrings.works
-              .filter(
-                (work) =>
-                  cardContents.find((c) => c.name === work.name)!.tab === tab,
-              )
-              .map((work) => (
-                <WorkCard
-                  key={work.name}
-                  content={cardContents.find((c) => c.name === work.name)!}
-                  description={work}
-                  open={currentWork === work.name}
-                  onClick={() =>
-                    currentWork !== work.name
-                      ? setCurrentWork(work.name)
-                      : setCurrentWork('')
-                  }
-                />
-              ))}
+            {allWorks.map((work, i, l) => (
+              <WorkCard
+                index={i}
+                total={l.length}
+                key={work.name}
+                content={cardContents.find((c) => c.name === work.name)!}
+                description={work}
+                open={currentWork === work.name}
+                onClick={() =>
+                  currentWork !== work.name
+                    ? setCurrentWork(work.name)
+                    : setCurrentWork('')
+                }
+                onOpenNext={() => setCurrentWork(allWorks[i + 1]!.name)}
+                onOpenPrev={() => setCurrentWork(allWorks[i - 1]!.name)}
+              />
+            ))}
           </div>
         </div>
       </div>
