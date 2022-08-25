@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 import { LayoutMenu } from './LayoutMenu';
 import { Theme, ThemeProvider } from '@/styles/theme';
@@ -28,9 +29,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
   const [currentTheme, setCurrentTheme] = useState(theme);
 
+  const router = useRouter();
+
   useEffect(() => {
     setCurrentTheme(theme);
-  }, [theme]);
+  }, [router.pathname]);
 
   return (
     <ThemeProvider

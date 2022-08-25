@@ -148,7 +148,9 @@ const MobileAnimatedSlogan: React.VFC = () => {
 
   return (
     <Link
-      href={shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company'}
+      href={
+        shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company/vision'
+      }
     >
       <a
         aria-label={
@@ -258,8 +260,7 @@ export default function () {
   const renderTopScreen = () => (
     <main
       className={clsx(
-        'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] sm:!pt-[0px] pb-[40px]',
-        'h-[calc(100vh-var(--navbarHeight))] h-[calc(100dvh-var(--navbarHeight))]',
+        'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] sm:!pt-[50px] pb-[40px]',
       )}
       role="main"
     >
@@ -268,7 +269,7 @@ export default function () {
 
       <div
         className={clsx(
-          'pt-[30vh] sm:hidden',
+          'pt-[24vh] sm:hidden',
           scrollTop === 0 && 'animate-bounce-scroll',
         )}
       >
@@ -351,7 +352,7 @@ export default function () {
 
           <div
             className={clsx(
-              'font-dense absolute top-[67.5%] left-[0] right-[0] flex justify-center',
+              'font-dense absolute top-[63%] left-[0] right-[0] flex justify-center',
             )}
             style={{
               opacity: introOpacity(yVideo),
@@ -413,13 +414,13 @@ export default function () {
                   technologyOpacity(yVideo) === 0 ? 'none' : 'auto',
               }}
             >
-              <OpeningLink color="white" href="/company" target="_blank">
+              <OpeningLink color="white" href="/company/vision" target="_blank">
                 COMPANY
               </OpeningLink>
             </div>
           </div>
 
-          <div className="absolute left-0 right-0 top-[45vh] flex justify-center">
+          <div className="absolute left-0 right-0 top-[38vh] flex justify-center">
             <div
               className={clsx(
                 'text-[100px] leading-none font-dense',
@@ -642,7 +643,7 @@ export default function () {
 
             <OpeningLink
               color="black"
-              href="/works"
+              href="/works/0"
               className="absolute left-0 bottom-0"
               target="_blank"
             >
@@ -671,7 +672,7 @@ export default function () {
 
             <OpeningLink
               color="black"
-              href=""
+              href="/works/1"
               className="absolute right-0 bottom-0"
               target="_blank"
             >

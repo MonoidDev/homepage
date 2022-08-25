@@ -127,7 +127,7 @@ export const LayoutMenu: React.FC<{
                 {strings.top}
               </NavMenuItem>
               <NavMenuItem
-                href="/company"
+                href="/company/vision"
                 index={1}
                 textWidth={90}
                 action={menuAction}
@@ -135,7 +135,7 @@ export const LayoutMenu: React.FC<{
                 {strings.company}
               </NavMenuItem>
               <NavMenuItem
-                href="/works"
+                href="/works/0"
                 index={2}
                 textWidth={60}
                 action={menuAction}

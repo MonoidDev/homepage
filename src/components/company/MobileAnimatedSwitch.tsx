@@ -13,7 +13,11 @@ export const MobileAnimatedSwitch = (props: MobileAnimatedSwitchProps) => {
 
   const companyStrings = useCompanyStrings();
 
-  const target = current === 'vision' ? 0 : 1;
+  const target = {
+    vision: 0,
+    services: 0.34,
+    info: 0.8,
+  }[current]!;
 
   const [a] = useAnimated(
     (x) => Math.sin((x * (Math.PI / 2)) / 20),
@@ -45,9 +49,10 @@ export const MobileAnimatedSwitch = (props: MobileAnimatedSwitchProps) => {
     >
       <div
         className="w-[6px] h-[82px] bg-white opacity-80 absolute top-0 left-0"
-        style={{ transform: `translateY(${a * (280 - 82)}px)` }}
+        style={{ transform: `translateY(${a * (360 - 82)}px)` }}
       />
       {renderItem('vision', companyStrings.vision)}
+      {renderItem('services', companyStrings.services)}
       {renderItem('info', companyStrings.info)}
     </div>
   );

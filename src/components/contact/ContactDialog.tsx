@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import clsx from 'clsx';
 
@@ -14,11 +14,26 @@ export const ContactDialog: React.VFC = () => {
     },
   ]);
 
+  const loadingChain = useChain([
+    {
+      from: 0,
+      to: 1,
+      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
+    },
+  ]);
+
   const onClose = useCallback(async () => {
     await chain.reverse();
   }, []);
 
   const t = chain.values[0]!;
+  const s = loadingChain.values[0]!;
+
+  useEffect(() => {
+    requestIdleCallback(() => {
+      loadingChain.play();
+    });
+  }, []);
 
   return (
     <div
@@ -39,18 +54,12 @@ export const ContactDialog: React.VFC = () => {
           'relative pointer-events-auto',
           t === 0 && 'cursor-pointer',
         )}
-        style={
-          t !== 1
-            ? {
-                left: `${50 * (1 - t)}vw`,
-                top: `${30 * (1 - t)}vh`,
-                opacity: 0.5 + (1 - 0.5) * t,
-                transform: `scale(${0.9 + 0.1 * t}) rotate(${
-                  -15 * (1 - t)
-                }deg)`,
-              }
-            : undefined
-        }
+        style={{
+          left: `${50 * (1 - t)}vw`,
+          top: `${30 * (1 - t) + 60 * (1 - s)}vh`,
+          opacity: 0.5 + (1 - 0.5) * t,
+          transform: `scale(${0.9 + 0.1 * t}) rotate(${-15 * (1 - t)}deg)`,
+        }}
         onClick={async () => {
           if (t === 0) {
             await chain.play();

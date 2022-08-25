@@ -96,7 +96,7 @@ export const useOpeningStrings = makeStrings({
       </>
     ),
     services: <>SERVICES</>,
-    DXAcceleration: <></>,
+    DXAcceleration: <>DX Acceleration</>,
     DXAccelerationSummary: [
       <>Accelerate the digital transformation process of your</>,
       <>business and innovate new business models.</>,
@@ -108,7 +108,7 @@ export const useOpeningStrings = makeStrings({
       <>System Optimization Solutions</>,
       <>Engineering Recruitment Solutions</>,
     ],
-    newBusiness: <></>,
+    newBusiness: <>Product Incubation </>,
     newBusinessSummary: [<>Get your new IT business off to a good start.</>],
     newBusinessItems: [
       <>MVP Development</>,

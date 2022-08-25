@@ -8,7 +8,7 @@ export interface AnimatedSwitchProps {
   onChangeCurrent: (c: string) => void;
 }
 
-export const AnimatedSwitch: React.VFC<AnimatedSwitchProps> = (props) => {
+export const AnimatedSwitch: React.FC<AnimatedSwitchProps> = (props) => {
   const { current, onChangeCurrent } = props;
 
   const target = current === 'vision' ? 65 : 42;

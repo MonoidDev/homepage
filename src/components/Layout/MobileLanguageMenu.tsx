@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import CN from '@/assets/images/CN.svg';
 import EN from '@/assets/images/EN.svg';
@@ -13,6 +14,7 @@ import { useChain } from '@/utils/animation';
 export const MobileLanguageMenu = () => {
   const [open, setOpen] = useState(false);
   const ariaLabelStrings = useAriaLabelStrings();
+  const router = useRouter();
 
   const menuChain = useChain([
     {
@@ -51,7 +53,7 @@ export const MobileLanguageMenu = () => {
   );
 
   const renderLanguageButton = (locale: string, icon: React.ReactNode) => (
-    <Link href="" locale={locale}>
+    <Link href={router.asPath} locale={locale}>
       <a aria-label={ariaLabelStrings.close} onClick={onClose}>
         {icon}
       </a>
