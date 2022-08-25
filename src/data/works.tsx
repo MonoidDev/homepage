@@ -58,7 +58,12 @@ export const useWorksStrings = makeStrings<{
         summary: 'Online Training Platform For Student Sports Organizations',
         details:
           'Wopal is a sports data management system specially designed for Japanese sports club activities, integrating mobile App client, management platform and IoT Devices.',
-        tags: ['WEB', 'APP', 'UIUX DESIGN', 'IoT'],
+        tags: [
+          'Brand Identity',
+          'UIUX Design',
+          'System Development',
+          'Mobile App Development',
+        ],
         mobileTags: ['Web', 'App', 'UIUX', 'IoT'],
         displayImage: wopalNormal.src,
         hoverImage: wopalHover.src,
@@ -70,7 +75,12 @@ export const useWorksStrings = makeStrings<{
         summary: 'Open Postal Code & Address Service',
         details:
           'MONOZIP a geographic information api provider platform, with support for conversion between addresses, zipcode and latitude/longitude.',
-        tags: ['SaaS', 'API', 'UIUX DESIGN', 'GEOLOCATION'],
+        tags: [
+          'Brand Identity',
+          'UIUX Design',
+          'System Development',
+          'Operation & Maintenance',
+        ],
         mobileTags: ['SaaS', 'API', 'Geolocation'],
         displayImage: monozipNormal.src,
         hoverImage: monozipHover.src,
@@ -87,7 +97,12 @@ export const useWorksStrings = makeStrings<{
             application and an internal booking management system.
           </>
         ),
-        tags: ['WEB', 'OA', 'CLOUD', 'UIUX DESIGN'],
+        tags: [
+          'Analysis and evaluation of IT assets',
+          'UIUX Design',
+          'System Optimization Solutions',
+          'Saas Solutions',
+        ],
         mobileTags: ['Web', 'OA', 'Cloud', 'UIUX'],
         displayImage: d2dNormal.src,
         hoverImage: d2dHover.src,
@@ -95,11 +110,17 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'iHEAL',
-        summary:
-          'Remote wellness device with audio-visual stimuli & unique aromatherapy component',
+        summary: 'Remote Wellness Device with Aromatherapy Component',
         details:
           'iHeal is an IoT project centering on iHeal Cube, a smart aroma diffuser, around which we build the iHeal mobile app, iHeal Cube’s internal software and iHeal official website.',
-        tags: ['RasPi', 'APP', 'WEB', 'UIUX DESIGN'],
+        tags: [
+          'Brand Identity',
+          'UIUX Design',
+          'PoC Development',
+          'System Development',
+          'Mobile App Development',
+          'RasPi',
+        ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
         displayImage: ihealNormal.src,
         hoverImage: ihealHover.src,
@@ -107,8 +128,7 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'POLIJOB',
-        summary:
-          'Recruitment & Matching platform allows Scouts, Employers & Candidates to find each other',
+        summary: 'Recruitment and Matching Platform',
         details: (
           <>
             PoliJob is an online job site that serves multiple user roles:
@@ -119,7 +139,13 @@ export const useWorksStrings = makeStrings<{
             the project.
           </>
         ),
-        tags: ['SYSTEM DESIGN', 'UIUX DESIGN'],
+        tags: [
+          'Brand Identity',
+          'UIUX Design',
+          'System Design',
+          'PoC Development',
+          'System Development',
+        ],
         mobileTags: ['System Design', 'UIUX'],
         displayImage: polijobNormal.src,
         hoverImage: polijobHover.src,
@@ -127,11 +153,10 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'UPTIME MONITOR',
-        summary:
-          'System Status Monitor service + application (SSMAAS), including configurable alerts',
+        summary: 'Monitor Service',
         details:
           'Uptime Monitor is a website monitoring service to acknowledge users when their endpoints go down. Users can configure the monitoring setting site by site, and get informed by both email and visualized real-time dashboard.',
-        tags: ['OBSERVABILITY', 'ALARM SYSTEM'],
+        tags: ['UIUX Design', 'System Design', 'System Development'],
         mobileTags: [],
         displayImage: uptimeMonitorNormal.src,
         hoverImage: uptimeMonitorHover.src,
@@ -139,10 +164,15 @@ export const useWorksStrings = makeStrings<{
       },
       {
         name: 'AUDIT APP',
-        summary: 'Mobile App for inspecting  equipments in the factory',
+        summary: 'Mobile App for inspecting equipments in the factory',
         details:
-          'Wopal is a sports data management system specially designed for Japanese sports club activities, integrating mobile App client, management platform and IoT Devices.',
-        tags: [],
+          'Audit App is a mobile application for inspecting the condition of equipment in factories with a highly customizable management system.',
+        tags: [
+          'Analysis and evaluation of IT assets',
+          'UIUX Design',
+          'System Development',
+          'Mobile App Development',
+        ],
         mobileTags: [],
         displayImage: uptimeMonitorNormal.src,
         hoverImage: uptimeMonitorHover.src,
@@ -174,7 +204,13 @@ export const useWorksStrings = makeStrings<{
           '专为高中生和大学生运动社团设计的训练平台：训练课程/数据记录/运动榜单',
         details:
           'Wopal是一款专为日本体育社团活动设计的，集手机App用户端及管理平台为一体的运动数据管理系统。内含训练课程/数据记录/运动榜单等特色功能。',
-        tags: ['WEB', 'APP', 'UIUX', '运维'],
+        tags: [
+          '产品VI设计',
+          'UIUX设计',
+          '系统开发',
+          '移动端APP开发',
+          '运营维护',
+        ],
         mobileTags: ['Web', 'App', 'UIUX', 'IoT'],
         displayImage: wopalNormal.src,
         hoverImage: wopalHover.src,
@@ -186,7 +222,7 @@ export const useWorksStrings = makeStrings<{
         summary: '中日邮编&地址信息数据检索软件及服务',
         details:
           'MONOZIP是一个提供地理信息api的网络平台，支持中日两国的地址、邮编和地理坐标等信息之间的转换。在物流，旅游等行业有着广泛的应用前景。',
-        tags: ['SaaS', 'API', 'UIUX设计', '地理信息'],
+        tags: ['产品VI设计', 'UIUX设计', '系统开发', '运营维护'],
         mobileTags: ['SaaS', 'API', 'Geolocation'],
         displayImage: monozipNormal.src,
         hoverImage: monozipHover.src,
@@ -203,7 +239,12 @@ export const useWorksStrings = makeStrings<{
         ),
         details:
           'D2D是专为知名的中日国际航运物流公司打造的在线订舱管理平台，由面向用户的在线订舱系统和面向企业内部的订舱管理系统组成。D2D系统作为传统物流企业数字化进程的重要一步，改善了过往繁杂的业务处理流程，大幅增加了工作效率。',
-        tags: ['系统设计', '系统开发', '云服务架构', 'UIUX设计'],
+        tags: [
+          'IT资产评估分析',
+          'UIUX设计',
+          '系统优化升级方案',
+          'SaaS软件应用方案',
+        ],
         mobileTags: ['Web', 'OA', 'Cloud', 'UIUX'],
         displayImage: d2dNormal.src,
         hoverImage: d2dHover.src,
@@ -215,7 +256,15 @@ export const useWorksStrings = makeStrings<{
           '智能香薰IoT设备项目：可以同时控制香薰/灯光/音乐的室内氛围管家',
         details:
           'iHeal是以iHeal Cube智能香氛机为核心的IoT开发项目，该项目包含iHeal手机App开发, iHeal Cube内软件开发，iHeal官方网站开发等子项目。通过采用敏捷开发的方式，我们在3个月内完成了原型架构、设计、开发和QA等必要流程，确保了该项目MVP阶段的顺利进行。',
-        tags: ['RasPi', 'APP', 'WEB', 'UIUX设计', 'VI设计'],
+        tags: [
+          '产品VI设计',
+          'UIUX设计',
+          'PoC开发',
+          'MVP开发',
+          '系统开发',
+          '移动端APP开发',
+          '树莓派',
+        ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
         displayImage: ihealNormal.src,
         hoverImage: ihealHover.src,
@@ -226,7 +275,14 @@ export const useWorksStrings = makeStrings<{
         summary: '可供求职中介、招聘公司、求职者三方使用的招聘平台',
         details:
           'PoliJob 是一个在线招聘网站，支持多种用户角色：猎头、公司和求职者。 通过采用敏捷开发的方式，我们在3个月内完成了原型架构、设计、开发和QA等必要流程，确保了该项目MVP阶段的顺利进行。',
-        tags: ['系统设计', '系统开发'],
+        tags: [
+          '产品VI设计',
+          'UIUX设计',
+          '系统设计',
+          'PoC开发',
+          'MVP开发',
+          '系统开发',
+        ],
         mobileTags: ['System Design', 'UIUX'],
         displayImage: polijobNormal.src,
         hoverImage: polijobHover.src,
@@ -237,19 +293,25 @@ export const useWorksStrings = makeStrings<{
         summary: '网站存续状态监控服务',
         details:
           'Uptime Monitor 提供网站存续状态的监控服务，可在发生端点故障异常时通知用户。 用户可根据站点配置监控设置，并通过电子邮件和可视化实时仪表板获得通知。',
-        tags: ['WEB', '警报系统'],
-        mobileTags: [],
+        tags: ['UIUX设计', '系统设计', '系统开发'],
+        mobileTags: ['WEB APP'],
         displayImage: uptimeMonitorNormal.src,
         hoverImage: uptimeMonitorHover.src,
         mobileImage: uptimeMonitorMobile.src,
       },
       {
         name: 'AUDIT APP',
-        summary: '【传统工业数字化进程案例】工厂设备检查系统',
+        summary: (
+          <>
+            【传统工业数字化进程案例】
+            <br />
+            工厂设备检查系统
+          </>
+        ),
         details:
           'Audit App 是一款用于检查工厂设备状况的移动应用程序，兼具高度可定制的后台管理系统。Audit App使传统的工厂设备检查流程变得高效，便捷。',
-        tags: [],
-        mobileTags: [],
+        tags: ['IT资产评估分析', 'UIUX设计', '系统开发', '移动端APP开发'],
+        mobileTags: ['APP'],
         displayImage: uptimeMonitorNormal.src,
         hoverImage: uptimeMonitorHover.src,
         mobileImage: uptimeMonitorMobile.src,
