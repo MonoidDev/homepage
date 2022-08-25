@@ -19,6 +19,7 @@ import UptimeMonitorSvg from '@/assets/images/works/v2/uptime-monitor-background
 import uptimeMonitorPng from '@/assets/images/works/v2/uptime-monitor.png';
 import wopalPng from '@/assets/images/works/v2/wopal.png';
 import { useWorksStrings, WorkDescription, WorkTab } from '@/data/works';
+import { useLocale } from '@/utils/useLocale';
 
 interface CardContent {
   name: string;
@@ -129,6 +130,8 @@ const WorkCard: React.FC<{
     description,
   } = props;
 
+  const locale = useLocale();
+
   const debouncedOpen = useDebounce(open, 150);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -159,9 +162,10 @@ const WorkCard: React.FC<{
       <div
         key={tag}
         className={clsx(
-          'h-[26px] px-[11px] rounded-full text-base leading-none font-bold',
+          'h-[26px] px-[11px] rounded-full text-base leading-none font-bold font-sans',
           'border-[2px] border-black',
-          'pt-[4px]',
+          'pt-[5px]',
+          locale === 'en-US' && '!text-[18px] !pt-[4px] font-dense',
         )}
       >
         {tag}
@@ -198,7 +202,12 @@ const WorkCard: React.FC<{
             {description.name}
           </h3>
 
-          <div className="text-[16px] font-bold leading-tight mt-[-1px]">
+          <div
+            className={clsx(
+              'text-[16px] font-bold leading-tight mt-[-1px]',
+              locale === 'en-US' && '!text-[18px]',
+            )}
+          >
             {description.summary}
           </div>
         </div>
@@ -209,7 +218,15 @@ const WorkCard: React.FC<{
           {description.tags.map((t) => renderWorkDescriptionTag(t))}
         </div>
 
-        <div className="text-[16px] font-bold mb-[10px]">
+        <div
+          className={clsx(
+            'text-[16px] font-bold mb-[10px]',
+            locale === 'en-US' && '!text-[18px] leading-tight',
+            description.name === 'POLIJOB' &&
+              locale === 'en-US' &&
+              '!text-[14px]',
+          )}
+        >
           {description.details}
         </div>
 
@@ -222,7 +239,7 @@ const WorkCard: React.FC<{
     <div
       ref={containerRef}
       className={clsx(
-        'flex flex-col relative z-0 shrink-0 overflow-hidden',
+        'flex flex-col relative z-0 shrink-0 overflow-hidden font-loose',
         'transition-[width] will-change-[width]',
         open ? 'w-[780px]' : 'w-[280px] cursor-pointer',
         '[filter:drop-shadow(18.9107px_18.9107px_18.9107px_rgba(0,0,0,0.1))]',
@@ -445,7 +462,7 @@ export default function () {
       ),
       tab: 0,
       background: <UptimeMonitorSvg />,
-      url: '',
+      url: 'https://uptime-monitor-staging.herokuapp.com',
     },
     {
       name: 'AUDIT APP',
