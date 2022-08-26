@@ -41,7 +41,7 @@ export default function Success() {
           loop={false}
           animationData={recruitMailbox}
           onComplete={() => {
-            router.push('/recruit');
+            setTimeout(() => router.push('/recruit'), 15000);
           }}
         />
       </div>
