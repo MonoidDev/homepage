@@ -20,11 +20,12 @@ import { useLocale } from '@/utils/useLocale';
 export interface ContactFormProps {
   open: boolean;
   onClose: () => void;
+  onSuccess: () => void;
   className?: string;
 }
 
 export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
-  const { open, onClose, className } = props;
+  const { open, onClose, onSuccess, className } = props;
 
   const strings = useContactStrings();
   const ariaLabelStrings = useAriaLabelStrings();
@@ -130,8 +131,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
           locale,
         });
         reset();
-        alert('Thank you for your message!');
-        onClose();
+        onSuccess();
       })}
     >
       <button aria-label={ariaLabelStrings.close} onClick={() => onClose()}>
