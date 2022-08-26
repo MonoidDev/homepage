@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
+import Lottie from 'lottie-react';
 import { useRouter } from 'next/router';
 import useCountDown from 'react-countdown-hook';
 
+import recruitMailbox from '@/assets/lottie/recruit-mailbox.json';
 import { GoBackTriangleTitle } from '@/components/recruit/GoBackTriangleTitle';
-import { RecruitSuccess } from '@/components/recruit/RecruitSuccess';
-import { useScreen } from '@/utils/useScreen';
 
 const useStrings = makeStrings({
   'ja-JP': {
@@ -23,22 +23,26 @@ const useStrings = makeStrings({
 export default function Success() {
   const router = useRouter();
 
-  const screen = useScreen();
-
   const strings = useStrings();
 
   const [timeLeft, { start }] = useCountDown(15 * 1000);
 
   const renderDesktop = () => (
     <main
-      className="flex-1 sm:hidden px-[120px] py-[64px] flex items-center justify-around"
+      className="flex-1 sm:hidden px-[120px] py-[64px] flex items-center justify-around relative z-0"
       role="main"
     >
-      <h2 className="font-loose font-bold text-[110px] shrink">THANK YOU</h2>
-      <div className="bg-white self-stretch w-[550px]">
-        <RecruitSuccess
-          shouldLoad={screen === 'desktop'}
-          onDone={() => setTimeout(() => router.push('/recruit'), 2000)}
+      <h2 className="font-loose font-bold text-[110px] shrink relative z-10">
+        THANK YOU
+      </h2>
+      <div className="bg-white self-center w-[550px] scale-150 origin-top-right relative top-[-10vh] z-0">
+        <Lottie
+          autoPlay={true}
+          loop={false}
+          animationData={recruitMailbox}
+          onComplete={() => {
+            router.push('/recruit');
+          }}
         />
       </div>
     </main>
@@ -50,11 +54,12 @@ export default function Success() {
         <GoBackTriangleTitle noIcon>THANK YOU</GoBackTriangleTitle>
       </div>
 
-      <div className="h-[500px] mb-[-3rem]">
-        <RecruitSuccess
-          zoom={7.5}
-          shouldLoad={screen === 'mobile'}
-          onDone={() => {
+      <div className="h-[500px] mb-[-3rem] scale-150 origin-top-right">
+        <Lottie
+          autoPlay={true}
+          loop={false}
+          animationData={recruitMailbox}
+          onComplete={() => {
             setTimeout(() => router.push('/recruit'), 15000);
             start();
           }}
