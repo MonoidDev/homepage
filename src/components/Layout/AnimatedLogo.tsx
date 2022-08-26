@@ -3,7 +3,7 @@ import Lottie from 'lottie-react';
 import logoBlack from '@/assets/lottie/logo-black.json';
 import { useTheme } from '@/styles/theme';
 
-const AnimatedLogo: React.VFC<{ loadingDone: boolean }> = ({ loadingDone }) => {
+const AnimatedLogo: React.FC<{ loadingDone: boolean }> = ({ loadingDone }) => {
   const { theme } = useTheme();
 
   return (

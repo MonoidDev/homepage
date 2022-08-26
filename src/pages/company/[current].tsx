@@ -22,10 +22,10 @@ const useStrings = makeStrings({
     ),
     content: (
       <>
-        We embrace and respect traditional values; we understand the struggles
-        and challenges people face whilst re-inventing themselves for a new era.
-        We aim to be trustworthy partners who can help both modern and
-        traditional companies make the right technical decisions.
+        We cherish and respect traditional values; we know the struggles and
+        obstacles people might face while evolving and preparing for the new
+        era. We are trustable partners to help traditional companies make right
+        technical decisions.
       </>
     ),
     companyInfo: 'COMPANY INFO',
@@ -42,12 +42,16 @@ const useStrings = makeStrings({
     ],
   },
   'zh-CN': {
-    title: <>数字化转型的引路人</>,
+    title: (
+      <>
+        我们致力于通过高度专业化的设计师以及工程师团队创造性地解决多样的技术难题。
+      </>
+    ),
     content: (
       <>
-        我们致力于通过高度专业化的设计师团队以及工程师团队创造性地解决多样的技术难题。
+        我们并非简单地将新技术强加于任何项目中，而是在旧与新的价值观及方法论产生摩擦时，根据客户的实际情况帮助客户作出正确的技术决策。
         <br />
-        我们并非简单地将新技术强加于任何项目中，而是在旧与新的价值观及方法论产生摩擦时，根据客户的实际情况帮助客户作出正确的技术决策。我们使用高效，严谨的新技术和新框架，解决旧患旧疾，为新时代的来临铺平道路。
+        我们使用高效，严谨的新技术和新框架，解决旧患旧疾，为新时代的来临铺平道路。{' '}
       </>
     ),
     info: [

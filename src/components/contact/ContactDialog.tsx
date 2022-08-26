@@ -1,11 +1,15 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import clsx from 'clsx';
+import Lottie from 'lottie-react';
 
 import { ContactForm } from './ContactForm';
+import contactMailbox from '@/assets/lottie/contact-mailbox.json';
 import { useChain } from '@/utils/animation';
 
-export const ContactDialog: React.VFC = () => {
+export const ContactDialog: React.FC = () => {
+  const [mailboxOpen, setMailboxOpen] = useState(false);
+
   const chain = useChain([
     {
       from: 0,
@@ -22,6 +26,14 @@ export const ContactDialog: React.VFC = () => {
     },
   ]);
 
+  const mailboxChain = useChain([
+    {
+      from: 1,
+      to: 0,
+      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
+    },
+  ]);
+
   const onClose = useCallback(async () => {
     await chain.reverse();
   }, []);
@@ -34,6 +46,30 @@ export const ContactDialog: React.VFC = () => {
       loadingChain.play();
     });
   }, []);
+
+  const renderMailbox = () => {
+    return (
+      <div
+        className={clsx(
+          'fixed left-0 right-0 top-[var(--navbarHeight) bottom-0] bg-white',
+        )}
+        style={{
+          opacity: mailboxChain.currentValue,
+        }}
+      >
+        <Lottie
+          autoPlay={true}
+          loop={false}
+          animationData={contactMailbox}
+          onComplete={async () => {
+            chain.reset();
+            await mailboxChain.play();
+            setMailboxOpen(false);
+          }}
+        />
+      </div>
+    );
+  };
 
   return (
     <div
@@ -69,9 +105,15 @@ export const ContactDialog: React.VFC = () => {
         <ContactForm
           open={t === 1}
           onClose={onClose}
+          onSuccess={() => {
+            mailboxChain.reset();
+            setMailboxOpen(true);
+          }}
           className={t === 1 ? undefined : 'pointer-events-none'}
         />
       </div>
+
+      {mailboxOpen && renderMailbox()}
     </div>
   );
 };

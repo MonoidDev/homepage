@@ -72,6 +72,7 @@ export interface UseChainReturn {
   values: number[];
   play: () => Promise<void>;
   cancel: () => void;
+  reset: () => void;
   reverse: () => Promise<void>;
   currentIndex: number;
   isPlaying: boolean;
@@ -88,6 +89,14 @@ export const useChain = (items: ChainItem[]): UseChainReturn => {
 
   const cancel = () => {
     currentTaskRef.current && cancelAnimationFrame(currentTaskRef.current);
+  };
+
+  const reset = () => {
+    cancel();
+
+    currentItemIndexRef.current = 0;
+    setValues(items.map((item) => item.from));
+    setIsPlaying(false);
   };
 
   const play = (reversed = false) => {
@@ -165,5 +174,6 @@ export const useChain = (items: ChainItem[]): UseChainReturn => {
     cancel,
     isPlaying,
     reverse: () => play(true),
+    reset,
   };
 };
