@@ -150,8 +150,9 @@ const SkillItemInputHint: React.VFC<SkillItemInputHint> = (props) => {
     <div
       className={clsx(
         'absolute left-[21px] bottom-[21px]',
-        'bg-white bg-opacity-80 border border-black',
+        'bg-white border border-black',
         'h-[214px] w-[500px] p-[1rem] flex flex-col',
+        'z-50',
       )}
       ref={containerRef}
     >
