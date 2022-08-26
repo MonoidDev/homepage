@@ -84,6 +84,21 @@ export const Meta: React.VFC<MetaProps> = (props) => {
           href={`${router.basePath}/favicon/safari-pinned-tab.svg`}
           color="#ffffff"
         />
+        <link
+          rel="alternate"
+          href="https://www.monoid.co.jp/ja-JP/"
+          hrefLang="ja-JP"
+        ></link>
+        <link
+          rel="alternate"
+          href="https://www.monoid.co.jp/"
+          hrefLang="en-US"
+        ></link>
+        <link
+          rel="alternate"
+          href="https://www.monoid.co.jp/zh-CN/"
+          hrefLang="zh-cn"
+        ></link>
         <meta name="apple-mobile-web-app-title" content="Snippit" />
 
         <meta name="application-name" content="Monoid" />
