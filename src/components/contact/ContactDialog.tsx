@@ -51,7 +51,7 @@ export const ContactDialog: React.FC = () => {
     return (
       <div
         className={clsx(
-          'fixed left-0 right-0 top-[var(--navbarHeight) bottom-0] bg-white',
+          'fixed left-0 right-0 top-[var(--navbarHeight) bottom-0]',
         )}
         style={{
           opacity: mailboxChain.currentValue,
@@ -74,7 +74,7 @@ export const ContactDialog: React.FC = () => {
   return (
     <div
       className={clsx(
-        'sm:hidden fixed left-0 right-0 top-0 bottom-0 flex flex-col items-center justify-center',
+        'sm:hidden fixed left-0 right-0 top-0 bottom-0 flex flex-col items-center justify-center z-[100]',
         'pt-[var(--navbarHeight)]',
         'bg-black',
         'font-loose pointer-events-none',
@@ -93,7 +93,7 @@ export const ContactDialog: React.FC = () => {
         style={{
           left: `${50 * (1 - t)}vw`,
           top: `${30 * (1 - t) + 60 * (1 - s)}vh`,
-          opacity: 0.5 + (1 - 0.5) * t,
+          opacity: mailboxOpen === false ? 0.5 + (1 - 0.5) * t : 0,
           transform: `scale(${0.9 + 0.1 * t}) rotate(${-15 * (1 - t)}deg)`,
         }}
         onClick={async () => {

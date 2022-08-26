@@ -228,6 +228,7 @@ const SkillItemInput: React.VFC<SkillItemInputProps> = (props) => {
           });
         }
       }}
+      onDoubleClick={() => onDelete()}
     >
       {value.value}
 

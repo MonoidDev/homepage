@@ -37,4 +37,18 @@ module.exports = withBundleAnalyzer({
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/company',
+        destination: '/company/vision',
+        permanent: true,
+      },
+      {
+        source: '/works',
+        destination: '/works/0',
+        permanent: true,
+      }
+    ]
+  },
 });
