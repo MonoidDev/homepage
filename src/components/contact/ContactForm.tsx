@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import clsx from 'clsx';
 
-import { MutationAlert } from '../MutationAlert';
 import { ContactInput } from './ContactInput';
 import { ContactMessageInput } from './ContactMessageInput';
 import { ContactProjectTypeInput } from './ContactProjectTypeInput';
@@ -120,6 +119,7 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
         className,
       )}
       onSubmit={handleSubmit(async (values) => {
+        onSuccess();
         await postContacts.mutateAsync({
           company: values.company,
           name: values.name,
@@ -131,14 +131,12 @@ export const ContactForm: React.FC<ContactFormProps> = React.memo((props) => {
           locale,
         });
         reset();
-        onSuccess();
       })}
+      // onClick={onSuccess}
     >
       <button aria-label={ariaLabelStrings.close} onClick={() => onClose()}>
         <ContactClose className="absolute right-[30px] top-[30px]" />
       </button>
-
-      <MutationAlert mutation={postContacts} />
 
       <h2 className="text-[40px] font-bold">{strings.contactTitle}</h2>
 

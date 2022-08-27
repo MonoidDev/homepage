@@ -479,13 +479,16 @@ export default function () {
 
   const renderDesktop = () => {
     const baseWorks =
-      'z-[-1] text-[160px] font-loose font-bold absolute pointer-events-none left-[96px] top-[42px] leading-[1]';
+      'text-[160px] font-loose font-bold absolute pointer-events-none left-[96px] top-[42px] leading-[1]';
     const allWorks = worksStrings.works.filter(
       (work) => cardContents.find((c) => c.name === work.name)!.tab === tab,
     );
     return (
       <div className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
-        <h2 className={baseWorks}>WORKS</h2>
+        <h2 className={clsx(baseWorks, 'z-[-1]')}>WORKS</h2>
+        <h2 className={clsx(baseWorks, 'z-[100] mix-blend-overlay text-white')}>
+          WORKS
+        </h2>
         <div className="mt-[140px] px-[96px] h-[450px] flex">
           <TabNavigation
             index={tab}

@@ -145,13 +145,14 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
             error={formState.errors.education_experience}
             {...registry.education_experience()}
           />
-
-          <SkillInput
-            label="Technology Skills"
-            control={control as any}
-            error={formState.errors.technology_skills as any}
-            {...registry.technology_skills()}
-          />
+          {name !== 'PRODUCT MANAGER' && (
+            <SkillInput
+              label="Technology Skills"
+              control={control as any}
+              error={formState.errors.technology_skills as any}
+              {...registry.technology_skills()}
+            />
+          )}
 
           <TextInput
             label="Work Experience"
