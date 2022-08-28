@@ -7,6 +7,7 @@ const withBundleAnalyzer =
     : (x) => x;
 
 module.exports = withBundleAnalyzer({
+  swcMinify: true,
   eslint: {
     ignoreDuringBuilds: true,
     dirs: ['.'],
