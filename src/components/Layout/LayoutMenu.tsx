@@ -106,7 +106,6 @@ export const LayoutMenu: React.FC<{
   return (
     <div
       className="flex flex-col z-[10] shrink-0 cursor-pointer"
-      onClick={() => router.push('/')}
       style={{ background: headerTransparent ? undefined : theme }}
     >
       <div className="px-12 pt-[26px] pb-[18px]">
@@ -116,6 +115,7 @@ export const LayoutMenu: React.FC<{
               'h-[60px] flex items-center',
               hideLogo === 'mobile' && 'sm:hidden',
             )}
+            onClick={() => router.push('/')}
           >
             {hideLogo !== true && (
               <Suspense fallback={null}>
