@@ -2,182 +2,227 @@
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
           <loc>https://monoid.co.jp/en-US</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/company</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/en-US/[current]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/contact</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/en-US/form</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/apply</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/jobs</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/jobs/FRONTEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/jobs/BACKEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/jobs/UIUX DESIGNER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/jobs/PRODUCT MANAGER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
-          <loc>https://monoid.co.jp/en-US/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <loc>https://monoid.co.jp/en-US/success</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/en-US/works</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/en-US/[tab]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/company</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/ja-JP/[current]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/contact</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/ja-JP/form</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/apply</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/jobs</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/jobs/FRONTEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/jobs/BACKEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/jobs/UIUX DESIGNER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/jobs/PRODUCT MANAGER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
-          <loc>https://monoid.co.jp/ja-JP/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <loc>https://monoid.co.jp/ja-JP/success</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/ja-JP/works</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/ja-JP/[tab]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/company</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/zh-CN/[current]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/contact</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/zh-CN/form</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/apply</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/jobs</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/jobs/FRONTEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/jobs/BACKEND ENGINEER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/jobs/UIUX DESIGNER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/jobs/PRODUCT MANAGER</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
-          <loc>https://monoid.co.jp/zh-CN/recruit</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <loc>https://monoid.co.jp/zh-CN/success</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url><url>
           <loc>https://monoid.co.jp/zh-CN/works</loc>
-          <lastmod>2022-04-27T08:54:46.197Z</lastmod>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>1.0</priority>
+        </url><url>
+          <loc>https://monoid.co.jp/zh-CN/[tab]</loc>
+          <lastmod>2022-08-28T01:17:35.840Z</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url>

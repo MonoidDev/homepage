@@ -1,8 +1,9 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import React from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
 import styles from './LayoutMenu.module.css';
@@ -96,9 +97,16 @@ export const LayoutMenu: React.FC<{
 
   const { theme } = useTheme();
 
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/');
+  }, []);
+
   return (
     <div
-      className="flex flex-col z-[10] shrink-0"
+      className="flex flex-col z-[10] shrink-0 cursor-pointer"
+      onClick={() => router.push('/')}
       style={{ background: headerTransparent ? undefined : theme }}
     >
       <div className="px-12 pt-[26px] pb-[18px]">
