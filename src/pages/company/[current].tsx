@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
@@ -344,7 +344,7 @@ const Info: React.FC = () => {
           <div className="opacity-75">{v}</div>
         </Fragment>
       ))}
-      <div className="absolute w-[2px] top-[15vh] bottom-0 left-[405px] bg-white" />
+      <div className="absolute w-[2px] top-[100px] bottom-0 left-[405px] bg-white" />
     </main>
   );
 };
@@ -382,6 +382,10 @@ const MobileInfo: React.VFC = () => {
 export default function () {
   const router = useRouter();
   const { current } = router.query as { current: string };
+
+  useEffect(() => {
+    ['vision', 'services', 'info'].map((v) => router.prefetch(`/company/${v}`));
+  }, []);
 
   return (
     <div className="flex-1 flex flex-col text-white relative overflow-scroll min-h-0">

@@ -6,7 +6,7 @@ import { HTTPError } from './invokeHttp';
 
 export const nodeAuthStorage = new AsyncLocalStorage<string | undefined>();
 
-export const withAuth = <T>(get: GetServerSideProps<T>) => {
+export const withAuth = <T extends {}>(get: GetServerSideProps<T>) => {
   return async (context: GetServerSidePropsContext) => {
     return await nodeAuthStorage.run(context.req.cookies.token, async () => {
       try {

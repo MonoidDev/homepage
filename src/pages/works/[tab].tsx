@@ -379,6 +379,10 @@ export default function () {
 
   const [currentWork, setCurrentWork] = useState('');
 
+  useEffect(() => {
+    [0, 1].map((tab) => router.prefetch(`/works/${tab}`));
+  }, []);
+
   const cardContents: CardContent[] = [
     {
       name: 'WOPAL',

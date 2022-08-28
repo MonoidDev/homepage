@@ -47,7 +47,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
 
   const token = useToken();
   const [loadingDone, setLoadingDone] = useState(
-    !shouldDisplayLoading || router.pathname.startsWith('/admin'),
+    !shouldDisplayLoading || router.pathname !== '/',
   );
 
   return (

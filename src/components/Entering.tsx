@@ -107,7 +107,7 @@ const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   );
 };
 
-export const Entering: React.VFC<{ onDone: () => void }> = ({ onDone }) => {
+export const Entering: React.FC<{ onDone: () => void }> = ({ onDone }) => {
   const {
     values: [backgroundOpacity],
     play,

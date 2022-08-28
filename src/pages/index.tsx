@@ -414,7 +414,7 @@ export default function () {
                   technologyOpacity(yVideo) === 0 ? 'none' : 'auto',
               }}
             >
-              <OpeningLink color="white" href="/company/vision" target="_blank">
+              <OpeningLink color="white" href="/company/info" target="_blank">
                 COMPANY
               </OpeningLink>
             </div>
