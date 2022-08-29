@@ -183,7 +183,7 @@ const Services: React.FC = () => {
         </div>
         {(locale === 'ja-JP' || locale === 'zh-CN') && (
           <div>
-            <OpeningLink href="" color="white">
+            <OpeningLink href="/works/0" color="white">
               SEE WORKS
             </OpeningLink>
           </div>
@@ -193,13 +193,13 @@ const Services: React.FC = () => {
       <div className="flex gap-x-[60px] justify-end">
         <div className="flex flex-col justify-end">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <OpeningLink href="" color="white" direction="left">
+            <OpeningLink href="/works/1" color="white" direction="left">
               SEE WORKS
             </OpeningLink>
           )}
 
           {locale === 'en-US' && (
-            <Link href="">
+            <Link href="/works/0">
               <a>
                 <div className="p-[12px] text-white text-[32px] font-dense border-white border-2 leading-none cursor-pointer">
                   SEE WORKS
