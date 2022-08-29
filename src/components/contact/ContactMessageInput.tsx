@@ -31,7 +31,7 @@ export const ContactMessageInput = React.forwardRef<
 
       <textarea
         className={clsx(
-          'note flex-1 bg-transparent outline-none resize-none text-[25px] sm:text-[16.5px]',
+          'note flex-1 bg-transparent outline-none resize-none text-[25px] sm:text-[16.5px] sm:mb-[0.5rem]',
         )}
         style={
           {
@@ -46,7 +46,7 @@ export const ContactMessageInput = React.forwardRef<
       <button
         className={clsx(
           'self-end w-[182px] sm:w-[122px] h-[48px] sm:h-[32px] rounded-[24px]',
-          'sm:rounded-[12px] text-[24px] sm:text-[22px] sm:text-white',
+          'sm:rounded-[12px] text-[24px] sm:text-[20px] sm:text-white',
           'font-loose font-bold pt-[3px] mt-[1rem] sm:mt-[0] bg-[#C4C4C4] sm:bg-black',
           error && 'opacity-0',
         )}

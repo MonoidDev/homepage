@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import useCountDown from 'react-countdown-hook';
 
 import recruitMailbox from '@/assets/lottie/recruit-mailbox.json';
-import { GoBackTriangleTitle } from '@/components/recruit/GoBackTriangleTitle';
 
 const useStrings = makeStrings({
   'ja-JP': {
@@ -37,11 +36,11 @@ export default function Success() {
       </h2>
       <div className="bg-white self-center w-[550px] scale-150 origin-top-right relative top-[-10vh] z-0">
         <Lottie
-          autoPlay={true}
+          autoPlay
           loop={false}
           animationData={recruitMailbox}
           onComplete={() => {
-            setTimeout(() => router.push('/recruit'), 15000);
+            // setTimeout(() => router.push('/recruit'), 15000);
           }}
         />
       </div>
@@ -50,17 +49,17 @@ export default function Success() {
 
   const renderMobile = () => (
     <main className="flex-1 >sm:hidden flex flex-col pt-[4rem]" role="main">
-      <div className="fixed top-0 left-0 flex flex-col pl-[1rem]">
-        <GoBackTriangleTitle noIcon>THANK YOU</GoBackTriangleTitle>
-      </div>
+      <h2 className="text-[45px] font-loose font-bold leading-none text-center mb-[3rem]">
+        THANK YOU
+      </h2>
 
-      <div className="h-[500px] mb-[-3rem] scale-150 origin-top-right">
+      <div className="h-[500px] mb-[-6rem] scale-150 origin-top-right">
         <Lottie
-          autoPlay={true}
+          autoPlay
           loop={false}
           animationData={recruitMailbox}
           onComplete={() => {
-            setTimeout(() => router.push('/recruit'), 15000);
+            // setTimeout(() => router.push('/recruit'), 15000);
             start();
           }}
         />

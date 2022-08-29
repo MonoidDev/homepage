@@ -51,13 +51,19 @@ const useStrings = makeStrings({
       <>
         我们并非简单地将新技术强加于任何项目中，而是在旧与新的价值观及方法论产生摩擦时，根据客户的实际情况帮助客户作出正确的技术决策。
         <br />
-        我们使用高效，严谨的新技术和新框架，解决旧患旧疾，为新时代的来临铺平道路。{' '}
+        我们使用高效，严谨的新技术和新框架，解决旧患旧疾，为新时代的来临铺平道路。
       </>
     ),
     info: [
       ['公司名称', '合同会社Monoid'],
       ['成立日期', '2020年12月24日'],
-      ['注册资金', '1,000万日元［截止至2022年6月末］'],
+      [
+        '注册资金',
+        <>
+          1,000万日元<span className=">sm:hidden">{'\n'}</span>
+          [截止至2022年6月末]
+        </>,
+      ],
       ['业务内容', '设计・开发・维护'],
       ['公司法人', 'Mao Yanru'],
       [
@@ -74,7 +80,7 @@ const useStrings = makeStrings({
     ),
     content: (
       <>
-        デザイナーとエンジニアの専門チームによるクリエイティブな課題解決で、より良い世界の実現にコミットしています。{' '}
+        デザイナーとエンジニアの専門チームによるクリエイティブな課題解決で、より良い世界の実現にコミットしています。
         <br />
         ただ新しい技術を押しつけるのではなく、旧来の価値観や手法が新しいものに移行していく際に生じる摩擦や軋轢などのリスクも含め、お客様の技術的な意思決定を包括的にサポートします。
       </>
@@ -82,7 +88,14 @@ const useStrings = makeStrings({
     info: [
       ['会社名', '合同会社Monoid'],
       ['設立', '2020年12月24日'],
-      ['資本金', '1,000万円［2022年6月末時点］'],
+      [
+        '資本金',
+        <>
+          1,000万円
+          <span className=">sm:hidden">{'\n'}</span>
+          [2022年6月末時点]
+        </>,
+      ],
       ['事業内容', '企画・開発・運用'],
       ['代表者', 'Mao Yanru'],
       ['所在地', '東京都千代田区大手町1-7-2 東京サンケイビル 27F'],
@@ -183,7 +196,7 @@ const Services: React.FC = () => {
         </div>
         {(locale === 'ja-JP' || locale === 'zh-CN') && (
           <div>
-            <OpeningLink href="" color="white">
+            <OpeningLink href="/works/0" color="white">
               SEE WORKS
             </OpeningLink>
           </div>
@@ -193,13 +206,13 @@ const Services: React.FC = () => {
       <div className="flex gap-x-[60px] justify-end">
         <div className="flex flex-col justify-end">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <OpeningLink href="" color="white" direction="left">
+            <OpeningLink href="/works/1" color="white" direction="left">
               SEE WORKS
             </OpeningLink>
           )}
 
           {locale === 'en-US' && (
-            <Link href="">
+            <Link href="/works/0">
               <a>
                 <div className="p-[12px] text-white text-[32px] font-dense border-white border-2 leading-none cursor-pointer">
                   SEE WORKS
@@ -329,7 +342,7 @@ const Info: React.FC = () => {
       className={clsx(
         'sm:hidden',
         'relative grid grid-cols-[300px_1fr] text-[30px] font-loose font-bold',
-        'px-[75px] sm:px-[32px] pt-[100px] gap-x-[4rem] gap-y-[1rem]',
+        'px-[75px] pt-[100px] gap-x-[4rem] gap-y-[1rem]',
       )}
       style={{ gridAutoRows: 'min-content' }}
       role="main"
@@ -357,7 +370,7 @@ const MobileInfo: React.VFC = () => {
     <main
       className={clsx(
         '>sm:hidden',
-        'pt-[60px] px-[32px] leading-[65px] font-loose font-bold',
+        'pt-[60px] px-[24px] leading-[65px] font-loose font-bold',
       )}
     >
       <h2 className="mb-[3rem] text-[50px]">{strings.companyInfo}</h2>
