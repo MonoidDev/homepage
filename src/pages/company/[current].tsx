@@ -329,7 +329,7 @@ const Info: React.FC = () => {
       className={clsx(
         'sm:hidden',
         'relative grid grid-cols-[300px_1fr] text-[30px] font-loose font-bold',
-        'px-[75px] sm:px-[32px] pt-[100px] gap-x-[4rem] gap-y-[1rem]',
+        'px-[75px] pt-[100px] gap-x-[4rem] gap-y-[1rem]',
       )}
       style={{ gridAutoRows: 'min-content' }}
       role="main"
@@ -357,7 +357,7 @@ const MobileInfo: React.VFC = () => {
     <main
       className={clsx(
         '>sm:hidden',
-        'pt-[60px] px-[32px] leading-[65px] font-loose font-bold',
+        'pt-[60px] px-[24px] leading-[65px] font-loose font-bold',
       )}
     >
       <h2 className="mb-[3rem] text-[50px]">{strings.companyInfo}</h2>
