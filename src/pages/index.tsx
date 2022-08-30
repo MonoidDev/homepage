@@ -643,7 +643,7 @@ export default function () {
 
             <OpeningLink
               color="black"
-              href="/works/0"
+              href="/works/1"
               className="absolute left-0 bottom-0"
               target="_blank"
             >
@@ -672,7 +672,7 @@ export default function () {
 
             <OpeningLink
               color="black"
-              href="/works/1"
+              href="/works/0"
               className="absolute right-0 bottom-0"
               target="_blank"
             >
