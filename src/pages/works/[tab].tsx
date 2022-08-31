@@ -336,17 +336,24 @@ const TabNavigation: React.FC<{
   const renderTab = (tab: WorkTab, index: number) => {
     return (
       <div
-        className={clsx(
-          'cursor-pointer transition-opacity',
-          index !== currentIndex && 'opacity-20',
-        )}
+        className={clsx('cursor-pointer transition-opacity')}
         key={index}
         onClick={() => onChangeIndex(index)}
       >
-        <h3 className="font-dense text-[36px] leading-none font-bold">
+        <h3
+          className={clsx(
+            'font-dense text-[36px] leading-none font-bold text-black',
+            index !== currentIndex && 'text-opacity-20',
+          )}
+        >
           {tab.title}
         </h3>
-        <p className="font-dense text-base font-bold leading-tight">
+        <p
+          className={clsx(
+            'font-dense text-base font-bold leading-tight text-black',
+            index !== currentIndex && 'text-opacity-20',
+          )}
+        >
           {tab.description}
         </p>
         <div

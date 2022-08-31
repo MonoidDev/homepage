@@ -34,7 +34,7 @@ export const useOpeningStrings = makeStrings({
     DXAcceleration: <>DX推進</>,
     DXAccelerationSummary: [
       <>デジタルを浸透させ革新的な</>,
-      <>イノベーションを起こす</>,
+      <>イノベーションを起こします</>,
     ],
     DXAccelarationItems: [
       <>IT資産の分析・評価</>,

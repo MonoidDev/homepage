@@ -128,7 +128,7 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
             {openingStrings.together}
           </h2>
 
-          <div className="absolute top-[220px] left-[10px] flex gap-x-[80px]">
+          <div className="absolute md:top-[150px] >md:top-[220px] left-[10px] flex gap-x-[80px]">
             <OpeningLink color="black" target="_blank" href="/contact">
               CONTACT US
             </OpeningLink>
@@ -269,7 +269,7 @@ export default function () {
 
       <div
         className={clsx(
-          'pt-[24vh] sm:hidden',
+          'pt-[24vh] md:!pt-[12vh] sm:hidden',
           scrollTop === 0 && 'animate-bounce-scroll',
         )}
       >
