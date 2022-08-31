@@ -163,10 +163,10 @@ const Services: React.FC = () => {
         'sm:hidden',
       )}
     >
-      <div className="flex gap-x-[60px]">
+      <div className="flex gap-x-[60px] md:!gap-x-[30px]">
         <div className="flex flex-col">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <h3 className="text-[60px] leading-none font-bold mb-[1rem]">
+            <h3 className="text-[60px] leading-none font-bold mb-[0.5rem]">
               {openingStrings.DXAcceleration}
             </h3>
           )}
@@ -189,13 +189,13 @@ const Services: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-flow-col grid-rows-3 gap-x-[60px]">
+        <div className="grid grid-flow-col grid-rows-3 gap-x-[60px] md:!gap-x-[20px]">
           {openingStrings.DXAccelarationItems.map((item, i) =>
             renderItem(i, item),
           )}
         </div>
         {(locale === 'ja-JP' || locale === 'zh-CN') && (
-          <div>
+          <div className="pt-[1rem]">
             <OpeningLink href="/works/0" color="white">
               SEE WORKS
             </OpeningLink>
@@ -203,8 +203,8 @@ const Services: React.FC = () => {
         )}
       </div>
 
-      <div className="flex gap-x-[60px] justify-end">
-        <div className="flex flex-col justify-end">
+      <div className="flex gap-x-[60px] md:!gap-x-[30px] justify-end">
+        <div className="flex flex-col justify-end pb-[0.5rem]">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
             <OpeningLink href="/works/1" color="white" direction="left">
               SEE WORKS
@@ -401,8 +401,13 @@ export default function () {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col text-white relative overflow-scroll min-h-0">
-      <div className="sm:hidden fixed right-0 bottom-[20px]">
+    <div className="flex-1 flex flex-col text-white relative overflow-scroll min-h-0 >sm:pb-[90px]">
+      <div
+        className={clsx(
+          'sm:hidden fixed left-0 right-0 bottom-0 py-[20px] z-50 bg-black',
+          'flex justify-end',
+        )}
+      >
         <AnimatedSwitch2
           current={current}
           onChangeCurrent={(v) => router.push(v)}
