@@ -1,11 +1,11 @@
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      'loose': ['"Avenir Next"'],
-      'dense': ['"DIN Condensed"'],
+      loose: ['"Avenir Next"'],
+      dense: ['"DIN Condensed"'],
     },
     fontSize: {
       xs: '0.75rem',
@@ -22,6 +22,8 @@ module.exports = {
     screens: {
       sm: { max: '899px' },
       '>sm': { min: '900px' },
+      md: { max: '1299px' },
+      '>md': { min: '1300px' },
     },
     extend: {
       colors: {
@@ -65,8 +67,8 @@ module.exports = {
           '50%': {
             transform: 'none',
             'animation-timing-function': 'ease',
-          }
-        }
+          },
+        },
       },
     },
   },
@@ -75,6 +77,6 @@ module.exports = {
       addVariant('black', '.black &');
       addVariant('white', '.white &');
     }),
-    require("tailwindcss-animate"),
+    require('tailwindcss-animate'),
   ],
 };

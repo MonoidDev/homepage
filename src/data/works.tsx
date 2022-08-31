@@ -338,7 +338,7 @@ export const useWorksStrings = makeStrings<{
           <>
             デジタルを浸透させ
             <br />
-            革新的なイノベーションを起こす
+            革新的なイノベーションを起こします
           </>
         ),
       },
