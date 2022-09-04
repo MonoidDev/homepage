@@ -57,10 +57,11 @@ export default function Recruit() {
 
       <main
         className={clsx(
-          'font-dense flex-1 flex flex-col overflow-auto px-[100px] sm:px-[32px] pb-[50px] >md:justify-end text-white z-[10]',
+          'font-dense flex-1 flex flex-col overflow-auto px-[100px] sm:px-[32px] pb-[50px] text-white z-[10]',
         )}
         role="main"
       >
+        <div className="flex-1" />
         <h2 className="text-[140px] sm:text-[80px] sm:leading-[1] sm:mt-[2rem]">
           {strings.title}
         </h2>

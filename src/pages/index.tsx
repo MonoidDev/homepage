@@ -90,13 +90,20 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
 
   const openingStrings = useOpeningStrings();
 
+  const locale = useLocale();
+
   return (
     <span>
       {isBottom && (
         <div className="h-0 relative text-[80px]">
           <DotsSvg className="absolute bottom-[43px] left-[-30px]" />
 
-          <h2 className="absolute bottom-0 left-[10px] font-dense font-bold">
+          <h2
+            className={clsx(
+              'absolute bottom-0 left-[10px] font-dense font-bold',
+              (locale === 'en-US' || locale === 'zh-CN') && 'pl-[8px]',
+            )}
+          >
             {openingStrings.letsCreate}
           </h2>
         </div>
@@ -124,11 +131,16 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
 
       {isBottom && (
         <div className="h-0 relative text-[80px]">
-          <h2 className="absolute top-[30px] left-[10px] font-dense font-bold">
+          <h2
+            className={clsx(
+              'absolute top-[30px] left-[10px] font-dense font-bold',
+              (locale === 'en-US' || locale === 'zh-CN') && 'pl-[12px]',
+            )}
+          >
             {openingStrings.together}
           </h2>
 
-          <div className="absolute md:top-[150px] >md:top-[220px] left-[10px] flex gap-x-[80px]">
+          <div className="absolute md:top-[150px] >md:top-[220px] left-[20px] flex gap-x-[80px]">
             <OpeningLink color="black" target="_blank" href="/contact">
               CONTACT US
             </OpeningLink>

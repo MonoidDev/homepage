@@ -99,7 +99,7 @@ export default function Contact() {
 
         <div className="grid grid-cols-[90px_1fr] sm:grid-cols-[60px_1fr] gap-y-8 sm:gap-y-2 font-dense text-[28px] sm:text-[30px] sm:items-center sm:mb-[3rem] leading-tight">
           <div>
-            <Telephone height={34} className="relative left-[10px]" />
+            <Telephone height={34} className="relative left-[10px] top-[2px]" />
           </div>
           <div className="pt-[4px]">
             <a href="tel:+81-03-3242-3072" className="hover:text-gray-700">
@@ -107,7 +107,7 @@ export default function Contact() {
             </a>
           </div>
           <div>
-            <Mail height={28} className="relative left-[8px]" />
+            <Mail height={28} className="relative left-[8px] top-[4px]" />
           </div>
           <div className="pt-[4px]">
             <a
