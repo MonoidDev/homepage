@@ -201,8 +201,8 @@ const MobileAnimatedSlogan: React.VFC = () => {
   );
 };
 
-const VIDEO_START = 1 / 9;
-const VIDEO_RANGE = 6 / 9;
+const VIDEO_START = 1 / 9.5;
+const VIDEO_RANGE = 6 / 9.5;
 
 const VIDEO_WHITE_START = 0.7255;
 
@@ -644,7 +644,7 @@ export default function () {
         id="#businessContent"
         className="shrink-0 w-[1056px] self-center flex flex-col gap-y-[37px] justify-center relative z-40"
         style={{
-          height: `calc(1 * (100vh - ${navbarHeight}px))`,
+          height: `calc(1.5 * (100vh - ${navbarHeight}px))`,
         }}
       >
         <div className="h-[1px] bg-black absolute left-[100px] right-[100px] rotate-[-20deg]" />
