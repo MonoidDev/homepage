@@ -8,7 +8,7 @@ specifiers:
   '@svgr/webpack': ^6.3.1
   '@types/js-cookie': ^3.0.2
   '@types/lodash': ^4.14.184
-  '@types/node': ^17.0.45
+  '@types/node': ^18.0.0
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@types/three': ^0.138.0
@@ -65,7 +65,7 @@ dependencies:
   '@react-three/fiber': 7.0.29_6u6mv3epk42ljgsebfm3kjeldm
   '@svgr/webpack': 6.3.1
   '@types/js-cookie': 3.0.2
-  '@types/node': 17.0.45
+  '@types/node': 18.11.6
   '@types/three': 0.138.0
   autoprefixer: 10.4.8_postcss@8.4.16
   clsx: 1.2.1
@@ -89,7 +89,7 @@ dependencies:
   select-files: 1.0.1
   tailwindcss: 3.1.8_57znarxsqwmnneadci5z5fd5gu
   three: 0.138.3
-  ts-node: 10.9.1_vxrnv5tlr43u5xabofdb6zoswy
+  ts-node: 10.9.1_hjguvdtavrvcwegpafcpq4scny
   usehooks-ts: 2.6.0_react@18.2.0
 
 devDependencies:
@@ -1989,8 +1989,8 @@ packages:
       nanoid: 3.3.4
     dev: false
 
-  /@types/node/17.0.45:
-    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+  /@types/node/18.11.6:
+    resolution: {integrity: sha512-j3CEDa2vd96K0AXF8Wur7UucACvnjkk8hYyQAHhUNciabZLDl9nfAEVUSwmh245OOZV15bRA3Y590Gi5jUcDJg==}
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -4748,7 +4748,7 @@ packages:
     dependencies:
       lilconfig: 2.0.6
       postcss: 8.4.16
-      ts-node: 10.9.1_vxrnv5tlr43u5xabofdb6zoswy
+      ts-node: 10.9.1_hjguvdtavrvcwegpafcpq4scny
       yaml: 1.10.2
 
   /postcss-merge-longhand/5.1.6_postcss@8.4.16:
@@ -5763,7 +5763,7 @@ packages:
     resolution: {integrity: sha512-bzOx5f2ZBxkFhXtIvDJlLn2AI3bzCkGVbCndl/2dL5QZrwHEKl45OEIilCxYQQWJG1rEbOD9O80tMjoYjw19OA==}
     dev: false
 
-  /ts-node/10.9.1_vxrnv5tlr43u5xabofdb6zoswy:
+  /ts-node/10.9.1_hjguvdtavrvcwegpafcpq4scny:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -5782,7 +5782,7 @@ packages:
       '@tsconfig/node12': 1.0.9
       '@tsconfig/node14': 1.0.1
       '@tsconfig/node16': 1.0.2
-      '@types/node': 17.0.45
+      '@types/node': 18.11.6
       acorn: 8.7.1
       acorn-walk: 8.2.0
       arg: 4.1.3
