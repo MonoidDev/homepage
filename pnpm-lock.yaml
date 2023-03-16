@@ -36,7 +36,7 @@ specifiers:
   levenshtein-edit-distance: ^3.0.0
   lint-staged: ^12.5.0
   lodash: ^4.17.21
-  lottie-react: ~2.1.0
+  lottie-react: ~2.4.0
   next: ^12.2.5
   next-plausible: ^3.3.1
   next-seo: ^5.5.0
@@ -74,7 +74,7 @@ dependencies:
   js-cookie: 3.0.1
   levenshtein-edit-distance: 3.0.0
   lodash: 4.17.21
-  lottie-react: 2.1.0_v2m5e27vhdewzwhryxwfaorcca
+  lottie-react: 2.4.0_biqbaboplfbrettd7655fr4n2y
   next: 12.2.5_biqbaboplfbrettd7655fr4n2y
   next-plausible: 3.3.1_3xcjr4wz26biff45sz3jtokgje
   next-seo: 5.5.0_3xcjr4wz26biff45sz3jtokgje
@@ -4162,21 +4162,19 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
-  /lottie-react/2.1.0_v2m5e27vhdewzwhryxwfaorcca:
-    resolution: {integrity: sha512-sHDJb5aeh1letUIWqwidHoHZj07ZOZQoLuUgy0gqt9FB/XiCtAZ2+421Cn+ZkHR7anVvWljKhGgctQCtgFloUA==}
+  /lottie-react/2.4.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w==}
     peerDependencies:
-      prop-types: ^15.5.7
-      react: ^16.8.0
-      react-dom: ^16.8.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      lottie-web: 5.9.1
-      prop-types: 15.8.1
+      lottie-web: 5.10.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /lottie-web/5.9.1:
-    resolution: {integrity: sha512-3uKtU6BhIK6ZRCE/QyiXq/KuRvPeEAz/VFwqd99jPbpgFY9gHLw2krqvcuCFGepeW94BipS/B3TqIfTc9pUeZg==}
+  /lottie-web/5.10.2:
+    resolution: {integrity: sha512-d0PFIGiwuMsJYaF4uPo+qG8dEorlI+xFI2zrrFtE1bGO4WoLIz+NjremxEq1swpR7juR10aeOtmNh3d6G3ub0A==}
     dev: false
 
   /lru-cache/6.0.0:
