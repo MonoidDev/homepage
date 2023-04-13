@@ -23,7 +23,7 @@ export default function Apply() {
 
     for (const { file } of values.resume_urls) {
       const { url } = await postFiles.mutateAsync(file!);
-      resume_urls.push(url);
+      resume_urls.push(new URL(url).href); // Encode URL
     }
 
     await postRecruits.mutateAsync({
