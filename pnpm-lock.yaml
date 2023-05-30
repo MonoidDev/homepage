@@ -4,7 +4,7 @@ specifiers:
   '@monoid-dev/use-strings': ^0.0.1
   '@next/bundle-analyzer': ^12.2.5
   '@react-three/drei': 9.7.1
-  '@react-three/fiber': ^7.0.29
+  '@react-three/fiber': ^8.0.0
   '@svgr/webpack': ^6.3.1
   '@types/js-cookie': ^3.0.2
   '@types/lodash': ^4.14.184
@@ -61,8 +61,8 @@ specifiers:
 
 dependencies:
   '@monoid-dev/use-strings': 0.0.1_react@18.2.0
-  '@react-three/drei': 9.7.1_gnhnsqyf5siplxr7utshzk4dyy
-  '@react-three/fiber': 7.0.29_6u6mv3epk42ljgsebfm3kjeldm
+  '@react-three/drei': 9.7.1_uefsqbpvfkkyna6rjyuwb4dzwa
+  '@react-three/fiber': 8.13.0_6u6mv3epk42ljgsebfm3kjeldm
   '@svgr/webpack': 6.3.1
   '@types/js-cookie': 3.0.2
   '@types/node': 17.0.45
@@ -1706,7 +1706,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@react-spring/three/9.4.5_sarainau5buxkle7jmksa2oinm:
+  /@react-spring/three/9.4.5_xtna7pcv2wg7aor3qkfde3hmey:
     resolution: {integrity: sha512-mArxfIhg9kyFL/8Y09TarS/ZKLd/qAWS4T3Ro/B46ILPfPnoPywDdw9/rknZihy/tslnviCgMrB4pZ29X1Dfxw==}
     peerDependencies:
       '@react-three/fiber': '>=6.0'
@@ -1717,7 +1717,7 @@ packages:
       '@react-spring/core': 9.4.5_react@18.2.0
       '@react-spring/shared': 9.4.5_react@18.2.0
       '@react-spring/types': 9.4.5
-      '@react-three/fiber': 7.0.29_6u6mv3epk42ljgsebfm3kjeldm
+      '@react-three/fiber': 8.13.0_6u6mv3epk42ljgsebfm3kjeldm
       react: 18.2.0
       three: 0.138.3
     dev: false
@@ -1726,7 +1726,7 @@ packages:
     resolution: {integrity: sha512-mpRIamoHwql0ogxEUh9yr4TP0xU5CWyZxVQeccGkHHF8kPMErtDXJlxyo0lj+telRF35XNihtPTWoflqtyARmg==}
     dev: false
 
-  /@react-three/drei/9.7.1_gnhnsqyf5siplxr7utshzk4dyy:
+  /@react-three/drei/9.7.1_uefsqbpvfkkyna6rjyuwb4dzwa:
     resolution: {integrity: sha512-+K+OBvspUKPPGwRjKC3shi5J6MJQlxK3FATcxKoAEbQMaXNUnHOAAgQSh4U8wjscTCHeFvy2w7EKYRwnEVgYgA==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -1738,8 +1738,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.17.7
-      '@react-spring/three': 9.4.5_sarainau5buxkle7jmksa2oinm
-      '@react-three/fiber': 7.0.29_6u6mv3epk42ljgsebfm3kjeldm
+      '@react-spring/three': 9.4.5_xtna7pcv2wg7aor3qkfde3hmey
+      '@react-three/fiber': 8.13.0_6u6mv3epk42ljgsebfm3kjeldm
       '@types/nanoid': 3.0.0
       '@use-gesture/react': 10.2.12_react@18.2.0
       detect-gpu: 4.0.21
@@ -1762,29 +1762,38 @@ packages:
       zustand: 3.7.1_react@18.2.0
     dev: false
 
-  /@react-three/fiber/7.0.29_6u6mv3epk42ljgsebfm3kjeldm:
-    resolution: {integrity: sha512-TE+/iaGrjluGsPwN2RkLXxKD4ak+unsh0YKIFKGcuAOW9jYcAyMGKAtgFO8MS7/HNCrZZQQSg23sJ8IPgtdkDg==}
+  /@react-three/fiber/8.13.0_6u6mv3epk42ljgsebfm3kjeldm:
+    resolution: {integrity: sha512-hPFzFNgikEMyEbL+NpSA7q+UWZxInrrkJldWaCR2w34Fwf20x9p68bsyN0/yn9oM2VlWoJcJjR8hw1tN9AxHuA==}
     peerDependencies:
-      react: '>=17.0'
-      react-dom: '>=17.0'
+      expo: '>=43.0'
+      expo-asset: '>=8.4'
+      expo-gl: '>=11.0'
+      react: '>=18.0'
+      react-dom: '>=18.0'
+      react-native: '>=0.64'
       three: '>=0.133'
     peerDependenciesMeta:
+      expo:
+        optional: true
+      expo-asset:
+        optional: true
+      expo-gl:
+        optional: true
       react-dom:
         optional: true
+      react-native:
+        optional: true
     dependencies:
-      '@babel/runtime': 7.18.6
+      '@babel/runtime': 7.18.9
       '@types/react-reconciler': 0.26.7
+      its-fine: 1.1.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-merge-refs: 1.1.0
-      react-reconciler: 0.26.2_react@18.2.0
-      react-three-fiber: 0.0.0-deprecated
+      react-reconciler: 0.27.0_react@18.2.0
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
-      resize-observer-polyfill: 1.5.1
-      scheduler: 0.20.2
+      scheduler: 0.21.0
+      suspend-react: 0.0.8_react@18.2.0
       three: 0.138.3
-      use-asset: 1.0.4_react@18.2.0
-      utility-types: 3.10.0
       zustand: 3.7.1_react@18.2.0
     dev: false
 
@@ -2007,6 +2016,12 @@ packages:
 
   /@types/react-reconciler/0.26.7:
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
+    dependencies:
+      '@types/react': 18.0.17
+    dev: false
+
+  /@types/react-reconciler/0.28.2:
+    resolution: {integrity: sha512-8tu6lHzEgYPlfDf/J6GOQdIc+gs+S2yAqlby3zTsB3SP2svlqTYe5fwZNtZyfactP74ShooP2vvi1BOp9ZemWw==}
     dependencies:
       '@types/react': 18.0.17
     dev: false
@@ -3514,6 +3529,7 @@ packages:
 
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+    dev: true
 
   /fast-diff/1.2.0:
     resolution: {integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==}
@@ -3945,6 +3961,15 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=}
     dev: true
+
+  /its-fine/1.1.1_react@18.2.0:
+    resolution: {integrity: sha512-v1Ia1xl20KbuSGlwoaGsW0oxsw8Be+TrXweidxD9oT/1lAh6O3K3/GIM95Tt6WCiv6W+h2M7RB1TwdoAjQyyKw==}
+    peerDependencies:
+      react: '>=18.0'
+    dependencies:
+      '@types/react-reconciler': 0.28.2
+      react: 18.2.0
+    dev: false
 
   /js-cookie/3.0.1:
     resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
@@ -5106,20 +5131,15 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /react-reconciler/0.26.2_react@18.2.0:
-    resolution: {integrity: sha512-nK6kgY28HwrMNwDnMui3dvm3rCFjZrcGiuwLc5COUipBK5hWHLOxMJhSnSomirqWwjPBJKV1QcbkI0VJr7Gl1Q==}
+  /react-reconciler/0.27.0_react@18.2.0:
+    resolution: {integrity: sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==}
     engines: {node: '>=0.10.0'}
     peerDependencies:
-      react: ^17.0.2
+      react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
       react: 18.2.0
-      scheduler: 0.20.2
-    dev: false
-
-  /react-three-fiber/0.0.0-deprecated:
-    resolution: {integrity: sha512-EblIqTAsIpkYeM8bZtC4lcpTE0A2zCEGipFB52RgcQq/q+0oryrk7Sxt+sqhIjUu6xMNEVywV8dr74lz5yWO6A==}
+      scheduler: 0.21.0
     dev: false
 
   /react-use-measure/2.1.1_biqbaboplfbrettd7655fr4n2y:
@@ -5230,10 +5250,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /resize-observer-polyfill/1.5.1:
-    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
-    dev: false
-
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -5299,11 +5315,10 @@ packages:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
     dev: false
 
-  /scheduler/0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler/0.21.0:
+    resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
 
   /scheduler/0.23.0:
@@ -5698,7 +5713,7 @@ packages:
     peerDependencies:
       three: '>=0.122.0'
     dependencies:
-      '@babel/runtime': 7.17.7
+      '@babel/runtime': 7.18.9
       '@webgpu/glslang': 0.0.15
       chevrotain: 10.1.2
       draco3d: 1.5.2
@@ -5905,15 +5920,6 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
-
-  /use-asset/1.0.4_react@18.2.0:
-    resolution: {integrity: sha512-7/hqDrWa0iMnCoET9W1T07EmD4Eg/Wmoj/X8TGBc++ECRK4m5yTsjP4O6s0yagbxfqIOuUkIxe2/sA+VR2GxZA==}
-    peerDependencies:
-      react: '>=17.0'
-    dependencies:
-      fast-deep-equal: 3.1.3
-      react: 18.2.0
-    dev: false
 
   /use-sync-external-store/1.2.0_react@18.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
