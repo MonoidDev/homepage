@@ -1,44 +1,56 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useDebounce } from 'usehooks-ts';
 
-import auditAppPng from '@/assets/images/works/v2/audit-app.png';
-import CollapseSvg from '@/assets/images/works/v2/collapse.svg';
-import d2dBackgroundPng from '@/assets/images/works/v2/d2d-background.png';
-import d2dPng from '@/assets/images/works/v2/d2d.png';
-import ihealOpenPng from '@/assets/images/works/v2/iheal-open.png';
-import ihealPng from '@/assets/images/works/v2/iheal.png';
-import MonozipBackgroundSvg from '@/assets/images/works/v2/monozip-background.svg';
-import monozipPng from '@/assets/images/works/v2/monozip.png';
-import NewPageSvg from '@/assets/images/works/v2/new-page.svg';
-import PolijobBackgroundSvg from '@/assets/images/works/v2/polijob-background.svg';
-import polijobPng from '@/assets/images/works/v2/polijob.png';
-import UptimeMonitorSvg from '@/assets/images/works/v2/uptime-monitor-background.svg';
-import uptimeMonitorPng from '@/assets/images/works/v2/uptime-monitor.png';
-import wopalPng from '@/assets/images/works/v2/wopal.png';
+import auditAppPng from '@/assets/images/works/audit-app.png';
+import CollapseSvg from '@/assets/images/works/collapse.svg';
+import d2dBackgroundPng from '@/assets/images/works/d2d-background.png';
+import d2dMobile from '@/assets/images/works/d2d-mobile.png';
+import d2dPng from '@/assets/images/works/d2d.png';
+import ihealMobile from '@/assets/images/works/iheal-mobile.png';
+import ihealOpenPng from '@/assets/images/works/iheal-open.png';
+import ihealPng from '@/assets/images/works/iheal.png';
+import MonozipBackgroundSvg from '@/assets/images/works/monozip-background.svg';
+import monozipMobile from '@/assets/images/works/monozip-mobile.png';
+import monozipPng from '@/assets/images/works/monozip.png';
+import NewPageSvg from '@/assets/images/works/new-page.svg';
+import pawpawmallBackgroundPng from '@/assets/images/works/pawpawmall-background.png';
+import pawpawmallMobile from '@/assets/images/works/pawpawmall-mobile.png';
+import pawpawmallPng from '@/assets/images/works/pawpawmall.png';
+import PolijobBackgroundSvg from '@/assets/images/works/polijob-background.svg';
+import polijobMobile from '@/assets/images/works/polijob-mobile.png';
+import polijobPng from '@/assets/images/works/polijob.png';
+import UptimeMonitorBackgroundSvg from '@/assets/images/works/uptime-monitor-background.svg';
+import uptimeMonitorMobile from '@/assets/images/works/uptime-monitor-mobile.png';
+import uptimeMonitorPng from '@/assets/images/works/uptime-monitor.png';
+import wopalMobile from '@/assets/images/works/wopal-mobile.png';
+import wopalPng from '@/assets/images/works/wopal.png';
 import { useWorksStrings, WorkDescription, WorkTab } from '@/data/works';
 import { useLocale } from '@/utils/useLocale';
 
 interface CardContent {
   name: string;
   display: React.ReactNode;
+  displayMobileSrc: string;
   displayOpen?: React.ReactNode;
+  hideDisplayWhenOpen?: boolean;
   background: React.ReactNode;
   tab: number;
   url: string;
 }
 
 interface MobileWorkCardProps {
+  cardContent: CardContent;
   workDescription: WorkDescription;
   variant: 'left' | 'right';
   focused: boolean;
   onFocus: () => void;
 }
 
-const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
-  const { workDescription, variant, focused, onFocus } = props;
+const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
+  const { cardContent, workDescription, variant, focused, onFocus } = props;
 
   return (
     <div onClick={onFocus} className="relative z-0">
@@ -50,7 +62,7 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
         )}
         style={{
           backgroundImage: `url(${JSON.stringify(
-            workDescription.mobileImage,
+            cardContent.displayMobileSrc,
           )})`,
         }}
       />
@@ -61,7 +73,7 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
         )}
       >
         <div className="shrink-0 h-[38vw] border-b px-[24px] text-[22px] leading-tight font-bold border-white flex justify-center items-center">
-          {workDescription.summary}
+          {workDescription.mobileSummary ?? workDescription.summary}
         </div>
 
         <div className="flex flex-1 items-center px-[8px]">
@@ -83,7 +95,9 @@ const MobileWorkCard: React.VFC<MobileWorkCardProps> = (props) => {
   );
 };
 
-const MobileWorksGallery: React.VFC = () => {
+const MobileWorksGallery: React.FC<{ cardContents: CardContent[] }> = ({
+  cardContents,
+}) => {
   const { works } = useWorksStrings();
 
   const [focused, setFocused] = useState<string>('');
@@ -93,6 +107,7 @@ const MobileWorksGallery: React.VFC = () => {
       {works.map((work, i) => (
         <MobileWorkCard
           key={work.name}
+          cardContent={cardContents.find((c) => c.name === work.name)!}
           focused={work.name === focused}
           onFocus={() => {
             if (work.name === focused) {
@@ -220,9 +235,10 @@ const WorkCard: React.FC<{
 
         <div
           className={clsx(
-            'text-[16px] font-bold mb-[10px]',
-            locale === 'en-US' && '!text-[18px] leading-tight',
-            description.name === 'POLIJOB' &&
+            'font-bold mb-[10px]',
+            locale === 'en-US' ? 'text-[18px] leading-tight' : 'text-[16px]',
+            (description.name === 'POLIJOB' ||
+              description.name === 'PAWPAWMALL') &&
               locale === 'en-US' &&
               '!text-[14px]',
           )}
@@ -248,7 +264,9 @@ const WorkCard: React.FC<{
     >
       <div className="flex-1 relative z-30 flex w-[780px]">
         <div className={clsx('w-[280px] flex shrink-0 relative z-0')}>
-          {content?.display}
+          {content?.hideDisplayWhenOpen
+            ? !(open || debouncedOpen) && content?.display
+            : content?.display}
 
           {(open || debouncedOpen) && (
             <div
@@ -390,103 +408,131 @@ export default function () {
     [0, 1].map((tab) => router.prefetch(`/works/${tab}`));
   }, []);
 
-  const cardContents: CardContent[] = [
-    {
-      name: 'WOPAL',
-      display: (
-        <div className="flex-1 flex justify-center items-center">
-          <img src={wopalPng.src} className="w-[160px] h-[322px]" />
-        </div>
-      ),
-      tab: 0,
-      background: (
-        <div className="flex-1 [background:linear-gradient(0deg,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(98.04deg,#73D2FB_4.17%,#3BB2E6_30.55%,_#367ED3_67.14%)]" />
-      ),
-      url: 'https://wopal.dev',
-    },
-    {
-      name: 'MONOZIP API',
-      display: (
-        <div className="flex-1 flex flex-col justify-end">
+  const cardContents: CardContent[] = useMemo(
+    () => [
+      {
+        name: 'WOPAL',
+        display: (
+          <div className="flex-1 flex justify-center items-center">
+            <img src={wopalPng.src} className="w-[160px] h-[322px]" />
+          </div>
+        ),
+        displayMobileSrc: wopalMobile.src,
+        tab: 0,
+        background: (
+          <div className="flex-1 [background:linear-gradient(0deg,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(98.04deg,#73D2FB_4.17%,#3BB2E6_30.55%,_#367ED3_67.14%)]" />
+        ),
+        url: 'https://wopal.dev',
+      },
+      {
+        name: 'MONOZIP API',
+        display: (
+          <div className="flex-1 flex flex-col justify-end">
+            <img
+              src={monozipPng.src}
+              className="self-start w-[308px] h-[322px] max-w-[initial]"
+            />
+          </div>
+        ),
+        displayMobileSrc: monozipMobile.src,
+        tab: 0,
+        background: <MonozipBackgroundSvg />,
+        url: 'https://www.monozip.com',
+      },
+      {
+        name: 'D2D',
+        display: (
+          <div className="flex-1 flex flex-col justify-center items-start">
+            <img src={d2dPng.src} className="w-[238.5] h-[234px]" />
+          </div>
+        ),
+        displayMobileSrc: d2dMobile.src,
+        tab: 1,
+        background: (
           <img
-            src={monozipPng.src}
-            className="self-start w-[308px] h-[322px] max-w-[initial]"
+            src={d2dBackgroundPng.src}
+            className="h-[380px] w-[780px] max-w-none"
           />
-        </div>
-      ),
-      tab: 0,
-      background: <MonozipBackgroundSvg />,
-      url: 'https://www.monozip.com',
-    },
-    {
-      name: 'D2D',
-      display: (
-        <div className="flex-1 flex flex-col justify-center items-start">
-          <img src={d2dPng.src} className="w-[238.5] h-[234px]" />
-        </div>
-      ),
-      tab: 1,
-      background: (
-        <img
-          src={d2dBackgroundPng.src}
-          className="h-[380px] w-[780px] max-w-none"
-        />
-      ),
-      url: 'https://member.d2dasia.com',
-    },
-    {
-      name: 'iHEAL',
-      display: (
-        <div className="flex-1 flex flex-col justify-end">
-          <img src={ihealPng.src} className="w-[280px] h-[383px]" />
-        </div>
-      ),
-      displayOpen: (
-        <div className="flex-1 flex flex-col justify-end">
+        ),
+        url: 'https://member.d2dasia.com',
+      },
+      {
+        name: 'iHEAL',
+        display: (
+          <div className="flex-1 flex flex-col justify-end">
+            <img src={ihealPng.src} className="w-[280px] h-[383px]" />
+          </div>
+        ),
+        displayMobileSrc: ihealMobile.src,
+        displayOpen: (
+          <div className="flex-1 flex flex-col justify-end">
+            <img
+              src={ihealOpenPng.src}
+              className="w-[391.38px] !h-[383px] shrink-0 self-start !max-w-none"
+            />
+          </div>
+        ),
+        tab: 0,
+        background: <div className="flex-1 bg-[#fbd3cc]" />,
+        url: '',
+      },
+      {
+        name: 'POLIJOB',
+        display: (
+          <div className="flex-1 flex flex-col">
+            <img src={polijobPng.src} className="w-[280px] h-[380px]" />
+          </div>
+        ),
+        displayMobileSrc: polijobMobile.src,
+        tab: 0,
+        background: <PolijobBackgroundSvg />,
+        url: '',
+      },
+      {
+        name: 'UPTIME MONITOR',
+        display: (
+          <div className="flex-1 flex flex-col justify-center">
+            <img src={uptimeMonitorPng.src} className="w-[280px] h-[243px]" />
+          </div>
+        ),
+        displayMobileSrc: uptimeMonitorMobile.src,
+        tab: 0,
+        background: <UptimeMonitorBackgroundSvg />,
+        url: 'https://uptime-monitor-staging.herokuapp.com',
+      },
+      {
+        name: 'PAWPAWMALL',
+        display: (
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <img src={pawpawmallPng.src} className="w-[200px] h-[58px]" />
+          </div>
+        ),
+        displayMobileSrc: pawpawmallMobile.src,
+        hideDisplayWhenOpen: true,
+        tab: 0,
+        background: (
           <img
-            src={ihealOpenPng.src}
-            className="w-[391.38px] !h-[383px] shrink-0 self-start !max-w-none"
+            src={pawpawmallBackgroundPng.src}
+            className="w-[780px] h-[380px]"
           />
-        </div>
-      ),
-      tab: 0,
-      background: <div className="flex-1 bg-[#fbd3cc]" />,
-      url: '',
-    },
-    {
-      name: 'POLIJOB',
-      display: (
-        <div className="flex-1 flex flex-col">
-          <img src={polijobPng.src} className="w-[280px] h-[380px]" />
-        </div>
-      ),
-      tab: 0,
-      background: <PolijobBackgroundSvg />,
-      url: '',
-    },
-    {
-      name: 'UPTIME MONITOR',
-      display: (
-        <div className="flex-1 flex flex-col justify-center">
-          <img src={uptimeMonitorPng.src} className="w-[280px] h-[243px]" />
-        </div>
-      ),
-      tab: 0,
-      background: <UptimeMonitorSvg />,
-      url: 'https://uptime-monitor-staging.herokuapp.com',
-    },
-    {
-      name: 'AUDIT APP',
-      display: (
-        <div className="flex-1 flex flex-col justify-center">
-          <img src={auditAppPng.src} className="w-[258px] h-[264px]" />
-        </div>
-      ),
-      tab: 1,
-      background: <UptimeMonitorSvg />,
-      url: 'https://apps.apple.com/jp/app/audit-app/id1440477614',
-    },
-  ];
+        ),
+        url: '',
+      },
+      {
+        name: 'AUDIT APP',
+        displayMobileSrc: auditAppPng.src,
+        display: (
+          <div className="flex-1 flex flex-col justify-center">
+            <img src={auditAppPng.src} className="w-[258px] h-[264px]" />
+          </div>
+        ),
+        tab: 1,
+        background: <UptimeMonitorBackgroundSvg />,
+        url: 'https://apps.apple.com/jp/app/audit-app/id1440477614',
+      },
+    ],
+    [],
+  );
 
   const renderDesktop = () => {
     const baseWorks =
@@ -535,7 +581,7 @@ export default function () {
       <div className=">sm:hidden flex-1 flex flex-col overflow-scroll overflow-x-hidden relative z-0 pb-[2rem]">
         <h2 className="font-loose font-bold text-[90px] leading-none">WORKS</h2>
 
-        <MobileWorksGallery />
+        <MobileWorksGallery cardContents={cardContents} />
       </div>
     );
   };

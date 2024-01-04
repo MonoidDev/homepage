@@ -41,7 +41,10 @@ export const invokeHttp = async <R, Q extends {} = any, B = any>(
 };
 
 export class HTTPError {
-  public constructor(public messsge: string, public response: Response) {}
+  public constructor(
+    public messsge: string,
+    public response: Response,
+  ) {}
 
   public toString() {
     return `${this.response.status}: ${this.messsge}`;
