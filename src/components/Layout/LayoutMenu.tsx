@@ -48,33 +48,32 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
   const { theme } = useTheme();
 
   return (
-    <Link href={href ?? ''}>
-      <a
-        aria-label={children?.toString() || ariaLabelStrings.menu}
-        className={styles.menuItem}
-        style={{ marginRight: lastMargin }}
+    <Link
+      href={href ?? ''}
+      aria-label={children?.toString() || ariaLabelStrings.menu}
+      className={styles.menuItem}
+      style={{ marginRight: lastMargin }}
+    >
+      <div
+        className={clsx(
+          'flex will-change-[width] will-change-[transform] transition-[transform]',
+          !textExpanded && 'translate-x-full',
+        )}
+        style={{ width, transitionDuration: '300ms' }}
       >
+        <div className="w-[18px] shrink-0" />
         <div
-          className={clsx(
-            'flex will-change-[width] will-change-[transform] transition-[transform]',
-            !textExpanded && 'translate-x-full',
-          )}
-          style={{ width, transitionDuration: '300ms' }}
+          className="whitespace-pre"
+          style={{ width: textWidth, height: 60 }}
         >
-          <div className="w-[18px] shrink-0" />
-          <div
-            className="whitespace-pre"
-            style={{ width: textWidth, height: 60 }}
-          >
-            {children}
-          </div>
-          <div className="w-[40px] shrink-0" />
+          {children}
         </div>
-        <Slash
-          className="white:text-black black:text-white absolute right-0 top-0"
-          style={{ opacity: theme === 'black' ? 1 : 0.2 + 0.1 * index }}
-        />
-      </a>
+        <div className="w-[40px] shrink-0" />
+      </div>
+      <Slash
+        className="white:text-black black:text-white absolute right-0 top-0"
+        style={{ opacity: theme === 'black' ? 1 : 0.2 + 0.1 * index }}
+      />
     </Link>
   );
 };

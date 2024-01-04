@@ -61,9 +61,7 @@ export default function ContactIndex(props: ContactIndexProps) {
                   {item.message}
                 </td>
                 <td className="text-lime-700 underline">
-                  <Link href={`/admin/contact/${item.id}`}>
-                    <a>Detail</a>
-                  </Link>
+                  <Link href={`/admin/contact/${item.id}`}>Detail</Link>
                 </td>
               </tr>
             ))}

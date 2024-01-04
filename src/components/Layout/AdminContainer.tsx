@@ -13,23 +13,22 @@ export const AdminContainer: React.FC<AdminContainerProps> = (props) => {
 
   const renderNavigationButton = (label: string, href: string) => {
     return (
-      <Link href={href}>
-        <a
-          className="ml-[1rem]"
-          onClick={(e) => {
-            if (href === '/admin/login') {
-              if (confirm('Do you really want to log out?')) {
-                Cookies.remove('token');
-                auth.setToken(null);
-              } else {
-                e.preventDefault();
-                e.stopPropagation();
-              }
+      <Link
+        href={href}
+        className="ml-[1rem]"
+        onClick={(e) => {
+          if (href === '/admin/login') {
+            if (confirm('Do you really want to log out?')) {
+              Cookies.remove('token');
+              auth.setToken(null);
+            } else {
+              e.preventDefault();
+              e.stopPropagation();
             }
-          }}
-        >
-          {label}
-        </a>
+          }
+        }}
+      >
+        {label}
       </Link>
     );
   };

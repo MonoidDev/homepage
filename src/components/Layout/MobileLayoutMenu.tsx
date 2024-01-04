@@ -38,19 +38,18 @@ export const MobileLayoutMenu: React.VFC<MobileLayoutMenuProps> = (props) => {
   ) => {
     return (
       <>
-        <Link href={link}>
-          <a
-            className={clsx(
-              'mt-4 font-dense text-[48px] leading-none mr-[28px]',
-              (locale === 'ja-JP' || locale === 'zh-CN') && 'text-[36px]',
-            )}
-            onClick={async () => {
-              await opacityChain.reverse();
-              onClose();
-            }}
-          >
-            {label}
-          </a>
+        <Link
+          href={link}
+          className={clsx(
+            'mt-4 font-dense text-[48px] leading-none mr-[28px]',
+            (locale === 'ja-JP' || locale === 'zh-CN') && 'text-[36px]',
+          )}
+          onClick={async () => {
+            await opacityChain.reverse();
+            onClose();
+          }}
+        >
+          {label}
         </Link>
         {hasTick && (
           <MenuTick

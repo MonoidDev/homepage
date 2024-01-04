@@ -22,10 +22,8 @@ export default function JobDescription() {
 
   const renderDesktopHeader = () => (
     <div className="flex gap-x-[20px] mb-[1rem] font-loose">
-      <Link href="/recruit/jobs">
-        <a aria-label={ariaLabelStrings.back}>
-          <LeftTriangleSvg className="cursor-pointer mt-[2px]" />
-        </a>
+      <Link href="/recruit/jobs" aria-label={ariaLabelStrings.back}>
+        <LeftTriangleSvg className="cursor-pointer mt-[2px]" />
       </Link>
       <span className="text-[60px] font-bold leading-none mt-[5px]">
         {name}
@@ -35,8 +33,8 @@ export default function JobDescription() {
 
       {name !== 'UIUX DESIGNER' && (
         <>
-          <Link href={`/recruit/apply/${name}`}>
-            <a className={styles.nextTitle}>APPLY</a>
+          <Link href={`/recruit/apply/${name}`} className={styles.nextTitle}>
+            APPLY
           </Link>
 
           <Link href={`/recruit/apply/${name}`}>
