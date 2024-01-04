@@ -49,6 +49,7 @@
     "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
+    "@chenyuwang/eslint-config": "^0.0.2",
     "@next/bundle-analyzer": "^14.0.4",
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.46",
@@ -76,5 +77,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.3.3"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "@chenyuwang/eslint-config"
+  }
 }
