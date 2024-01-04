@@ -163,40 +163,37 @@ const MobileAnimatedSlogan: React.VFC = () => {
       href={
         shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company/vision'
       }
+      aria-label={
+        shouldDisplayLGBT
+          ? 'Monoid supports LGBT rights!'
+          : 'Learn More about Monoid'
+      }
     >
-      <a
-        aria-label={
-          shouldDisplayLGBT
-            ? 'Monoid supports LGBT rights!'
-            : 'Learn More about Monoid'
-        }
+      <svg
+        className=">sm:hidden [shape-rendering:optimizeSpeed]"
+        width="80vw"
+        viewBox="0 0 357 517"
       >
-        <svg
-          className=">sm:hidden [shape-rendering:optimizeSpeed]"
-          width="80vw"
-          viewBox="0 0 357 517"
-        >
-          <mask id={String(maskId)}>
-            <MobileSlogan fill="white" />
-          </mask>
+        <mask id={String(maskId)}>
+          <MobileSlogan fill="white" />
+        </mask>
 
-          <MobileSlogan />
-          <g mask={`url(#${maskId})`}>
-            {!shouldDisplayLGBT && (
-              <RandomCircle
-                fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
-                maxX={357}
-                maxY={517}
-              />
-            )}
+        <MobileSlogan />
+        <g mask={`url(#${maskId})`}>
+          {!shouldDisplayLGBT && (
             <RandomCircle
-              fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+              fill={shouldDisplayEasterEgg ? '#0057b8' : undefined}
               maxX={357}
               maxY={517}
             />
-          </g>
-        </svg>
-      </a>
+          )}
+          <RandomCircle
+            fill={shouldDisplayEasterEgg ? '#ffd700' : undefined}
+            maxX={357}
+            maxY={517}
+          />
+        </g>
+      </svg>
     </Link>
   );
 };
@@ -438,14 +435,12 @@ export default function () {
                 'text-[100px] leading-none font-dense',
                 (locale === 'en-US' || locale === 'zh-CN') && 'text-[120px]',
               )}
-              style={
-                {
-                  '-webkit-text-fill-color': 'white',
-                  '-webkit-text-stroke-width': '1px',
-                  '-webkit-text-stroke-color': 'black',
-                  opacity: servicesOpacity(yVideo),
-                } as any
-              }
+              style={{
+                WebkitTextFillColor: 'white',
+                WebkitTextStrokeWidth: '1px',
+                WebkitTextStrokeColor: 'black',
+                opacity: servicesOpacity(yVideo),
+              }}
             >
               {openingStrings.services}
             </div>

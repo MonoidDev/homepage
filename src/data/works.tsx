@@ -1,24 +1,5 @@
 import { makeStrings } from '@monoid-dev/use-strings';
 
-import d2dHover from '@/assets/images/works/d2d-hover.png';
-import d2dMobile from '@/assets/images/works/d2d-mobile.png';
-import d2dNormal from '@/assets/images/works/d2d-normal.png';
-import ihealHover from '@/assets/images/works/iheal-hover.png';
-import ihealMobile from '@/assets/images/works/iheal-mobile.png';
-import ihealNormal from '@/assets/images/works/iheal-normal.png';
-import monozipHover from '@/assets/images/works/monozip-hover.png';
-import monozipMobile from '@/assets/images/works/monozip-mobile.png';
-import monozipNormal from '@/assets/images/works/monozip-normal.png';
-import polijobHover from '@/assets/images/works/polijob-hover.png';
-import polijobMobile from '@/assets/images/works/polijob-mobile.png';
-import polijobNormal from '@/assets/images/works/polijob-normal.png';
-import uptimeMonitorHover from '@/assets/images/works/uptime-monitor-hover.png';
-import uptimeMonitorMobile from '@/assets/images/works/uptime-monitor-mobile.png';
-import uptimeMonitorNormal from '@/assets/images/works/uptime-monitor-normal.png';
-import wopalHover from '@/assets/images/works/wopal-hover.png';
-import wopalMobile from '@/assets/images/works/wopal-mobile.png';
-import wopalNormal from '@/assets/images/works/wopal-normal.png';
-
 export interface WorkTab {
   title: string;
   description: React.ReactNode;
@@ -27,13 +8,11 @@ export interface WorkTab {
 export interface WorkDescription {
   name: string;
   mobileName?: string;
-  summary: React.ReactNode;
-  details: React.ReactNode;
   tags: string[];
   mobileTags: string[];
-  displayImage: string;
-  hoverImage: string;
-  mobileImage: string;
+  summary: React.ReactNode;
+  mobileSummary?: React.ReactNode;
+  details: React.ReactNode;
 }
 
 export const useWorksStrings = makeStrings<{
@@ -65,9 +44,6 @@ export const useWorksStrings = makeStrings<{
           'Mobile App Development',
         ],
         mobileTags: ['Web', 'App', 'UIUX', 'IoT'],
-        displayImage: wopalNormal.src,
-        hoverImage: wopalHover.src,
-        mobileImage: wopalMobile.src,
       },
       {
         name: 'MONOZIP API',
@@ -82,9 +58,6 @@ export const useWorksStrings = makeStrings<{
           'Operation & Maintenance',
         ],
         mobileTags: ['SaaS', 'API', 'Geolocation'],
-        displayImage: monozipNormal.src,
-        hoverImage: monozipHover.src,
-        mobileImage: monozipMobile.src,
       },
       {
         name: 'D2D',
@@ -104,9 +77,6 @@ export const useWorksStrings = makeStrings<{
           'Saas Solutions',
         ],
         mobileTags: ['Web', 'OA', 'Cloud', 'UIUX'],
-        displayImage: d2dNormal.src,
-        hoverImage: d2dHover.src,
-        mobileImage: d2dMobile.src,
       },
       {
         name: 'iHEAL',
@@ -122,9 +92,6 @@ export const useWorksStrings = makeStrings<{
           'RasPi',
         ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
-        displayImage: ihealNormal.src,
-        hoverImage: ihealHover.src,
-        mobileImage: ihealMobile.src,
       },
       {
         name: 'POLIJOB',
@@ -147,9 +114,6 @@ export const useWorksStrings = makeStrings<{
           'System Development',
         ],
         mobileTags: ['System Design', 'UIUX'],
-        displayImage: polijobNormal.src,
-        hoverImage: polijobHover.src,
-        mobileImage: polijobMobile.src,
       },
       {
         name: 'UPTIME MONITOR',
@@ -158,9 +122,35 @@ export const useWorksStrings = makeStrings<{
           'Uptime Monitor is a website monitoring service to acknowledge users when their endpoints go down. Users can configure the monitoring setting site by site, and get informed by both email and visualized real-time dashboard.',
         tags: ['UIUX Design', 'System Design', 'System Development'],
         mobileTags: [],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
+      },
+      {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            Pet Products
+            <br />
+            EC Store
+          </>
+        ),
+        mobileSummary: 'A pet products e-commerce store with a focus on design',
+        details: (
+          <>
+            Pawpawmall is an e-commerce store specializing in a curated
+            selection of imported pet products, launched as a part of Monoid's
+            PET TECH initiative. Our team handles everything in-house, from
+            product selection to content creation and social media management,
+            ensuring a consistent and quality experience for our customers.
+          </>
+        ),
+        tags: [
+          'UIUX Design',
+          'Shopify Dev.',
+          'SNS Marketing',
+          'SEO',
+          'Logistics & Inventory Management',
+          'Product Selection & Procurement',
+        ],
+        mobileTags: ['Shopify'],
       },
       {
         name: 'AUDIT APP',
@@ -174,9 +164,6 @@ export const useWorksStrings = makeStrings<{
           'Mobile App Development',
         ],
         mobileTags: [],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
       },
     ],
   },
@@ -212,9 +199,6 @@ export const useWorksStrings = makeStrings<{
           '运营维护',
         ],
         mobileTags: ['Web', 'App', 'UIUX', 'IoT'],
-        displayImage: wopalNormal.src,
-        hoverImage: wopalHover.src,
-        mobileImage: wopalMobile.src,
       },
       {
         name: 'MONOZIP API',
@@ -224,9 +208,6 @@ export const useWorksStrings = makeStrings<{
           'MONOZIP是一个提供地理信息api的网络平台，支持中日两国的地址、邮编和地理坐标等信息之间的转换。在物流，旅游等行业有着广泛的应用前景。',
         tags: ['产品VI设计', 'UIUX设计', '系统开发', '运营维护'],
         mobileTags: ['SaaS', 'API', 'Geolocation'],
-        displayImage: monozipNormal.src,
-        hoverImage: monozipHover.src,
-        mobileImage: monozipMobile.src,
       },
       {
         name: 'D2D',
@@ -246,9 +227,6 @@ export const useWorksStrings = makeStrings<{
           'SaaS软件应用方案',
         ],
         mobileTags: ['Web', 'OA', 'Cloud', 'UIUX'],
-        displayImage: d2dNormal.src,
-        hoverImage: d2dHover.src,
-        mobileImage: d2dMobile.src,
       },
       {
         name: 'iHEAL',
@@ -266,9 +244,6 @@ export const useWorksStrings = makeStrings<{
           '树莓派',
         ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
-        displayImage: ihealNormal.src,
-        hoverImage: ihealHover.src,
-        mobileImage: ihealMobile.src,
       },
       {
         name: 'POLIJOB',
@@ -284,9 +259,6 @@ export const useWorksStrings = makeStrings<{
           '系统开发',
         ],
         mobileTags: ['System Design', 'UIUX'],
-        displayImage: polijobNormal.src,
-        hoverImage: polijobHover.src,
-        mobileImage: polijobMobile.src,
       },
       {
         name: 'UPTIME MONITOR',
@@ -295,9 +267,34 @@ export const useWorksStrings = makeStrings<{
           'Uptime Monitor 提供网站存续状态的监控服务，可在发生端点故障异常时通知用户。 用户可根据站点配置监控设置，并通过电子邮件和可视化实时仪表板获得通知。',
         tags: ['UIUX设计', '系统设计', '系统开发'],
         mobileTags: ['WEB APP'],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
+      },
+      {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            专注于设计的
+            <br />
+            宠物电商
+          </>
+        ),
+        mobileSummary: '专注于设计的宠物电商',
+        details: (
+          <>
+            pawpawmall 是 Monoid 探索 PET TECH
+            领域的第一步，致力于为对美有追求的养宠人士提供完美的网络购物体验。pawpawmall
+            提供丰富的海外小众设计师宠物品牌产品，以丰富日本的宠物用品市场。从市场调研、产品筛选、内容制作到社交媒体管理，MONOID
+            坚持自主运营的一贯原则，确保每一环节都达到高标准。
+          </>
+        ),
+        tags: [
+          'VI/UIUX设计',
+          'Shopify网店搭建',
+          'SEO',
+          'SNS运营',
+          '物流/库存管理',
+          '市场调研/数据分析',
+        ],
+        mobileTags: ['Shopify'],
       },
       {
         name: 'AUDIT APP',
@@ -312,9 +309,6 @@ export const useWorksStrings = makeStrings<{
           'Audit App 是一款用于检查工厂设备状况的移动应用程序，兼具高度可定制的后台管理系统。Audit App使传统的工厂设备检查流程变得高效，便捷。',
         tags: ['IT资产评估分析', 'UIUX设计', '系统开发', '移动端APP开发'],
         mobileTags: ['APP'],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
       },
     ],
   },
@@ -364,9 +358,6 @@ export const useWorksStrings = makeStrings<{
           '運営保守',
         ],
         mobileTags: ['Web', 'App', 'UIUX', 'IoT'],
-        displayImage: wopalNormal.src,
-        hoverImage: wopalHover.src,
-        mobileImage: wopalMobile.src,
       },
       {
         name: 'MONOZIP API',
@@ -385,9 +376,6 @@ export const useWorksStrings = makeStrings<{
         ),
         tags: ['LOGO/VIデザイン', 'UIUXデザイン', 'システム開発', '運営保守'],
         mobileTags: ['SaaS', 'API', 'Geolocation'],
-        displayImage: monozipNormal.src,
-        hoverImage: monozipHover.src,
-        mobileImage: monozipMobile.src,
       },
       {
         name: 'D2D',
@@ -411,9 +399,6 @@ export const useWorksStrings = makeStrings<{
           'SaaS導入運用支援',
         ],
         mobileTags: ['Web', 'OA', 'Cloud', 'UIUX'],
-        displayImage: d2dNormal.src,
-        hoverImage: d2dHover.src,
-        mobileImage: d2dMobile.src,
       },
       {
         name: 'iHEAL',
@@ -440,9 +425,6 @@ export const useWorksStrings = makeStrings<{
           'RasPi',
         ],
         mobileTags: ['RasPi', 'App', 'IoT', 'Web'],
-        displayImage: ihealNormal.src,
-        hoverImage: ihealHover.src,
-        mobileImage: ihealMobile.src,
       },
       {
         name: 'POLIJOB',
@@ -465,9 +447,6 @@ export const useWorksStrings = makeStrings<{
           'システム開発',
         ],
         mobileTags: ['System Design', 'UIUX'],
-        displayImage: polijobNormal.src,
-        hoverImage: polijobHover.src,
-        mobileImage: polijobMobile.src,
       },
       {
         name: 'UPTIME MONITOR',
@@ -486,9 +465,40 @@ export const useWorksStrings = makeStrings<{
         ),
         tags: ['システム設計', 'システム開発', 'UIUXデザイン'],
         mobileTags: [],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
+      },
+      {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            インポートセレクト
+            <br />
+            ECショップ
+          </>
+        ),
+        mobileSummary: (
+          <span className="text-xl">
+            ペット用品のインポートセレクト
+            <br />
+            ECショップ
+          </span>
+        ),
+        details: (
+          <>
+            pawpawmall は Monoid の PET TECH
+            事業の一環としてスタートしたインポートセレクト EC
+            ショップです。デザインにこだわった海外ブランドのペット用品を提供し、ペットの生活を彩ります。市場調査から商品の選定、コンテンツ作成、SNS
+            運営に至るまで、すべてを自社で一貫して行っています。
+          </>
+        ),
+        tags: [
+          'VI/UIUXデザイン',
+          'ECサイト構築',
+          'SEO',
+          'SNS運営',
+          '物流・在庫管理',
+          'マーケティング',
+        ],
+        mobileTags: ['Shopify'],
       },
       {
         name: 'AUDIT APP',
@@ -506,9 +516,6 @@ export const useWorksStrings = makeStrings<{
           'モバイルアプリ開発',
         ],
         mobileTags: [],
-        displayImage: uptimeMonitorNormal.src,
-        hoverImage: uptimeMonitorHover.src,
-        mobileImage: uptimeMonitorMobile.src,
       },
     ],
   },

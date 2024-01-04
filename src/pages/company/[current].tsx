@@ -213,11 +213,9 @@ const Services: React.FC = () => {
 
           {locale === 'en-US' && (
             <Link href="/works/0">
-              <a>
-                <div className="p-[12px] text-white text-[32px] font-dense border-white border-2 leading-none cursor-pointer">
-                  SEE WORKS
-                </div>
-              </a>
+              <div className="p-[12px] text-white text-[32px] font-dense border-white border-2 leading-none cursor-pointer">
+                SEE WORKS
+              </div>
             </Link>
           )}
         </div>

@@ -104,14 +104,14 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
           <>
             <div className="w-[40px]" />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href={router.asPath} locale="ja-JP">
-                <a
-                  aria-label={ariaLabelStrings.jp}
-                  style={{ transform: `scale(${buttonScale})` }}
-                  onClick={reverse}
-                >
-                  <JP />
-                </a>
+              <Link
+                href={router.asPath}
+                locale="ja-JP"
+                aria-label={ariaLabelStrings.jp}
+                style={{ transform: `scale(${buttonScale})` }}
+                onClick={reverse}
+              >
+                <JP />
               </Link>
             </div>
             <SlashThick
@@ -120,14 +120,14 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
               }}
             />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href={router.asPath} locale="en-US">
-                <a
-                  aria-label={ariaLabelStrings.en}
-                  style={{ transform: `scale(${buttonScale})` }}
-                  onClick={reverse}
-                >
-                  <EN />
-                </a>
+              <Link
+                href={router.asPath}
+                locale="en-US"
+                aria-label={ariaLabelStrings.en}
+                style={{ transform: `scale(${buttonScale})` }}
+                onClick={reverse}
+              >
+                <EN />
               </Link>
             </div>
             <SlashThick
@@ -136,14 +136,14 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
               }}
             />
             <div className="w-[100px] flex items-center justify-center">
-              <Link href={router.asPath} locale="zh-CN">
-                <a
-                  aria-label={ariaLabelStrings.cn}
-                  style={{ transform: `scale(${buttonScale})` }}
-                  onClick={reverse}
-                >
-                  <CN />
-                </a>
+              <Link
+                href={router.asPath}
+                locale="zh-CN"
+                aria-label={ariaLabelStrings.cn}
+                style={{ transform: `scale(${buttonScale})` }}
+                onClick={reverse}
+              >
+                <CN />
               </Link>
             </div>
           </>

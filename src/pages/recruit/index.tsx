@@ -84,15 +84,14 @@ export default function Recruit() {
             ))}
           </ul>
 
-          <Link href="/recruit/jobs">
-            <a
-              className={clsx(
-                'text-center w-[340px] sm:w-[240px] h-[130px] sm:h-[60px] >sm:font-loose font-bold text-[80px] sm:text-[35px] border-[5px] leading-[1.7]',
-                'border-white rounded-[65px] hover:text-gray-400 hover:border-gray-400',
-              )}
-            >
-              {strings.apply}
-            </a>
+          <Link
+            href="/recruit/jobs"
+            className={clsx(
+              'text-center w-[340px] sm:w-[240px] h-[130px] sm:h-[60px] >sm:font-loose font-bold text-[80px] sm:text-[35px] border-[5px] leading-[1.7]',
+              'border-white rounded-[65px] hover:text-gray-400 hover:border-gray-400',
+            )}
+          >
+            {strings.apply}
           </Link>
         </div>
       </main>

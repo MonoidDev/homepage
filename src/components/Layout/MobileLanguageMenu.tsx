@@ -53,10 +53,13 @@ export const MobileLanguageMenu = () => {
   );
 
   const renderLanguageButton = (locale: string, icon: React.ReactNode) => (
-    <Link href={router.asPath} locale={locale}>
-      <a aria-label={ariaLabelStrings.close} onClick={onClose}>
-        {icon}
-      </a>
+    <Link
+      href={router.asPath}
+      locale={locale}
+      aria-label={ariaLabelStrings.close}
+      onClick={onClose}
+    >
+      {icon}
     </Link>
   );
 

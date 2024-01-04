@@ -51,9 +51,7 @@ export default function RecruitIndex(props: RecruitProps) {
                 </td>
                 <td>{item.recruit_type}</td>
                 <td className="text-lime-700 underline">
-                  <Link href={`/admin/recruit/${item.id}`}>
-                    <a>Detail</a>
-                  </Link>
+                  <Link href={`/admin/recruit/${item.id}`}>Detail</Link>
                 </td>
               </tr>
             ))}
