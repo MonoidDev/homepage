@@ -87,7 +87,6 @@ export const LayoutMenu: React.FC<{
 }> = ({ loadingDone, hideLogo, headerTransparent }) => {
   const strings = useSiteStrings();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [menuAction, setMenuAction] = useState<'open' | 'close'>('open');
 
   const [languagesAction, setLanguagesAction] = useState<'open' | 'close'>(
@@ -118,7 +117,10 @@ export const LayoutMenu: React.FC<{
           >
             {hideLogo !== true && (
               <Suspense fallback={null}>
-                <AnimatedLogo loadingDone={loadingDone} />
+                <AnimatedLogo
+                  loadingDone={loadingDone}
+                  key={String(loadingDone)}
+                />
               </Suspense>
             )}
           </div>
