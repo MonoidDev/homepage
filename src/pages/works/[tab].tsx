@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import React from 'react';
 
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -77,7 +78,16 @@ const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
         </div>
 
         <div className="flex flex-1 items-center px-[8px]">
-          <h4 className="text-[13vw] leading-none font-dense mt-[8px]">
+          <h4
+            className="text-[13vw] leading-none font-dense mt-[8px]"
+            onClick={(e) => {
+              if (cardContent.url) {
+                window.open(cardContent.url, 'blank');
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
+          >
             {workDescription.mobileName ?? workDescription.name}
           </h4>
           <div className="flex-1" />
@@ -95,34 +105,33 @@ const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
   );
 };
 
-const MobileWorksGallery: React.FC<{ cardContents: CardContent[] }> = ({
-  cardContents,
-}) => {
-  const { works } = useWorksStrings();
+const MobileWorksGallery: React.FC<{ cardContents: CardContent[] }> =
+  React.memo(({ cardContents }) => {
+    const { works } = useWorksStrings();
 
-  const [focused, setFocused] = useState<string>('');
+    const [focused, setFocused] = useState<string>('');
 
-  return (
-    <div className="flex flex-col pt-2 gap-y-6">
-      {works.map((work, i) => (
-        <MobileWorkCard
-          key={work.name}
-          cardContent={cardContents.find((c) => c.name === work.name)!}
-          focused={work.name === focused}
-          onFocus={() => {
-            if (work.name === focused) {
-              setFocused('');
-            } else {
-              setFocused(work.name);
-            }
-          }}
-          variant={(['left', 'right'] as const)[i % 2]!}
-          workDescription={work}
-        />
-      ))}
-    </div>
-  );
-};
+    return (
+      <div className="flex flex-col pt-2 gap-y-6">
+        {works.map((work, i) => (
+          <MobileWorkCard
+            key={work.name}
+            cardContent={cardContents.find((c) => c.name === work.name)!}
+            focused={work.name === focused}
+            onFocus={() => {
+              if (work.name === focused) {
+                setFocused('');
+              } else {
+                setFocused(work.name);
+              }
+            }}
+            variant={(['left', 'right'] as const)[i % 2]!}
+            workDescription={work}
+          />
+        ))}
+      </div>
+    );
+  });
 
 const WorkCard: React.FC<{
   index: number;
@@ -237,10 +246,10 @@ const WorkCard: React.FC<{
           className={clsx(
             'font-bold mb-[10px]',
             locale === 'en-US' ? 'text-[18px] leading-tight' : 'text-[16px]',
-            (description.name === 'POLIJOB' ||
-              description.name === 'PAWPAWMALL') &&
+            description.name === 'POLIJOB' &&
               locale === 'en-US' &&
               '!text-[14px]',
+            description.name === 'PAWPAWMALL' && '!text-[14px]',
           )}
         >
           {description.details}
@@ -411,6 +420,24 @@ export default function () {
   const cardContents: CardContent[] = useMemo(
     () => [
       {
+        name: 'PAWPAWMALL',
+        display: (
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <img src={pawpawmallPng.src} className="w-[200px] h-[58px]" />
+          </div>
+        ),
+        displayMobileSrc: pawpawmallMobile.src,
+        hideDisplayWhenOpen: true,
+        tab: 0,
+        background: (
+          <img
+            src={pawpawmallBackgroundPng.src}
+            className="w-[780px] h-[380px]"
+          />
+        ),
+        url: 'https://pawpawmall.com',
+      },
+      {
         name: 'WOPAL',
         display: (
           <div className="flex-1 flex justify-center items-center">
@@ -499,24 +526,6 @@ export default function () {
         tab: 0,
         background: <UptimeMonitorBackgroundSvg />,
         url: 'https://uptime-monitor-staging.herokuapp.com',
-      },
-      {
-        name: 'PAWPAWMALL',
-        display: (
-          <div className="flex-1 flex flex-col items-center justify-center">
-            <img src={pawpawmallPng.src} className="w-[200px] h-[58px]" />
-          </div>
-        ),
-        displayMobileSrc: pawpawmallMobile.src,
-        hideDisplayWhenOpen: true,
-        tab: 0,
-        background: (
-          <img
-            src={pawpawmallBackgroundPng.src}
-            className="w-[780px] h-[380px]"
-          />
-        ),
-        url: '',
       },
       {
         name: 'AUDIT APP',

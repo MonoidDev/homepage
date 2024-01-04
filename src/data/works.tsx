@@ -33,6 +33,35 @@ export const useWorksStrings = makeStrings<{
     ],
     works: [
       {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            Pet Products
+            <br />
+            EC Store
+          </>
+        ),
+        mobileSummary: 'A pet products e-commerce store with a focus on design',
+        details: (
+          <>
+            Pawpawmall is an e-commerce store specializing in a curated
+            selection of imported pet products, launched as a part of Monoid's
+            PET TECH initiative. Our team handles everything in-house, from
+            product selection to social media management, ensuring a consistent
+            and quality experience for our customers.
+          </>
+        ),
+        tags: [
+          'UIUX Design',
+          'Shopify Dev.',
+          'SNS Marketing',
+          'SEO',
+          'Logistics & Inventory Management',
+          'Product Selection & Procurement',
+        ],
+        mobileTags: ['Shopify'],
+      },
+      {
         name: 'WOPAL',
         summary: 'Online Training Platform For Student Sports Organizations',
         details:
@@ -123,35 +152,7 @@ export const useWorksStrings = makeStrings<{
         tags: ['UIUX Design', 'System Design', 'System Development'],
         mobileTags: [],
       },
-      {
-        name: 'PAWPAWMALL',
-        summary: (
-          <>
-            Pet Products
-            <br />
-            EC Store
-          </>
-        ),
-        mobileSummary: 'A pet products e-commerce store with a focus on design',
-        details: (
-          <>
-            Pawpawmall is an e-commerce store specializing in a curated
-            selection of imported pet products, launched as a part of Monoid's
-            PET TECH initiative. Our team handles everything in-house, from
-            product selection to content creation and social media management,
-            ensuring a consistent and quality experience for our customers.
-          </>
-        ),
-        tags: [
-          'UIUX Design',
-          'Shopify Dev.',
-          'SNS Marketing',
-          'SEO',
-          'Logistics & Inventory Management',
-          'Product Selection & Procurement',
-        ],
-        mobileTags: ['Shopify'],
-      },
+
       {
         name: 'AUDIT APP',
         summary: 'Mobile App for inspecting equipments in the factory',
@@ -185,6 +186,33 @@ export const useWorksStrings = makeStrings<{
       },
     ],
     works: [
+      {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            专注于设计的
+            <br />
+            宠物电商
+          </>
+        ),
+        mobileSummary: '专注于设计的宠物电商',
+        details: (
+          <>
+            pawpawmall是 Monoid 探索 PET TECH
+            领域的第一步，致力于为对美有追求的养宠人士提供完美的网络购物体验。提供海外小众设计师宠物品牌产品，以丰富日本的宠物用品市场。从市场调研、产品筛选、内容制作到社交媒体管理，MONOID
+            坚持自主运营的一贯原则，确保每一环节都达到高标准。
+          </>
+        ),
+        tags: [
+          'VI/UIUX设计',
+          'Shopify网店搭建',
+          'SEO',
+          'SNS运营',
+          '物流/库存管理',
+          '市场调研/数据分析',
+        ],
+        mobileTags: ['Shopify'],
+      },
       {
         name: 'WOPAL',
         summary:
@@ -269,34 +297,6 @@ export const useWorksStrings = makeStrings<{
         mobileTags: ['WEB APP'],
       },
       {
-        name: 'PAWPAWMALL',
-        summary: (
-          <>
-            专注于设计的
-            <br />
-            宠物电商
-          </>
-        ),
-        mobileSummary: '专注于设计的宠物电商',
-        details: (
-          <>
-            pawpawmall 是 Monoid 探索 PET TECH
-            领域的第一步，致力于为对美有追求的养宠人士提供完美的网络购物体验。pawpawmall
-            提供丰富的海外小众设计师宠物品牌产品，以丰富日本的宠物用品市场。从市场调研、产品筛选、内容制作到社交媒体管理，MONOID
-            坚持自主运营的一贯原则，确保每一环节都达到高标准。
-          </>
-        ),
-        tags: [
-          'VI/UIUX设计',
-          'Shopify网店搭建',
-          'SEO',
-          'SNS运营',
-          '物流/库存管理',
-          '市场调研/数据分析',
-        ],
-        mobileTags: ['Shopify'],
-      },
-      {
         name: 'AUDIT APP',
         summary: (
           <>
@@ -338,6 +338,40 @@ export const useWorksStrings = makeStrings<{
       },
     ],
     works: [
+      {
+        name: 'PAWPAWMALL',
+        summary: (
+          <>
+            インポートセレクト
+            <br />
+            ECショップ
+          </>
+        ),
+        mobileSummary: (
+          <span className="text-xl">
+            ペット用品のインポートセレクト
+            <br />
+            ECショップ
+          </span>
+        ),
+        details: (
+          <>
+            pawpawmall は Monoid の PET TECH
+            事業の一環としてスタートしたインポートセレクト EC
+            ショップです。デザインにこだわった海外ブランドのペット用品を提供し、ペットの生活を彩ります。商品の選定から、コンテンツ作成、SNS
+            運営に至るまで、すべてを自社で一貫して行っています。
+          </>
+        ),
+        tags: [
+          'VI/UIUXデザイン',
+          'ECサイト構築',
+          'SEO',
+          'SNS運営',
+          '物流・在庫管理',
+          'マーケティング',
+        ],
+        mobileTags: ['Shopify'],
+      },
       {
         name: 'WOPAL',
         summary: (
@@ -465,40 +499,6 @@ export const useWorksStrings = makeStrings<{
         ),
         tags: ['システム設計', 'システム開発', 'UIUXデザイン'],
         mobileTags: [],
-      },
-      {
-        name: 'PAWPAWMALL',
-        summary: (
-          <>
-            インポートセレクト
-            <br />
-            ECショップ
-          </>
-        ),
-        mobileSummary: (
-          <span className="text-xl">
-            ペット用品のインポートセレクト
-            <br />
-            ECショップ
-          </span>
-        ),
-        details: (
-          <>
-            pawpawmall は Monoid の PET TECH
-            事業の一環としてスタートしたインポートセレクト EC
-            ショップです。デザインにこだわった海外ブランドのペット用品を提供し、ペットの生活を彩ります。市場調査から商品の選定、コンテンツ作成、SNS
-            運営に至るまで、すべてを自社で一貫して行っています。
-          </>
-        ),
-        tags: [
-          'VI/UIUXデザイン',
-          'ECサイト構築',
-          'SEO',
-          'SNS運営',
-          '物流・在庫管理',
-          'マーケティング',
-        ],
-        mobileTags: ['Shopify'],
       },
       {
         name: 'AUDIT APP',
