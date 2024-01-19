@@ -31,7 +31,7 @@ export default function JobDescription() {
 
       <div className="flex-1" />
 
-      {name !== 'UIUX DESIGNER' && (
+      {!description?.notHiring && (
         <>
           <Link href={`/recruit/apply/${name}`} className={styles.nextTitle}>
             APPLY
@@ -53,7 +53,9 @@ export default function JobDescription() {
           styles.content,
         )}
       >
-        {description?.description}
+        {description?.notHiring
+          ? descriptions.notHiringDescription
+          : description?.description}
       </div>
     </div>
   );
@@ -71,14 +73,16 @@ export default function JobDescription() {
         {description?.mobileName}
       </h2>
 
-      <div className="flex-1 shrink min-h-0 overflow-auto pt-[1rem] pb-[3rem]">
+      <div className="flex-1 shrink min-h-0 overflow-auto pt-[1rem] px-[1rem] pb-[3rem]">
         <div
           className={clsx(
-            'bg-[#DFDFDF] p-[2rem] rounded-[2rem]',
+            'bg-[#DFDFDF] p-[1rem] rounded-[2rem]',
             styles.contentMobile,
           )}
         >
-          {description?.description}
+          {description?.notHiring
+            ? descriptions.notHiringDescription
+            : description?.description}
         </div>
       </div>
 
@@ -91,14 +95,16 @@ export default function JobDescription() {
             <LeftArrowSvg />
           </button>
         </Link>
-        <Link href={`/recruit/apply/${name}`}>
-          <button aria-label={ariaLabelStrings.apply}>
-            <RightArrowSvg />
-            <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
-              APPLY
-            </div>
-          </button>
-        </Link>
+        {!description?.notHiring && (
+          <Link href={`/recruit/apply/${name}`}>
+            <button aria-label={ariaLabelStrings.apply}>
+              <RightArrowSvg />
+              <div className="font-loose font-bold text-[42px] leading-none mt-[0.75rem]">
+                APPLY
+              </div>
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
