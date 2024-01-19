@@ -8,6 +8,13 @@ export const allJobNames = [
   'PRODUCT MANAGER',
 ];
 
+export interface JobDescription {
+  name: string;
+  mobileName: string;
+  description: React.ReactNode;
+  notHiring?: boolean;
+}
+
 export const useRecruitStrings = makeStrings({
   'en-US': {
     jobs: [
@@ -68,6 +75,7 @@ export const useRecruitStrings = makeStrings({
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
+        notHiring: true,
       },
       {
         name: 'BACKEND ENGINEER',
@@ -123,6 +131,7 @@ export const useRecruitStrings = makeStrings({
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
+        notHiring: true,
       },
       {
         name: 'UIUX DESIGNER',
@@ -134,6 +143,7 @@ export const useRecruitStrings = makeStrings({
             </h3>
           </>
         ),
+        notHiring: true,
       },
       {
         name: 'PRODUCT MANAGER',
@@ -202,8 +212,14 @@ export const useRecruitStrings = makeStrings({
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
+        notHiring: true,
       },
-    ],
+    ] satisfies JobDescription[],
+    notHiringDescription: (
+      <div className="text-center text-xl font-loose font-bold">
+        Sorry, we are not hiring at the moment.
+      </div>
+    ),
   },
 });
 

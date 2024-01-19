@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
 import { LocaleContext } from '@monoid-dev/use-strings';
+import type { AppProps } from 'next/app';
 import PlausibleProvider from 'next-plausible';
-import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { Entering } from '@/components/Entering';
