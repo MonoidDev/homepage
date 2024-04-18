@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import useCountDown from 'react-countdown-hook';
-
-import recruitMailbox from '@/assets/lottie/recruit-mailbox.json';
 
 const useStrings = makeStrings({
   'ja-JP': {
@@ -18,6 +16,11 @@ const useStrings = makeStrings({
     autoReturn: (seconds: number) => `${seconds}秒后自动返回主页`,
   },
 });
+
+const RecruitSuccessLottie = dynamic(
+  () => import('@/components/recruit/RecruitSuccessLottie'),
+  { ssr: false },
+);
 
 export default function Success() {
   const router = useRouter();
@@ -35,14 +38,7 @@ export default function Success() {
         THANK YOU
       </h2>
       <div className="bg-white self-center w-[550px] scale-150 origin-top-right relative top-[-10vh] z-0">
-        <Lottie
-          autoPlay
-          loop={false}
-          animationData={recruitMailbox}
-          onComplete={() => {
-            // setTimeout(() => router.push('/recruit'), 15000);
-          }}
-        />
+        <RecruitSuccessLottie />
       </div>
     </main>
   );
@@ -54,12 +50,9 @@ export default function Success() {
       </h2>
 
       <div className="h-[500px] mb-[-6rem] scale-150 origin-top-right">
-        <Lottie
-          autoPlay
-          loop={false}
-          animationData={recruitMailbox}
+        <RecruitSuccessLottie
           onComplete={() => {
-            // setTimeout(() => router.push('/recruit'), 15000);
+            setTimeout(() => router.push('/recruit'), 15000);
             start();
           }}
         />

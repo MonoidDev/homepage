@@ -55,7 +55,7 @@ export const BackendEngineerCard: React.VFC = () => {
       onMouseLeave={() => chain.reverse()}
       color={color}
       backgroundColor={backgroundColor}
-      onClick={() => router.push('/recruit/BACKEND ENGINEER')}
+      onClick={() => router.push('/recruit/BACKENDENGINEER')}
     >
       <div className="h-full w-full flex flex-col">
         <div className="flex-1">

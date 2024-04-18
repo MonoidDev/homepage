@@ -46,7 +46,7 @@ export const FrontendEngineerCard: React.VFC = () => {
     <Card
       onMouseEnter={() => chain.play()}
       onMouseLeave={() => chain.reverse()}
-      onClick={() => router.push('/recruit/FRONTEND ENGINEER')}
+      onClick={() => router.push('/recruit/FRONTENDENGINEER')}
       color={color}
       backgroundColor={backgroundColor}
     >

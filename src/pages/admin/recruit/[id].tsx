@@ -51,6 +51,12 @@ export default function RecruitId(props: RecruitIdProps) {
               {data.github_id}
             </a>,
           )}
+          {renderInfo(
+            'Website',
+            <a href={data.website} target="_blank" rel="noopenner noreferrer">
+              {data.website}
+            </a>,
+          )}
         </div>
 
         {renderTitle('Language Skills')}
