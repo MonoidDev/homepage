@@ -49,7 +49,7 @@ export default function JobDescription() {
     <div className="shrink overflow-scroll">
       <div
         className={clsx(
-          'bg-black bg-opacity-[12.5%] rounded-[45px] p-[3rem] leading-loose font-loose text-[25px] mb-[4rem]',
+          'bg-black bg-opacity-[12.5%] rounded-[45px] p-[3rem] !leading-[36px] font-loose text-[20px] mb-[4rem]',
           styles.content,
         )}
       >

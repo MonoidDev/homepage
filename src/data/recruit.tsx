@@ -230,7 +230,7 @@ export const useRecruitStrings = makeStrings({
               is perfect for someone who can boost our brand's visibility and
               build meaningful partnerships in the bustling pet supply industry.
             </p>
-            <p>
+            <p className="text-base">
               ペットテクノロジー分野への新しい挑戦、「pawpawmall」で一緒に働きませんか？
               <br />
               私たちはペットと飼い主の家族としての絆を強化する、ユニークな製品とサービスを提供しています。マーケティングディレクターとして、消費者（B
@@ -251,7 +251,8 @@ export const useRecruitStrings = makeStrings({
               -Craft and share press releases and PR materials that tell our
               exciting story.
               <br />
-              <br />
+            </p>
+            <p className="text-[16px]">
               -ペット関連製品・サービスのため、効果的なマーケティング戦略を設計・実施します。
               <br />
               -WEB広告のデータを分析し、魅力的なマーケティングキャンペーンを企画・実行します。
@@ -272,7 +273,9 @@ export const useRecruitStrings = makeStrings({
               -Robust experience with social media and an intuitive grasp of
               trends. <br />
               -Analytical thinking and a knack for making smart, data-driven
-              decisions. <br /> <br />
+              decisions. <br />
+            </p>
+            <p className="text-[16px]">
               -学士号を持っている、または同等以上の業界経験。 <br />
               -実績のあるマーケティング能力。 <br />
               -優れたコミュニケーション能力と日本語の流暢な文書作成スキル。
@@ -306,7 +309,8 @@ export const useRecruitStrings = makeStrings({
               -Dog owners might find themselves particularly cherished here, as
               our office might have a tiny bit of a cat person surplus!
               <br />
-              <br />
+            </p>
+            <p className="text-[16px]">
               -顧客に響くマーケティング戦略の立案と実行をした経験のある方。
               <br />
               -戦略的思考とリーダーシップスキルでマーケティング目標を達成した経験のある方。
@@ -324,7 +328,7 @@ export const useRecruitStrings = makeStrings({
             </p>
             <h3>Location</h3>
             <p>Tokyo, Japan</p>
-            <p>日本 東京</p>
+            <p className="text-[16px]">日本 東京</p>
           </>
         ),
       },
