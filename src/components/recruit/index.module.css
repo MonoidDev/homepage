@@ -3,7 +3,7 @@
 }
 
 .content p {
-  @apply mb-[2girem];
+  @apply mb-[2rem];
 }
 
 .contentMobile h3 {
