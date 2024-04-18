@@ -327,8 +327,11 @@ export const useRecruitStrings = makeStrings({
               <br />
             </p>
             <h3>Location</h3>
-            <p>Tokyo, Japan</p>
-            <p className="text-[16px]">日本 東京</p>
+            <p>
+              Tokyo, Japan
+              <br />
+              <span className="text-[16px]">日本 東京</span>
+            </p>
           </>
         ),
       },
