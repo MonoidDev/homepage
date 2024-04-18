@@ -2,10 +2,10 @@ import { makeStrings } from '@monoid-dev/use-strings';
 import { levenshteinEditDistance } from 'levenshtein-edit-distance';
 
 export const allJobNames = [
-  'FRONTEND ENGINEER',
-  'BACKEND ENGINEER',
-  'UIUX DESIGNER',
-  'PRODUCT MANAGER',
+  'FRONTENDENGINEER',
+  'BACKENDENGINEER',
+  'UIUXDESIGNER',
+  'MARKETINGDIRECTOR',
 ];
 
 export interface JobDescription {
@@ -19,7 +19,7 @@ export const useRecruitStrings = makeStrings({
   'en-US': {
     jobs: [
       {
-        name: 'FRONTEND ENGINEER',
+        name: 'FRONTENDENGINEER',
         mobileName: 'Frontend Engineer',
         description: (
           <>
@@ -78,7 +78,7 @@ export const useRecruitStrings = makeStrings({
         notHiring: true,
       },
       {
-        name: 'BACKEND ENGINEER',
+        name: 'BACKENDENGINEER',
         mobileName: 'Backend Engineer',
         description: (
           <>
@@ -134,7 +134,7 @@ export const useRecruitStrings = makeStrings({
         notHiring: true,
       },
       {
-        name: 'UIUX DESIGNER',
+        name: 'UIUXDESIGNER',
         mobileName: 'UIUX Designer',
         description: (
           <>
@@ -146,7 +146,7 @@ export const useRecruitStrings = makeStrings({
         notHiring: true,
       },
       {
-        name: 'PRODUCT MANAGER',
+        name: 'PRODUCTMANAGER',
         mobileName: 'Product Manager',
         description: (
           <>
@@ -213,6 +213,124 @@ export const useRecruitStrings = makeStrings({
           </>
         ),
         notHiring: true,
+      },
+      {
+        name: 'MARKETINGDIRECTOR',
+        mobileName: 'Marketing Director',
+        description: (
+          <>
+            <h3>About the job</h3>
+            <p>
+              Join G.K.Monoid as we leap into the innovative pet technology
+              field with "pawpawmall." Here, we are committed to enhancing the
+              special bond between pet owners and their furry friends through
+              our unique products and services. We're on the hunt for a creative
+              and driven Marketing Director to lead our marketing initiatives
+              across both consumer (B2C) and business (B2B) channels. This role
+              is perfect for someone who can boost our brand's visibility and
+              build meaningful partnerships in the bustling pet supply industry.
+            </p>
+            <p className="text-base">
+              ペットテクノロジー分野への新しい挑戦、「pawpawmall」で一緒に働きませんか？
+              <br />
+              私たちはペットと飼い主の家族としての絆を強化する、ユニークな製品とサービスを提供しています。マーケティングディレクターとして、消費者（B
+              to C）およびビジネス（B to
+              B）チャネルのマーケティング戦略をリードしていただける経験豊富で独創的な意欲のある方を探しています。この役割は、当社ブランドの認知の向上のため、活気と勢いのあるペット業界で共に活躍してくれる向上心のある方を募集します。
+            </p>
+            <h3>What you will be doing</h3>
+            <p>
+              -Design and implement inventive marketing strategies for our
+              pet-related products and services.
+              <br />
+              -Dive into web advertising data to craft and execute compelling
+              marketing campaigns.
+              <br />
+              -Generate engaging content for a variety of social media
+              platforms.
+              <br />
+              -Craft and share press releases and PR materials that tell our
+              exciting story.
+              <br />
+            </p>
+            <p className="text-[16px]">
+              -ペット関連製品・サービスのため、効果的なマーケティング戦略を設計・実施します。
+              <br />
+              -WEB広告のデータを分析し、魅力的なマーケティングキャンペーンを企画・実行します。
+              <br />
+              -様々なSNSプラットフォームで独創的かつ魅力的なコンテンツを生成します。
+              <br />
+              -ブランドストーリーをエキサイティングに伝えるプレスリリースやPR資料を作成・公表します。
+              <br />
+            </p>
+            <h3>Baseline skills</h3>
+            <p>
+              -Bachelor’s Degree or equivalent industry experience. <br />
+              -Proven marketing prowess with impressive results to show. <br />
+              -Stellar communication skills and fluency in writing Japanese.
+              <br />
+              -A genuine love for pets, and a commitment to making a difference
+              in the pet industry. <br />
+              -Robust experience with social media and an intuitive grasp of
+              trends. <br />
+              -Analytical thinking and a knack for making smart, data-driven
+              decisions. <br />
+            </p>
+            <p className="text-[16px]">
+              -学士号を持っている、または同等以上の業界経験。 <br />
+              -実績のあるマーケティング能力。 <br />
+              -優れたコミュニケーション能力と日本語の流暢な文書作成スキル。
+              <br />
+              -ペットへの深い愛を持ち、ペット業界で違いを生み出す意欲に溢れている方。
+              <br />
+              -SNS運用経験とトレンドへの造詣が深い方。 <br />
+              -分析思考とデータに基づいた意思決定のできる方。 <br />
+            </p>
+            <h3>Preferred Skills</h3>
+            <p>
+              -Demonstrated ability to concoct marketing strategies that
+              resonate with our target audiences.
+              <br />
+              -Strategic leadership abilities to navigate and achieve our
+              marketing goals.
+              <br />
+              -Expertise in discerning user insights, developing impactful
+              messages, and pinpointing the best channels for engagement.
+              <br />
+              -Practical skills in creating SNS content, such as capturing
+              photos and videos with smartphones, and proficiency in using
+              editing software for visuals and videos.
+              <br />
+              -Ability to analyze customer feedback and adapt marketing
+              strategies to enhance engagement and effectiveness.
+              <br />
+              -Language skills in English, Korean, or Chinese to liaise with
+              international partners.
+              <br />
+              -Dog owners might find themselves particularly cherished here, as
+              our office might have a tiny bit of a cat person surplus!
+              <br />
+            </p>
+            <p className="text-[16px]">
+              -顧客に響くマーケティング戦略の立案と実行をした経験のある方。
+              <br />
+              -戦略的思考とリーダーシップスキルでマーケティング目標を達成した経験のある方。
+              <br />
+              -ユーザーのニーズを深掘りし、響きやすいメッセージを最適なチャネルで発信するスキルをお持ちの方。
+              <br />
+              -スマートフォンで写真やビデオを撮影し、画像やビデオ編集ソフトウェアを使用するなど、SNSコンテンツを実際に作成する技術のある方。
+              <br />
+              -顧客のフィードバックを分析し、マーケティング戦略を調整してチームの成績向上に貢献できる方。
+              <br />
+              -英語、韓国語、または中国語の言語スキルで、国際的なパートナーとの連携を行える方。
+              <br />
+              -オフィスには猫派がやや多いため、犬を飼っている方は特に歓迎します。
+              <br />
+            </p>
+            <h3>Location</h3>
+            <p>Tokyo, Japan</p>
+            <p className="text-[16px]">日本 東京</p>
+          </>
+        ),
       },
     ] satisfies JobDescription[],
     notHiringDescription: (

@@ -257,7 +257,7 @@ export const UIUXDesignerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
-      onClick={() => router.push('/recruit/UIUX DESIGNER')}
+      onClick={() => router.push('/recruit/UIUXDESIGNER')}
       color={color}
       backgroundColor={backgroundColor}
     >

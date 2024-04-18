@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import React from 'react';
 
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -78,7 +79,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
   );
 };
 
-const AnimatedLogo = React.lazy(() => import('./AnimatedLogo'));
+const AnimatedLogo = dynamic(() => import('./AnimatedLogo'), { ssr: false });
 
 export const LayoutMenu: React.FC<{
   loadingDone: boolean;

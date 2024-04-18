@@ -9,13 +9,13 @@ import { getPointPath } from '@/utils/svg';
 
 const useStrings = makeStrings({
   'en-US': {
-    title: 'Product Manager',
+    title: 'Marketing Director',
   },
 });
 
 type Point = readonly [number, number];
 
-export const ProductManagerCard: React.VFC = () => {
+export const MarketingDirectorCard: React.VFC = () => {
   const strings = useStrings();
   const router = useRouter();
 
@@ -174,7 +174,7 @@ export const ProductManagerCard: React.VFC = () => {
           await scaleChain.reverse();
         }
       }}
-      onClick={() => router.push('/recruit/PRODUCTMANAGER')}
+      onClick={() => router.push('/recruit/MARKETINGDIRECTOR')}
       color={color}
       backgroundColor={backgroundColor}
     >

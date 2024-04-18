@@ -6,11 +6,11 @@ import { useRouter } from 'next/router';
 
 import BackendEngineerCardSvg from '@/assets/images/BackendEngineerCard.svg';
 import FrontendEngineerCardSvg from '@/assets/images/FrontendEngineerCard.svg';
-import ProductManagerCardSvg from '@/assets/images/ProductManagerCard.svg';
+import MarketingDirectorCardSvg from '@/assets/images/MarketingDirectorCard.svg';
 import UIUXDesignerCardSvg from '@/assets/images/UIUXDesignerCard.svg';
 import { BackendEngineerCard } from '@/components/recruit/BackendEngineerCard';
 import { FrontendEngineerCard } from '@/components/recruit/FrontendEngineerCard';
-import { ProductManagerCard } from '@/components/recruit/ProductManagerCard';
+import { MarketingDirectorCard } from '@/components/recruit/MarketingDirectorCard';
 import { UIUXDesignerCard } from '@/components/recruit/UIUXDesignerCard';
 
 const useStrings = makeStrings({
@@ -53,23 +53,27 @@ function MobileRecruit() {
       className="flex-1 >sm:hidden flex flex-col items-center pt-[32px] gap-y-6 overflow-auto"
       role="main"
     >
-      <MobileCardContainer name="FRONTEND ENGINEER">
+      <MobileCardContainer name="FRONTENDENGINEER">
         <FrontendEngineerCardSvg />
       </MobileCardContainer>
 
-      <MobileCardContainer name="BACKEND ENGINEER">
+      <MobileCardContainer name="BACKENDENGINEER">
         <BackendEngineerCardSvg />
       </MobileCardContainer>
 
-      <MobileCardContainer name="UIUX DESIGNER">
+      <MobileCardContainer name="UIUXDESIGNER">
         <UIUXDesignerCardSvg />
       </MobileCardContainer>
-
+      {/* 
       <MobileCardContainer name="PRODUCT MANAGER">
         <ProductManagerCardSvg />
+      </MobileCardContainer> */}
+
+      <MobileCardContainer name="MARKETINGDIRECTOR">
+        <MarketingDirectorCardSvg />
       </MobileCardContainer>
 
-      <div className="h-[120px] shrink-0" ref={lastElement} />
+      <div className="h-[200px] shrink-0" ref={lastElement} />
 
       <div className="fixed bottom-0 left-0 right-0 h-[315px] pointer-events-none [background:linear-gradient(180deg,rgba(0,0,0,0)_0%,#000000_100%)]" />
 
@@ -99,7 +103,8 @@ function DesktopRecruit() {
       <FrontendEngineerCard />
       <BackendEngineerCard />
       <UIUXDesignerCard />
-      <ProductManagerCard />
+      {/* <ProductManagerCard /> */}
+      <MarketingDirectorCard />
     </main>
   );
 }

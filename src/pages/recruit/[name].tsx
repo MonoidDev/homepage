@@ -26,7 +26,7 @@ export default function JobDescription() {
         <LeftTriangleSvg className="cursor-pointer mt-[2px]" />
       </Link>
       <span className="text-[60px] font-bold leading-none mt-[5px]">
-        {name}
+        {description?.mobileName?.toLocaleUpperCase()}
       </span>
 
       <div className="flex-1" />
@@ -49,7 +49,7 @@ export default function JobDescription() {
     <div className="shrink overflow-scroll">
       <div
         className={clsx(
-          'bg-black bg-opacity-[12.5%] rounded-[45px] p-[3rem] leading-loose font-loose text-[25px] mb-[4rem]',
+          'bg-black bg-opacity-[12.5%] rounded-[45px] p-[3rem] !leading-[36px] font-loose text-[20px] mb-[4rem]',
           styles.content,
         )}
       >
@@ -76,7 +76,7 @@ export default function JobDescription() {
       <div className="flex-1 shrink min-h-0 overflow-auto pt-[1rem] px-[1rem] pb-[3rem]">
         <div
           className={clsx(
-            'bg-[#DFDFDF] p-[1rem] rounded-[2rem]',
+            'bg-[#DFDFDF] p-[1.5rem] rounded-[2rem]',
             styles.contentMobile,
           )}
         >

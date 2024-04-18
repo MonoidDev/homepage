@@ -69,7 +69,7 @@ export const workExperiencePlaceholder = `
 `.trim();
 
 export const isProgrammer = (name: string) =>
-  ['FRONTEND ENGINEER', 'BACKEND ENGINEER'].includes(name);
+  ['FRONTENDENGINEER', 'BACKENDENGINEER'].includes(name);
 
 export const isDesigner = (name: string) =>
-  ['UIUX DESIGNER', 'PRODUCT MANAGER'].includes(name);
+  ['UIUXDESIGNER', 'PRODUCTMANAGER'].includes(name);
