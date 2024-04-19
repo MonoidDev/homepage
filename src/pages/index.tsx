@@ -33,7 +33,7 @@ const shouldDisplayEasterEgg =
 const shouldDisplayLGBT =
   [4, 5].includes(new Date().getMonth() + 1) &&
   new Date().getDate() >= 19 &&
-  new Date().getDate() <= 30;
+  new Date().getDate() <= 31;
 
 const initialX = 0;
 const initialY = 0;
