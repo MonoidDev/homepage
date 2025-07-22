@@ -449,7 +449,7 @@ export default function () {
         background: (
           <div className="flex-1 [background:linear-gradient(0deg,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(98.04deg,#73D2FB_4.17%,#3BB2E6_30.55%,_#367ED3_67.14%)]" />
         ),
-        url: 'https://wopal.dev',
+        url: 'https://prtimes.jp/main/html/rd/p/000000003.000082335.html',
       },
       {
         name: 'MONOZIP API',
@@ -525,7 +525,7 @@ export default function () {
         displayMobileSrc: uptimeMonitorMobile.src,
         tab: 0,
         background: <UptimeMonitorBackgroundSvg />,
-        url: 'https://uptime-monitor-staging.herokuapp.com',
+        url: 'https://github.com/MonoidDev/uptime-monitor',
       },
       {
         name: 'AUDIT APP',
