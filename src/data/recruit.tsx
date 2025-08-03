@@ -75,7 +75,6 @@ export const useRecruitStrings = makeStrings({
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
-        notHiring: true,
       },
       {
         name: 'BACKENDENGINEER',
@@ -131,7 +130,6 @@ export const useRecruitStrings = makeStrings({
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
-        notHiring: true,
       },
       {
         name: 'UIUXDESIGNER',
