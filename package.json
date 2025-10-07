@@ -22,7 +22,7 @@
     "@svgr/webpack": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^18.19.31",
-    "@types/three": "^0.160.0",
+    "@types/three": "^0.180.0",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.0",
     "cssnano": "^6.1.2",
@@ -44,7 +44,7 @@
     "react-query": "^3.39.3",
     "select-files": "^1.0.1",
     "tailwindcss": "^3.4.3",
-    "three": "^0.160.1",
+    "three": "^0.180.0",
     "ts-node": "^10.9.2",
     "usehooks-ts": "^2.16.0"
   },
