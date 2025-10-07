@@ -34,7 +34,7 @@ const useStrings = makeStrings({
       ['Established', '2020/12/24'],
       ['Capital', '10,000,000 JPY'],
       ['Business', 'Design & Development'],
-      ['Representative', 'Yanru Mao'],
+      ['Representative', 'Suzue Anjo'],
       [
         'Location',
         'Tokyo Sankei Building 27F, 1-7-2 Otemachi, Chiyoda-Ku, Tokyo',
@@ -65,7 +65,7 @@ const useStrings = makeStrings({
         </>,
       ],
       ['业务内容', '设计・开发・维护'],
-      ['公司法人', 'Mao Yanru'],
+      ['公司法人', '鈴江 晏如'],
       [
         '所在地',
         'Tokyo Sankei Building 27F, 1-7-2 Otemachi, Chiyoda-Ku, Tokyo',
@@ -97,7 +97,7 @@ const useStrings = makeStrings({
         </>,
       ],
       ['事業内容', '企画・開発・運用'],
-      ['代表者', 'Mao Yanru'],
+      ['代表者', '鈴江 晏如'],
       ['所在地', '東京都千代田区大手町1-7-2 東京サンケイビル 27F'],
     ],
   },
