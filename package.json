@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@monoid-dev/use-strings": "^0.0.1",
-    "@react-three/drei": "9.92.7",
+    "@react-three/drei": "9.122.0",
     "@react-three/fiber": "^8.16.2",
     "@svgr/webpack": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
