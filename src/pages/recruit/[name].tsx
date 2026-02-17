@@ -8,7 +8,7 @@ import RightArrowSvg from '@/assets/images/RightArrow.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
 import styles from '@/components/recruit/index.module.css';
 import { useAriaLabelStrings } from '@/data/ariaLabel';
-import { allJobNames, useRecruitStrings } from '@/data/recruit';
+import { allJobNames, JobDescription, useRecruitStrings } from '@/data/recruit';
 
 export default function JobDescription() {
   const {
@@ -18,7 +18,9 @@ export default function JobDescription() {
   const descriptions = useRecruitStrings();
   const ariaLabelStrings = useAriaLabelStrings();
 
-  const description = descriptions.jobs.find((item) => item.name === name);
+  const description = (descriptions.jobs as JobDescription[]).find(
+    (item) => item.name === name,
+  );
 
   const renderDesktopHeader = () => (
     <div className="flex gap-x-[20px] mb-[1rem] font-loose">

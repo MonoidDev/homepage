@@ -5,6 +5,7 @@ export const allJobNames = [
   'FRONTENDENGINEER',
   'BACKENDENGINEER',
   'UIUXDESIGNER',
+  'PRODUCTMANAGER',
   'MARKETINGDIRECTOR',
 ];
 
@@ -25,50 +26,50 @@ export const useRecruitStrings = makeStrings({
           <>
             <h3>About the job</h3>
             <p>
-              Here at G.K. Monoid, we strive hard to make impressive and
-              intuitive user interfaces for our customers. We would like to hear
-              from experienced front-end engineers who are enthusiastic about
-              realising product designs and implementing product functionality.
-              Remote working and part-time participation are available.
+              At G.K. Monoid, we build impressive and intuitive user interfaces
+              for our clients. We are looking for experienced frontend engineers
+              who are passionate about turning product designs into working
+              features. Remote work and part-time participation are available.
             </p>
             <h3>What you will be doing</h3>
             <p>
-              -Understanding the product design process
+              - Understanding product design requirements and user flows
               <br />
-              -Implementing UI almost exclusively in JavaScript
+              - Implementing UI primarily in JavaScript and TypeScript
               <br />
-              -Working within the frontend build pipeline
+              - Working within our frontend build pipeline
               <br />
-              -Delivering on-time/within budget
-              <br />
-              -Testing
+              - Delivering features on time and within budget
+              <br />- Writing and maintaining tests
             </p>
             <h3>Baseline skills</h3>
             <p>
-              -Bachelor's Degree in Software Engineering/Comp. Sci or related
-              field.
+              - Bachelor's degree in Software Engineering, Computer Science, or
+              a related field
               <br />
-              -Very relaxed and comfortable with HTML/CSS/JS + Libraries
+              - Strong practical knowledge of HTML, CSS, JavaScript, and modern
+              libraries
               <br />
-              -Able to write code which is understandable and maintainable
+              - Ability to write clear, maintainable code
               <br />
             </p>
             <h3>Preferred Skills</h3>
             <p>
-              -Experience with one or more of: ReactJS, AngularJS, VueJS, Svelte
+              - Experience with one or more of: React, Angular, Vue, Svelte
               <br />
-              -Working familiarity with NodeJS
+              - Working familiarity with Node.js
               <br />
-              -TypeScript
+              - TypeScript proficiency
               <br />
-              -Experience with one or more of: Webpack, Rollup, Vite, ESBuild,
+              - Experience with one or more of: Webpack, Rollup, Vite, esbuild,
               SWC
               <br />
-              -Mobile Application experience
+              - Mobile application development experience
               <br />
-              -A commitment to LifeLongLearning WRT Open-Source Front-End
+              - A commitment to lifelong learning in open-source frontend
+              technologies
               <br />
-              -1 - 2 years experience in Front-End Development
+              - 1-2 years of frontend development experience
               <br />
             </p>
             <h3>Location</h3>
@@ -83,47 +84,45 @@ export const useRecruitStrings = makeStrings({
           <>
             <h3>About the job</h3>
             <p>
-              We are searching for back-end engineers who can bring fresh ideas
-              from their own area of experience. You’ll need to pick-up and
-              run-with many different projects, some of which are new and some
-              quite mature, so there will be a mix of legacy and greenfield
-              work.You’ll therefore need to be versatile and be able to work
-              with little supervision. This calls for leadership and management
-              skills, as well as technical ability.
+              We are looking for backend engineers who can bring fresh ideas
+              from their areas of expertise. You will need to pick up and run
+              many different projects, including both greenfield and mature
+              systems, so versatility is essential. This role requires
+              leadership and project management skills, as well as strong
+              technical ability.
             </p>
             <h3>What you will be doing</h3>
             <p>
-              -Execute server-side work on Monoid’s projects.
+              - Executing server-side development for Monoid projects
               <br />
-              -Take charge of medium-to-large projects and work across teams and
-              sites.
+              - Leading medium-to-large projects across teams and locations
               <br />
-              -Develop PoC’s/prototypes quickly, with the foresight to plan for
-              scaling to production.
+              - Developing PoCs/prototypes quickly while planning for
+              production-scale systems
               <br />
             </p>
             <h3>Baseline skills</h3>
             <p>
-              -Bachelor's degree in Computer Science, Statistics, Mathematics, a
-              related field, or equivalent practical experience.
+              - Bachelor's degree in Computer Science, Statistics, Mathematics,
+              a related field, or equivalent practical experience.
               <br />
-              -3 years of relevant work experience in software development.
+              - 3+ years of relevant software development experience
               <br />
-              -Ability to speak and write in English fluently.
+              - Fluent written and spoken English
               <br />
             </p>
             <h3>Preferred Skills</h3>
             <p>
-              -Experience programming in C++, Java, or Python.
+              - Experience programming in C++, Java, or Python.
               <br />
-              -Experience with operating Cloud services (e.g. Google Cloud
+              - Experience operating cloud services (e.g. Google Cloud
               Platform).
               <br />
-              -Comfort and familiarity with data structures and algorithms
+              - Strong understanding of data structures and algorithms
               <br />
-              -Working ability in Software Design.
+              - Working knowledge of software design
               <br />
-              -Ability to speak and write in Chinese or Japanese fluently.
+              - Fluent written and spoken Chinese or Japanese
               <br />
             </p>
             <h3>Location</h3>
@@ -136,12 +135,50 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'UIUX Designer',
         description: (
           <>
-            <h3 className="text-center">
-              Sorry, we are not hiring at the moment.
-            </h3>
+            <h3>About the job</h3>
+            <p>
+              We are looking for UI/UX designers who combine clear interaction
+              thinking with strong visual craft. You will collaborate with
+              engineers and product managers to design features from discovery
+              through delivery, and continuously improve product usability.
+            </p>
+            <h3>What you will be doing</h3>
+            <p>
+              - Conducting user and product research
+              <br />
+              - Designing wireframes and high-fidelity UI
+              <br />
+              - Building and maintaining design systems
+              <br />
+              - Working closely with engineers to ship polished experiences
+              <br />- Iterating using qualitative and quantitative feedback
+            </p>
+            <h3>Baseline skills</h3>
+            <p>
+              - Portfolio demonstrating end-to-end UI/UX work
+              <br />
+              - Proficiency with modern design tools (e.g. Figma)
+              <br />
+              - Ability to clearly explain design decisions
+              <br />
+              - Comfort collaborating in cross-functional teams
+              <br />
+            </p>
+            <h3>Preferred Skills</h3>
+            <p>
+              - Experience designing web and mobile products
+              <br />
+              - Experience with prototyping and usability testing
+              <br />
+              - Basic understanding of frontend implementation constraints
+              <br />
+              - Ability to communicate in Japanese, Chinese, or English
+              <br />
+            </p>
+            <h3>Location</h3>
+            <p>Tokyo, Japan / Remote</p>
           </>
         ),
-        notHiring: true,
       },
       {
         name: 'PRODUCTMANAGER',
@@ -150,67 +187,66 @@ export const useRecruitStrings = makeStrings({
           <>
             <h3>About the job</h3>
             <p>
-              Here at G.K.Monoid, we are proud to offer innovative products that
-              match the requirements and desires of our customers and clients.
-              To this end, we’re looking for an experienced Product Development
-              Manager to lead our Multi-Disciplinary development team. The ideal
-              person should be able to spot gaps in current product offerings,
-              and have plenty of ideas about how to plug them. They’ll be a
-              capable market analyst who can devise a strategy to successfully
-              manage an entire product life cycle. Demonstrable leadership
-              skills are essential, as will the ability to shepard
-              cross-functional teams in the creation of products which satisfy
-              consumer demands and increase market share.
+              At G.K. Monoid, we build innovative products that meet client and
+              customer needs. We are looking for an experienced Product Manager
+              to lead our multidisciplinary development team. The ideal
+              candidate can identify gaps in current offerings and propose
+              practical solutions. You should be able to analyze markets, define
+              product strategy, and manage the full product lifecycle. Strong
+              leadership is essential, as is the ability to guide
+              cross-functional teams in delivering products that meet user
+              demand and increase market share.
             </p>
             <h3>What you will be doing</h3>
             <p>
-              -Use observation and research skills to identify business
-              opportunities.
+              - Using observation and research to identify business
+              opportunities
               <br />
-              -Stay on top of customer communications
+              - Maintaining close communication with customers and stakeholders
               <br />
-              -Specify product strategy and roadmap
+              - Defining product strategy and roadmap
               <br />
-              -Deliver MRDs and PRDs with prioritized features and corresponding
-              justification
+              - Deliver MRDs and PRDs with prioritized features and
+              corresponding rationale
               <br />
-              -Support designers and engineers to ensure timely delivery
+              - Supporting designers and engineers to ensure timely delivery
               <br />
             </p>
             <h3>Baseline skills</h3>
             <p>
-              -Bachelor’s Degree or Equivalent Industry Experience
+              - Bachelor’s degree or equivalent industry experience
               <br />
-              -Demonstrable experience in Product Planning or Management
+              - Hands-on experience in product planning or product management
               <br />
-              -Written and Verbal skills in Chinese, English and Japanese
+              - Strong written and verbal communication in Chinese, English, and
+              Japanese
               <br />
-              -At least one example of a document delivered in the past
+              - Ability to share at least one product document created in
+              previous work
               <br />
             </p>
             <h3>Preferred Skills</h3>
             <p>
-              -Demonstrable success in defining excellent products to delivery
+              - Proven success in defining products and bringing them to
+              delivery
               <br />
-              -Strategic and Leadership skills to achieve product goals
+              - Strategic thinking and leadership to achieve product goals
               <br />
-              -Ability to understand user insights, develop messages and
-              concepts, and identify the appropriate channels to reach potential
-              audiences
+              - Ability to turn user insights into clear messages and concepts,
+              and identify the right channels to reach target audiences
               <br />
-              -Ability to communicate technical concepts to non-technical
-              customers and clients
+              - Ability to communicate technical concepts to non-technical
+              customers and stakeholders
               <br />
-              -Excellent verbal and written communication skills, coupled with
-              skills in problem solving and analysis and excellent business
-              judgement
+              - Excellent verbal and written communication skills, coupled with
+              strong problem-solving, analytical ability, and sound business
+              judgment
               <br />
             </p>
             <h3>Location</h3>
             <p>Tokyo, Japan / Remote</p>
           </>
         ),
-        notHiring: true,
       },
       {
         name: 'MARKETINGDIRECTOR',
@@ -219,109 +255,109 @@ export const useRecruitStrings = makeStrings({
           <>
             <h3>About the job</h3>
             <p>
-              Join G.K.Monoid as we leap into the innovative pet technology
-              field with "pawpawmall." Here, we are committed to enhancing the
-              special bond between pet owners and their furry friends through
-              our unique products and services. We're on the hunt for a creative
-              and driven Marketing Director to lead our marketing initiatives
-              across both consumer (B2C) and business (B2B) channels. This role
-              is perfect for someone who can boost our brand's visibility and
-              build meaningful partnerships in the bustling pet supply industry.
+              Join G.K. Monoid as we expand into the pet technology space with
+              "pawpawmall." We are committed to strengthening the bond between
+              pets and their owners through unique products and services. We are
+              looking for a creative, driven Marketing Director to lead
+              initiatives across both B2C and B2B channels. This role is ideal
+              for someone who can increase brand visibility and build meaningful
+              partnerships in the pet industry.
             </p>
             <p className="text-base">
               ペットテクノロジー分野への新しい挑戦、「pawpawmall」で一緒に働きませんか？
               <br />
-              私たちはペットと飼い主の家族としての絆を強化する、ユニークな製品とサービスを提供しています。マーケティングディレクターとして、消費者（B
-              to C）およびビジネス（B to
-              B）チャネルのマーケティング戦略をリードしていただける経験豊富で独創的な意欲のある方を探しています。この役割は、当社ブランドの認知の向上のため、活気と勢いのあるペット業界で共に活躍してくれる向上心のある方を募集します。
+              私たちは、ペットと飼い主の絆を深めるユニークな製品・サービスを提供しています。マーケティングディレクターとして、B2CおよびB2Bの両チャネルで戦略立案から実行までをリードできる、経験豊富で創造性と推進力のある方を募集しています。ブランド認知の向上と、ペット業界での有意義なパートナーシップ構築を担っていただくポジションです。
             </p>
             <h3>What you will be doing</h3>
             <p>
-              -Design and implement inventive marketing strategies for our
-              pet-related products and services.
+              - Designing and executing innovative marketing strategies for our
+              pet-related products and services
               <br />
-              -Dive into web advertising data to craft and execute compelling
-              marketing campaigns.
+              - Analyzing web advertising data to plan and execute effective
+              marketing campaigns
               <br />
-              -Generate engaging content for a variety of social media
-              platforms.
+              - Creating engaging content for multiple social media platforms
               <br />
-              -Craft and share press releases and PR materials that tell our
-              exciting story.
+              - Creating and sharing press releases and PR materials that tell
+              our brand story
               <br />
             </p>
             <p className="text-[16px]">
-              -ペット関連製品・サービスのため、効果的なマーケティング戦略を設計・実施します。
+              - ペット関連製品・サービスに関するマーケティング戦略の設計・実行
               <br />
-              -WEB広告のデータを分析し、魅力的なマーケティングキャンペーンを企画・実行します。
+              - WEB広告データを分析し、効果的なキャンペーンを企画・実行
               <br />
-              -様々なSNSプラットフォームで独創的かつ魅力的なコンテンツを生成します。
+              - 各種SNS向けの魅力的なコンテンツ企画・制作
               <br />
-              -ブランドストーリーをエキサイティングに伝えるプレスリリースやPR資料を作成・公表します。
+              - ブランドストーリーを伝えるプレスリリース／PR資料の作成・発信
               <br />
             </p>
             <h3>Baseline skills</h3>
             <p>
-              -Bachelor’s Degree or equivalent industry experience. <br />
-              -Proven marketing prowess with impressive results to show. <br />
-              -Stellar communication skills and fluency in writing Japanese.
+              - Bachelor’s degree or equivalent industry experience. <br />
+              - Proven marketing track record with measurable results. <br />
+              - Excellent communication skills and strong Japanese writing
+              proficiency.
               <br />
-              -A genuine love for pets, and a commitment to making a difference
-              in the pet industry. <br />
-              -Robust experience with social media and an intuitive grasp of
-              trends. <br />
-              -Analytical thinking and a knack for making smart, data-driven
+              - A genuine love for pets and commitment to contributing to the
+              pet industry. <br />
+              - Strong experience with social media operations and trend
+              analysis. <br />
+              - An analytical mindset and the ability to make data-driven
               decisions. <br />
             </p>
             <p className="text-[16px]">
-              -学士号を持っている、または同等以上の業界経験。 <br />
-              -実績のあるマーケティング能力。 <br />
-              -優れたコミュニケーション能力と日本語の流暢な文書作成スキル。
+              - 学士号、または同等以上の実務経験。 <br />
+              - 実績に裏付けられたマーケティング能力。 <br />
+              - 高いコミュニケーション能力と日本語での文書作成力。
               <br />
-              -ペットへの深い愛を持ち、ペット業界で違いを生み出す意欲に溢れている方。
+              - ペットへの深い愛情と、業界に貢献したい意欲。
               <br />
-              -SNS運用経験とトレンドへの造詣が深い方。 <br />
-              -分析思考とデータに基づいた意思決定のできる方。 <br />
+              - SNS運用経験とトレンド分析力。 <br />
+              - データに基づいた意思決定ができる分析思考。 <br />
             </p>
             <h3>Preferred Skills</h3>
             <p>
-              -Demonstrated ability to concoct marketing strategies that
-              resonate with our target audiences.
+              - Proven ability to create and execute marketing strategies that
+              resonate with target audiences.
               <br />
-              -Strategic leadership abilities to navigate and achieve our
-              marketing goals.
+              - Strategic thinking and leadership to achieve our marketing
+              goals.
               <br />
-              -Expertise in discerning user insights, developing impactful
-              messages, and pinpointing the best channels for engagement.
+              - Strong ability to derive user insights, develop impactful
+              messages, and choose the most effective channels.
               <br />
-              -Practical skills in creating SNS content, such as capturing
-              photos and videos with smartphones, and proficiency in using
-              editing software for visuals and videos.
+              - Hands-on SNS content production skills, including smartphone
+              photo/video capture and editing software usage.
               <br />
-              -Ability to analyze customer feedback and adapt marketing
-              strategies to enhance engagement and effectiveness.
+              - Ability to analyze customer feedback and adapt strategies to
+              improve engagement and performance.
               <br />
-              -Language skills in English, Korean, or Chinese to liaise with
+              - Language skills in English, Korean, or Chinese to liaise with
               international partners.
               <br />
-              -Dog owners might find themselves particularly cherished here, as
-              our office might have a tiny bit of a cat person surplus!
+              - Dog owners are especially welcome, as our office currently has
+              slightly more cat lovers.
               <br />
             </p>
             <p className="text-[16px]">
-              -顧客に響くマーケティング戦略の立案と実行をした経験のある方。
+              - ターゲットに響くマーケティング戦略の立案・実行経験。
               <br />
-              -戦略的思考とリーダーシップスキルでマーケティング目標を達成した経験のある方。
+              - 戦略的思考とリーダーシップによる目標達成経験。
               <br />
-              -ユーザーのニーズを深掘りし、響きやすいメッセージを最適なチャネルで発信するスキルをお持ちの方。
+              {
+                '- ユーザーインサイトをもとに、メッセージ設計と最適なチャネル選定ができる方。'
+              }
               <br />
-              -スマートフォンで写真やビデオを撮影し、画像やビデオ編集ソフトウェアを使用するなど、SNSコンテンツを実際に作成する技術のある方。
+              {
+                '- スマートフォン撮影や画像・動画編集を含む、SNSコンテンツ制作スキル。'
+              }
               <br />
-              -顧客のフィードバックを分析し、マーケティング戦略を調整してチームの成績向上に貢献できる方。
+              - 顧客フィードバックを分析し、施策改善につなげられる方。
               <br />
-              -英語、韓国語、または中国語の言語スキルで、国際的なパートナーとの連携を行える方。
+              - 英語・韓国語・中国語のいずれかで海外パートナーと連携できる方。
               <br />
-              -オフィスには猫派がやや多いため、犬を飼っている方は特に歓迎します。
+              - オフィスはやや猫派が多いため、犬オーナーの方も歓迎します。
               <br />
             </p>
             <h3>Location</h3>

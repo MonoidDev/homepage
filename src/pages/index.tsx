@@ -570,7 +570,7 @@ export default function () {
               className="font-dense font-bold text-[20px] text-black"
             >
               {openingStrings.newBusinessSummary?.map((s, i) => (
-                <tspan key={i} x="320" dy="1.2em" textAnchor="right">
+                <tspan key={i} x="320" dy="1.2em" textAnchor="end">
                   {s}
                 </tspan>
               ))}

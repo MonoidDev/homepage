@@ -43,6 +43,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
     values: [borderRadius],
     play: playBorderRadius,
     reverse: reverseBorderRadius,
+    reset: resetBorderRadius,
   } = useChain([
     {
       from: INITIAL_RADIUS,
@@ -57,6 +58,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
     reverse,
     currentIndex,
     isPlaying,
+    reset,
   } = useChain([
     {
       from: INITIAL_RADIUS * 2,
@@ -82,6 +84,14 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
   ]);
 
   const slashOffsetX = (-45 / 80) * slashOffsetY!;
+
+  const handleLanguageSwitch = (e: React.MouseEvent, locale: string) => {
+    e.preventDefault();
+    reset();
+    resetBorderRadius();
+    onChangeAction?.('close');
+    router.push(router.asPath, undefined, { locale, scroll: false });
+  };
 
   return (
     <div className="flex">
@@ -109,7 +119,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
                 locale="ja-JP"
                 aria-label={ariaLabelStrings.jp}
                 style={{ transform: `scale(${buttonScale})` }}
-                onClick={reverse}
+                onClick={(e) => handleLanguageSwitch(e, 'ja-JP')}
               >
                 <JP />
               </Link>
@@ -125,7 +135,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
                 locale="en-US"
                 aria-label={ariaLabelStrings.en}
                 style={{ transform: `scale(${buttonScale})` }}
-                onClick={reverse}
+                onClick={(e) => handleLanguageSwitch(e, 'en-US')}
               >
                 <EN />
               </Link>
@@ -141,7 +151,7 @@ export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
                 locale="zh-CN"
                 aria-label={ariaLabelStrings.cn}
                 style={{ transform: `scale(${buttonScale})` }}
-                onClick={reverse}
+                onClick={(e) => handleLanguageSwitch(e, 'zh-CN')}
               >
                 <CN />
               </Link>

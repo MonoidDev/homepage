@@ -81,7 +81,7 @@ export const MarketingDirectorCard: React.VFC = () => {
     255 * faceChain.currentValue
   }, ${255 * faceChain.currentValue})`;
 
-  const scale = 1 + (1.9 - 1) * (1 - scaleChain.currentValue);
+  const scale = 1 + (1.55 - 1) * (1 - scaleChain.currentValue);
 
   const renderCross = (point: Point) => {
     const size = 5;
@@ -178,14 +178,16 @@ export const MarketingDirectorCard: React.VFC = () => {
       color={color}
       backgroundColor={backgroundColor}
     >
-      <div className="h-full w-full flex items-end">
+      <div className="h-full w-full flex flex-col">
+        <h2 className="text-[40px] leading-[40px] z-10">{strings.title}</h2>
+
         <div
-          className="absolute z-10 top-0 left-0 right-0 bottom-0"
+          className="flex-1 pt-[0.5rem]"
           style={{
             transform: `
               scale(${scale})
               translateX(${6 * (1 - scaleChain.currentValue)}%)
-              translateY(${-5 * (1 - scaleChain.currentValue)}%)
+              translateY(${8 * (1 - scaleChain.currentValue)}%)
             `,
           }}
         >
@@ -219,10 +221,6 @@ export const MarketingDirectorCard: React.VFC = () => {
             {renderFace(a4, a3, b3, b4, -50 * (1 - faceChain.currentValue))}
           </svg>
         </div>
-
-        <h2 className="absolute bottom-[2rem] z-20 text-[40px] leading-[40px] text-left">
-          {strings.title}
-        </h2>
       </div>
     </Card>
   );

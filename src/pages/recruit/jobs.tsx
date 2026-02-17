@@ -7,10 +7,12 @@ import { useRouter } from 'next/router';
 import BackendEngineerCardSvg from '@/assets/images/BackendEngineerCard.svg';
 import FrontendEngineerCardSvg from '@/assets/images/FrontendEngineerCard.svg';
 import MarketingDirectorCardSvg from '@/assets/images/MarketingDirectorCard.svg';
+import ProductManagerCardSvg from '@/assets/images/ProductManagerCard.svg';
 import UIUXDesignerCardSvg from '@/assets/images/UIUXDesignerCard.svg';
 import { BackendEngineerCard } from '@/components/recruit/BackendEngineerCard';
 import { FrontendEngineerCard } from '@/components/recruit/FrontendEngineerCard';
 import { MarketingDirectorCard } from '@/components/recruit/MarketingDirectorCard';
+import { ProductManagerCard } from '@/components/recruit/ProductManagerCard';
 import { UIUXDesignerCard } from '@/components/recruit/UIUXDesignerCard';
 
 const useStrings = makeStrings({
@@ -64,10 +66,10 @@ function MobileRecruit() {
       <MobileCardContainer name="UIUXDESIGNER">
         <UIUXDesignerCardSvg />
       </MobileCardContainer>
-      {/* 
-      <MobileCardContainer name="PRODUCT MANAGER">
+
+      <MobileCardContainer name="PRODUCTMANAGER">
         <ProductManagerCardSvg />
-      </MobileCardContainer> */}
+      </MobileCardContainer>
 
       <MobileCardContainer name="MARKETINGDIRECTOR">
         <MarketingDirectorCardSvg />
@@ -103,7 +105,7 @@ function DesktopRecruit() {
       <FrontendEngineerCard />
       <BackendEngineerCard />
       <UIUXDesignerCard />
-      {/* <ProductManagerCard /> */}
+      <ProductManagerCard />
       <MarketingDirectorCard />
     </main>
   );
