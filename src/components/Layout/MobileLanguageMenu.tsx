@@ -40,6 +40,13 @@ export const MobileLanguageMenu = () => {
     setOpen(false);
   };
 
+  const handleLanguageSwitch = (e: React.MouseEvent, locale: string) => {
+    e.preventDefault();
+    menuChain.reset();
+    setOpen(false);
+    router.push(router.asPath, undefined, { locale, scroll: false });
+  };
+
   const renderSlash = () => (
     <div className="relative">
       <svg
@@ -57,7 +64,7 @@ export const MobileLanguageMenu = () => {
       href={router.asPath}
       locale={locale}
       aria-label={ariaLabelStrings.close}
-      onClick={onClose}
+      onClick={(e) => handleLanguageSwitch(e, locale)}
     >
       {icon}
     </Link>

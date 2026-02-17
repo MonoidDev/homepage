@@ -1,11 +1,8 @@
-import { useRef } from 'react';
-
 import { makeStrings } from '@monoid-dev/use-strings';
 import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
-import { getPointPath } from '@/utils/svg';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -15,165 +12,76 @@ const useStrings = makeStrings({
 
 type Point = readonly [number, number];
 
+const stagePoints: Point[] = [
+  [18, 108],
+  [42, 78],
+  [68, 92],
+  [96, 58],
+];
+
+const clamp = (value: number, min = 0, max = 1) =>
+  Math.min(max, Math.max(min, value));
+
+const mix = (from: number, to: number, t: number) => from + (to - from) * t;
+
+const interpolatePoint = (points: Point[], t: number): Point => {
+  if (t <= 0) {
+    return points[0]!;
+  }
+
+  if (t >= 1) {
+    return points[points.length - 1]!;
+  }
+
+  const scaled = t * (points.length - 1);
+  const index = Math.floor(scaled);
+  const localProgress = scaled - index;
+  const from = points[index]!;
+  const to = points[index + 1]!;
+
+  return [
+    mix(from[0], to[0], localProgress),
+    mix(from[1], to[1], localProgress),
+  ] as const;
+};
+
 export const ProductManagerCard: React.VFC = () => {
   const strings = useStrings();
   const router = useRouter();
 
-  const actionRef = useRef('enter');
-
-  const interpolate1 = (frame: number) =>
-    Math.sin(((Math.PI / 2) * frame) / 15);
-
-  const scaleChain = useChain([
+  const chain = useChain([
     {
       from: 0,
       to: 1,
-      interpolate: interpolate1,
+      interpolate: (frame) => Math.min(frame, 56) / 56,
     },
   ]);
 
-  const lineChain = useChain([
-    {
-      from: 0,
-      to: 0,
-      interpolate: interpolate1,
-    },
-    {
-      from: 0,
-      to: 1,
-      interpolate: interpolate1,
-    },
-    {
-      from: 1,
-      to: 0,
-      interpolate: interpolate1,
-    },
-    {
-      from: 0,
-      to: 1,
-      interpolate: interpolate1,
-    },
-    {
-      from: 1,
-      to: 0,
-      interpolate: interpolate1,
-    },
-  ]);
+  const animated = chain.currentValue;
+  const pulse = (Math.sin(animated * Math.PI * 6) + 1) / 2;
+  const travel = animated * (stagePoints.length - 1);
+  const [markerX, markerY] = interpolatePoint(stagePoints, animated);
 
-  const faceChain = useChain([
-    {
-      from: 0,
-      to: 0,
-      interpolate: (f) => f / 15,
-    },
-    {
-      from: 0,
-      to: 1,
-      interpolate: interpolate1,
-    },
-  ]);
+  const color = `rgb(${255 * (1 - animated)}, ${255 * (1 - animated)}, ${
+    255 * (1 - animated)
+  })`;
 
-  const color = `rgb(${255 * (1 - faceChain.currentValue)}, ${
-    255 * (1 - faceChain.currentValue)
-  }, ${255 * (1 - faceChain.currentValue)})`;
+  const backgroundColor = `rgb(${255 * animated}, ${255 * animated}, ${
+    255 * animated
+  })`;
 
-  const backgroundColor = `rgb(${255 * faceChain.currentValue}, ${
-    255 * faceChain.currentValue
-  }, ${255 * faceChain.currentValue})`;
+  const boardFill = `rgba(${255 * animated}, ${255 * animated}, ${
+    255 * animated
+  }, ${0.08 + animated * 0.24})`;
 
-  const scale = 1 + (1.9 - 1) * (1 - scaleChain.currentValue);
-
-  const renderCross = (point: Point) => {
-    const size = 5;
-    const [x, y] = point;
-
-    return (
-      <>
-        <line
-          x1={x - size / 2}
-          y1={y - size / 2}
-          x2={x + size / 2}
-          y2={y + size / 2}
-          stroke="currentColor"
-          strokeWidth={1 / scale}
-        />
-        <line
-          x1={x - size / 2}
-          y1={y + size / 2}
-          x2={x + size / 2}
-          y2={y - size / 2}
-          stroke="currentColor"
-          strokeWidth={1 / scale}
-        />
-      </>
-    );
-  };
-
-  const renderLine = (p1: Point, p2: Point) => {
-    return (
-      <line
-        x1={p1[0]}
-        y1={p1[1]}
-        x2={p2[0]}
-        y2={p2[1]}
-        stroke="currentColor"
-        strokeOpacity={lineChain.currentValue}
-        strokeDasharray="2 2"
-        strokeWidth={0.5 / scale}
-      />
-    );
-  };
-
-  const renderFace = (
-    p1: Point,
-    p2: Point,
-    p3: Point,
-    p4: Point,
-    deltaY: number,
-  ) => {
-    return (
-      <polygon
-        points={getPointPath(p1, p2, p3, p4)}
-        transform={`
-          translate(0 ${deltaY})
-        `}
-        strokeOpacity={faceChain.currentValue}
-        stroke="currentColor"
-        fill="none"
-      />
-    );
-  };
-
-  const a1 = [80, 31] as const;
-  const a2 = [88, 53] as const;
-  const a4 = [32, 46] as const;
-  const a3 = [a4[0] + a2[0] - a1[0], a4[1] + a2[1] - a1[1]] as const;
-
-  const h = 40;
-  const b1 = [a1[0], a1[1] + h] as const;
-  const b2 = [a2[0], a2[1] + h] as const;
-  const b3 = [a3[0], a3[1] + h] as const;
-  const b4 = [a4[0], a4[1] + h] as const;
+  const scale = mix(1.36, 1, animated);
+  const shiftX = mix(8, 0, animated);
+  const shiftY = mix(-8, 0, animated);
 
   return (
     <Card
-      onMouseEnter={async () => {
-        actionRef.current = 'enter';
-        await scaleChain.play();
-        if (actionRef.current === 'enter') {
-          await lineChain.play();
-        }
-        if (actionRef.current === 'enter') {
-          await faceChain.play();
-        }
-      }}
-      onMouseLeave={async () => {
-        actionRef.current = 'leave';
-        await faceChain.reverse();
-        if (actionRef.current === 'leave') {
-          await scaleChain.reverse();
-        }
-      }}
+      onMouseEnter={() => chain.play()}
+      onMouseLeave={() => chain.reverse()}
       onClick={() => router.push('/recruit/PRODUCTMANAGER')}
       color={color}
       backgroundColor={backgroundColor}
@@ -184,39 +92,140 @@ export const ProductManagerCard: React.VFC = () => {
           style={{
             transform: `
               scale(${scale})
-              translateX(${6 * (1 - scaleChain.currentValue)}%)
-              translateY(${-5 * (1 - scaleChain.currentValue)}%)
+              translateX(${shiftX}%)
+              translateY(${shiftY}%)
             `,
           }}
         >
           <svg viewBox="0 0 120 160">
-            {renderCross(a1)}
-            {renderCross(a2)}
-            {renderCross(a4)}
-            {renderCross(a3)}
-            {renderCross(b1)}
-            {renderCross(b2)}
-            {renderCross(b3)}
-            {renderCross(b4)}
+            <rect
+              x={12}
+              y={36}
+              width={96}
+              height={86}
+              rx={8}
+              fill={boardFill}
+              stroke="currentColor"
+              strokeOpacity={0.45 + animated * 0.55}
+            />
 
-            {renderLine(a4, a1)}
-            {renderLine(a1, a2)}
-            {renderLine(a3, a2)}
-            {renderLine(a4, a3)}
+            {[58, 80, 102].map((y) => (
+              <line
+                key={`lane-${y}`}
+                x1={20}
+                y1={y}
+                x2={100}
+                y2={y}
+                stroke="currentColor"
+                strokeOpacity={0.15 + animated * 0.45}
+              />
+            ))}
 
-            {renderLine(a1, b1)}
-            {renderLine(a2, b2)}
-            {renderLine(a3, b3)}
-            {renderLine(a4, b4)}
+            {[34, 58, 82].map((x) => (
+              <line
+                key={`stage-${x}`}
+                x1={x}
+                y1={44}
+                x2={x}
+                y2={114}
+                stroke="currentColor"
+                strokeOpacity={0.12 + animated * 0.38}
+              />
+            ))}
 
-            {renderLine(b4, b1)}
-            {renderLine(b1, b2)}
-            {renderLine(b3, b2)}
-            {renderLine(b4, b3)}
+            {[
+              { x: 20, y: 44, width: 15 },
+              { x: 41, y: 48, width: 17 },
+              { x: 64, y: 42, width: 13 },
+            ].map((card, index) => (
+              <rect
+                key={`card-${card.x}-${card.y}`}
+                x={card.x + (1 - animated) * (6 - index * 2)}
+                y={card.y - animated * 4 - pulse * (index === 1 ? 1.8 : 0.8)}
+                width={card.width}
+                height={8}
+                rx={1.5}
+                fill={boardFill}
+                stroke="currentColor"
+                strokeOpacity={0.25 + animated * 0.5}
+              />
+            ))}
 
-            {renderFace(a1, a2, b2, b1, -50 * (1 - faceChain.currentValue))}
-            {renderFace(a1, b1, b3, a3, 50 * (1 - faceChain.currentValue))}
-            {renderFace(a4, a3, b3, b4, -50 * (1 - faceChain.currentValue))}
+            {stagePoints.slice(0, -1).map((from, index) => {
+              const to = stagePoints[index + 1]!;
+              const drawnProgress = clamp(travel - index);
+              const drawnX = mix(from[0], to[0], drawnProgress);
+              const drawnY = mix(from[1], to[1], drawnProgress);
+
+              return (
+                <g key={`segment-${from[0]}-${from[1]}`}>
+                  <line
+                    x1={from[0]}
+                    y1={from[1]}
+                    x2={to[0]}
+                    y2={to[1]}
+                    stroke="currentColor"
+                    strokeOpacity={0.2 + animated * 0.3}
+                    strokeWidth={1.5}
+                  />
+                  <line
+                    x1={from[0]}
+                    y1={from[1]}
+                    x2={drawnX}
+                    y2={drawnY}
+                    stroke="currentColor"
+                    strokeOpacity={0.6 + animated * 0.4}
+                    strokeWidth={2}
+                  />
+                </g>
+              );
+            })}
+
+            {stagePoints.map((point, index) => {
+              const focus = clamp(1 - Math.abs(travel - index));
+              const visited = travel >= index ? 1 : 0;
+              const radius = 2.4 + focus * 1.2 + pulse * 0.9 * focus;
+
+              return (
+                <circle
+                  key={`node-${point[0]}-${point[1]}`}
+                  cx={point[0]}
+                  cy={point[1]}
+                  r={radius}
+                  stroke="currentColor"
+                  strokeWidth={1.2}
+                  strokeOpacity={0.45 + visited * 0.55}
+                  fill={visited ? 'currentColor' : 'none'}
+                  fillOpacity={0.2 + visited * 0.55}
+                />
+              );
+            })}
+
+            <circle
+              cx={markerX}
+              cy={markerY}
+              r={5.5 + pulse * 1.8}
+              stroke="currentColor"
+              strokeOpacity={0.2 + animated * 0.35}
+              fill="none"
+            />
+
+            <g
+              transform={`translate(${markerX} ${markerY}) rotate(${
+                45 + (pulse - 0.5) * 10
+              })`}
+            >
+              <rect
+                x={-4.2}
+                y={-4.2}
+                width={8.4}
+                height={8.4}
+                rx={1.1}
+                fill={boardFill}
+                stroke="currentColor"
+                strokeWidth={1.2}
+              />
+            </g>
           </svg>
         </div>
 
