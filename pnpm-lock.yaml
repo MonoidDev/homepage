@@ -103,8 +103,8 @@ importers:
         version: 2.16.0(react@18.3.1)
     devDependencies:
       '@chenyuwang/eslint-config':
-        specifier: ^0.0.2
-        version: 0.0.2(eslint-config-prettier@9.1.2(eslint@10.0.0(jiti@1.21.7)))(eslint@10.0.0(jiti@1.21.7))(prettier@3.8.1)(typescript@5.3.3)
+        specifier: ^0.0.3
+        version: 0.0.3(eslint-config-prettier@9.1.2(eslint@10.0.0(jiti@1.21.7)))(eslint@10.0.0(jiti@1.21.7))(prettier@3.8.1)(typescript@5.3.3)
       '@next/bundle-analyzer':
         specifier: ^14.2.2
         version: 14.2.35
@@ -745,8 +745,8 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@chenyuwang/eslint-config@0.0.2':
-    resolution: {integrity: sha512-v6LINF4k/36vAc0V+l3Y0em8n5zL5xBwgSI/qSWfAZc9LEOSY8Tjp+2ro0iuoTrjMtLrl166jEgjrlCc0YVWKg==}
+  '@chenyuwang/eslint-config@0.0.3':
+    resolution: {integrity: sha512-bafju63GuDVz6I4TWbnAzfykmAcb2L/cnpJO9hnoe+uIxI4vIriHXhWLLosAj7vvAJ2VG27sJhnB4k/HRXod7w==}
     engines: {node: '>=16.0.0'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -3726,6 +3726,7 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -4562,7 +4563,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@chenyuwang/eslint-config@0.0.2(eslint-config-prettier@9.1.2(eslint@10.0.0(jiti@1.21.7)))(eslint@10.0.0(jiti@1.21.7))(prettier@3.8.1)(typescript@5.3.3)':
+  '@chenyuwang/eslint-config@0.0.3(eslint-config-prettier@9.1.2(eslint@10.0.0(jiti@1.21.7)))(eslint@10.0.0(jiti@1.21.7))(prettier@3.8.1)(typescript@5.3.3)':
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3)
       '@typescript-eslint/parser': 6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3)
