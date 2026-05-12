@@ -133,8 +133,8 @@ importers:
         specifier: ^15.0.0
         version: 15.0.0(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7))
       eslint-config-airbnb-typescript:
-        specifier: ^17.1.0
-        version: 17.1.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7))
+        specifier: ^18.0.0
+        version: 18.0.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7))
       eslint-config-next:
         specifier: ^14.2.2
         version: 14.2.35(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3)
@@ -1904,13 +1904,12 @@ packages:
       eslint: ^7.32.0 || ^8.2.0
       eslint-plugin-import: ^2.25.2
 
-  eslint-config-airbnb-typescript@17.1.0:
-    resolution: {integrity: sha512-GPxI5URre6dDpJ0CtcthSZVBAfI+Uw7un5OYNVxP2EYi3H81Jw701yFP7AU+/vCE7xBtFmjge7kfhhk4+RAiig==}
+  eslint-config-airbnb-typescript@18.0.0:
+    resolution: {integrity: sha512-oc+Lxzgzsu8FQyFVa4QFaVKiitTYiiW3frB9KYW5OWdPrqFc7FzxgB20hP4cHMlr+MBzGcLl3jnCOVOydL9mIg==}
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': ^5.13.0 || ^6.0.0
-      '@typescript-eslint/parser': ^5.0.0 || ^6.0.0
-      eslint: ^7.32.0 || ^8.2.0
-      eslint-plugin-import: ^2.25.3
+      '@typescript-eslint/eslint-plugin': ^7.0.0
+      '@typescript-eslint/parser': ^7.0.0
+      eslint: ^8.56.0
 
   eslint-config-next@14.2.35:
     resolution: {integrity: sha512-BpLsv01UisH193WyT/1lpHqq5iJ/Orfz9h/NOOlAmTUq4GY349PextQ62K4XpnaM9supeiEn3TaOTeQO07gURg==}
@@ -3726,6 +3725,7 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -5836,13 +5836,14 @@ snapshots:
       object.entries: 1.1.9
       semver: 6.3.1
 
-  eslint-config-airbnb-typescript@17.1.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7)):
+  eslint-config-airbnb-typescript@18.0.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7)):
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3)
       '@typescript-eslint/parser': 6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3)
       eslint: 10.0.0(jiti@1.21.7)
       eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.32.0)(eslint@10.0.0(jiti@1.21.7))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint-import-resolver-typescript@3.10.1)(eslint@10.0.0(jiti@1.21.7))
+    transitivePeerDependencies:
+      - eslint-plugin-import
 
   eslint-config-next@14.2.35(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3):
     dependencies:
