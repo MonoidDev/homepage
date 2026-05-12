@@ -163,8 +163,8 @@ importers:
         specifier: ^3.1.0
         version: 3.2.0(@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))(typescript@5.3.3))(eslint@10.0.0(jiti@1.21.7))
       husky:
-        specifier: ^8.0.3
-        version: 8.0.3
+        specifier: ^9.0.0
+        version: 9.1.7
       lint-staged:
         specifier: ^15.2.2
         version: 15.5.2
@@ -2277,9 +2277,9 @@ packages:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
 
-  husky@8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   ieee754@1.2.1:
@@ -3726,6 +3726,7 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -6296,7 +6297,7 @@ snapshots:
 
   human-signals@5.0.0: {}
 
-  husky@8.0.3: {}
+  husky@9.1.7: {}
 
   ieee754@1.2.1: {}
 
