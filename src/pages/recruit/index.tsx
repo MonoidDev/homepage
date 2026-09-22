@@ -12,11 +12,10 @@ const useStrings = makeStrings({
     slogan: '“Monoid is an oasis for talented engineers and creators. ”',
     benefits: [
       'hybrid & flexible hours',
-      'home office improvement incentives',
-      'flat management',
       'vacation incentives',
-      'results oriented',
+      'flat management',
       'paid time off (full-time employees only)',
+      'results oriented',
     ],
     apply: 'APPLY',
   },
