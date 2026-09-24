@@ -11,7 +11,7 @@ const useStrings = makeStrings({
     title: 'A productive playground',
     slogan: '“Monoid is an oasis for talented engineers and creators. ”',
     benefits: [
-      'hybrid & flexible hours',
+      'flexible hours',
       'vacation incentives',
       'flat management',
       'paid time off (full-time employees only)',

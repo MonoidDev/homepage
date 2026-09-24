@@ -29,7 +29,7 @@ export const useRecruitStrings = makeStrings({
               At G.K. Monoid, we build impressive and intuitive user interfaces
               for our clients. We are looking for experienced frontend engineers
               who are passionate about turning product designs into working
-              features. Remote work and part-time participation are available.
+              features. Part-time participation is available.
             </p>
             <h3>What you will be doing</h3>
             <p>
@@ -73,7 +73,7 @@ export const useRecruitStrings = makeStrings({
               <br />
             </p>
             <h3>Location</h3>
-            <p>Tokyo, Japan / Remote</p>
+            <p>Tokyo, Japan</p>
           </>
         ),
       },
@@ -126,7 +126,7 @@ export const useRecruitStrings = makeStrings({
               <br />
             </p>
             <h3>Location</h3>
-            <p>Tokyo, Japan / Remote</p>
+            <p>Tokyo, Japan</p>
           </>
         ),
       },
@@ -176,7 +176,7 @@ export const useRecruitStrings = makeStrings({
               <br />
             </p>
             <h3>Location</h3>
-            <p>Tokyo, Japan / Remote</p>
+            <p>Tokyo, Japan</p>
           </>
         ),
       },
@@ -244,7 +244,7 @@ export const useRecruitStrings = makeStrings({
               <br />
             </p>
             <h3>Location</h3>
-            <p>Tokyo, Japan / Remote</p>
+            <p>Tokyo, Japan</p>
           </>
         ),
       },
