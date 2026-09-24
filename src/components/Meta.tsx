@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { NextSeo, JobPostingJsonLd, LogoJsonLd } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { NextSeo, JobPostingJsonLd, LogoJsonLd } from 'next-seo';
 
 import { useDescriptionStrings, useKeywordsStrings } from '@/data/seoConfig';
 
@@ -146,9 +146,7 @@ export const Meta: React.VFC<MetaProps> = (props) => {
             unitText: 'HOUR',
           }}
           employmentType="CONTRACTOR"
-          jobLocationType="TELECOMMUTE"
           validThrough={new Date().toISOString()}
-          applicantLocationRequirements="ANY"
         />
       )}
     </>
