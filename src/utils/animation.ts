@@ -177,3 +177,77 @@ export const useChain = (items: ChainItem[]): UseChainReturn => {
     reset,
   };
 };
+
+export const mix = (from: number, to: number, t: number) =>
+  from + (to - from) * t;
+
+/** Maps `progress` inside [start, end] to [0, 1], clamped outside the window. */
+export const segment = (progress: number, start: number, end: number) =>
+  Math.min(1, Math.max(0, (progress - start) / (end - start)));
+
+export const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
+
+export const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+
+/**
+ * Hover timeline: `progress` moves linearly toward 1 on enter and toward 0 on
+ * leave, at a speed of one full run per `enterMs` / `leaveMs`, always starting
+ * from its current value — so leaving mid-animation reverses smoothly instead
+ * of snapping to the end first. Durations are in elapsed time, so the speed
+ * doesn't depend on the display's refresh rate. With reduced motion it jumps
+ * straight to the target.
+ */
+export const useHoverTimeline = (
+  enterMs: number,
+  leaveMs: number = enterMs,
+) => {
+  const [progress, setProgress] = useState(0);
+  const progressRef = useRef(0);
+  const frameRef = useRef<number>();
+
+  const runTo = (target: 0 | 1) => {
+    if (frameRef.current !== undefined) {
+      cancelAnimationFrame(frameRef.current);
+    }
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    const duration = reduceMotion ? 0 : target === 1 ? enterMs : leaveMs;
+    const from = progressRef.current;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      // A frame's timestamp can be slightly older than the hover event.
+      const elapsed = Math.max(0, now - start);
+      const travelled = duration === 0 ? 1 : elapsed / duration;
+      const next =
+        target === 1
+          ? Math.min(1, from + travelled)
+          : Math.max(0, from - travelled);
+
+      progressRef.current = next;
+      setProgress(next);
+      frameRef.current =
+        next === target ? undefined : requestAnimationFrame(step);
+    };
+
+    frameRef.current = requestAnimationFrame(step);
+  };
+
+  useEffect(
+    () => () => {
+      if (frameRef.current !== undefined) {
+        cancelAnimationFrame(frameRef.current);
+      }
+    },
+    [],
+  );
+
+  return {
+    progress,
+    enter: () => runTo(1),
+    leave: () => runTo(0),
+  };
+};

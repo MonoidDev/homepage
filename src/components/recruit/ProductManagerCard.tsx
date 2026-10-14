@@ -2,7 +2,14 @@ import { makeStrings } from '@monoid-dev/use-strings';
 import { useRouter } from 'next/router';
 
 import { Card } from './Card';
-import { useChain } from '@/utils/animation';
+import {
+  easeInOutCubic,
+  easeOutCubic,
+  mix,
+  segment,
+  useHoverTimeline,
+} from '@/utils/animation';
+import { getPointPath } from '@/utils/svg';
 
 const useStrings = makeStrings({
   'en-US': {
@@ -12,227 +19,125 @@ const useStrings = makeStrings({
 
 type Point = readonly [number, number];
 
-const stagePoints: Point[] = [
-  [18, 108],
-  [42, 78],
-  [68, 92],
-  [96, 58],
+const along = (from: Point, to: Point, t: number): Point => [
+  mix(from[0], to[0], t),
+  mix(from[1], to[1], t),
 ];
 
-const clamp = (value: number, min = 0, max = 1) =>
-  Math.min(max, Math.max(min, value));
+const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-const mix = (from: number, to: number, t: number) => from + (to - from) * t;
+// Trig results can differ in the last digit between Node and the browser,
+// which would make server and client markup disagree during hydration.
+const round = (value: number) => Math.round(value * 1000) / 1000;
 
-const interpolatePoint = (points: Point[], t: number): Point => {
-  if (t <= 0) {
-    return points[0]!;
-  }
+// The prism: an equilateral triangle (side 52) standing on its base.
+const APEX: Point = [64, 38];
+const BASE_LEFT: Point = [38, 83];
+const BASE_RIGHT: Point = [90, 83];
 
-  if (t >= 1) {
-    return points[points.length - 1]!;
-  }
+// The camera starts zoomed in around the prism.
+const FOCUS: Point = [64, 66];
 
-  const scaled = t * (points.length - 1);
-  const index = Math.floor(scaled);
-  const localProgress = scaled - index;
-  const from = points[index]!;
-  const to = points[index + 1]!;
+// One decisive beam leaves through the middle of the right face. It starts
+// just inside the prism and ends just past the card's right edge.
+const BEAM_EXIT = along(APEX, BASE_RIGHT, 0.5);
+const BEAM_HEADING: Point = [132, 42];
+const BEAM_FROM = along(BEAM_EXIT, BEAM_HEADING, -0.05);
+const BEAM_TO = along(BEAM_EXIT, BEAM_HEADING, 0.8);
 
-  return [
-    mix(from[0], to[0], localProgress),
-    mix(from[1], to[1], localProgress),
-  ] as const;
-};
+// Inputs enter from beyond the left edge. At rest each one points somewhere
+// else (`drift`); on hover it swings onto the prism's left face.
+const RAYS = [
+  { y: 22, face: 0.3, drift: 14 },
+  { y: 44, face: 0.4, drift: -10 },
+  { y: 66, face: 0.5, drift: 7 },
+  { y: 88, face: 0.6, drift: -13 },
+  { y: 110, face: 0.7, drift: 10 },
+].map(({ y, face, drift }) => {
+  const origin: Point = [-12, y];
+  const target = along(APEX, BASE_LEFT, face);
+  const angle = Math.atan2(target[1] - origin[1], target[0] - origin[0]);
+
+  return {
+    origin,
+    fromAngle: angle + toRadians(drift),
+    toAngle: angle,
+    fromLength: 170,
+    toLength: Math.hypot(target[0] - origin[0], target[1] - origin[1]) + 1,
+  };
+});
 
 export const ProductManagerCard: React.VFC = () => {
   const strings = useStrings();
   const router = useRouter();
+  const { progress, enter, leave } = useHoverTimeline(1400, 1000);
 
-  const chain = useChain([
-    {
-      from: 0,
-      to: 1,
-      interpolate: (frame) => Math.min(frame, 56) / 56,
-    },
-  ]);
-
-  const animated = chain.currentValue;
-  const pulse = (Math.sin(animated * Math.PI * 6) + 1) / 2;
-  const travel = animated * (stagePoints.length - 1);
-  const [markerX, markerY] = interpolatePoint(stagePoints, animated);
-
-  const color = `rgb(${255 * (1 - animated)}, ${255 * (1 - animated)}, ${
-    255 * (1 - animated)
-  })`;
-
-  const backgroundColor = `rgb(${255 * animated}, ${255 * animated}, ${
-    255 * animated
-  })`;
-
-  const boardFill = `rgba(${255 * animated}, ${255 * animated}, ${
-    255 * animated
-  }, ${0.08 + animated * 0.24})`;
-
-  const scale = mix(1.36, 1, animated);
-  const shiftX = mix(8, 0, animated);
-  const shiftY = mix(-8, 0, animated);
+  const zoom = mix(1.4, 1, easeOutCubic(segment(progress, 0, 0.5)));
+  const paper = Math.round(255 * easeInOutCubic(segment(progress, 0.3, 0.5)));
+  const color = `rgb(${255 - paper}, ${255 - paper}, ${255 - paper})`;
+  const backgroundColor = `rgb(${paper}, ${paper}, ${paper})`;
+  // Constant speed, like light: it leaves the frame at full speed, so leaving
+  // the card starts retracting it at once.
+  const beamEnd = along(BEAM_FROM, BEAM_TO, segment(progress, 0.6, 1));
 
   return (
     <Card
-      onMouseEnter={() => chain.play()}
-      onMouseLeave={() => chain.reverse()}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
       onClick={() => router.push('/recruit/PRODUCTMANAGER')}
       color={color}
       backgroundColor={backgroundColor}
     >
-      <div className="h-full w-full flex items-end">
-        <div
-          className="absolute z-10 top-0 left-0 right-0 bottom-0"
-          style={{
-            transform: `
-              scale(${scale})
-              translateX(${shiftX}%)
-              translateY(${shiftY}%)
-            `,
-          }}
+      <svg
+        className="absolute top-0 left-0 w-full"
+        viewBox="0 0 120 160"
+        aria-hidden="true"
+      >
+        <g
+          transform={`translate(${FOCUS[0]} ${FOCUS[1]}) scale(${round(
+            zoom,
+          )}) translate(${-FOCUS[0]} ${-FOCUS[1]})`}
+          stroke="currentColor"
+          strokeWidth={round(1 / zoom)}
         >
-          <svg viewBox="0 0 120 160">
-            <rect
-              x={12}
-              y={36}
-              width={96}
-              height={86}
-              rx={8}
-              fill={boardFill}
-              stroke="currentColor"
-              strokeOpacity={0.45 + animated * 0.55}
-            />
+          {RAYS.map((ray, index) => {
+            const t = easeInOutCubic(
+              segment(progress, 0.04 + index * 0.05, 0.38 + index * 0.05),
+            );
+            const angle = mix(ray.fromAngle, ray.toAngle, t);
+            // Lengths lag the swing a little, so the tails are drawn back
+            // through the prism rather than stopping in mid-air.
+            const length = mix(ray.fromLength, ray.toLength, t ** 2);
 
-            {[58, 80, 102].map((y) => (
+            return (
               <line
-                key={`lane-${y}`}
-                x1={20}
-                y1={y}
-                x2={100}
-                y2={y}
-                stroke="currentColor"
-                strokeOpacity={0.15 + animated * 0.45}
+                key={ray.origin[1]}
+                x1={ray.origin[0]}
+                y1={ray.origin[1]}
+                x2={round(ray.origin[0] + Math.cos(angle) * length)}
+                y2={round(ray.origin[1] + Math.sin(angle) * length)}
               />
-            ))}
+            );
+          })}
 
-            {[34, 58, 82].map((x) => (
-              <line
-                key={`stage-${x}`}
-                x1={x}
-                y1={44}
-                x2={x}
-                y2={114}
-                stroke="currentColor"
-                strokeOpacity={0.12 + animated * 0.38}
-              />
-            ))}
+          <line
+            x1={round(BEAM_FROM[0])}
+            y1={round(BEAM_FROM[1])}
+            x2={round(beamEnd[0])}
+            y2={round(beamEnd[1])}
+            strokeWidth={round(2.4 / zoom)}
+          />
 
-            {[
-              { x: 20, y: 44, width: 15 },
-              { x: 41, y: 48, width: 17 },
-              { x: 64, y: 42, width: 13 },
-            ].map((card, index) => (
-              <rect
-                key={`card-${card.x}-${card.y}`}
-                x={card.x + (1 - animated) * (6 - index * 2)}
-                y={card.y - animated * 4 - pulse * (index === 1 ? 1.8 : 0.8)}
-                width={card.width}
-                height={8}
-                rx={1.5}
-                fill={boardFill}
-                stroke="currentColor"
-                strokeOpacity={0.25 + animated * 0.5}
-              />
-            ))}
+          <polygon
+            points={getPointPath(APEX, BASE_RIGHT, BASE_LEFT)}
+            fill={backgroundColor}
+          />
+        </g>
+      </svg>
 
-            {stagePoints.slice(0, -1).map((from, index) => {
-              const to = stagePoints[index + 1]!;
-              const drawnProgress = clamp(travel - index);
-              const drawnX = mix(from[0], to[0], drawnProgress);
-              const drawnY = mix(from[1], to[1], drawnProgress);
-
-              return (
-                <g key={`segment-${from[0]}-${from[1]}`}>
-                  <line
-                    x1={from[0]}
-                    y1={from[1]}
-                    x2={to[0]}
-                    y2={to[1]}
-                    stroke="currentColor"
-                    strokeOpacity={0.2 + animated * 0.3}
-                    strokeWidth={1.5}
-                  />
-                  <line
-                    x1={from[0]}
-                    y1={from[1]}
-                    x2={drawnX}
-                    y2={drawnY}
-                    stroke="currentColor"
-                    strokeOpacity={0.6 + animated * 0.4}
-                    strokeWidth={2}
-                  />
-                </g>
-              );
-            })}
-
-            {stagePoints.map((point, index) => {
-              const focus = clamp(1 - Math.abs(travel - index));
-              const visited = travel >= index ? 1 : 0;
-              const radius = 2.4 + focus * 1.2 + pulse * 0.9 * focus;
-
-              return (
-                <circle
-                  key={`node-${point[0]}-${point[1]}`}
-                  cx={point[0]}
-                  cy={point[1]}
-                  r={radius}
-                  stroke="currentColor"
-                  strokeWidth={1.2}
-                  strokeOpacity={0.45 + visited * 0.55}
-                  fill={visited ? 'currentColor' : 'none'}
-                  fillOpacity={0.2 + visited * 0.55}
-                />
-              );
-            })}
-
-            <circle
-              cx={markerX}
-              cy={markerY}
-              r={5.5 + pulse * 1.8}
-              stroke="currentColor"
-              strokeOpacity={0.2 + animated * 0.35}
-              fill="none"
-            />
-
-            <g
-              transform={`translate(${markerX} ${markerY}) rotate(${
-                45 + (pulse - 0.5) * 10
-              })`}
-            >
-              <rect
-                x={-4.2}
-                y={-4.2}
-                width={8.4}
-                height={8.4}
-                rx={1.1}
-                fill={boardFill}
-                stroke="currentColor"
-                strokeWidth={1.2}
-              />
-            </g>
-          </svg>
-        </div>
-
-        <h2 className="absolute bottom-[2rem] z-20 text-[40px] leading-[40px] text-left">
-          {strings.title}
-        </h2>
-      </div>
+      <h2 className="absolute bottom-[2rem] z-20 text-[40px] leading-[40px]">
+        {strings.title}
+      </h2>
     </Card>
   );
 };
