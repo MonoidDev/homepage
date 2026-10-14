@@ -10,16 +10,17 @@ export const GoBackTriangleTitle: React.FC<GoBackTriangleTitle> = (props) => {
   const { children, onClick, noIcon = false } = props;
 
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
       className="bg-white h-[100px] flex items-center pl-[1rem]"
     >
       <div className="flex items-center text-black leading-none gap-x-[1.25rem]">
-        {!noIcon && <LeftTriangleMobile />}
+        {!noIcon && <LeftTriangleMobile aria-hidden="true" />}
         <div className="text-[45px] font-loose font-bold leading-none pt-[7px]">
           {children}
         </div>
       </div>
-    </div>
+    </button>
   );
 };

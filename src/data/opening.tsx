@@ -11,7 +11,8 @@ export const useOpeningStrings = makeStrings({
     ),
     introTitle: (
       <>
-        Monoidは、上海と東京の拠点からグローバルに活動するデザイン＆テクノロジー会社です。
+        Monoidは、上海と東京の拠点からグローバルに活動するデザイン＆テクノロジー
+        <span className="whitespace-nowrap">会社です。</span>
       </>
     ),
     introDetails: (

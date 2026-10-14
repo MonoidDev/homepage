@@ -7,10 +7,11 @@ import { GoBackTriangleTitle } from './GoBackTriangleTitle';
 import styles from './index.module.css';
 import { MobileFileInput } from './MobileFileInput';
 import {
-  educationPlaceholder,
   isDesigner,
   isProgrammer,
   RecruitForm,
+  requiresTechSkills,
+  useCandidateStrings,
   useRecruitForm,
 } from './recruitForm';
 import { ScrollInput } from './ScrollInput';
@@ -19,11 +20,14 @@ import { TextInput } from './TextInput';
 
 export interface MobileApplyFormProps {
   name: string;
+  submitting?: boolean;
+  submissionError?: string;
   onSubmit: (values: RecruitForm) => Promise<void>;
 }
 
 export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
-  const { name, onSubmit } = props;
+  const { name, onSubmit, submitting, submissionError } = props;
+  const strings = useCandidateStrings();
 
   const programmer = isProgrammer(name as string);
   const designer = isDesigner(name as string);
@@ -34,97 +38,138 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
   const router = useRouter();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const previousStep = useRef(step);
+  const focusingError = useRef(false);
 
   useEffect(() => {
     scrollContainerRef.current?.scroll(0, 0);
+    if (previousStep.current !== step && !focusingError.current) {
+      scrollContainerRef.current
+        ?.querySelector(`[data-step="${step}"]`)
+        ?.querySelector<HTMLElement>('h2, input, textarea, button')
+        ?.focus({ preventScroll: true });
+    }
+    previousStep.current = step;
   }, [step]);
 
-  const { control, reset, handleSubmit, formState, registry } =
+  const { control, trigger, setFocus, handleSubmit, formState, registry } =
     useRecruitForm();
 
-  const validateOrJump = async (): Promise<RecruitForm> => {
-    let result: RecruitForm | undefined;
-    await handleSubmit(
-      (v) => {
-        result = v;
-      },
-      (errors) => {
-        if (errors.name || errors.email || errors.website || errors.github_id) {
-          setStep(1);
-        } else if (
-          errors.education_experience ||
-          errors.technology_skills ||
-          errors.work_experience
-        ) {
-          setStep(2);
-        } else if (errors.resume_urls) {
-          setStep(3);
-        } else if (errors.cover_letter) {
-          setStep(4);
-        }
-        throw new Error('Invalid form');
-      },
-    )();
-
-    return result!;
+  const next = async () => {
+    const fields: (keyof RecruitForm)[] =
+      step === 1
+        ? [
+            'name',
+            'email',
+            ...(programmer ? ['github_id' as const] : []),
+            ...(designer ? ['website' as const] : []),
+          ]
+        : step === 2
+          ? [
+              'education_experience',
+              'work_experience',
+              ...(requiresTechSkills(name)
+                ? ['technology_skills' as const]
+                : []),
+            ]
+          : [];
+    if (await trigger(fields, { shouldFocus: true })) {
+      setStep(step + 1);
+      setMaxStep(Math.max(maxStep, step + 1));
+    }
+  };
+  const invalid = (errors: typeof formState.errors) => {
+    const first = Object.keys(errors)[0] as keyof RecruitForm;
+    const target = ['name', 'email', 'github_id', 'website'].includes(first)
+      ? 1
+      : [
+            'education_experience',
+            'technology_skills',
+            'work_experience',
+          ].includes(first)
+        ? 2
+        : first === 'resume_urls'
+          ? 3
+          : 4;
+    focusingError.current = true;
+    setStep(target);
+    requestAnimationFrame(() => {
+      setFocus(first);
+      focusingError.current = false;
+    });
   };
 
   const renderTitle = (title: string) => (
-    <h3 className="font-loose font-bold text-[25px]">{title}</h3>
+    <h2 tabIndex={-1} className="font-loose font-bold text-[25px]">
+      {title}
+    </h2>
   );
 
   const renderStepper = () => (
-    <div className="h-[5px] flex gap-x-[5px]">
+    <nav
+      aria-label={strings.application}
+      className="flex gap-x-[5px] bg-white px-4"
+    >
       {new Array(4).fill(1).map((_, i) => (
-        <div
+        <button
+          type="button"
+          aria-label={`${strings.step} ${i + 1}`}
+          aria-current={step === i + 1 ? 'step' : undefined}
+          disabled={i >= maxStep || submitting}
           key={i}
-          className={clsx('flex-1 bg-black', i >= maxStep && 'bg-opacity-30')}
+          className={clsx(
+            'flex-1 h-[30px] border-b-[5px] border-black text-[13px]',
+            i >= maxStep && 'border-opacity-30',
+          )}
           onClick={() => {
             if (i < maxStep) setStep(i + 1);
           }}
-        />
+        >
+          {i + 1}
+        </button>
       ))}
+    </nav>
+  );
+
+  const renderNext = () => (
+    <div className="bg-white min-h-[85px] shrink-0 flex justify-center items-center">
+      {step < 4 ? (
+        <button
+          key="next"
+          type="button"
+          className={styles.nextMobiltTitle}
+          disabled={submitting}
+          onClick={(event) => {
+            event.preventDefault();
+            void next();
+          }}
+        >
+          {strings.next}
+        </button>
+      ) : (
+        <button
+          key="submit"
+          type="submit"
+          className={styles.nextMobiltTitle}
+          disabled={submitting || formState.isSubmitting}
+        >
+          {submitting ? strings.submitting : strings.submit}
+        </button>
+      )}
     </div>
   );
 
-  const renderNext = () => {
-    return (
-      <div className="bg-white h-[100px] shrink-0 flex justify-center items-center">
-        <button
-          className={styles.nextMobiltTitle}
-          onClick={async () => {
-            if (step <= 3) {
-              await validateOrJump();
-
-              setStep(step + 1);
-              if (step >= maxStep) {
-                setMaxStep(step + 1);
-              }
-
-              reset(undefined, { keepValues: true });
-            } else if (confirm('Are you sure with your submission?')) {
-              await validateOrJump();
-              handleSubmit(onSubmit)();
-            }
-          }}
-        >
-          {step <= 3 ? 'NEXT' : 'SUBMIT'}
-        </button>
-      </div>
-    );
-  };
-
   const renderStep1 = () => (
     <>
-      {renderTitle('Contact Details')}
+      {renderTitle(strings.contact)}
       <TextInput
-        label="Name"
+        label={`${strings.name} *`}
         placeholder="Joy Monoid"
         error={formState.errors.name}
         {...registry.name()}
       />
       <TextInput
-        label="Email"
+        label={`${strings.email} *`}
         type="email"
         placeholder="joy@monoidtech.com"
         error={formState.errors.email}
@@ -132,7 +177,7 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
       />
       {programmer && (
         <TextInput
-          label="Github ID"
+          label={`${strings.github} *`}
           placeholder="joymonoid"
           error={formState.errors.github_id}
           {...registry.github_id()}
@@ -141,26 +186,26 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
 
       {designer && (
         <TextInput
-          label="Website"
+          label={`${strings.website} *`}
           placeholder="https://monoid.co.jp"
           error={formState.errors.website}
           {...registry.website()}
         />
       )}
 
-      {renderTitle('Language Skills')}
+      {renderTitle(strings.languages)}
       <ScrollInput
-        label="English"
+        label={strings.english}
         name="language_english"
         control={control as any}
       />
       <ScrollInput
-        label="Chinese"
+        label={strings.chinese}
         name="language_chinese"
         control={control as any}
       />
       <ScrollInput
-        label="Japanese"
+        label={strings.japanese}
         name="language_japanese"
         control={control as any}
       />
@@ -169,17 +214,17 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
 
   const renderStep2 = () => (
     <>
-      {renderTitle('Experiences')}
+      {renderTitle(strings.experiences)}
       <TextInput
-        label="Education"
+        label={`${strings.education} *`}
         multiline
-        placeholder={educationPlaceholder}
+        placeholder={strings.educationExample}
         error={formState.errors.education_experience}
         {...registry.education_experience()}
       />
-      {programmer && (
+      {requiresTechSkills(name) && (
         <SkillInput
-          label="Technology Skills"
+          label={`${strings.skills} *`}
           control={control as any}
           error={formState.errors.technology_skills as any}
           {...registry.technology_skills()}
@@ -187,9 +232,9 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
       )}
 
       <TextInput
-        label="Work Experience"
+        label={`${strings.work} *`}
         multiline
-        placeholder={educationPlaceholder}
+        placeholder={strings.workExample}
         error={formState.errors.work_experience}
         {...registry.work_experience()}
       />
@@ -198,15 +243,15 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
 
   const renderStep3 = () => (
     <>
-      {renderTitle('Resume')}
+      {renderTitle(strings.resume)}
       <MobileFileInput name="resume_urls" control={control as any} />
     </>
   );
 
   const renderStep4 = () => (
     <>
-      {renderTitle('Cover letter (optional)')}
       <TextInput
+        label={`${strings.cover} (${strings.optional})`}
         multiline
         error={formState.errors.cover_letter}
         {...{
@@ -218,10 +263,9 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
   );
 
   const stepContainer = (selfStep: number, renderer: () => ReactNode) => {
-    if (selfStep > maxStep) return null;
-
     return (
       <div
+        data-step={selfStep}
         className={clsx(
           'flex flex-col gap-y-[1rem]',
           selfStep !== step && 'hidden',
@@ -233,12 +277,13 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
   };
 
   return (
-    <div className=">sm:hidden flex-1 shrink min-h-0 flex flex-col">
-      <div className="fixed top-0 left-0 flex flex-col">
+    <main className=">sm:hidden flex-1 shrink min-h-0 flex flex-col">
+      <h1 className="sr-only">{strings.application}</h1>
+      <div className="fixed top-0 left-0 z-20 flex flex-col">
         <GoBackTriangleTitle
           onClick={() => {
             if (step === 1) {
-              if (confirm('Do you want to discard your form?')) {
+              if (confirm(strings.discard)) {
                 router.push(`/recruit/${name}`);
               }
             } else {
@@ -246,25 +291,55 @@ export const MobileApplyForm: React.VFC<MobileApplyFormProps> = (props) => {
             }
           }}
         >
-          {step === 1 ? 'EXIT' : 'BACK'}
+          {step === 1 ? strings.exit : strings.back}
         </GoBackTriangleTitle>
       </div>
 
-      <div
-        ref={scrollContainerRef}
-        className={clsx(
-          'flex-1 shrink min-h-0 overflow-auto',
-          'flex flex-col p-[2rem] bg-black bg-opacity-[0.15] rounded-t-[2rem]',
-        )}
+      <form
+        noValidate
+        onSubmit={handleSubmit(async (values) => {
+          if (step < 4) {
+            await next();
+          } else {
+            await onSubmit(values);
+          }
+        }, invalid)}
+        aria-busy={submitting}
+        className="flex flex-col flex-1 min-h-0"
       >
-        {stepContainer(1, renderStep1)}
-        {stepContainer(2, renderStep2)}
-        {stepContainer(3, renderStep3)}
-        {stepContainer(4, renderStep4)}
-      </div>
+        <div
+          role="region"
+          aria-label={`${strings.step} ${step}`}
+          tabIndex={0}
+          ref={scrollContainerRef}
+          className={clsx(
+            'flex-1 shrink min-h-0 overflow-auto',
+            'flex flex-col p-[2rem] bg-black bg-opacity-[0.15] rounded-t-[2rem]',
+          )}
+        >
+          <p className="font-loose text-[13px] mb-4">{strings.requirements}</p>
+          <fieldset
+            disabled={submitting || formState.isSubmitting}
+            className="min-w-0"
+          >
+            <legend className="sr-only">
+              {strings.step} {step}
+            </legend>
+            {stepContainer(1, renderStep1)}
+            {stepContainer(2, renderStep2)}
+            {stepContainer(3, renderStep3)}
+            {stepContainer(4, renderStep4)}
+          </fieldset>
+          {submissionError && (
+            <p role="alert" className="font-loose mt-4">
+              {submissionError}
+            </p>
+          )}
+        </div>
 
-      {renderStepper()}
-      {renderNext()}
-    </div>
+        {renderStepper()}
+        {renderNext()}
+      </form>
+    </main>
   );
 };

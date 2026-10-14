@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getRecruitById, Recruit } from '@/apis/recruit';
+import { safeDownloadUrl, safeHttpUrl } from '@/apis/utils';
 import { AdminContainer } from '@/components/Layout/AdminContainer';
 import styles from '@/pages/admin/index.module.css';
 import { withAuth } from '@/utils/withAuth';
@@ -53,9 +54,17 @@ export default function RecruitId(props: RecruitIdProps) {
           )}
           {renderInfo(
             'Website',
-            <a href={data.website} target="_blank" rel="noopenner noreferrer">
-              {data.website}
-            </a>,
+            safeHttpUrl(data.website) ? (
+              <a
+                href={safeHttpUrl(data.website)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {data.website}
+              </a>
+            ) : (
+              data.website
+            ),
           )}
         </div>
 
@@ -78,11 +87,21 @@ export default function RecruitId(props: RecruitIdProps) {
 
         {renderTitle('Resume etc.')}
         <div className="flex flex-col">
-          {data.resume_urls.map((resume, i) => (
-            <a className="text-green-500" key={i} href={resume} target="_blank">
-              {resume}
-            </a>
-          ))}
+          {data.resume_urls.map((resume, i) =>
+            safeDownloadUrl(resume) ? (
+              <a
+                className="underline"
+                key={i}
+                href={safeDownloadUrl(resume)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {resume}
+              </a>
+            ) : (
+              <span key={i}>{resume}</span>
+            ),
+          )}
           {data.resume_urls.length === 0 && (
             <span className="text-gray-600">Not uploaded. </span>
           )}

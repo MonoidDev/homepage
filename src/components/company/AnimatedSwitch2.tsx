@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-// eslint-disable-next-line no-restricted-imports
-import { sumBy } from 'lodash';
+import Link from 'next/link';
 
 import { useCompanyStrings } from '@/data/company';
 import { useAnimated } from '@/utils/animation';
@@ -17,7 +16,7 @@ export const AnimatedSwitch2: React.FC<{
   current: string;
   onChangeCurrent: (c: string) => void;
 }> = (props) => {
-  const { current, onChangeCurrent } = props;
+  const { current } = props;
 
   const companyStrings = useCompanyStrings();
 
@@ -42,7 +41,10 @@ export const AnimatedSwitch2: React.FC<{
   const getOffsetByValue = (value: string) => {
     const i = items.findIndex((item) => item.value === value);
 
-    return sumBy(items.slice(0, i), (v) => v.width) + i * ITEM_GAP;
+    return (
+      items.slice(0, i).reduce((total, item) => total + item.width, 0) +
+      i * ITEM_GAP
+    );
   };
 
   const getWidthByValue = (value: string) =>
@@ -61,22 +63,23 @@ export const AnimatedSwitch2: React.FC<{
   );
 
   return (
-    <div className="flex flex-col border-b border-white border-opacity-20">
+    <nav className="flex flex-col border-b border-white border-opacity-20">
       <div className="flex gap-x-[40px] font-loose font-bold text-[30px]">
         {items.map((item) => (
-          <div
+          <Link
+            href={`/company/${item.value}/`}
+            aria-current={item.value === current ? 'page' : undefined}
             key={item.value}
             className={clsx(
-              item.value !== current && 'opacity-20',
+              item.value !== current && '!text-[#B3B3B3]',
               'text-white cursor-pointer tracking-tighter',
             )}
             style={{
               width: item.width,
             }}
-            onClick={() => onChangeCurrent(item.value)}
           >
             {item.label}
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -84,6 +87,6 @@ export const AnimatedSwitch2: React.FC<{
         className="h-[6px] w-[100px] bg-white origin-left"
         style={{ transform: `translateX(${offset}px) scaleX(${width}%)` }}
       />
-    </div>
+    </nav>
   );
 };

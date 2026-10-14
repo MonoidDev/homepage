@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 
 import { useCompanyStrings } from '@/data/company';
 import { useAnimated } from '@/utils/animation';
@@ -9,7 +10,7 @@ export interface MobileAnimatedSwitchProps {
 }
 
 export const MobileAnimatedSwitch = (props: MobileAnimatedSwitchProps) => {
-  const { current, onChangeCurrent } = props;
+  const { current } = props;
 
   const companyStrings = useCompanyStrings();
 
@@ -27,21 +28,22 @@ export const MobileAnimatedSwitch = (props: MobileAnimatedSwitchProps) => {
 
   const renderItem = (value: string, title: string) => {
     return (
-      <div
+      <Link
+        href={`/company/${value}/`}
+        aria-current={value === current ? 'page' : undefined}
         className={clsx(
           '[writing-mode:vertical-lr] font-bold font-loose transition-opacity transition-colors',
-          value === current && 'opacity-60',
-          value !== current && 'text-[#B3B3B3] opacity-30',
+          value === current && 'text-white',
+          value !== current && 'text-[#B3B3B3]',
         )}
-        onClick={() => onChangeCurrent(value)}
       >
         {title}
-      </div>
+      </Link>
     );
   };
 
   return (
-    <div
+    <nav
       className={clsx(
         'relative h-full w-full flex flex-col items-end justify-between text-[20px] py-2',
         'border-l border-white border-opacity-30',
@@ -54,6 +56,6 @@ export const MobileAnimatedSwitch = (props: MobileAnimatedSwitchProps) => {
       {renderItem('vision', companyStrings.vision)}
       {renderItem('services', companyStrings.services)}
       {renderItem('info', companyStrings.info)}
-    </div>
+    </nav>
   );
 };

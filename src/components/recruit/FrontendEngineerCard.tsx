@@ -1,5 +1,4 @@
 import { makeStrings } from '@monoid-dev/use-strings';
-import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import FrontendEngineerArray from '@/assets/images/FrontendEngineerArray.svg';
@@ -14,8 +13,6 @@ const useStrings = makeStrings({
 
 export const FrontendEngineerCard: React.VFC = () => {
   const strings = useStrings();
-
-  const router = useRouter();
 
   const chain = useChain([
     {
@@ -44,9 +41,9 @@ export const FrontendEngineerCard: React.VFC = () => {
 
   return (
     <Card
-      onMouseEnter={() => chain.play()}
-      onMouseLeave={() => chain.reverse()}
-      onClick={() => router.push('/recruit/FRONTENDENGINEER')}
+      onEnter={() => chain.play()}
+      onLeave={() => chain.reverse()}
+      href="/recruit/FRONTENDENGINEER"
       color={color}
       backgroundColor={backgroundColor}
     >
@@ -65,7 +62,7 @@ export const FrontendEngineerCard: React.VFC = () => {
             `,
           }}
         >
-          <svg viewBox="0 0 120 160">
+          <svg viewBox="0 0 120 160" aria-hidden="true">
             <FrontendEngineerArray
               width={102}
               height={60}

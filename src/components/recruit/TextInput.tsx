@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useId } from 'react';
 
-import clsx from 'clsx';
 import { FieldError } from 'react-hook-form';
 
 export interface TextInputProps extends React.ComponentProps<'input'> {
@@ -10,51 +9,41 @@ export interface TextInputProps extends React.ComponentProps<'input'> {
 }
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  (props, ref) => {
-    const { label, error, multiline, ...rest } = props;
-
+  ({ label, error, multiline, ...rest }, ref) => {
+    const generatedId = useId();
+    const id = rest.id ?? generatedId;
+    const errorId = `${id}-error`;
+    const fieldProps = {
+      ...rest,
+      id,
+      'aria-invalid': !!error,
+      'aria-required': label?.endsWith('*') || undefined,
+      'aria-describedby': error ? errorId : rest['aria-describedby'],
+      className:
+        'text-[20px] sm:text-[18px] px-[1rem] py-[14px] rounded-[4px] border font-loose border-black border-opacity-30 w-full',
+    };
     return (
-      <div className="flex flex-col">
-        <div className="flex">
-          {label && (
-            <label
-              htmlFor={rest.name}
-              className="text-[23px] sm:text-[18px] font-loose font-bold leading-tight flex mb-[1rem] sm:mb-[0.5rem]"
-            >
-              <div className="w-[3px] bg-black opacity-40 ml-[0.25rem] mr-[0.75rem] mb-[0.25rem]" />
-              {label}
-            </label>
-          )}
-          {error?.message && (
-            <span className="sm:hidden text-red-600 ml-[1rem]">
-              *{error.message}
-            </span>
-          )}
-        </div>
-
-        {!multiline && (
-          <input
-            ref={ref}
-            className={clsx(
-              'text-[20px] sm:text-[18px] leading-[16px] px-[1rem] pt-[16px] sm:pt-[13px] pb-[12px] sm:pb-[10px]',
-              'outline-none rounded-[4px] border font-loose border-black border-opacity-30',
-            )}
-            {...rest}
-          />
+      <div className="flex flex-col min-w-0">
+        {label && (
+          <label
+            htmlFor={id}
+            className="text-[23px] sm:text-[18px] font-loose font-bold leading-tight mb-[0.75rem]"
+          >
+            {label}
+          </label>
         )}
-
-        {multiline && (
-          <textarea
-            ref={ref}
-            rows={5}
-            className="text-[20px] sm:text-[18px] px-[1rem] pt-[1.125rem] pb-[1rem] outline-none rounded-[4px] border font-loose leading-none border-black border-opacity-30"
-            {...(rest as any)}
-          />
+        {multiline ? (
+          <textarea ref={ref as any} rows={5} {...(fieldProps as any)} />
+        ) : (
+          <input ref={ref} {...fieldProps} />
         )}
-
         {error?.message && (
-          <span className=">sm:hidden text-red-600 text-[10px]">
-            *{error.message}
+          <span
+            id={errorId}
+            role="alert"
+            className="text-[14px] mt-2 font-loose"
+          >
+            {error.message}
           </span>
         )}
       </div>

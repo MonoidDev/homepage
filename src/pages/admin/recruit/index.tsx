@@ -25,10 +25,10 @@ export default function RecruitIndex(props: RecruitProps) {
     <AdminContainer>
       <div className="px-[4rem] sm:px-[1rem] py-[2rem] sm:py-0">
         <table className={clsx('w-full', styles.table)}>
-          <tbody>
-            <caption className="text-[36px] font-loose mb-[1rem]">
-              Job Applications
-            </caption>
+          <caption className="text-[36px] font-loose mb-[1rem]">
+            Job Applications
+          </caption>
+          <thead>
             <tr>
               <th scope="col">Date</th>
               <th scope="col">Name</th>
@@ -36,6 +36,8 @@ export default function RecruitIndex(props: RecruitProps) {
               <th scope="col">Type</th>
               <th scope="col" />
             </tr>
+          </thead>
+          <tbody>
             {data.recruits.map((item) => (
               <tr key={item.id}>
                 <td>{dayjs(item.created_at).format('YYYY-MM-DD HH:mm')}</td>

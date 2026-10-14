@@ -1,83 +1,12 @@
-import { Suspense, useEffect, useState } from 'react';
-import React from 'react';
+import { Suspense, useState } from 'react';
 
-import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { LanguageMenu } from './LanguageMenu';
-import styles from './LayoutMenu.module.css';
-import Slash from '@/assets/images/Slash.svg';
 import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { useSiteStrings } from '@/data/site';
 import { useTheme } from '@/styles/theme';
-import { useAnimated } from '@/utils/animation';
-
-interface NavMenuItemProps {
-  index: number;
-  textWidth: number;
-  isLast?: boolean;
-  action: 'open' | 'close';
-  href?: string;
-  children: React.ReactNode;
-}
-
-const NavMenuItem: React.FC<NavMenuItemProps> = (props) => {
-  const { href, children, index, textWidth, action, isLast } = props;
-
-  const [textExpanded, setTextExpanded] = useState(false);
-  const [width] = useAnimated(
-    (frame) => Math.sin((frame / 60) * Math.PI),
-    action === 'open' ? 0 : 18 + textWidth + 40,
-    action === 'open' ? 18 + textWidth + 40 : 0,
-    {
-      onStart: () => action === 'close' && setTextExpanded(false),
-      onFinished: () => action === 'open' && setTextExpanded(true),
-    },
-  );
-  const ariaLabelStrings = useAriaLabelStrings();
-
-  const [lastMargin] = isLast
-    ? useAnimated(
-        (frame) => Math.sin((frame / 60) * Math.PI),
-        action === 'open' ? 45 : 100,
-        action === 'open' ? 100 : 45,
-      )
-    : [0, 'idle'];
-
-  const { theme } = useTheme();
-
-  return (
-    <Link
-      href={href ?? ''}
-      aria-label={children?.toString() || ariaLabelStrings.menu}
-      className={styles.menuItem}
-      style={{ marginRight: lastMargin }}
-    >
-      <div
-        className={clsx(
-          'flex will-change-[width] will-change-[transform] transition-[transform]',
-          !textExpanded && 'translate-x-full',
-        )}
-        style={{ width, transitionDuration: '300ms' }}
-      >
-        <div className="w-[18px] shrink-0" />
-        <div
-          className="whitespace-pre"
-          style={{ width: textWidth, height: 60 }}
-        >
-          {children}
-        </div>
-        <div className="w-[40px] shrink-0" />
-      </div>
-      <Slash
-        className="white:text-black black:text-white absolute right-0 top-0"
-        style={{ opacity: theme === 'black' ? 1 : 0.2 + 0.1 * index }}
-      />
-    </Link>
-  );
-};
 
 const AnimatedLogo = dynamic(() => import('./AnimatedLogo'), { ssr: false });
 
@@ -87,103 +16,63 @@ export const LayoutMenu: React.FC<{
   headerTransparent: boolean;
 }> = ({ loadingDone, hideLogo, headerTransparent }) => {
   const strings = useSiteStrings();
-
-  const [menuAction, setMenuAction] = useState<'open' | 'close'>('open');
-
+  const labels = useAriaLabelStrings();
   const [languagesAction, setLanguagesAction] = useState<'open' | 'close'>(
     'close',
   );
-
   const { theme } = useTheme();
 
-  const router = useRouter();
-
-  useEffect(() => {
-    router.prefetch('/');
-  }, []);
-
   return (
-    <div
-      className="flex flex-col z-[10] shrink-0 cursor-pointer"
+    <header
+      className="z-[10] shrink-0 px-12 md:px-7"
       style={{ background: headerTransparent ? undefined : theme }}
     >
-      <div className="px-12 pt-[26px] pb-[18px]">
-        <div className="flex relative items-center">
-          <div
-            className={clsx(
-              'h-[60px] flex items-center',
-              hideLogo === 'mobile' && 'sm:hidden',
-            )}
-            onClick={() => router.push('/')}
+      <nav
+        aria-label={labels.menu}
+        className="flex h-[120px] items-center justify-between gap-5 border-b border-current"
+      >
+        {hideLogo !== true && (
+          <Link
+            href="/"
+            aria-label={labels.home}
+            className="w-[255px] shrink-0 md:w-[190px]"
           >
-            {hideLogo !== true && (
-              <Suspense fallback={null}>
-                <AnimatedLogo
-                  loadingDone={loadingDone}
-                  key={String(loadingDone)}
-                />
-              </Suspense>
-            )}
-          </div>
-          <div className="flex-1" />
-          {loadingDone && (
-            <>
-              <NavMenuItem
-                href="/"
-                index={0}
-                textWidth={36}
-                action={menuAction}
-              >
-                {strings.top}
-              </NavMenuItem>
-              <NavMenuItem
-                href="/company/vision"
-                index={1}
-                textWidth={90}
-                action={menuAction}
-              >
-                {strings.company}
-              </NavMenuItem>
-              <NavMenuItem
-                href="/works/0"
-                index={2}
-                textWidth={60}
-                action={menuAction}
-              >
-                {strings.works}
-              </NavMenuItem>
-              <NavMenuItem
-                href="/recruit"
-                index={3}
-                textWidth={77}
-                action={menuAction}
-              >
-                {strings.recruit}
-              </NavMenuItem>
-              <NavMenuItem
-                href="/contact"
-                index={4}
-                textWidth={81}
-                action={menuAction}
-                isLast={true}
-              >
-                {strings.contact}
-              </NavMenuItem>
-            </>
+            <Suspense fallback={null}>
+              <AnimatedLogo loadingDone={loadingDone} />
+            </Suspense>
+          </Link>
+        )}
+        <div className="flex flex-1 items-center justify-end gap-6 md:gap-3">
+          {loadingDone && languagesAction === 'close' && (
+            <div className="flex items-center gap-6 md:gap-3">
+              {[
+                ['/', strings.top],
+                ['/company/vision', strings.company],
+                ['/works/0', strings.works],
+                ['/recruit', strings.recruit],
+                ['/contact', strings.contact],
+              ].map(([href, label], index) => (
+                <Link
+                  href={href!}
+                  key={href}
+                  className="relative flex min-h-[60px] items-center gap-6 font-dense text-[30px] md:gap-3 md:text-[24px]"
+                >
+                  {label}
+                  <span
+                    aria-hidden="true"
+                    className="h-[60px] w-px rotate-[25deg] bg-current"
+                    style={{ opacity: 0.2 + index * 0.1 }}
+                  />
+                </Link>
+              ))}
+            </div>
           )}
-
-          <div className="absolute top-0 bottom-0 right-[24px] flex items-center">
-            <LanguageMenu
-              action={languagesAction}
-              onChangeAction={(action) => {
-                setMenuAction(action === 'open' ? 'close' : 'open');
-                setLanguagesAction(action);
-              }}
-            />
-          </div>
+          <LanguageMenu
+            action={languagesAction}
+            onChangeAction={setLanguagesAction}
+          />
         </div>
-      </div>
-      <div className="h-[1px] bg-black mx-12 black:bg-white" />
-    </div>
+      </nav>
+    </header>
   );
 };

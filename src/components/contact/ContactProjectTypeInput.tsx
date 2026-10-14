@@ -1,7 +1,10 @@
+import { useId } from 'react';
+
 import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 import { useController, Control } from 'react-hook-form';
 
+import { useContactStrings } from './contactUtils';
 import { useLocale } from '@/utils/useLocale';
 
 const useStrings = makeStrings({
@@ -45,13 +48,15 @@ export const ContactProjectTypeInput = <
 }) => {
   const { control } = props;
 
+  const id = useId();
   const strings = useStrings();
   const locale = useLocale();
+  const contactStrings = useContactStrings();
 
   const controller = useController({
     name: 'project_type' as any,
     control,
-    rules: { required: true },
+    rules: { required: contactStrings.required },
   });
 
   const error = controller.fieldState.error;
@@ -59,29 +64,29 @@ export const ContactProjectTypeInput = <
   const value = controller.field.value;
 
   return (
-    <div
+    <fieldset
+      aria-describedby={error ? `${id}-error` : undefined}
       className={clsx(
-        'h-[95px] sm:h-[90px] rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
-        error && 'bg-black text-white',
-        !error && 'bg-white text-black',
+        'min-w-0 rounded-[40px] sm:rounded-[26px] px-8 sm:px-5 py-3 border-2 border-black col-span-2 font-loose',
+        'bg-white text-black',
       )}
     >
-      <label
-        htmlFor="project_type"
-        className="text-[18px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal mb-4 block"
-      >
+      <legend className="text-[18px] sm:text-[16px] leading-[0.8] font-bold sm:font-normal mb-4 block">
         {strings.projectType} <span>*</span>
-      </label>
+      </legend>
 
-      <div className="flex gap-x-2 overflow-scroll pb-[10px]">
+      <div className="flex flex-wrap gap-2">
         {strings.projectOptions.map((option) => (
           <button
             key={option.value}
+            aria-pressed={value.includes(option.value)}
+            onBlur={controller.field.onBlur}
             type="button"
             className={clsx(
-              'text-[18px] sm:text-[16px] pt-[4px] pb-[2px] px-3 sm:px-2 rounded-[20px] leading-[1.5] whitespace-pre',
+              'text-[18px] sm:text-[16px] pt-[4px] pb-[2px] px-3 sm:px-2 rounded-[20px] leading-[1.5] whitespace-pre shrink-0',
               locale === 'ja-JP' && 'font-bold',
-              !error && value.includes(option.value) && 'bg-black text-white',
+              value.includes(option.value) &&
+                'bg-black text-white [--focus-ring-color:#000]',
             )}
             onClick={() => {
               controller.field.onChange(
@@ -95,6 +100,11 @@ export const ContactProjectTypeInput = <
           </button>
         ))}
       </div>
-    </div>
+      {error && (
+        <p id={`${id}-error`} className="text-sm mt-2">
+          {error.message}
+        </p>
+      )}
+    </fieldset>
   );
 };

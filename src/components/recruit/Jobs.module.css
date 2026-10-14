@@ -1,0 +1,44 @@
+/*
+ * The five role cards (330px wide, 40px gaps: 1810px) read as one row. On
+ * narrower desktops the whole row is zoomed so every role stays on screen,
+ * then below ~1214px it wraps at a comfortable size instead of shrinking
+ * further. Thresholds: viewport >= 1810 * zoom + 128px of page padding.
+ */
+.row {
+  zoom: 1;
+}
+
+@media (max-width: 1937px) {
+  .row {
+    zoom: 0.9;
+  }
+}
+
+@media (max-width: 1756px) {
+  .row {
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: 1575px) {
+  .row {
+    zoom: 0.7;
+  }
+}
+
+@media (max-width: 1394px) {
+  .row {
+    zoom: 0.6;
+  }
+}
+
+@media (max-width: 1213px) {
+  .row {
+    /* 3 + 2 rows from ~930px up: 3 * 330 + 2 * 40 = 1070px at 0.75 is 803px. */
+    zoom: 0.75;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    max-width: 1070px;
+  }
+}

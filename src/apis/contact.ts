@@ -3,24 +3,37 @@ import { useMutation } from 'react-query';
 import { PageParams, Paginated } from './utils';
 import { invokeHttp } from '@/utils/invokeHttp';
 
-export const mapContactBudgetToLabel = (v: number, defaultLabel: string) => {
-  if (v === 0) {
-    return defaultLabel;
-  } else if (v < 2 / 3) {
-    return `${Math.floor(v / (1 / 45))}M JPY`;
-  } else {
-    return `30M JPY~`;
-  }
+// Form values are integer indices; payload labels remain stable across locales.
+export const mapContactBudgetToLabel = (
+  step: number,
+  defaultLabel: string,
+  locale = 'en-US',
+) => {
+  if (!step) return defaultLabel;
+  const millions = Math.min(Math.round(step), 10) * 3;
+  const unit =
+    locale === 'ja-JP'
+      ? `${millions * 100}万円`
+      : locale === 'zh-CN'
+        ? `${millions * 100}万日元`
+        : `${millions}M JPY`;
+  return step >= 10 ? `${unit}+` : unit;
 };
 
-export const mapContactDeliveryToLabel = (v: number, defaultLabel: string) => {
-  if (v === 0) {
-    return defaultLabel;
-  } else if (v < 2 / 3) {
-    return `${Math.floor(v / (1 / 9))} mo.`;
-  } else {
-    return `6 mo.~`;
-  }
+export const mapContactDeliveryToLabel = (
+  step: number,
+  defaultLabel: string,
+  locale = 'en-US',
+) => {
+  if (!step) return defaultLabel;
+  const months = Math.min(Math.round(step), 6);
+  const unit =
+    locale === 'ja-JP'
+      ? `${months}か月`
+      : locale === 'zh-CN'
+        ? `${months}个月`
+        : `${months} mo.`;
+  return step >= 6 ? `${unit}+` : unit;
 };
 
 export interface NewContact {

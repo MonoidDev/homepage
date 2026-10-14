@@ -8,6 +8,21 @@ a {
 
 @tailwind utilities;
 
+/* Shared keyboard treatment, including controls with utility resets. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring-color, currentColor) !important;
+  outline-offset: var(--focus-ring-offset, 3px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @font-face {
   font-family: 'DIN Condensed';
   src: url('/fonts/DINCondensed-Bold.ttf') format('opentype');
@@ -40,10 +55,10 @@ a {
     background-image: 
       repeating-linear-gradient(
         var(--note-bg),
-        var(--note-bg) calc(37.5px - 1px),
-        var(--note-line) calc(37.5px - 1px),
-        var(--note-line) 37.5px,
-        var(--note-bg) 37.5px
+        var(--note-bg) calc(38px - 1px),
+        var(--note-line) calc(38px - 1px),
+        var(--note-line) 38px,
+        var(--note-bg) 38px
       );
   }
 }

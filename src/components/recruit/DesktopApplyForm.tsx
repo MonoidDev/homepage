@@ -1,14 +1,16 @@
+import { useId } from 'react';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 
 import styles from './index.module.css';
 import {
-  educationPlaceholder,
   isDesigner,
   isProgrammer,
   RecruitForm,
+  requiresTechSkills,
+  useCandidateStrings,
   useRecruitForm,
-  workExperiencePlaceholder,
 } from './recruitForm';
 import LeftTriangleSvg from '@/assets/images/LeftTriangle.svg';
 import RightTriangleOutlineSvg from '@/assets/images/RightTriangleOutline.svg';
@@ -19,11 +21,15 @@ import { TextInput } from '@/components/recruit/TextInput';
 
 export interface DesktopApplyFormProps {
   name: string;
+  submitting?: boolean;
+  submissionError?: string;
   onSubmit: (values: RecruitForm) => Promise<void>;
 }
 
 export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
-  const { name, onSubmit } = props;
+  const { name, onSubmit, submitting, submissionError } = props;
+  const strings = useCandidateStrings();
+  const formId = useId();
 
   const programmer = isProgrammer(name as string);
   const designer = isDesigner(name as string);
@@ -32,41 +38,47 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
 
   const renderHeader = () => (
     <div className="flex gap-x-[20px] mb-[1rem] font-loose">
-      <Link href={`/recruit/${name}`} aria-label={name}>
+      <Link href={`/recruit/${name}`} aria-label={strings.back}>
         <LeftTriangleSvg className="cursor-pointer" />
       </Link>
-      <span className="text-[60px] font-bold leading-none mt-[5px]">
-        APPLICATION
-      </span>
+      <h1 className="text-[52px] md:text-[36px] font-bold leading-none mt-[5px]">
+        {strings.application}
+      </h1>
 
       <div className="flex-1" />
 
-      <span className={styles.nextTitle} onClick={handleSubmit(onSubmit)}>
-        SUBMIT
-      </span>
-
-      <RightTriangleOutlineSvg
-        onClick={handleSubmit(onSubmit)}
-        className="cursor-pointer mt-[6px]"
-      />
+      <button
+        type="submit"
+        form={formId}
+        disabled={submitting || formState.isSubmitting}
+        className={styles.headerAction}
+      >
+        <span className={styles.nextTitle}>
+          {submitting ? strings.submitting : strings.submit}
+        </span>
+        <RightTriangleOutlineSvg
+          aria-hidden="true"
+          className="w-[55px] h-[55px]"
+        />
+      </button>
     </div>
   );
 
   const renderContactDetails = () => {
     return (
       <div>
-        <h3 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
-          Contact Details
-        </h3>
+        <h2 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
+          {strings.contact}
+        </h2>
         <div className="flex flex-col gap-y-[1.5rem]">
           <TextInput
-            label="Name"
+            label={`${strings.name} *`}
             placeholder="Joy Monoid"
             error={formState.errors.name}
             {...registry.name()}
           />
           <TextInput
-            label="Email"
+            label={`${strings.email} *`}
             type="email"
             placeholder="joy@monoidtech.com"
             error={formState.errors.email}
@@ -74,7 +86,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
           />
           {programmer && (
             <TextInput
-              label="Github ID"
+              label={`${strings.github} *`}
               placeholder="joymonoid"
               error={formState.errors.github_id}
               {...registry.github_id()}
@@ -82,7 +94,7 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
           )}
           {designer && (
             <TextInput
-              label="Website"
+              label={`${strings.website} *`}
               placeholder="https://monoid.co.jp"
               error={formState.errors.website}
               {...registry.website()}
@@ -96,30 +108,23 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
   const renderLanguageSkills = () => {
     return (
       <div>
-        <h3 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
-          Language Skills
-        </h3>
+        <h2 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
+          {strings.languages}
+        </h2>
         <div className="flex flex-col gap-y-[1.5rem]">
-          <div className="pl-[160px] flex justify-between text-[15px] font-loose font-bold opacity-40 mb-[1rem]">
-            <div>Beginner</div>
-            <div>Intermediate</div>
-            <div>Advanced</div>
-            <div>Native</div>
-          </div>
-
-          <div className="flex flex-col gap-y-[75px]">
+          <div className="flex flex-col gap-y-[30px]">
             <ScrollInput
-              label="English"
+              label={strings.english}
               name="language_english"
               control={control as any}
             />
             <ScrollInput
-              label="Chinese"
+              label={strings.chinese}
               name="language_chinese"
               control={control as any}
             />
             <ScrollInput
-              label="Japanese"
+              label={strings.japanese}
               name="language_japanese"
               control={control as any}
             />
@@ -132,20 +137,20 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
   const renderExperiences = () => {
     return (
       <div className="flex flex-col mt-[4rem]">
-        <h3 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
-          Experiences
-        </h3>
+        <h2 className={clsx(styles.formSectionTitle, 'mb-[2rem]')}>
+          {strings.experiences}
+        </h2>
         <div className="flex flex-col gap-y-[30px]">
           <TextInput
-            label="Education"
+            label={`${strings.education} *`}
             multiline
-            placeholder={educationPlaceholder}
+            placeholder={strings.educationExample}
             error={formState.errors.education_experience}
             {...registry.education_experience()}
           />
-          {name !== 'PRODUCT MANAGER' && (
+          {requiresTechSkills(name) && (
             <SkillInput
-              label="Technology Skills"
+              label={`${strings.skills} *`}
               control={control as any}
               error={formState.errors.technology_skills as any}
               {...registry.technology_skills()}
@@ -153,25 +158,23 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
           )}
 
           <TextInput
-            label="Work Experience"
+            label={`${strings.work} *`}
             multiline
-            placeholder={workExperiencePlaceholder}
+            placeholder={strings.workExample}
             error={formState.errors.work_experience}
             {...registry.work_experience()}
           />
 
           <div>
-            <h3 className={clsx(styles.formSectionTitle, 'mb-[1rem]')}>
-              Resume etc.
-            </h3>
+            <h2 className={clsx(styles.formSectionTitle, 'mb-[1rem]')}>
+              {strings.resume} ({strings.optional})
+            </h2>
             <FileInput name="resume_urls" control={control as any} />
           </div>
 
           <div>
-            <h3 className={clsx(styles.formSectionTitle, 'mb-[1rem]')}>
-              Cover letter
-            </h3>
             <TextInput
+              label={`${strings.cover} (${strings.optional})`}
               multiline
               error={formState.errors.cover_letter}
               {...registry.cover_letter()}
@@ -183,22 +186,55 @@ export const DesktopApplyForm: React.VFC<DesktopApplyFormProps> = (props) => {
   };
 
   const renderContent = () => (
-    <div className="shrink min-h-0 overflow-y-auto pb-[4rem]">
-      <form className="bg-black bg-opacity-20 px-[50px] py-[66px] rounded-[45px]">
-        <div className="flex">
-          <div className="flex-[2_2_0%]">{renderContactDetails()}</div>
-          <div className="w-[1px] bg-[#B3B3B3] mx-[50px]" />
-          <div className="flex-[3_3_0%]">{renderLanguageSkills()}</div>
-        </div>
-        {renderExperiences()}
+    <div
+      role="region"
+      aria-label={strings.application}
+      tabIndex={0}
+      className="shrink min-h-0 overflow-y-auto pb-[4rem] px-1"
+    >
+      <form
+        id={formId}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        aria-busy={submitting}
+        className="bg-black bg-opacity-20 px-[50px] md:px-[28px] py-[44px] rounded-[45px]"
+      >
+        <p className="font-loose text-[15px] mb-8">{strings.requirements}</p>
+        <fieldset
+          disabled={submitting || formState.isSubmitting}
+          className="min-w-0"
+        >
+          <div className="flex">
+            <div className="flex-[2_2_0%] min-w-0">
+              {renderContactDetails()}
+            </div>
+            <div className="w-[1px] bg-[#B3B3B3] mx-[35px] md:mx-[22px]" />
+            <div className="flex-[3_3_0%] min-w-0">
+              {renderLanguageSkills()}
+            </div>
+          </div>
+          {renderExperiences()}
+        </fieldset>
+        {submissionError && (
+          <p role="alert" className="mt-6 font-loose">
+            {submissionError}
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={submitting || formState.isSubmitting}
+          className={clsx(styles.pill, 'mt-8')}
+        >
+          {submitting ? strings.submitting : strings.submit}
+        </button>
       </form>
     </div>
   );
 
   return (
-    <div className="sm:hidden flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] overflow-hidden">
+    <main className="sm:hidden flex-1 shrink flex min-h-0 flex-col pt-[28px] mx-[128px] md:mx-[48px] overflow-hidden">
       {renderHeader()}
       {renderContent()}
-    </div>
+    </main>
   );
 };

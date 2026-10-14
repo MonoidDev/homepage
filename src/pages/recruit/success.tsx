@@ -1,21 +1,8 @@
-import React from 'react';
-
-import { makeStrings } from '@monoid-dev/use-strings';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import useCountDown from 'react-countdown-hook';
+import Link from 'next/link';
 
-const useStrings = makeStrings({
-  'ja-JP': {
-    autoReturn: (seconds: number) => `${seconds}秒後自動にTOPへ戻ります`,
-  },
-  'en-US': {
-    autoReturn: (seconds: number) => `Returning in ${seconds} seconds`,
-  },
-  'zh-CN': {
-    autoReturn: (seconds: number) => `${seconds}秒后自动返回主页`,
-  },
-});
+import styles from '@/components/recruit/index.module.css';
+import { useCandidateStrings } from '@/components/recruit/recruitForm';
 
 const RecruitSuccessLottie = dynamic(
   () => import('@/components/recruit/RecruitSuccessLottie'),
@@ -23,56 +10,33 @@ const RecruitSuccessLottie = dynamic(
 );
 
 export default function Success() {
-  const router = useRouter();
-
-  const strings = useStrings();
-
-  const [timeLeft, { start }] = useCountDown(15 * 1000);
-
-  const renderDesktop = () => (
-    <main
-      className="flex-1 sm:hidden px-[120px] py-[64px] flex items-center justify-around relative z-0"
-      role="main"
-    >
-      <h2 className="font-loose font-bold text-[110px] shrink relative z-10">
-        THANK YOU
-      </h2>
-      <div className="bg-white self-center w-[550px] scale-150 origin-top-right relative top-[-10vh] z-0">
+  const strings = useCandidateStrings();
+  return (
+    <main className="flex-1 flex sm:flex-col items-center justify-center gap-8 px-[80px] >sm:md:px-[40px] sm:px-[24px] py-[40px] font-loose">
+      <div className="relative z-10 max-w-[650px] sm:text-center">
+        <h1 className="font-bold text-[70px] sm:text-[40px] leading-tight mb-6">
+          {strings.thanks}
+        </h1>
+        <p className="text-[26px] sm:text-[22px] font-bold mb-3">
+          {strings.confirmed}
+        </p>
+        <p className="text-[18px] mb-8">{strings.confirmationDetail}</p>
+        <div className="flex flex-wrap gap-4 sm:justify-center">
+          <Link href="/recruit/jobs" className={styles.pill}>
+            {strings.jobs}
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-full border border-black px-8 py-4 text-[22px] font-bold hover:bg-[#DFDFDF]"
+          >
+            {strings.home}
+          </Link>
+        </div>
+      </div>
+      <div aria-hidden="true" className="w-[400px] sm:w-[260px] shrink-0">
         <RecruitSuccessLottie />
       </div>
     </main>
-  );
-
-  const renderMobile = () => (
-    <main className="flex-1 >sm:hidden flex flex-col pt-[4rem]" role="main">
-      <h2 className="text-[45px] font-loose font-bold leading-none text-center mb-[3rem]">
-        THANK YOU
-      </h2>
-
-      <div className="h-[500px] mb-[-6rem] scale-150 origin-top-right">
-        <RecruitSuccessLottie
-          onComplete={() => {
-            setTimeout(() => router.push('/recruit'), 15000);
-            start();
-          }}
-        />
-      </div>
-      {timeLeft > 0 && (
-        <button
-          className="mx-[30px] h-[64px] bg-black rounded-[20px] text-white text-[22px] z-10 relative"
-          onClick={() => router.push('/recruit')}
-        >
-          {strings.autoReturn(Math.ceil(timeLeft / 1000))}
-        </button>
-      )}
-    </main>
-  );
-
-  return (
-    <>
-      {renderDesktop()}
-      {renderMobile()}
-    </>
   );
 }
 
@@ -81,7 +45,7 @@ export async function getStaticProps() {
     props: {
       theme: 'white',
       hideLogo: 'mobile',
-      title: 'Jobs | 合同会社Monoid | G.K. Monoid | Monoid',
+      title: 'Application received | Monoid',
     },
   };
 }

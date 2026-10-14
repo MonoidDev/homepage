@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
-import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -20,8 +19,6 @@ const useStrings = makeStrings({
 
 export const UIUXDesignerCard: React.VFC = () => {
   const strings = useStrings();
-  const router = useRouter();
-
   const interpolate1 = (frame: number) =>
     Math.sin(((Math.PI / 2) * frame) / 20);
 
@@ -243,21 +240,21 @@ export const UIUXDesignerCard: React.VFC = () => {
 
   return (
     <Card
-      onMouseEnter={async () => {
+      onEnter={async () => {
         currentAction.current = 'enter';
         await scaleChain.play();
         if (currentAction.current === 'enter') {
           await Promise.all(step2Chains.map((c) => c.play()));
         }
       }}
-      onMouseLeave={async () => {
+      onLeave={async () => {
         currentAction.current = 'leave';
         await Promise.all(step2Chains.map((c) => c.reverse()));
         if (currentAction.current === 'leave') {
           await scaleChain.reverse();
         }
       }}
-      onClick={() => router.push('/recruit/UIUXDESIGNER')}
+      href="/recruit/UIUXDESIGNER"
       color={color}
       backgroundColor={backgroundColor}
     >
@@ -271,7 +268,7 @@ export const UIUXDesignerCard: React.VFC = () => {
           `,
         }}
       >
-        <svg viewBox="0 0 110 160">
+        <svg viewBox="0 0 110 160" aria-hidden="true">
           <rect
             x={rectX}
             y={rectY}

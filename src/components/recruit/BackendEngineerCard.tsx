@@ -1,5 +1,4 @@
 import { makeStrings } from '@monoid-dev/use-strings';
-import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -13,8 +12,6 @@ const useStrings = makeStrings({
 
 export const BackendEngineerCard: React.VFC = () => {
   const strings = useStrings();
-
-  const router = useRouter();
 
   const chain = useChain([
     {
@@ -51,15 +48,15 @@ export const BackendEngineerCard: React.VFC = () => {
 
   return (
     <Card
-      onMouseEnter={() => chain.play()}
-      onMouseLeave={() => chain.reverse()}
+      onEnter={() => chain.play()}
+      onLeave={() => chain.reverse()}
       color={color}
       backgroundColor={backgroundColor}
-      onClick={() => router.push('/recruit/BACKENDENGINEER')}
+      href="/recruit/BACKENDENGINEER"
     >
       <div className="h-full w-full flex flex-col">
         <div className="flex-1">
-          <svg viewBox="0 0 120 160">
+          <svg viewBox="0 0 120 160" aria-hidden="true">
             {/* right */}
 
             <polygon

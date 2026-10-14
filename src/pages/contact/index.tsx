@@ -67,7 +67,7 @@ export default function Contact() {
             onClick={() => {
               window.open(googleMapUrl, '_blank');
             }}
-            className="font-loose font-bold bg-black text-white text-[24px] sm:text-[20px] pt-[2px] sm:pt-[3px] leading-[1.9] h-[46px] sm:h-[40px] rounded-[23px] flex-1"
+            className="font-loose font-bold bg-black text-white [--focus-ring-color:#000] text-[24px] sm:text-[20px] pt-[2px] sm:pt-[3px] leading-[1.9] h-[46px] sm:h-[40px] rounded-[23px] flex-1"
           >
             {strings.jumpToGoogleMap}
           </button>
@@ -118,6 +118,7 @@ export default function Contact() {
             </a>
           </div>
         </div>
+        <ContactDialog />
       </div>
     );
   };
@@ -125,18 +126,18 @@ export default function Contact() {
   return (
     <>
       <MobileNavigation />
-      <div
+      <main
         className={clsx(
           'flex-1 flex flex-inline sm:flex-col overflow-auto',
           'px-[100px] sm:px-[28px] py-[25px] sm:py-[28px] gap-x-[3rem]',
         )}
       >
+        <h1 className="sr-only">{strings.contact}</h1>
         {renderAccess()}
         <div className="w-[1px] my-6 bg-black sm:hidden" />
         <div className="h-[2rem] >sm:hidden shrink-0" />
         {renderContact()}
-        <ContactDialog />
-      </div>
+      </main>
     </>
   );
 }

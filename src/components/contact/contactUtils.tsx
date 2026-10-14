@@ -7,54 +7,75 @@ export const useContactStrings = makeStrings({
     company: 'Company',
     name: 'Name',
     emailAddress: 'Email Address',
-    messageBoard: (
-      <>
-        MESSAGE
-        <br />
-        BOARD
-      </>
-    ),
+    messageBoard: 'MESSAGE BOARD',
     budget: 'Budget',
     delivery: 'Delivery',
     send: 'SEND',
+    sending: 'Sending…',
+    required: 'This field is required.',
+    invalidEmail: 'Enter a valid email address.',
+    review: 'Please check the highlighted fields.',
+    failed:
+      'Your message could not be sent. Your entries have been kept. Please retry.',
+    retry: 'Retry',
+    success: 'Thank you! Your message has been sent.',
+    open: 'Open contact form',
+    openVisible: 'Open contact form',
+    close: 'Close contact form',
+    requiredHint: '* Required fields',
+    selectValue: 'Choose a value.',
   },
   'ja-JP': {
-    contactTitle: 'CONTACT SHEET',
+    contactTitle: 'お問い合わせフォーム',
     company: '会社名',
     name: 'お名前',
     emailAddress: 'Eメール',
-    messageBoard: (
-      <>
-        お問い合わせ
-        <br />
-        内容
-      </>
-    ),
+    messageBoard: 'お問い合わせ内容',
     budget: 'ご予算',
     delivery: '納期',
     send: '送信',
+    sending: '送信中…',
+    required: '必須項目です。',
+    invalidEmail: '有効なメールアドレスを入力してください。',
+    review: '入力内容をご確認ください。',
+    failed:
+      '送信できませんでした。入力内容は保持されています。もう一度お試しください。',
+    retry: '再試行',
+    success: 'お問い合わせを送信しました。ありがとうございます。',
+    open: 'お問い合わせフォームを開く',
+    openVisible: 'お問い合わせ',
+    close: 'フォームを閉じる',
+    requiredHint: '* 必須項目',
+    selectValue: '値を選択してください。',
   },
   'zh-CN': {
-    contactTitle: '联系我们',
+    contactTitle: '联系表单',
     company: '公司名',
     name: '姓名',
-    emailAddress: '邮箱号',
-    messageBoard: (
-      <>
-        我们可以为您
-        <br />
-        做些什么？
-      </>
-    ),
+    emailAddress: '电子邮箱',
+    messageBoard: '留言内容',
     budget: '预算',
     delivery: '开发周期',
     send: '发送',
+    sending: '发送中…',
+    required: '此项为必填项。',
+    invalidEmail: '请输入有效的电子邮箱地址。',
+    review: '请检查标出的字段。',
+    failed: '发送失败，您填写的内容已保留。请重试。',
+    retry: '重试',
+    success: '感谢您的留言！已发送成功。',
+    open: '打开联系表单',
+    openVisible: '打开联系表单',
+    close: '关闭联系表单',
+    requiredHint: '* 必填项',
+    selectValue: '请选择数值。',
   },
 });
 
-export const useContactForm = () => {
-  return useForm({
-    mode: 'onChange',
+export const useContactForm = () =>
+  useForm({
+    mode: 'onTouched',
+    shouldFocusError: false,
     defaultValues: {
       company: '',
       name: '',
@@ -65,4 +86,3 @@ export const useContactForm = () => {
       message: '',
     },
   });
-};

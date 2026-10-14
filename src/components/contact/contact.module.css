@@ -1,0 +1,7 @@
+.range { appearance: none; width: 100%; min-width: 0; height: 44px; background: transparent; cursor: pointer; }
+.range::-webkit-slider-runnable-track { height: 2px; background: #000; }
+.range::-moz-range-track { height: 2px; background: #000; }
+.range::-webkit-slider-thumb { appearance: none; height: 44px; width: 44px; margin-top: -21px; border: 4px solid #000; border-radius: 50%; background: #000; }
+.range::-moz-range-thumb { height: 36px; width: 36px; border: 4px solid #000; border-radius: 50%; background: #000; }
+.dialog { padding: 0; border: 0; border-radius: 10px; max-width: calc(100vw - 48px); max-height: calc(100dvh - 48px); color: black; background: white; }
+.dialog::backdrop { background: rgb(0 0 0 / 60%); }

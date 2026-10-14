@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useId, useCallback } from 'react';
 
 import clsx from 'clsx';
+import Link from 'next/link';
 
 import { MenuTick } from './MenuTick';
 import { MobileLayoutMenu } from './MobileLayoutMenu';
@@ -8,7 +9,6 @@ import LogoSvg from '@/assets/images/Logo.svg';
 import LogoWhiteSvg from '@/assets/images/LogoWhite.svg';
 import { useAriaLabelStrings } from '@/data/ariaLabel';
 import { Theme, ThemeProvider } from '@/styles/theme';
-import { useChain } from '@/utils/animation';
 
 export interface MobileLayoutProps {
   loadingDone: boolean;
@@ -23,13 +23,16 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
   const ariaLabelStrings = useAriaLabelStrings();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const tickOpacity = useChain([
-    {
-      from: 1,
-      to: 0,
-      interpolate: (f) => Math.sin(((f / 15) * Math.PI) / 2),
-    },
-  ]);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const background = useRef<HTMLDivElement>(null);
+  const menuId = useId();
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    requestAnimationFrame(() => trigger.current?.focus());
+  }, []);
+  useEffect(() => {
+    background.current?.toggleAttribute('inert', menuOpen);
+  }, [menuOpen]);
 
   const [currentTheme, setCurrentTheme] = useState(theme);
 
@@ -48,6 +51,8 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
       }}
     >
       <div
+        ref={background}
+        aria-hidden={menuOpen || undefined}
         className={clsx(
           '>sm:hidden fill-available flex flex-col overflow-hidden relative z-0',
           currentTheme,
@@ -60,47 +65,37 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
           } as any
         }
       >
-        <div className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
+        <header className="h-[110px] flex items-center px-[28px] shrink-0 z-[10]">
           {!hideLogo && (
             <>
-              <a aria-label={ariaLabelStrings.home} href="/">
+              <Link aria-label={ariaLabelStrings.home} href="/">
                 {currentTheme === 'white' && <LogoSvg height={62} />}
                 {currentTheme === 'black' && <LogoWhiteSvg height={62} />}
-              </a>
+              </Link>
             </>
           )}
 
           <div className="flex-1" />
 
-          {!menuOpen && (
-            <button
-              aria-label={ariaLabelStrings.menu}
-              onClick={async () => {
-                await tickOpacity.play();
-                setMenuOpen(true);
-              }}
-            >
-              <MenuTick
-                className={clsx(
-                  'white:text-black black:text-white',
-                  !tickOpacity.isPlaying && 'animate-pulse-lg',
-                )}
-                style={{ opacity: tickOpacity.currentValue }}
-              />
-            </button>
-          )}
-        </div>
+          <button
+            type="button"
+            ref={trigger}
+            aria-label={ariaLabelStrings.menu}
+            aria-expanded={menuOpen}
+            aria-controls={menuId}
+            className="min-h-[44px] min-w-[44px]"
+            onClick={() => setMenuOpen(true)}
+          >
+            <MenuTick
+              aria-hidden="true"
+              className="white:text-black black:text-white motion-safe:animate-pulse-lg"
+            />
+          </button>
+        </header>
 
         {children}
       </div>
-      {menuOpen && (
-        <MobileLayoutMenu
-          onClose={async () => {
-            setMenuOpen(false);
-            await tickOpacity.reverse();
-          }}
-        />
-      )}
+      {menuOpen && <MobileLayoutMenu id={menuId} onClose={closeMenu} />}
     </ThemeProvider>
   );
 };

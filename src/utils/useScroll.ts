@@ -4,43 +4,37 @@ export const useScroll = (
   containerRef: React.RefObject<HTMLDivElement>,
   shouldReturn: boolean,
 ) => {
-  const unwrapContainer = () => containerRef.current!;
-  const getScrollPercent = () =>
-    unwrapContainer().scrollTop /
-    (unwrapContainer().scrollHeight - unwrapContainer().clientHeight);
-
-  const [scrollTop, setScrollTop] = useState(0);
-  const [scrollPercent, setScrollPercent] = useState(0);
-  const [clientHeight, setClientHeight] = useState<number | undefined>();
-  const [scrollHeight, setScrollHeight] = useState<number | undefined>();
-
+  const [geometry, setGeometry] = useState({
+    scrollTop: 0,
+    scrollPercent: 0,
+    clientHeight: 0,
+    scrollHeight: 0,
+  });
   useEffect(() => {
-    let cancelled = false;
-
-    function step() {
-      if (unwrapContainer() && shouldReturn) {
-        setScrollPercent(getScrollPercent);
-        setScrollTop(unwrapContainer().scrollTop);
-        setClientHeight(unwrapContainer().clientHeight);
-        setScrollHeight(unwrapContainer().scrollHeight);
-      }
-
-      if (!cancelled) {
-        requestAnimationFrame(step);
-      }
-    }
-
-    requestAnimationFrame(step);
-
-    return () => {
-      cancelled = true;
+    const container = containerRef.current;
+    if (!container || !shouldReturn) return;
+    const update = () => {
+      const { scrollTop, clientHeight, scrollHeight } = container;
+      const range = scrollHeight - clientHeight;
+      const percent = clientHeight > 0 && range > 0 ? scrollTop / range : 0;
+      setGeometry({
+        scrollTop,
+        clientHeight,
+        scrollHeight,
+        scrollPercent: Number.isFinite(percent)
+          ? Math.max(0, Math.min(1, percent))
+          : 0,
+      });
     };
-  }, [shouldReturn]);
-
-  return {
-    scrollTop,
-    scrollPercent,
-    clientHeight,
-    scrollHeight,
-  };
+    update();
+    container.addEventListener('scroll', update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(container);
+    for (const child of Array.from(container.children)) observer.observe(child);
+    return () => {
+      container.removeEventListener('scroll', update);
+      observer.disconnect();
+    };
+  }, [containerRef, shouldReturn]);
+  return geometry;
 };
