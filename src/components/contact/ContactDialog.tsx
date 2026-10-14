@@ -1,119 +1,87 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import clsx from 'clsx';
 import Lottie from 'lottie-react';
 
+import styles from './contact.module.css';
 import { ContactForm } from './ContactForm';
+import { useContactStrings } from './contactUtils';
 import contactMailbox from '@/assets/lottie/contact-mailbox.json';
-import { useChain } from '@/utils/animation';
 
 export const ContactDialog: React.FC = () => {
-  const [mailboxOpen, setMailboxOpen] = useState(false);
-
-  const chain = useChain([
-    {
-      from: 0,
-      to: 1,
-      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
-    },
-  ]);
-
-  const loadingChain = useChain([
-    {
-      from: 0,
-      to: 1,
-      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
-    },
-  ]);
-
-  const mailboxChain = useChain([
-    {
-      from: 1,
-      to: 0,
-      interpolate: (f) => Math.sin(((f / 20) * Math.PI) / 2),
-    },
-  ]);
-
-  const onClose = useCallback(async () => {
-    await chain.reverse();
-  }, []);
-
-  const t = chain.values[0]!;
-  const s = loadingChain.values[0]!;
-
+  const strings = useContactStrings();
+  const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLButtonElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
-    requestIdleCallback(() => {
-      loadingChain.play();
-    });
+    setReducedMotion(
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    );
   }, []);
-
-  const renderMailbox = () => {
-    return (
-      <div
-        className={clsx(
-          'fixed left-0 right-0 top-[var(--navbarHeight) bottom-0]',
-        )}
-        style={{
-          opacity: mailboxChain.currentValue,
+  const close = () => dialog.current?.close();
+  return (
+    <>
+      <button
+        ref={opener}
+        aria-label={strings.open}
+        type="button"
+        className="sm:hidden relative z-10 mt-8 bg-black text-white [--focus-ring-color:#000] rounded-full px-8 py-3 text-[24px] font-loose font-bold"
+        onClick={() => {
+          dialog.current?.showModal();
         }}
       >
-        <Lottie
-          autoPlay={true}
-          loop={false}
-          animationData={contactMailbox}
-          onComplete={async () => {
-            chain.reset();
-            await mailboxChain.play();
-            setMailboxOpen(false);
-          }}
-        />
-      </div>
-    );
-  };
-
-  return (
-    <div
-      className={clsx(
-        'sm:hidden fixed left-0 right-0 top-0 bottom-0 flex flex-col items-center justify-center z-[100]',
-        'pt-[var(--navbarHeight)]',
-        'bg-black',
-        'font-loose pointer-events-none',
-      )}
-      style={
-        {
-          '--tw-bg-opacity': 0.6 * t,
-        } as any
-      }
-    >
+        {strings.openVisible}
+      </button>
       <div
-        className={clsx(
-          'relative pointer-events-auto',
-          t === 0 && 'cursor-pointer',
-        )}
-        style={{
-          left: `${50 * (1 - t)}vw`,
-          top: `${30 * (1 - t) + 60 * (1 - s)}vh`,
-          opacity: mailboxOpen === false ? 0.5 + (1 - 0.5) * t : 0,
-          transform: `scale(${0.9 + 0.1 * t}) rotate(${-15 * (1 - t)}deg)`,
-        }}
-        onClick={async () => {
-          if (t === 0) {
-            await chain.play();
+        aria-hidden="true"
+        className="sm:hidden pointer-events-none fixed left-[70vw] top-[70vh] w-[800px] h-[500px] bg-white border border-black rounded-xl p-12 opacity-50 rotate-[-15deg] font-loose"
+      >
+        <div className="text-[40px] font-bold">{strings.contactTitle}</div>
+        <div className="mt-6 w-[350px] h-[60px] border-2 border-black rounded-full" />
+        <div className="mt-4 w-[350px] h-[60px] border-2 border-black rounded-full" />
+      </div>
+      <dialog
+        ref={dialog}
+        className={styles.dialog}
+        aria-label={strings.contactTitle}
+        onKeyDown={(event) => {
+          if (event.key !== 'Tab') return;
+          const controls = Array.from(
+            event.currentTarget.querySelectorAll<HTMLElement>(
+              'button:not(:disabled), input:not(:disabled), textarea:not(:disabled), a[href], [tabindex="0"]',
+            ),
+          ).filter((element) => element.getClientRects().length > 0);
+          const first = controls[0];
+          const last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first?.focus();
           }
         }}
+        onClose={() => opener.current?.focus()}
       >
         <ContactForm
-          open={t === 1}
-          onClose={onClose}
-          onSuccess={() => {
-            mailboxChain.reset();
-            setMailboxOpen(true);
-          }}
-          className={t === 1 ? undefined : 'pointer-events-none'}
+          className="w-[1000px] max-w-full"
+          onClose={close}
+          successVisual={
+            !reducedMotion && (
+              <div
+                aria-hidden="true"
+                className="pointer-events-none h-[160px] overflow-hidden"
+              >
+                <Lottie
+                  autoplay
+                  loop={false}
+                  animationData={contactMailbox}
+                  className="h-full"
+                />
+              </div>
+            )
+          }
         />
-      </div>
-
-      {mailboxOpen && renderMailbox()}
-    </div>
+      </dialog>
+    </>
   );
 };

@@ -1,254 +1,14 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 
-import clsx from 'clsx';
 import { Control, FieldError, useController } from 'react-hook-form';
 
-import { GoBackTriangleTitle } from './GoBackTriangleTitle';
-import Add from '@/assets/images/Add.svg';
-import ClearSmall from '@/assets/images/ClearSmall.svg';
-import { useAriaLabelStrings } from '@/data/ariaLabel';
+import { useCandidateStrings } from './recruitForm';
 import { getSkillResults } from '@/data/recruit';
-import { useScreen } from '@/utils/useScreen';
 
 export interface SkillItem {
   value: string;
   isEditing: boolean;
 }
-
-interface MobileSkillItemInputHintResultProps {
-  search: string;
-  onClickItem: (item: SkillItem) => void;
-}
-
-const MobileSkillItemInputHintResult: React.VFC<MobileSkillItemInputHintResultProps> =
-  React.memo((props) => {
-    const { search, onClickItem } = props;
-
-    const options = useDeferredValue(
-      useMemo(() => getSkillResults(search).slice(0, 5), [search]),
-    );
-
-    return (
-      <div className="flex flex-col text-[18px] font-normal">
-        {options.map((o) => (
-          <div
-            key={o.skill}
-            onClick={() =>
-              onClickItem({
-                value: o.skill,
-                isEditing: false,
-              })
-            }
-            className="h-[50px] px-[20px] pt-[4px] flex items-center border-b-black border-b border-opacity-20"
-          >
-            {o.skill}
-          </div>
-        ))}
-      </div>
-    );
-  });
-
-interface MobileSkillItemInputHintProps {
-  initialItem: SkillItem;
-  onClose: (v: SkillItem) => void;
-}
-
-const MobileSkillItemInputHint: React.VFC<MobileSkillItemInputHintProps> = (
-  props,
-) => {
-  const { initialItem, onClose } = props;
-  const ariaLabelStrings = useAriaLabelStrings();
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState(initialItem.value);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  return (
-    <div className="z-50 fixed top-0 bottom-0 left-0 right-0 bg-white">
-      <GoBackTriangleTitle
-        onClick={() =>
-          onClose({
-            value,
-            isEditing: false,
-          })
-        }
-      >
-        TECH SKILLS
-      </GoBackTriangleTitle>
-
-      <div className="flex items-center border-t border-b border-black px-[20px] pt-[22px] pb-[18px]">
-        <input
-          ref={inputRef}
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          className="flex-1 font-bold text-[18px] outline-none"
-          placeholder="Skill (ex Python)"
-        />
-        <button
-          aria-label={ariaLabelStrings.clear}
-          onClick={() => setValue('')}
-        >
-          <ClearSmall />
-        </button>
-      </div>
-
-      <MobileSkillItemInputHintResult search={value} onClickItem={onClose} />
-    </div>
-  );
-};
-
-interface SkillItemInputHint {
-  initialItem: SkillItem;
-  onClose: (v: SkillItem) => void;
-}
-
-const SkillItemInputHint: React.VFC<SkillItemInputHint> = (props) => {
-  const { initialItem, onClose } = props;
-
-  const containerRef = useRef<HTMLInputElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState(initialItem.value);
-  const options = useDeferredValue(
-    useMemo(() => getSkillResults(value), [value]),
-  );
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    function onMouseDown(e: MouseEvent) {
-      const { left, right, top, bottom } =
-        containerRef.current?.getBoundingClientRect()!;
-      if (
-        e.clientX < left ||
-        e.clientX > right ||
-        e.clientY < top ||
-        e.clientY > bottom
-      ) {
-        onClose({
-          value: value.trim(),
-          isEditing: false,
-        });
-      }
-    }
-
-    window.addEventListener('mousedown', onMouseDown);
-
-    return () => {
-      window.removeEventListener('mousedown', onMouseDown);
-    };
-  }, [value]);
-
-  return (
-    <div
-      className={clsx(
-        'absolute left-[21px] bottom-[21px]',
-        'bg-white border border-black',
-        'h-[214px] w-[500px] p-[1rem] flex flex-col',
-        'z-50',
-      )}
-      ref={containerRef}
-    >
-      <input
-        ref={inputRef}
-        className="outline-none text-[24px] mt-[0.5rem] pb-[0.5rem] border-b border-black mb-[1rem]"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            onClose({
-              value: value.trim(),
-              isEditing: false,
-            });
-          }
-        }}
-        maxLength={25}
-      />
-      <div className="flex flex-wrap gap-x-4 gap-y-3 shrink overflow-scroll">
-        {options.slice(0, 5).map((choice) => (
-          <div
-            key={choice.skill}
-            className={clsx(
-              'bg-[#DFDFDF] h-[42px] min-w-[42px] rounded-[21px] px-[16px]',
-              'cursor-pointer',
-              'flex justify-center items-center',
-              'text-[25px] font-bold',
-            )}
-            onClick={() => {
-              onClose({
-                value: choice.skill,
-                isEditing: false,
-              });
-            }}
-          >
-            {choice.skill}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-interface SkillItemInputProps {
-  value: SkillItem;
-  onChange: (v: SkillItem) => void;
-  onDelete: () => void;
-}
-
-const SkillItemInput: React.VFC<SkillItemInputProps> = (props) => {
-  const { value, onChange, onDelete } = props;
-
-  const screen = useScreen();
-
-  const InputHint =
-    screen === 'desktop' ? SkillItemInputHint : MobileSkillItemInputHint;
-
-  return (
-    <div
-      className={clsx(
-        'bg-[#DFDFDF] h-[42px] min-w-[42px] rounded-[21px] px-[16px]',
-        'sm:h-[30px] min:w-[30px] sm:px-[10px] sm:text-[16px] sm:pt-[2px]',
-        'flex justify-center items-center',
-        'text-[25px] font-bold',
-        'relative select-none cursor-pointer',
-      )}
-      onClick={() => {
-        if (!value.isEditing) {
-          onChange({
-            ...value,
-            isEditing: true,
-          });
-        }
-      }}
-      onDoubleClick={() => onDelete()}
-    >
-      {value.value}
-
-      {value.isEditing && (
-        <InputHint
-          initialItem={value}
-          onClose={(item) => {
-            if (item.value.length > 0) {
-              onChange(item);
-            } else {
-              onDelete();
-            }
-          }}
-        />
-      )}
-    </div>
-  );
-};
-
 export interface SkillInputProps {
   label: string;
   name: string;
@@ -256,83 +16,165 @@ export interface SkillInputProps {
   error?: FieldError;
 }
 
-export const SkillInput: React.VFC<SkillInputProps> = React.forwardRef(
-  (props, ref) => {
-    const { label, name, error, control } = props;
-    const ariaLabelStrings = useAriaLabelStrings();
-
-    const controller = useController<{ [K in string]: SkillItem[] }>({
+export const SkillInput = React.forwardRef<HTMLInputElement, SkillInputProps>(
+  ({ label, name, error, control }, _ref) => {
+    const { field } = useController<{ [K in string]: SkillItem[] }>({
       name,
-      control: control as any,
+      control,
     });
-
-    const { value } = controller.field;
-
+    const strings = useCandidateStrings();
+    const id = useId();
+    const [editing, setEditing] = useState<number | null>(null);
+    const [draft, setDraft] = useState('');
+    const input = useRef<HTMLInputElement>(null);
+    const addButton = useRef<HTMLButtonElement | null>(null);
+    const returnFocus = useRef<HTMLButtonElement | null>(null);
+    useEffect(() => {
+      if (editing !== null) input.current?.focus();
+    }, [editing]);
+    const close = () => {
+      setEditing(null);
+      (returnFocus.current ?? addButton.current)?.focus();
+    };
+    const save = (text: string) => {
+      const value = text.trim();
+      if (!value || editing === null) return;
+      const next = [...field.value];
+      next[editing] = { value, isEditing: false };
+      field.onChange(next);
+      close();
+    };
     return (
-      <div className="flex flex-col" ref={ref as any}>
-        <div className="flex">
-          {label && (
-            <label
-              htmlFor={name}
-              className="text-[23px] sm:text-[18px] font-loose font-bold leading-tight flex mb-[1rem] sm:mb-[0.5rem]"
-            >
-              <div className="w-[3px] bg-black opacity-40 ml-[0.25rem] mr-[0.75rem] mb-[0.25rem]" />
-              {label}
-            </label>
-          )}
-          {error?.message && (
-            <span className="sm:hidden text-red-600 ml-[1rem]">
-              *{error.message}
-            </span>
-          )}
-        </div>
-
-        <div
-          className={clsx(
-            'px-[1rem] pt-[1.125rem] pb-[1rem] outline-none rounded-[4px] border font-loose leading-none bg-white border-black border-opacity-30',
-            'flex flex-wrap content-start gap-x-3 gap-y-[15px] min-h-[136px]',
-            'sm:!gap-x-2 sm:!gap-y-3',
-          )}
+      <div className="font-loose">
+        <span
+          id={`${id}-label`}
+          className="block text-[23px] sm:text-[18px] font-bold mb-3"
         >
-          {value.map((v, i) => (
-            <SkillItemInput
-              key={i}
-              value={v}
-              onChange={(v) => {
-                controller.field.onChange(
-                  value.map(
-                    (curItem, curI): SkillItem => (curI !== i ? curItem : v),
-                  ),
-                );
+          {label}
+        </span>
+        <div
+          role="group"
+          aria-labelledby={`${id}-label`}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className="p-4 bg-white rounded border border-black border-opacity-30 min-h-[100px]"
+        >
+          <div className="flex flex-wrap gap-3">
+            {field.value.map((skill, index) => (
+              <div
+                key={index}
+                className="flex min-w-0 max-w-full items-center bg-[#DFDFDF] rounded-full"
+              >
+                <button
+                  type="button"
+                  className="min-w-0 break-words [overflow-wrap:anywhere] px-4 py-2 font-bold"
+                  aria-label={`${strings.editSkill}: ${skill.value}`}
+                  onClick={(ev) => {
+                    returnFocus.current = ev.currentTarget;
+                    setDraft(skill.value);
+                    setEditing(index);
+                  }}
+                >
+                  {skill.value}
+                </button>
+                <button
+                  type="button"
+                  className="shrink-0 px-3 py-2 rounded-full"
+                  aria-label={`${strings.remove} ${skill.value}`}
+                  onClick={() => {
+                    field.onChange(field.value.filter((_, i) => i !== index));
+                    setEditing(null);
+                    addButton.current?.focus();
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+            <button
+              ref={(el) => {
+                addButton.current = el;
+                field.ref(el);
               }}
-              onDelete={() =>
-                controller.field.onChange(value.filter((_, j) => i !== j))
-              }
-            />
-          ))}
-
-          <button
-            aria-label={ariaLabelStrings.add}
-            type="button"
-            className={clsx(
-              'h-[42px] w-[42px] p-[7px] bg-[#DFDFDF] rounded-full flex justify-center items-center',
-              'sm:h-[30px] sm:w-[30px] sm:p-[5px]',
-            )}
-            onClick={() =>
-              controller.field.onChange([
-                ...value,
-                { value: '', isEditing: true },
-              ])
-            }
-          >
-            <Add height={25} width={24} />
-          </button>
+              type="button"
+              aria-invalid={!!error}
+              aria-describedby={error ? `${id}-error` : undefined}
+              className="rounded-full bg-[#DFDFDF] px-4 py-2 font-bold"
+              onClick={(ev) => {
+                returnFocus.current = ev.currentTarget;
+                setDraft('');
+                setEditing(field.value.length);
+              }}
+            >
+              + {strings.addSkill}
+            </button>
+          </div>
+          {editing !== null && (
+            <div
+              className="border-t border-black mt-4 pt-4"
+              onKeyDown={(ev) => {
+                if (ev.key === 'Escape') {
+                  ev.preventDefault();
+                  ev.stopPropagation();
+                  close();
+                }
+              }}
+            >
+              <label htmlFor={id} className="sr-only">
+                {strings.editSkill}
+              </label>
+              <input
+                id={id}
+                ref={input}
+                value={draft}
+                maxLength={60}
+                placeholder={strings.skillPlaceholder}
+                className="border border-black rounded px-3 py-3 w-full"
+                onChange={(ev) => setDraft(ev.target.value)}
+                onKeyDown={(ev) => {
+                  if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    save(draft);
+                  }
+                }}
+              />
+              <div className="flex flex-wrap gap-2 mt-3">
+                {getSkillResults(draft)
+                  .slice(0, 5)
+                  .map((option) => (
+                    <button
+                      key={option.skill}
+                      type="button"
+                      className="rounded-full bg-[#DFDFDF] px-3 py-2"
+                      onClick={() => save(option.skill)}
+                    >
+                      {option.skill}
+                    </button>
+                  ))}
+              </div>
+              <div className="flex gap-3 mt-4">
+                <button
+                  type="button"
+                  disabled={!draft.trim()}
+                  className="rounded-full bg-black text-white px-5 py-2 disabled:opacity-40"
+                  onClick={() => save(draft)}
+                >
+                  {strings.save}
+                </button>
+                <button
+                  type="button"
+                  className="rounded-full border border-black px-5 py-2"
+                  onClick={close}
+                >
+                  {strings.cancel}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-
         {error?.message && (
-          <span className=">sm:hidden text-red-600 text-[10px]">
-            *{error.message}
-          </span>
+          <p id={`${id}-error`} role="alert" className="text-[14px] mt-2">
+            {error.message}
+          </p>
         )}
       </div>
     );

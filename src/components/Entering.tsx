@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
+/* React Three Fiber declares these mesh/material properties. */
+/* eslint-disable react/no-unknown-property */
+import React, { useEffect, useRef, useState } from 'react';
 
+import { makeStrings } from '@monoid-dev/use-strings';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import clsx from 'clsx';
 import * as THREE from 'three';
@@ -41,7 +44,11 @@ const Ring: React.VFC<{
 const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   const { camera } = useThree();
 
-  const { values: ringOpacity, play: playRingOpacity } = useChain(
+  const {
+    values: ringOpacity,
+    play: playRingOpacity,
+    cancel: cancelRings,
+  } = useChain(
     Array(16)
       .fill(1)
       .map((_) => ({
@@ -54,6 +61,7 @@ const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   const {
     values: [cameraCircular],
     play: playCameraCircular,
+    cancel: cancelCircular,
   } = useChain([
     {
       from: 0,
@@ -65,6 +73,7 @@ const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   const {
     values: [cameraX],
     play: playCameraX,
+    cancel: cancelCamera,
   } = useChain([
     {
       from: 0,
@@ -75,10 +84,18 @@ const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   ]);
 
   useEffect(() => {
+    let cancelled = false;
     playRingOpacity().then(() => {
+      if (cancelled) return;
       playCameraCircular();
       playCameraX();
     });
+    return () => {
+      cancelled = true;
+      cancelRings();
+      cancelCircular();
+      cancelCamera();
+    };
   }, []);
 
   useFrame(() => {
@@ -107,40 +124,86 @@ const EnteringCanvas: React.VFC<{ onFading: () => void }> = ({ onFading }) => {
   );
 };
 
-export const Entering: React.FC<{ onDone: () => void }> = ({ onDone }) => {
-  const {
-    values: [backgroundOpacity],
-    play,
-  } = useChain([
-    {
-      from: 1,
-      to: 0,
-      interpolate: (x) => 1 - Math.cos((x / 15) * (Math.PI / 2)),
-      onFinished: () => onDone(),
-    },
-  ]);
+const useStrings = makeStrings({
+  'en-US': { skip: 'Skip introduction' },
+  'ja-JP': { skip: 'イントロをスキップ' },
+  'zh-CN': { skip: '跳过开场动画' },
+});
 
+const FailOpen = ({ onDone }: { onDone: () => void }) => {
+  useEffect(onDone, [onDone]);
+  return null;
+};
+class EntranceBoundary extends React.Component<
+  { onDone: () => void; children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onDone();
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+export const Entering: React.FC<{ onDone: () => void }> = ({ onDone }) => {
+  const strings = useStrings();
+  const doneRef = useRef(onDone);
+  doneRef.current = onDone;
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motion.matches || window.matchMedia('(max-width: 899px)').matches) {
+      doneRef.current();
+      return;
+    }
+    setReady(true);
+    const timeout = window.setTimeout(() => doneRef.current(), 8000);
+    const bypass = () => {
+      if (motion.matches) doneRef.current();
+    };
+    motion.addEventListener('change', bypass);
+    return () => {
+      clearTimeout(timeout);
+      motion.removeEventListener('change', bypass);
+    };
+  }, []);
+  const finish = () => doneRef.current();
+  if (!ready) return null;
   return (
-    <div
-      id="canvas-container"
-      className={clsx('z-50 fixed top-0 right-0 bottom-0 left-0 sm:hidden')}
-      style={{
-        backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
-      }}
-      onClick={() => play()}
-    >
-      <Canvas
-        dpr={[1, 2]}
-        camera={{
-          fov: 75,
-          near: 0.1,
-          far: 1000,
-          zoom: 5,
-          position: [0, 0, 50],
-        }}
+    <div className={clsx('z-[60] fixed inset-0 sm:hidden bg-black text-white')}>
+      <EntranceBoundary onDone={finish}>
+        <Canvas
+          fallback={<FailOpen onDone={finish} />}
+          dpr={[1, 2]}
+          onCreated={({ gl }) => {
+            gl.domElement.addEventListener('webglcontextlost', finish, {
+              once: true,
+            });
+          }}
+          camera={{
+            fov: 75,
+            near: 0.1,
+            far: 1000,
+            zoom: 5,
+            position: [0, 0, 50],
+          }}
+        >
+          <EnteringCanvas onFading={finish} />
+        </Canvas>
+      </EntranceBoundary>
+      <button
+        autoFocus
+        type="button"
+        onClick={finish}
+        className="absolute right-8 bottom-8 border border-white rounded-full px-6 py-3 font-loose"
       >
-        <EnteringCanvas onFading={() => play()} />
-      </Canvas>
+        {strings.skip}
+      </button>
     </div>
   );
 };

@@ -18,7 +18,20 @@ export const postFile = async (file: File): Promise<UploadedFile> => {
     body: formData,
   });
 
-  return await response.json();
+  if (!response.ok) throw new Error('File upload failed');
+  const data: unknown = await response.json();
+  if (
+    !data ||
+    typeof data !== 'object' ||
+    !('url' in data) ||
+    typeof data.url !== 'string'
+  ) {
+    throw new Error('Upload response did not include a file URL');
+  }
+  const url = new URL(data.url);
+  if (!['https:', 'http:'].includes(url.protocol))
+    throw new Error('Invalid upload URL');
+  return { url: url.href };
 };
 
 export const usePostFile = () => useMutation(postFile);

@@ -39,3 +39,30 @@ export const useToken = () => {
 
   return token;
 };
+
+// Only normalized local admin routes can be used after signing in.
+export const safeAdminNext = (next: unknown, origin: string): string => {
+  if (
+    typeof next !== 'string' ||
+    !next ||
+    /[\\\s]/.test(next) ||
+    next.startsWith('//')
+  )
+    return '/admin/';
+  try {
+    const url = new URL(next, origin);
+    if (url.origin !== origin || !/^https?:$/.test(url.protocol))
+      return '/admin/';
+    const decoded = decodeURIComponent(url.pathname);
+    if (
+      decoded !== url.pathname ||
+      (url.pathname !== '/admin' && !url.pathname.startsWith('/admin/'))
+    )
+      return '/admin/';
+    if (url.pathname === '/admin/login' || url.pathname === '/admin/login/')
+      return '/admin/';
+    return `${url.pathname === '/admin' ? '/admin/' : url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return '/admin/';
+  }
+};

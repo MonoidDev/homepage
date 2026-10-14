@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -8,176 +8,85 @@ import CN from '@/assets/images/CN.svg';
 import EN from '@/assets/images/EN.svg';
 import JP from '@/assets/images/JP.svg';
 import Languages from '@/assets/images/Languages.svg';
-import SlashThick from '@/assets/images/SlashThick.svg';
 import { useAriaLabelStrings } from '@/data/ariaLabel';
-import { useChain } from '@/utils/animation';
+
 export interface LanguageMenuProps {
   action: 'open' | 'close';
   onChangeAction?: (action: 'open' | 'close') => void;
 }
 
-const LANGUAGES_WIDTH = 33;
-
-const INITIAL_PADDING = 8;
-
-const FINAL_PADDING = 13;
-
-const INITIAL_RADIUS = LANGUAGES_WIDTH / 2 + INITIAL_PADDING;
-
-const FINAL_RADIUS = LANGUAGES_WIDTH / 2 + FINAL_PADDING;
-
-export const LanguageMenu: React.VFC<LanguageMenuProps> = (props) => {
-  const { action, onChangeAction } = props;
-
+export const LanguageMenu: React.FC<LanguageMenuProps> = ({
+  action,
+  onChangeAction,
+}) => {
   const router = useRouter();
-  const ariaLabelStrings = useAriaLabelStrings();
-
-  useEffect(() => {
-    if (action === 'open') {
-      play();
-      playBorderRadius();
-    }
-  }, [action]);
-
-  const {
-    values: [borderRadius],
-    play: playBorderRadius,
-    reverse: reverseBorderRadius,
-    reset: resetBorderRadius,
-  } = useChain([
-    {
-      from: INITIAL_RADIUS,
-      to: FINAL_RADIUS,
-      interpolate: (frame) => Math.sin(((frame / 15) * Math.PI) / 2),
-    },
-  ]);
-
-  const {
-    values: [width, slashOffsetY, buttonScale],
-    play,
-    reverse,
-    currentIndex,
-    isPlaying,
-    reset,
-  } = useChain([
-    {
-      from: INITIAL_RADIUS * 2,
-      to: 470,
-      interpolate: (frame) => Math.sin(((frame / 30) * Math.PI) / 2),
-    },
-    {
-      from: 80,
-      to: 0,
-      onStart: ({ reversed }) => {
-        if (reversed) {
-          reverseBorderRadius();
-          onChangeAction?.('close');
-        }
-      },
-      interpolate: (frame) => Math.sin(((frame / 15) * Math.PI) / 2),
-    },
-    {
-      from: 0,
-      to: 1,
-      interpolate: (frame) => Math.sin(((frame / 10) * Math.PI) / 2),
-    },
-  ]);
-
-  const slashOffsetX = (-45 / 80) * slashOffsetY!;
-
-  const handleLanguageSwitch = (e: React.MouseEvent, locale: string) => {
-    e.preventDefault();
-    reset();
-    resetBorderRadius();
+  const labels = useAriaLabelStrings();
+  const id = useId();
+  const trigger = useRef<HTMLButtonElement>(null);
+  const choices = useRef<HTMLDivElement>(null);
+  const open = action === 'open';
+  const close = () => {
     onChangeAction?.('close');
-    router.push(router.asPath, undefined, { locale, scroll: false });
+    trigger.current?.focus();
   };
+  useEffect(() => {
+    if (open) choices.current?.querySelector('a')?.focus();
+  }, [open]);
 
   return (
-    <div className="flex">
-      <div
-        className={clsx(
-          'white:text-black black:text-white flex overflow-hidden',
-          action === 'close' &&
-            'hover:white:bg-black hover:black:bg-white hover:white:text-white hover:black:text-black',
-          (action === 'open' || isPlaying || currentIndex >= 2) &&
-            'white:bg-black black:bg-white white:!text-white black:!text-black',
+    <div
+      className={clsx(
+        'flex items-center rounded-full p-2 gap-4',
+        open &&
+          'white:bg-black white:text-white black:bg-white black:text-black',
+      )}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape' && open) {
+          event.stopPropagation();
+          close();
+        }
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          onChangeAction?.('close');
+      }}
+    >
+      <div id={id} ref={choices} hidden={!open}>
+        {open && (
+          <div className="flex items-center gap-8 px-5 md:gap-5">
+            {(
+              [
+                ['ja-JP', labels.jp, JP],
+                ['en-US', labels.en, EN],
+                ['zh-CN', labels.cn, CN],
+              ] as const
+            ).map(([locale, name, Icon]) => (
+              <Link
+                key={locale}
+                href={router.asPath}
+                locale={locale}
+                aria-label={name}
+                aria-current={router.locale === locale ? 'true' : undefined}
+                className="flex min-h-[44px] items-center border-b border-transparent aria-[current=true]:border-current"
+                onClick={close}
+              >
+                <Icon aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
         )}
-        style={{
-          borderRadius,
-          height: 2 * borderRadius!,
-          width,
-        }}
-        aria-expanded={action === 'open'}
-      >
-        {currentIndex >= 1 && (
-          <>
-            <div className="w-[40px]" />
-            <div className="w-[100px] flex items-center justify-center">
-              <Link
-                href={router.asPath}
-                locale="ja-JP"
-                aria-label={ariaLabelStrings.jp}
-                style={{ transform: `scale(${buttonScale})` }}
-                onClick={(e) => handleLanguageSwitch(e, 'ja-JP')}
-              >
-                <JP />
-              </Link>
-            </div>
-            <SlashThick
-              style={{
-                transform: `translateY(${slashOffsetY}px) translateX(${slashOffsetX}px)`,
-              }}
-            />
-            <div className="w-[100px] flex items-center justify-center">
-              <Link
-                href={router.asPath}
-                locale="en-US"
-                aria-label={ariaLabelStrings.en}
-                style={{ transform: `scale(${buttonScale})` }}
-                onClick={(e) => handleLanguageSwitch(e, 'en-US')}
-              >
-                <EN />
-              </Link>
-            </div>
-            <SlashThick
-              style={{
-                transform: `translateY(${-slashOffsetY!}px) translateX(${-slashOffsetX!}px)`,
-              }}
-            />
-            <div className="w-[100px] flex items-center justify-center">
-              <Link
-                href={router.asPath}
-                locale="zh-CN"
-                aria-label={ariaLabelStrings.cn}
-                style={{ transform: `scale(${buttonScale})` }}
-                onClick={(e) => handleLanguageSwitch(e, 'zh-CN')}
-              >
-                <CN />
-              </Link>
-            </div>
-          </>
-        )}
-
-        <div style={{ flex: 1 }} />
-        <button
-          aria-label={ariaLabelStrings.languages}
-          className="block"
-          style={{
-            padding: borderRadius! - INITIAL_RADIUS + INITIAL_PADDING,
-          }}
-          disabled={isPlaying}
-          onClick={() => {
-            if (action === 'open') {
-              reverse();
-            } else {
-              onChangeAction?.('open');
-            }
-          }}
-        >
-          <Languages width={33} />
-        </button>
       </div>
+      <button
+        type="button"
+        ref={trigger}
+        aria-label={labels.languages}
+        aria-expanded={open}
+        aria-controls={id}
+        className="flex h-[44px] w-[44px] items-center justify-center rounded-full"
+        onClick={() => (open ? close() : onChangeAction?.('open'))}
+      >
+        <Languages width={33} aria-hidden="true" />
+      </button>
     </div>
   );
 };

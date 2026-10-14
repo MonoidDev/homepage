@@ -5,59 +5,54 @@ export const useScrolledVideo = (
   videoRef: React.RefObject<HTMLVideoElement>,
   range: number,
   offset: number,
+  enabled = true,
 ) => {
-  const seekingRef = useRef(false);
   const offsetRef = useRef(offset);
   offsetRef.current = offset;
-
-  const unwrapContainer = () => containerRef.current!;
-  const unwrapVideo = () => videoRef.current!;
-
-  const getScrollPercent = () =>
-    Math.min(
-      1,
-      Math.max(0, unwrapContainer().scrollTop - offsetRef.current) /
-        (range *
-          (unwrapContainer().scrollHeight - unwrapContainer().clientHeight)),
-    );
-
   useEffect(() => {
-    // To avoid "double seeking" that make Chrome stutter
-
-    function setSeekingTrue() {
-      seekingRef.current = true;
-    }
-
-    function setSeekingFalse() {
-      seekingRef.current = false;
-    }
-
-    unwrapVideo()?.addEventListener('seeking', setSeekingTrue);
-
-    unwrapVideo()?.addEventListener('seeked', setSeekingFalse);
-
-    let cancelled = false;
-
-    function step() {
-      if (videoRef.current?.duration && !isNaN(getScrollPercent())) {
-        if (!seekingRef.current) {
-          videoRef.current.currentTime =
-            getScrollPercent() * videoRef.current!.duration;
-        }
-      }
-
-      if (!cancelled) {
-        requestAnimationFrame(step);
-      }
-    }
-
-    requestAnimationFrame(step);
-
-    return () => {
-      unwrapVideo()?.removeEventListener('seeking', setSeekingTrue);
-      unwrapVideo()?.removeEventListener('seeked', setSeekingFalse);
-
-      cancelled = true;
+    const container = containerRef.current;
+    const video = videoRef.current;
+    if (!enabled || !container || !video) return;
+    let seeking = false;
+    const update = () => {
+      const length = range * (container.scrollHeight - container.clientHeight);
+      if (
+        seeking ||
+        container.clientHeight <= 0 ||
+        length <= 0 ||
+        !Number.isFinite(video.duration)
+      )
+        return;
+      const progress = Math.min(
+        1,
+        Math.max(0, container.scrollTop - offsetRef.current) / length,
+      );
+      const target = progress * video.duration;
+      if (
+        Number.isFinite(target) &&
+        Math.abs(video.currentTime - target) > 1 / 30
+      )
+        video.currentTime = target;
     };
-  }, []);
+    const onSeeking = () => {
+      seeking = true;
+    };
+    const onSeeked = () => {
+      seeking = false;
+      update();
+    };
+    video.addEventListener('seeking', onSeeking);
+    video.addEventListener('seeked', onSeeked);
+    video.addEventListener('loadedmetadata', update);
+    container.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    return () => {
+      video.removeEventListener('seeking', onSeeking);
+      video.removeEventListener('seeked', onSeeked);
+      video.removeEventListener('loadedmetadata', update);
+      container.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [containerRef, videoRef, range, enabled]);
 };

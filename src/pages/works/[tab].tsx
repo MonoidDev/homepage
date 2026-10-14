@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import React from 'react';
 
+import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDebounce } from 'usehooks-ts';
 
@@ -31,6 +33,36 @@ import wopalPng from '@/assets/images/works/wopal.png';
 import { useWorksStrings, WorkDescription, WorkTab } from '@/data/works';
 import { useLocale } from '@/utils/useLocale';
 
+const usePageStrings = makeStrings({
+  'en-US': {
+    categories: 'Work categories',
+    showDetails: (name: string) => `${name}: show details`,
+    hideDetails: (name: string) => `${name}: hide details`,
+    close: 'Close details',
+    previous: 'Previous project',
+    next: 'Next project',
+    visit: 'VISIT',
+  },
+  'ja-JP': {
+    categories: '実績のカテゴリー',
+    showDetails: (name: string) => `${name}：詳細を表示`,
+    hideDetails: (name: string) => `${name}：詳細を閉じる`,
+    close: '詳細を閉じる',
+    previous: '前のプロジェクト',
+    next: '次のプロジェクト',
+    visit: 'VISIT',
+  },
+  'zh-CN': {
+    categories: '案例分类',
+    showDetails: (name: string) => `${name}：查看详情`,
+    hideDetails: (name: string) => `${name}：收起详情`,
+    close: '收起详情',
+    previous: '上一个项目',
+    next: '下一个项目',
+    visit: 'VISIT',
+  },
+});
+
 interface CardContent {
   name: string;
   display: React.ReactNode;
@@ -52,9 +84,32 @@ interface MobileWorkCardProps {
 
 const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
   const { cardContent, workDescription, variant, focused, onFocus } = props;
+  const strings = usePageStrings();
+  const detailsId = React.useId();
+  const name = workDescription.mobileName ?? workDescription.name;
 
   return (
-    <div onClick={onFocus} className="relative z-0">
+    <div className="relative z-0">
+      <button
+        type="button"
+        aria-expanded={focused}
+        aria-controls={detailsId}
+        aria-label={
+          focused ? strings.hideDetails(name) : strings.showDetails(name)
+        }
+        onClick={onFocus}
+        className="absolute inset-0 z-[60] w-full focus-visible:shadow-[inset_0_0_0_3px_#fff,inset_0_0_0_6px_#000]"
+      />
+      <span
+        aria-hidden="true"
+        className={clsx(
+          'absolute top-[2.5vw] z-[70] w-[28px] h-[28px] rounded-full bg-white text-black',
+          'flex items-center justify-center text-[20px] leading-none font-bold pointer-events-none',
+          variant === 'right' ? 'right-[2.5vw]' : 'right-[9.5vw]',
+        )}
+      >
+        {focused ? '−' : '+'}
+      </span>
       <div
         className={clsx(
           'relative w-[93vw] h-[52vw] bg-[#3692da] bg-cover bg-center',
@@ -78,18 +133,9 @@ const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
         </div>
 
         <div className="flex flex-1 items-center px-[8px]">
-          <h4
-            className="text-[13vw] leading-none font-dense mt-[8px]"
-            onClick={(e) => {
-              if (cardContent.url) {
-                window.open(cardContent.url, 'blank');
-                e.preventDefault();
-                e.stopPropagation();
-              }
-            }}
-          >
-            {workDescription.mobileName ?? workDescription.name}
-          </h4>
+          <h2 className="text-[13vw] leading-none font-dense mt-[8px]">
+            {name}
+          </h2>
           <div className="flex-1" />
           {workDescription.mobileTags.map((tag) => (
             <div
@@ -101,19 +147,47 @@ const MobileWorkCard: React.FC<MobileWorkCardProps> = (props) => {
           ))}
         </div>
       </div>
+
+      <div
+        id={detailsId}
+        hidden={!focused}
+        className="relative z-[70] mx-[3.5vw] mt-[12px] font-loose text-[15px] leading-relaxed"
+      >
+        <div className="mb-[12px]">{workDescription.details}</div>
+        {cardContent.url && (
+          <a
+            href={cardContent.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border-black border-2 py-[4px] px-[8px] font-dense text-[20px]"
+          >
+            {strings.visit} {name}
+            <NewPageSvg
+              aria-hidden="true"
+              className="inline-block ml-[0.5rem] relative top-[-2px]"
+            />
+          </a>
+        )}
+      </div>
     </div>
   );
 };
 
-const MobileWorksGallery: React.FC<{ cardContents: CardContent[] }> =
-  React.memo(({ cardContents }) => {
-    const { works } = useWorksStrings();
+const MobileWorksGallery: React.FC<{
+  cardContents: CardContent[];
+  tab: number;
+}> = React.memo(({ cardContents, tab }) => {
+  const { works } = useWorksStrings();
 
-    const [focused, setFocused] = useState<string>('');
+  const [focused, setFocused] = useState<string>('');
 
-    return (
-      <div className="flex flex-col pt-2 gap-y-6">
-        {works.map((work, i) => (
+  return (
+    <div className="flex flex-col pt-2 gap-y-6">
+      {works
+        .filter(
+          (work) => cardContents.find((c) => c.name === work.name)!.tab === tab,
+        )
+        .map((work, i) => (
           <MobileWorkCard
             key={work.name}
             cardContent={cardContents.find((c) => c.name === work.name)!}
@@ -129,9 +203,9 @@ const MobileWorksGallery: React.FC<{ cardContents: CardContent[] }> =
             workDescription={work}
           />
         ))}
-      </div>
-    );
-  });
+    </div>
+  );
+});
 
 const WorkCard: React.FC<{
   index: number;
@@ -155,9 +229,28 @@ const WorkCard: React.FC<{
   } = props;
 
   const locale = useLocale();
+  const strings = usePageStrings();
 
   const debouncedOpen = useDebounce(open, 150);
   const containerRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(open);
+
+  // Collapsed cards clip their description; keep it out of the tab order too.
+  useEffect(() => {
+    if (descriptionRef.current) descriptionRef.current.inert = !open;
+  }, [open]);
+
+  // Move focus into an opened card, and back to its opener when it closes.
+  useEffect(() => {
+    const cardHasFocus = containerRef.current?.contains(document.activeElement);
+    if (open && !wasOpen.current) closeButtonRef.current?.focus();
+    if (!open && wasOpen.current && cardHasFocus)
+      openButtonRef.current?.focus();
+    wasOpen.current = open;
+  }, [open]);
 
   useEffect(() => {
     if (debouncedOpen) {
@@ -173,10 +266,13 @@ const WorkCard: React.FC<{
   const renderCollapseButton = () => {
     return (
       <button
+        ref={closeButtonRef}
+        type="button"
+        aria-label={strings.close}
         className="absolute top-[22px] right-[18px] z-[40]"
         onClick={onClick}
       >
-        <CollapseSvg />
+        <CollapseSvg aria-hidden="true" />
       </button>
     );
   };
@@ -202,13 +298,17 @@ const WorkCard: React.FC<{
       <a
         href={content.url}
         target="_blank"
+        rel="noopener noreferrer"
         className={clsx(
           'self-end',
           'block h-[40px] border-black border-2 py-[6px] px-[8px] font-dense text-[21px]',
         )}
       >
-        VISIT {description.name}
-        <NewPageSvg className="inline-block ml-[0.5rem] relative top-[-2px]" />
+        {strings.visit} {description.name}
+        <NewPageSvg
+          aria-hidden="true"
+          className="inline-block ml-[0.5rem] relative top-[-2px]"
+        />
       </a>
     );
   };
@@ -216,15 +316,16 @@ const WorkCard: React.FC<{
   const renderWorkDescription = () => {
     return (
       <div
+        ref={descriptionRef}
         className={clsx(
           'flex-1 flex flex-col relative z-10',
           'pl-[20px] pt-[65px] pr-[80px]',
         )}
       >
         <div className="flex gap-x-[8px]">
-          <h3 className="font-dense text-[50px] leading-none shrink-0">
+          <h2 className="font-dense text-[50px] leading-none shrink-0">
             {description.name}
-          </h3>
+          </h2>
 
           <div
             className={clsx(
@@ -269,8 +370,21 @@ const WorkCard: React.FC<{
         open ? 'w-[780px]' : 'w-[280px] cursor-pointer',
         '[filter:drop-shadow(18.9107px_18.9107px_18.9107px_rgba(0,0,0,0.1))]',
       )}
-      onClick={open ? undefined : onClick}
+      onKeyDown={(event) => {
+        if (open && event.key === 'Escape') onClick();
+      }}
     >
+      {!open && (
+        <button
+          ref={openButtonRef}
+          type="button"
+          aria-expanded={false}
+          aria-label={strings.showDetails(description.name)}
+          // The card clips outer outlines, so draw the focus ring inside it.
+          className="absolute inset-0 z-[50] w-full focus-visible:shadow-[inset_0_0_0_3px_#fff,inset_0_0_0_6px_#000]"
+          onClick={onClick}
+        />
+      )}
       <div className="flex-1 relative z-30 flex w-[780px]">
         <div className={clsx('w-[280px] flex shrink-0 relative z-0')}>
           {content?.hideDisplayWhenOpen
@@ -312,39 +426,53 @@ const WorkCard: React.FC<{
 
         {debouncedOpen && (
           <div className="flex items-center gap-x-[8px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="20"
-              viewBox="0 0 19 20"
-              fill="none"
+            <button
+              type="button"
+              aria-label={strings.previous}
+              disabled={index <= 0}
               className={clsx(
-                'relative top-[-5px] cursor-pointer',
+                'relative top-[-5px]',
                 index <= 0 && 'opacity-0 pointer-events-none',
               )}
               onClick={() => onOpenPrev()}
             >
-              <path
-                d="M0 9.99999L18.75 0.435221L18.75 19.5648L0 9.99999Z"
-                fill="black"
-              />
-            </svg>
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="20"
+                viewBox="0 0 19 20"
+                fill="none"
+              >
+                <path
+                  d="M0 9.99999L18.75 0.435221L18.75 19.5648L0 9.99999Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
             {String(index + 1).padStart(2, '0')}/
             {String(total).padStart(2, '0')}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="20"
-              viewBox="0 0 19 20"
-              fill="none"
+            <button
+              type="button"
+              aria-label={strings.next}
+              disabled={index >= total - 1}
               className={clsx(
-                'relative top-[-5px] cursor-pointer',
+                'relative top-[-5px]',
                 index >= total - 1 && 'opacity-0 pointer-events-none',
               )}
               onClick={() => onOpenNext()}
             >
-              <path d="M19 10L0.25 19.5648V0.435242L19 10Z" fill="black" />
-            </svg>
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="20"
+                viewBox="0 0 19 20"
+                fill="none"
+              >
+                <path d="M19 10L0.25 19.5648V0.435242L19 10Z" fill="black" />
+              </svg>
+            </button>
           </div>
         )}
       </div>
@@ -354,53 +482,64 @@ const WorkCard: React.FC<{
 
 const TabNavigation: React.FC<{
   index: number;
-  onChangeIndex: (index: number) => void;
+  variant?: 'desktop' | 'mobile';
 }> = (props) => {
-  const { index: currentIndex, onChangeIndex } = props;
+  const { index: currentIndex, variant = 'desktop' } = props;
 
   const workStrings = useWorksStrings();
+  const strings = usePageStrings();
 
   const renderTab = (tab: WorkTab, index: number) => {
+    const current = index === currentIndex;
+
     return (
-      <div
-        className={clsx('cursor-pointer transition-opacity')}
+      <Link
+        className={clsx(
+          'block transition-opacity',
+          variant === 'mobile' && 'flex-1',
+        )}
         key={index}
-        onClick={() => onChangeIndex(index)}
+        href={`/works/${index}`}
+        scroll={false}
+        aria-current={current ? 'page' : undefined}
       >
-        <h3
+        <span
           className={clsx(
-            'font-dense text-[36px] leading-none font-bold text-black',
-            index !== currentIndex && 'text-opacity-20',
+            'block font-dense leading-none font-bold text-black',
+            variant === 'desktop' ? 'text-[36px]' : 'text-[24px]',
+            !current && 'text-opacity-60',
           )}
         >
           {tab.title}
-        </h3>
-        <p
-          className={clsx(
-            'font-dense text-base font-bold leading-tight text-black',
-            index !== currentIndex && 'text-opacity-20',
-          )}
-        >
-          {tab.description}
-        </p>
-        <div
-          className={clsx(
-            index === currentIndex && 'bg-black',
-            'h-[3px] mt-[4px]',
-          )}
+        </span>
+        {variant === 'desktop' && (
+          <span
+            className={clsx(
+              'block font-dense text-base font-bold leading-tight text-black',
+              !current && 'text-opacity-60',
+            )}
+          >
+            {tab.description}
+          </span>
+        )}
+        <span
+          className={clsx(current && 'bg-black', 'block h-[3px] mt-[4px]')}
         />
-      </div>
+      </Link>
     );
   };
 
   return (
-    <div
+    <nav
+      aria-label={strings.categories}
       className={
-        'pb-[70px] flex flex-col justify-end gap-y-[55px] w-[180px] mr-[40px]'
+        variant === 'desktop'
+          ? 'pb-[70px] flex flex-col justify-end gap-y-[55px] w-[180px] mr-[40px]'
+          : 'flex gap-x-[24px] mt-[12px] mb-[8px]'
       }
     >
       {workStrings.tabs.map((tab, index) => renderTab(tab, index))}
-    </div>
+    </nav>
   );
 };
 
@@ -423,7 +562,11 @@ export default function () {
         name: 'PAWPAWMALL',
         display: (
           <div className="flex-1 flex flex-col items-center justify-center">
-            <img src={pawpawmallPng.src} className="w-[200px] h-[58px]" />
+            <img
+              alt=""
+              src={pawpawmallPng.src}
+              className="w-[200px] h-[58px]"
+            />
           </div>
         ),
         displayMobileSrc: pawpawmallMobile.src,
@@ -431,6 +574,7 @@ export default function () {
         tab: 0,
         background: (
           <img
+            alt=""
             src={pawpawmallBackgroundPng.src}
             className="w-[780px] h-[380px]"
           />
@@ -441,7 +585,7 @@ export default function () {
         name: 'WOPAL',
         display: (
           <div className="flex-1 flex justify-center items-center">
-            <img src={wopalPng.src} className="w-[160px] h-[322px]" />
+            <img alt="" src={wopalPng.src} className="w-[160px] h-[322px]" />
           </div>
         ),
         displayMobileSrc: wopalMobile.src,
@@ -456,6 +600,7 @@ export default function () {
         display: (
           <div className="flex-1 flex flex-col justify-end">
             <img
+              alt=""
               src={monozipPng.src}
               className="self-start w-[308px] h-[322px] max-w-[initial]"
             />
@@ -470,13 +615,14 @@ export default function () {
         name: 'D2D',
         display: (
           <div className="flex-1 flex flex-col justify-center items-start">
-            <img src={d2dPng.src} className="w-[238.5] h-[234px]" />
+            <img alt="" src={d2dPng.src} className="w-[238.5] h-[234px]" />
           </div>
         ),
         displayMobileSrc: d2dMobile.src,
         tab: 1,
         background: (
           <img
+            alt=""
             src={d2dBackgroundPng.src}
             className="h-[380px] w-[780px] max-w-none"
           />
@@ -487,13 +633,14 @@ export default function () {
         name: 'iHEAL',
         display: (
           <div className="flex-1 flex flex-col justify-end">
-            <img src={ihealPng.src} className="w-[280px] h-[383px]" />
+            <img alt="" src={ihealPng.src} className="w-[280px] h-[383px]" />
           </div>
         ),
         displayMobileSrc: ihealMobile.src,
         displayOpen: (
           <div className="flex-1 flex flex-col justify-end">
             <img
+              alt=""
               src={ihealOpenPng.src}
               className="w-[391.38px] !h-[383px] shrink-0 self-start !max-w-none"
             />
@@ -507,7 +654,7 @@ export default function () {
         name: 'POLIJOB',
         display: (
           <div className="flex-1 flex flex-col">
-            <img src={polijobPng.src} className="w-[280px] h-[380px]" />
+            <img alt="" src={polijobPng.src} className="w-[280px] h-[380px]" />
           </div>
         ),
         displayMobileSrc: polijobMobile.src,
@@ -519,7 +666,11 @@ export default function () {
         name: 'UPTIME MONITOR',
         display: (
           <div className="flex-1 flex flex-col justify-center">
-            <img src={uptimeMonitorPng.src} className="w-[280px] h-[243px]" />
+            <img
+              alt=""
+              src={uptimeMonitorPng.src}
+              className="w-[280px] h-[243px]"
+            />
           </div>
         ),
         displayMobileSrc: uptimeMonitorMobile.src,
@@ -532,7 +683,7 @@ export default function () {
         displayMobileSrc: auditAppPng.src,
         display: (
           <div className="flex-1 flex flex-col justify-center">
-            <img src={auditAppPng.src} className="w-[258px] h-[264px]" />
+            <img alt="" src={auditAppPng.src} className="w-[258px] h-[264px]" />
           </div>
         ),
         tab: 1,
@@ -550,16 +701,19 @@ export default function () {
       (work) => cardContents.find((c) => c.name === work.name)!.tab === tab,
     );
     return (
-      <div className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0">
-        <h2 className={clsx(baseWorks, 'z-[-1]')}>WORKS</h2>
-        <h2 className={clsx(baseWorks, 'z-[100] mix-blend-overlay text-white')}>
+      <main
+        className="sm:hidden flex-1 flex flex-col text-black relative z-0 overflow-scroll min-h-0"
+        role="main"
+      >
+        <h1 className={clsx(baseWorks, 'z-[-1]')}>WORKS</h1>
+        <div
+          aria-hidden="true"
+          className={clsx(baseWorks, 'z-[100] mix-blend-overlay text-white')}
+        >
           WORKS
-        </h2>
+        </div>
         <div className="mt-[140px] px-[96px] h-[450px] flex">
-          <TabNavigation
-            index={tab}
-            onChangeIndex={(i) => router.push(String(i))}
-          />
+          <TabNavigation index={tab} />
 
           <div className="flex-1 overflow-x-scroll flex shrink gap-x-[40px]">
             {allWorks.map((work, i, l) => (
@@ -581,17 +735,24 @@ export default function () {
             ))}
           </div>
         </div>
-      </div>
+      </main>
     );
   };
 
   const renderMobile = () => {
     return (
-      <div className=">sm:hidden flex-1 flex flex-col overflow-scroll overflow-x-hidden relative z-0 pb-[2rem]">
-        <h2 className="font-loose font-bold text-[90px] leading-none">WORKS</h2>
+      <main
+        className=">sm:hidden flex-1 flex flex-col overflow-scroll overflow-x-hidden relative z-0 pb-[2rem]"
+        role="main"
+      >
+        <h1 className="font-loose font-bold text-[90px] leading-none">WORKS</h1>
 
-        <MobileWorksGallery cardContents={cardContents} />
-      </div>
+        <div className="px-[3.5vw]">
+          <TabNavigation index={tab} variant="mobile" />
+        </div>
+
+        <MobileWorksGallery cardContents={cardContents} tab={tab} />
+      </main>
     );
   };
 

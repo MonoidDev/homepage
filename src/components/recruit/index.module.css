@@ -1,4 +1,4 @@
-.content h3 {
+.content h2 {
   @apply font-bold text-[30px] mb-[1rem];
 }
 
@@ -6,7 +6,7 @@
   @apply mb-[2rem];
 }
 
-.contentMobile h3 {
+.contentMobile h2 {
   @apply font-bold font-loose text-[20px] mb-[1rem];
 }
 
@@ -30,4 +30,18 @@
 
 .formSectionTitle {
   @apply font-loose font-bold text-[35px];
+}
+.headerAction {
+  @apply flex items-center gap-4 rounded-lg px-2 transition-colors hover:bg-[#DFDFDF] disabled:opacity-50 disabled:cursor-wait;
+}
+
+.headerAction:hover .nextTitle,
+.headerAction:focus-visible .nextTitle,
+.nextMobiltTitle:hover,
+.nextMobiltTitle:focus-visible {
+  -webkit-text-fill-color: black;
+}
+
+.pill {
+  @apply inline-flex items-center justify-center rounded-full bg-black text-white font-loose font-bold text-[22px] px-8 py-4 hover:bg-[#333] disabled:opacity-50 disabled:cursor-wait;
 }

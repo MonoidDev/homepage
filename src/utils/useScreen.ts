@@ -9,7 +9,7 @@ function useMediaQuery(query: string): boolean {
     return false;
   };
 
-  const [matches, setMatches] = useState<boolean>(getMatches(query));
+  const [matches, setMatches] = useState<boolean>(false);
 
   function handleChange() {
     setMatches(getMatches(query));
@@ -38,3 +38,6 @@ export const useScreen = (): ScreenType => {
   const matches = useMediaQuery('(max-width: 899px)');
   return matches ? 'mobile' : 'desktop';
 };
+
+export const useReducedMotion = () =>
+  useMediaQuery('(prefers-reduced-motion: reduce)');

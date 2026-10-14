@@ -6,6 +6,7 @@ import React, {
   ComponentProps,
 } from 'react';
 
+import { makeStrings } from '@monoid-dev/use-strings';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { createInterpolator } from 'range-interpolator';
@@ -21,11 +22,37 @@ import { useOpeningStrings } from '@/data/opening';
 import { useTheme } from '@/styles/theme';
 import { useLocale } from '@/utils/useLocale';
 import { useRendered } from '@/utils/useRendered';
-import { useScreen } from '@/utils/useScreen';
+import { useScreen, useReducedMotion } from '@/utils/useScreen';
 import { useScroll } from '@/utils/useScroll';
 import { useScrolledVideo } from '@/utils/useScrolledVideo';
 
 const sloganSpeed = 5;
+const useHomeStrings = makeStrings({
+  'en-US': {
+    works: 'SEE WORKS',
+    contact: 'CONTACT US',
+    join: 'JOIN US',
+    company: 'ABOUT MONOID',
+    top: 'Back to top',
+    scroll: 'Scroll to explore',
+  },
+  'ja-JP': {
+    works: '実績を見る',
+    contact: 'お問い合わせ',
+    join: '採用情報',
+    company: 'Monoidについて',
+    top: 'ページの先頭へ',
+    scroll: 'スクロールして見る',
+  },
+  'zh-CN': {
+    works: '查看案例',
+    contact: '联系我们',
+    join: '加入我们',
+    company: '关于 Monoid',
+    top: '返回顶部',
+    scroll: '向下滚动',
+  },
+});
 
 const shouldDisplayEasterEgg =
   new Date().getMonth() === 2 - 1 && new Date().getDate() === 24; // 2.24
@@ -46,41 +73,58 @@ const RandomCircle: React.VFC<{ fill?: string; maxX: number; maxY: number }> = (
   const [x, setX] = useState(initialX);
   const [y, setY] = useState(initialY);
 
+  const node = useRef<SVGGElement>(null);
+  const reduced = useReducedMotion();
   useEffect(() => {
-    let curX = x;
-    let curY = y;
-
-    (async () => {
-      while (true) {
-        const theta = 2 * Math.PI * Math.random();
-
-        let xSpeed = sloganSpeed * Math.cos(theta);
-        let ySpeed = sloganSpeed * Math.sin(theta);
-
-        for (let i = 0; i < 600; i++) {
-          await new Promise((r) => requestAnimationFrame(r));
-
-          if (curX > maxX + 100 || curX < 0 - 100) {
-            xSpeed *= -1;
-          }
-
-          if (curY > maxY + 100 || curY < 0 - 100) {
-            ySpeed *= -1;
-          }
-
-          curX = curX + xSpeed;
-          curY = curY + ySpeed;
-          setX(curX);
-          setY(curY);
-        }
+    if (
+      reduced ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
+    let frame = 0;
+    let running = false;
+    let curX = initialX;
+    let curY = initialY;
+    let theta = 2 * Math.PI * Math.random();
+    let dx = sloganSpeed * Math.cos(theta);
+    let dy = sloganSpeed * Math.sin(theta);
+    const step = () => {
+      if (!running) return;
+      if (!document.hidden) {
+        if (curX > maxX + 100 || curX < -100) dx *= -1;
+        if (curY > maxY + 100 || curY < -100) dy *= -1;
+        curX += dx;
+        curY += dy;
+        setX(curX);
+        setY(curY);
       }
-    })();
-  }, []);
+      frame = requestAnimationFrame(step);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      running = entry?.isIntersecting ?? false;
+      cancelAnimationFrame(frame);
+      if (running) frame = requestAnimationFrame(step);
+    });
+    if (node.current) observer.observe(node.current);
+    return () => {
+      running = false;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [maxX, maxY, reduced]);
 
   if (shouldDisplayLGBT) {
-    return <LgbtCircle r={180} cx={x} cy={y} />;
+    return (
+      <g ref={node}>
+        <LgbtCircle r={180} cx={x} cy={y} />
+      </g>
+    );
   }
-  return <circle r={180} cx={x} cy={y} fill={fill} />;
+  return (
+    <g ref={node}>
+      <circle r={180} cx={x} cy={y} fill={fill} />
+    </g>
+  );
 };
 
 const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
@@ -89,14 +133,18 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
   const maskId = useId();
 
   const openingStrings = useOpeningStrings();
+  const homeStrings = useHomeStrings();
 
   const locale = useLocale();
 
   return (
-    <span>
+    <div className="w-[1056px] max-w-[calc(100%-96px)] md:max-w-[calc(100%-56px)]">
       {isBottom && (
         <div className="h-0 relative text-[80px]">
-          <DotsSvg className="absolute bottom-[43px] left-[-30px]" />
+          <DotsSvg
+            aria-hidden="true"
+            className="absolute bottom-[43px] left-[-30px] md:left-0 md:opacity-30"
+          />
 
           <h2
             className={clsx(
@@ -108,7 +156,11 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
           </h2>
         </div>
       )}
-      <svg className="w-[1056px] h-[76px] sm:hidden" viewBox="0 0 1575 118">
+      <svg
+        aria-hidden="true"
+        className="w-full h-auto sm:hidden"
+        viewBox="0 0 1575 118"
+      >
         <mask id={String(maskId)}>
           <Slogan fill="white" />
         </mask>
@@ -141,36 +193,37 @@ const AnimatedSlogan: React.FC<{ isBottom?: boolean }> = ({
           </h2>
 
           <div className="absolute md:top-[150px] >md:top-[220px] left-[20px] flex gap-x-[80px]">
-            <OpeningLink color="black" target="_blank" href="/contact">
-              CONTACT US
+            <OpeningLink color="black" href="/contact">
+              {homeStrings.contact}
             </OpeningLink>
 
-            <OpeningLink color="black" target="_blank" href="/recruit">
-              JOIN US
+            <OpeningLink color="black" href="/recruit">
+              {homeStrings.join}
             </OpeningLink>
           </div>
         </div>
       )}
-    </span>
+    </div>
   );
 };
 
 const MobileAnimatedSlogan: React.VFC = () => {
+  const homeStrings = useHomeStrings();
   const maskId = useId();
 
   return (
     <Link
+      className=">sm:hidden"
       href={
         shouldDisplayLGBT ? 'https://tokyorainbowpride.com/' : '/company/vision'
       }
       aria-label={
-        shouldDisplayLGBT
-          ? 'Monoid supports LGBT rights!'
-          : 'Learn More about Monoid'
+        shouldDisplayLGBT ? 'Monoid supports LGBT rights!' : homeStrings.company
       }
     >
       <svg
-        className=">sm:hidden [shape-rendering:optimizeSpeed]"
+        aria-hidden="true"
+        className="[shape-rendering:optimizeSpeed]"
         width="80vw"
         viewBox="0 0 357 517"
       >
@@ -204,18 +257,21 @@ const VIDEO_RANGE = 6 / 10.2;
 const VIDEO_WHITE_START = 0.7255;
 
 export default function () {
-  const { navbarHeight, setTheme } = useTheme();
+  const { navbarHeight, setTheme, screen: layoutScreen } = useTheme();
+  const reduced = useReducedMotion();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const openingStrings = useOpeningStrings();
+  const homeStrings = useHomeStrings();
 
   const rendered = useRendered();
   const screen = useScreen();
 
   const locale = useLocale();
 
-  const shouldDisplayVideo = rendered === true && screen === 'desktop';
+  const active = rendered && screen === layoutScreen;
+  const shouldDisplayVideo = active && screen === 'desktop' && !reduced;
 
   const { scrollTop, clientHeight, scrollPercent, scrollHeight } = useScroll(
     containerRef,
@@ -225,9 +281,7 @@ export default function () {
   const id = useId();
 
   const yVideo =
-    clientHeight === undefined ||
-    scrollHeight === undefined ||
-    !shouldDisplayVideo
+    clientHeight <= 0 || scrollHeight <= clientHeight || !shouldDisplayVideo
       ? 0
       : Math.max(
           0,
@@ -239,12 +293,16 @@ export default function () {
           ),
         );
 
-  useScrolledVideo(containerRef, videoRef, VIDEO_RANGE, clientHeight ?? 99999);
+  useScrolledVideo(
+    containerRef,
+    videoRef,
+    VIDEO_RANGE,
+    clientHeight || 99999,
+    shouldDisplayVideo,
+  );
 
   const videoOffset =
-    clientHeight === undefined ||
-    scrollHeight === undefined ||
-    !shouldDisplayVideo
+    clientHeight <= 0 || scrollHeight <= clientHeight || !shouldDisplayVideo
       ? 9999
       : createInterpolator({
           inputRange: [
@@ -267,27 +325,31 @@ export default function () {
   }, [yVideo === 0, yVideo >= VIDEO_WHITE_START]);
 
   const renderTopScreen = () => (
-    <main
+    <section
       className={clsx(
-        'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] sm:!pt-[50px] pb-[40px]',
+        'flex flex-col items-center justify-between shrink-0 pt-[220px] md:pt-[160px] sm:!pt-[30px] pb-[40px]',
       )}
-      role="main"
     >
-      <AnimatedSlogan />
-      <MobileAnimatedSlogan />
+      {layoutScreen === 'desktop' ? (
+        <AnimatedSlogan />
+      ) : (
+        <MobileAnimatedSlogan />
+      )}
+      <h1 className="sr-only">{openingStrings.slogan}</h1>
 
       <div
         className={clsx(
-          'pt-[24vh] md:!pt-[12vh] sm:hidden',
+          // Column-centred so the icon stays over its (localized, wider) label.
+          'pt-[24vh] md:!pt-[12vh] sm:hidden flex flex-col items-center',
           scrollTop === 0 && 'animate-bounce-scroll',
         )}
       >
         <MouseSvg />
         <div className="text-[20px] text-center text-black font-dense mt-[6px]">
-          scroll
+          {homeStrings.scroll}
         </div>
       </div>
-    </main>
+    </section>
   );
 
   const renderVideo = () => {
@@ -302,7 +364,9 @@ export default function () {
           transform: `translateY(${videoOffset}px)`,
         }}
         ref={videoRef}
-        preload="true"
+        preload="metadata"
+        playsInline
+        aria-hidden="true"
         muted
       >
         <source src="/videos/opening.mp4" type="video/mp4" />
@@ -354,6 +418,7 @@ export default function () {
             )}
             style={{
               opacity: sloganOpacity(yVideo),
+              visibility: sloganOpacity(yVideo) > 0 ? 'visible' : 'hidden',
             }}
           >
             {openingStrings.slogan}
@@ -361,17 +426,19 @@ export default function () {
 
           <div
             className={clsx(
-              'font-dense absolute top-[63%] left-[0] right-[0] flex justify-center',
+              'font-dense absolute bottom-[clamp(24px,5vh,48px)] left-0 right-0 flex justify-center',
             )}
             style={{
               opacity: introOpacity(yVideo),
+              visibility: introOpacity(yVideo) > 0 ? 'visible' : 'hidden',
             }}
           >
-            <div className="w-[860px]">
+            <div className="w-[860px] max-w-[calc(100%-96px)]">
               <h2
                 className={clsx(
-                  'text-[40px] font-bold',
-                  locale === 'en-US' && 'text-[50px] leading-tight',
+                  'text-[clamp(30px,4.4vh,40px)] leading-[1.35] font-bold [text-wrap:balance]',
+                  locale === 'en-US' &&
+                    '!text-[clamp(36px,5.55vh,50px)] !leading-tight',
                 )}
               >
                 {openingStrings.introTitle}
@@ -379,8 +446,9 @@ export default function () {
 
               <p
                 className={clsx(
-                  'text-[24px]',
-                  locale === 'en-US' && 'text-[30px] leading-tight',
+                  'mt-3 text-[clamp(20px,2.67vh,24px)] leading-normal',
+                  locale === 'en-US' &&
+                    '!text-[clamp(24px,3.33vh,30px)] !leading-tight',
                 )}
               >
                 {openingStrings.introDetails}
@@ -391,10 +459,11 @@ export default function () {
           <div
             className={clsx(
               'font-dense absolute right-[140px] top-0 bottom-0 flex flex-col justify-center',
-              'w-[690px]',
+              'w-[690px] md:w-[70vw] md:right-[8vw]',
             )}
             style={{
               opacity: technologyOpacity(yVideo),
+              visibility: technologyOpacity(yVideo) > 0 ? 'visible' : 'hidden',
             }}
           >
             <h2
@@ -423,7 +492,7 @@ export default function () {
                   technologyOpacity(yVideo) === 0 ? 'none' : 'auto',
               }}
             >
-              <OpeningLink color="white" href="/company/info" target="_blank">
+              <OpeningLink color="white" href="/company/info">
                 COMPANY
               </OpeningLink>
             </div>
@@ -440,6 +509,7 @@ export default function () {
                 WebkitTextStrokeWidth: '1px',
                 WebkitTextStrokeColor: 'black',
                 opacity: servicesOpacity(yVideo),
+                visibility: servicesOpacity(yVideo) > 0 ? 'visible' : 'hidden',
               }}
             >
               {openingStrings.services}
@@ -512,9 +582,11 @@ export default function () {
 
       return (
         <svg
-          width={395}
+          aria-hidden="true"
+          className="max-w-full h-auto"
+          width={420}
           height={254}
-          viewBox="0 0 395 254"
+          viewBox="0 0 420 254"
           xmlns="http://www.w3.org/2000/svg"
         >
           <mask id={`${id}:businessContentDXMask`}>
@@ -601,6 +673,8 @@ export default function () {
 
       return (
         <svg
+          aria-hidden="true"
+          className="max-w-full h-auto"
           width={551}
           height={408}
           viewBox="0 0 551 408"
@@ -625,65 +699,74 @@ export default function () {
     const renderItem = (index: number, title: React.ReactNode) => {
       return (
         <li key={index} className="list-none">
-          <span className="font-dense text-[36px] font-bold mr-[10px]">
+          <span
+            aria-hidden="true"
+            className="font-dense text-[36px] font-bold mr-[10px]"
+          >
             {index.toString().padStart(2, '0')}
           </span>
 
-          <span className="font-dense text-[24px] font-bold">{title}</span>
+          <span className="font-dense text-[24px] md:text-[21px] font-bold">
+            {title}
+          </span>
         </li>
       );
     };
 
     return (
       <div
-        id="#businessContent"
-        className="shrink-0 w-[1056px] self-center flex flex-col gap-y-[37px] justify-center relative z-40"
+        id={`${id}-businessContent`}
+        className="shrink-0 w-[1056px] max-w-[calc(100%-96px)] md:max-w-[calc(100%-56px)] self-center flex flex-col gap-y-[37px] justify-center relative z-40"
         style={{
-          height: `calc(2.2 * (100vh - ${navbarHeight}px))`,
+          minHeight: reduced
+            ? undefined
+            : `calc(2.2 * (100vh - ${navbarHeight}px))`,
         }}
       >
         <div className="h-[1px] bg-black absolute left-[100px] right-[100px] rotate-[-20deg]" />
 
-        <div className="flex h-[254px] gap-x-[100px]">
-          <div className="relative">
+        <div className="flex min-h-[254px] gap-x-[70px] md:gap-x-6">
+          <div className="relative w-[420px] md:w-[46%] shrink-0">
+            <h3 className="sr-only">{openingStrings.DXAcceleration}</h3>
+            <p className="sr-only">{openingStrings.DXAccelerationSummary}</p>
             {renderDX()}
 
             <OpeningLink
               color="black"
               href="/works/1"
               className="absolute left-0 bottom-0"
-              target="_blank"
             >
-              SEE WORKS
+              {homeStrings.works}
             </OpeningLink>
           </div>
 
-          <div className="flex-1">
+          <ul className="flex-1">
             {openingStrings.DXAccelarationItems?.map((v, index) =>
               renderItem(index, v),
             )}
-          </div>
+          </ul>
         </div>
 
-        <div className="flex h-[408px]">
+        <div className="flex min-h-[408px]">
           <div className="flex-1 flex justify-end">
-            <div className="pt-[80px]">
+            <ul className="pt-[80px] md:pt-10">
               {openingStrings.newBusinessItems?.map((v, index) =>
                 renderItem(index, v),
               )}
-            </div>
+            </ul>
           </div>
 
-          <div className="relative">
+          <div className="relative w-[551px] md:w-[52%] shrink-0">
+            <h3 className="sr-only">{openingStrings.newBusiness}</h3>
+            <p className="sr-only">{openingStrings.newBusinessSummary}</p>
             {renderNewBusiness()}
 
             <OpeningLink
               color="black"
               href="/works/0"
               className="absolute right-0 bottom-0"
-              target="_blank"
             >
-              SEE WORKS
+              {homeStrings.works}
             </OpeningLink>
           </div>
         </div>
@@ -693,57 +776,118 @@ export default function () {
 
   const renderBottomScreen = () => {
     return (
-      <main
+      <section
         style={{
           height: `calc(100vh - ${navbarHeight}px)`,
         }}
         className={clsx(
-          'flex flex-col items-center justify-between overflow-scroll shrink-0 pt-[220px] pb-[40px]',
+          'flex flex-col items-center justify-between shrink-0 pt-[220px] pb-[40px]',
           'relative',
         )}
-        role="main"
       >
         <AnimatedSlogan isBottom />
-        <MobileAnimatedSlogan />
-
-        <BackToTopSvg
-          className="absolute bottom-0 right-0 cursor-pointer"
+        <button
+          type="button"
+          aria-label={homeStrings.top}
+          className="absolute bottom-3 right-7"
           onClick={() => {
-            containerRef.current!.scrollTop = 0;
+            containerRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+            containerRef.current?.focus();
           }}
-        />
-      </main>
+        >
+          <BackToTopSvg aria-hidden="true" />
+        </button>
+      </section>
     );
   };
 
+  const renderSummary = () => (
+    <section className="px-7 pb-16 pt-8 max-w-[1056px] mx-auto font-loose">
+      <h2 className="text-[28px] >sm:text-[44px] leading-tight font-bold">
+        {openingStrings.introTitle}
+      </h2>
+      <p className="mt-6 text-lg leading-relaxed">
+        {openingStrings.introDetails}
+      </p>
+      <h2 className="font-dense text-[48px] mt-14 border-t border-current pt-8">
+        {openingStrings.services}
+      </h2>
+      <div className="grid >sm:grid-cols-2 gap-10 mt-6">
+        <section>
+          <h3 className="font-dense text-[32px]">
+            {openingStrings.DXAcceleration}
+          </h3>
+          <p className="mt-3 leading-relaxed">
+            {openingStrings.DXAccelerationSummary?.map((text, index) => (
+              <React.Fragment key={index}>{text} </React.Fragment>
+            ))}
+          </p>
+          <ul className="mt-4 space-y-2">
+            {openingStrings.DXAccelarationItems?.map((text, index) => (
+              <li key={index}>{text}</li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h3 className="font-dense text-[32px]">
+            {openingStrings.newBusiness}
+          </h3>
+          <p className="mt-3 leading-relaxed">
+            {openingStrings.newBusinessSummary?.map((text, index) => (
+              <React.Fragment key={index}>{text} </React.Fragment>
+            ))}
+          </p>
+          <ul className="mt-4 space-y-2">
+            {openingStrings.newBusinessItems?.map((text, index) => (
+              <li key={index}>{text}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
+      <nav
+        aria-label={homeStrings.company}
+        className="mt-12 flex flex-wrap gap-x-8 gap-y-6 border-t border-current pt-8"
+      >
+        <OpeningLink color="black" href="/works/0">
+          {homeStrings.works}
+        </OpeningLink>
+        <OpeningLink color="black" href="/contact">
+          {homeStrings.contact}
+        </OpeningLink>
+        <OpeningLink color="black" href="/recruit">
+          {homeStrings.join}
+        </OpeningLink>
+      </nav>
+    </section>
+  );
+
   return (
-    <div
-      className="flex flex-col shrink overflow-scroll relative z-0"
+    <main
+      className="flex flex-col min-h-0 flex-1 overflow-y-auto overflow-x-hidden relative z-0"
       ref={containerRef}
+      tabIndex={0}
+      aria-label={homeStrings.company}
     >
-      {/* 1/9 */}
-      {renderTopScreen()}
-      {rendered && screen === 'desktop' && (
+      {(!rendered || active) && (
         <>
-          {renderVideo()}
-
-          {renderVideoTexts()}
-
-          {/* 7/9 */}
-          <div
-            className="shrink-0"
-            style={{
-              height: `calc(7 * (100vh - ${navbarHeight}px))`,
-            }}
-          />
-          {/* 1/9 */}
-          {renderBusinessContent()}
-
-          {/* 1/9 */}
-          {renderBottomScreen()}
+          {renderTopScreen()}
+          {(layoutScreen === 'mobile' || reduced) && renderSummary()}
+          {shouldDisplayVideo && (
+            <>
+              {renderVideo()}
+              {renderVideoTexts()}
+              <div
+                className="shrink-0"
+                style={{ height: `calc(7 * (100vh - ${navbarHeight}px))` }}
+              />
+              <h2 className="sr-only">{openingStrings.services}</h2>
+              {renderBusinessContent()}
+              {renderBottomScreen()}
+            </>
+          )}
         </>
       )}
-    </div>
+    </main>
   );
 }
 

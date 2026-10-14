@@ -24,14 +24,14 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'Frontend Engineer',
         description: (
           <>
-            <h3>About the job</h3>
+            <h2>About the job</h2>
             <p>
               At G.K. Monoid, we build impressive and intuitive user interfaces
               for our clients. We are looking for experienced frontend engineers
               who are passionate about turning product designs into working
               features. Part-time participation is available.
             </p>
-            <h3>What you will be doing</h3>
+            <h2>What you will be doing</h2>
             <p>
               - Understanding product design requirements and user flows
               <br />
@@ -42,7 +42,7 @@ export const useRecruitStrings = makeStrings({
               - Delivering features on time and within budget
               <br />- Writing and maintaining tests
             </p>
-            <h3>Baseline skills</h3>
+            <h2>Baseline skills</h2>
             <p>
               - Bachelor's degree in Software Engineering, Computer Science, or
               a related field
@@ -53,7 +53,7 @@ export const useRecruitStrings = makeStrings({
               - Ability to write clear, maintainable code
               <br />
             </p>
-            <h3>Preferred Skills</h3>
+            <h2>Preferred Skills</h2>
             <p>
               - Experience with one or more of: React, Angular, Vue, Svelte
               <br />
@@ -72,7 +72,7 @@ export const useRecruitStrings = makeStrings({
               - 1-2 years of frontend development experience
               <br />
             </p>
-            <h3>Location</h3>
+            <h2>Location</h2>
             <p>Tokyo, Japan</p>
           </>
         ),
@@ -82,7 +82,7 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'Backend Engineer',
         description: (
           <>
-            <h3>About the job</h3>
+            <h2>About the job</h2>
             <p>
               We are looking for backend engineers who can bring fresh ideas
               from their areas of expertise. You will need to pick up and run
@@ -91,7 +91,7 @@ export const useRecruitStrings = makeStrings({
               leadership and project management skills, as well as strong
               technical ability.
             </p>
-            <h3>What you will be doing</h3>
+            <h2>What you will be doing</h2>
             <p>
               - Executing server-side development for Monoid projects
               <br />
@@ -101,7 +101,7 @@ export const useRecruitStrings = makeStrings({
               production-scale systems
               <br />
             </p>
-            <h3>Baseline skills</h3>
+            <h2>Baseline skills</h2>
             <p>
               - Bachelor's degree in Computer Science, Statistics, Mathematics,
               a related field, or equivalent practical experience.
@@ -111,7 +111,7 @@ export const useRecruitStrings = makeStrings({
               - Fluent written and spoken English
               <br />
             </p>
-            <h3>Preferred Skills</h3>
+            <h2>Preferred Skills</h2>
             <p>
               - Experience programming in C++, Java, or Python.
               <br />
@@ -125,7 +125,7 @@ export const useRecruitStrings = makeStrings({
               - Fluent written and spoken Chinese or Japanese
               <br />
             </p>
-            <h3>Location</h3>
+            <h2>Location</h2>
             <p>Tokyo, Japan</p>
           </>
         ),
@@ -135,14 +135,14 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'UIUX Designer',
         description: (
           <>
-            <h3>About the job</h3>
+            <h2>About the job</h2>
             <p>
               We are looking for UI/UX designers who combine clear interaction
               thinking with strong visual craft. You will collaborate with
               engineers and product managers to design features from discovery
               through delivery, and continuously improve product usability.
             </p>
-            <h3>What you will be doing</h3>
+            <h2>What you will be doing</h2>
             <p>
               - Conducting user and product research
               <br />
@@ -153,7 +153,7 @@ export const useRecruitStrings = makeStrings({
               - Working closely with engineers to ship polished experiences
               <br />- Iterating using qualitative and quantitative feedback
             </p>
-            <h3>Baseline skills</h3>
+            <h2>Baseline skills</h2>
             <p>
               - Portfolio demonstrating end-to-end UI/UX work
               <br />
@@ -164,7 +164,7 @@ export const useRecruitStrings = makeStrings({
               - Comfort collaborating in cross-functional teams
               <br />
             </p>
-            <h3>Preferred Skills</h3>
+            <h2>Preferred Skills</h2>
             <p>
               - Experience designing web and mobile products
               <br />
@@ -175,7 +175,7 @@ export const useRecruitStrings = makeStrings({
               - Ability to communicate in Japanese, Chinese, or English
               <br />
             </p>
-            <h3>Location</h3>
+            <h2>Location</h2>
             <p>Tokyo, Japan</p>
           </>
         ),
@@ -185,7 +185,7 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'Product Manager',
         description: (
           <>
-            <h3>About the job</h3>
+            <h2>About the job</h2>
             <p>
               At G.K. Monoid, we build innovative products that meet client and
               customer needs. We are looking for an experienced Product Manager
@@ -197,7 +197,7 @@ export const useRecruitStrings = makeStrings({
               cross-functional teams in delivering products that meet user
               demand and increase market share.
             </p>
-            <h3>What you will be doing</h3>
+            <h2>What you will be doing</h2>
             <p>
               - Using observation and research to identify business
               opportunities
@@ -212,7 +212,7 @@ export const useRecruitStrings = makeStrings({
               - Supporting designers and engineers to ensure timely delivery
               <br />
             </p>
-            <h3>Baseline skills</h3>
+            <h2>Baseline skills</h2>
             <p>
               - Bachelor’s degree or equivalent industry experience
               <br />
@@ -225,7 +225,7 @@ export const useRecruitStrings = makeStrings({
               previous work
               <br />
             </p>
-            <h3>Preferred Skills</h3>
+            <h2>Preferred Skills</h2>
             <p>
               - Proven success in defining products and bringing them to
               delivery
@@ -243,7 +243,7 @@ export const useRecruitStrings = makeStrings({
               judgment
               <br />
             </p>
-            <h3>Location</h3>
+            <h2>Location</h2>
             <p>Tokyo, Japan</p>
           </>
         ),
@@ -253,7 +253,7 @@ export const useRecruitStrings = makeStrings({
         mobileName: 'Marketing Director',
         description: (
           <>
-            <h3>About the job</h3>
+            <h2>About the job</h2>
             <p>
               Join G.K. Monoid as we expand into the pet technology space with
               "pawpawmall." We are committed to strengthening the bond between
@@ -268,7 +268,7 @@ export const useRecruitStrings = makeStrings({
               <br />
               私たちは、ペットと飼い主の絆を深めるユニークな製品・サービスを提供しています。マーケティングディレクターとして、B2CおよびB2Bの両チャネルで戦略立案から実行までをリードできる、経験豊富で創造性と推進力のある方を募集しています。ブランド認知の向上と、ペット業界での有意義なパートナーシップ構築を担っていただくポジションです。
             </p>
-            <h3>What you will be doing</h3>
+            <h2>What you will be doing</h2>
             <p>
               - Designing and executing innovative marketing strategies for our
               pet-related products and services
@@ -292,7 +292,7 @@ export const useRecruitStrings = makeStrings({
               - ブランドストーリーを伝えるプレスリリース／PR資料の作成・発信
               <br />
             </p>
-            <h3>Baseline skills</h3>
+            <h2>Baseline skills</h2>
             <p>
               - Bachelor’s degree or equivalent industry experience. <br />
               - Proven marketing track record with measurable results. <br />
@@ -316,7 +316,7 @@ export const useRecruitStrings = makeStrings({
               - SNS運用経験とトレンド分析力。 <br />
               - データに基づいた意思決定ができる分析思考。 <br />
             </p>
-            <h3>Preferred Skills</h3>
+            <h2>Preferred Skills</h2>
             <p>
               - Proven ability to create and execute marketing strategies that
               resonate with target audiences.
@@ -360,7 +360,7 @@ export const useRecruitStrings = makeStrings({
               - オフィスはやや猫派が多いため、犬オーナーの方も歓迎します。
               <br />
             </p>
-            <h3>Location</h3>
+            <h2>Location</h2>
             <p>
               Tokyo, Japan
               <br />

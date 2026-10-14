@@ -64,7 +64,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
             <Layout
               loadingDone={loadingDone}
               hideLogo={pageProps.hideLogo ?? false}
-              theme={pageProps.theme}
+              theme={pageProps.theme ?? 'white'}
               screenHeight={pageProps.screenHeight}
               meta={<Meta title={pageProps.title} />}
               headerTransparent={pageProps.headerTransparent}
@@ -75,7 +75,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
             <MobileLayout
               loadingDone={true}
               hideLogo={pageProps.hideLogo ?? false}
-              theme={pageProps.theme}
+              theme={pageProps.theme ?? 'white'}
               meta={<Meta title={pageProps.title} />}
             >
               <Component {...pageProps} />

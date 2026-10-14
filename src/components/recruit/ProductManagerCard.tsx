@@ -1,5 +1,4 @@
 import { makeStrings } from '@monoid-dev/use-strings';
-import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import {
@@ -69,7 +68,6 @@ const RAYS = [
 
 export const ProductManagerCard: React.VFC = () => {
   const strings = useStrings();
-  const router = useRouter();
   const { progress, enter, leave } = useHoverTimeline(1400, 1000);
 
   const zoom = mix(1.4, 1, easeOutCubic(segment(progress, 0, 0.5)));
@@ -82,9 +80,9 @@ export const ProductManagerCard: React.VFC = () => {
 
   return (
     <Card
-      onMouseEnter={enter}
-      onMouseLeave={leave}
-      onClick={() => router.push('/recruit/PRODUCTMANAGER')}
+      onEnter={enter}
+      onLeave={leave}
+      href="/recruit/PRODUCTMANAGER"
       color={color}
       backgroundColor={backgroundColor}
     >

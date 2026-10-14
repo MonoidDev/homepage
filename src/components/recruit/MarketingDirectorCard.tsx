@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 
 import { makeStrings } from '@monoid-dev/use-strings';
-import { useRouter } from 'next/router';
 
 import { Card } from './Card';
 import { useChain } from '@/utils/animation';
@@ -17,8 +16,6 @@ type Point = readonly [number, number];
 
 export const MarketingDirectorCard: React.VFC = () => {
   const strings = useStrings();
-  const router = useRouter();
-
   const actionRef = useRef('enter');
 
   const interpolate1 = (frame: number) =>
@@ -157,7 +154,7 @@ export const MarketingDirectorCard: React.VFC = () => {
 
   return (
     <Card
-      onMouseEnter={async () => {
+      onEnter={async () => {
         actionRef.current = 'enter';
         await scaleChain.play();
         if (actionRef.current === 'enter') {
@@ -167,14 +164,14 @@ export const MarketingDirectorCard: React.VFC = () => {
           await faceChain.play();
         }
       }}
-      onMouseLeave={async () => {
+      onLeave={async () => {
         actionRef.current = 'leave';
         await faceChain.reverse();
         if (actionRef.current === 'leave') {
           await scaleChain.reverse();
         }
       }}
-      onClick={() => router.push('/recruit/MARKETINGDIRECTOR')}
+      href="/recruit/MARKETINGDIRECTOR"
       color={color}
       backgroundColor={backgroundColor}
     >
@@ -191,7 +188,7 @@ export const MarketingDirectorCard: React.VFC = () => {
             `,
           }}
         >
-          <svg viewBox="0 0 120 160">
+          <svg viewBox="0 0 120 160" aria-hidden="true">
             {renderCross(a1)}
             {renderCross(a2)}
             {renderCross(a4)}

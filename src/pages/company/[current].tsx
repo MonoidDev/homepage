@@ -29,6 +29,8 @@ const useStrings = makeStrings({
       </>
     ),
     companyInfo: 'COMPANY INFO',
+    servicesTitle: 'Our services',
+    infoTitle: 'Company information',
     info: [
       ['Name', 'G.K. Monoid'],
       ['Established', '2020/12/24'],
@@ -42,6 +44,8 @@ const useStrings = makeStrings({
     ],
   },
   'zh-CN': {
+    servicesTitle: '我们的服务',
+    infoTitle: '公司信息',
     title: (
       <>
         我们致力于通过高度专业化的设计师以及工程师团队创造性地解决多样的技术难题。
@@ -73,6 +77,8 @@ const useStrings = makeStrings({
     ],
   },
   'ja-JP': {
+    servicesTitle: '事業紹介',
+    infoTitle: '会社情報',
     title: (
       <>
         私たちは、あなたの「テクノロジーパートナー」として、次世代へ向けた新しいものを発明します。
@@ -109,12 +115,12 @@ const Vision: React.FC = () => {
   const locale = useLocale();
 
   return (
-    <main className="flex-1 flex font-dense px-[75px] sm:px-[32px] pt-[100px] sm:pt-[60px]">
-      <div className="px-[150px] sm:hidden">
+    <main className="flex-1 flex font-dense px-[75px] >sm:md:px-[48px] sm:px-[32px] pt-[100px] sm:pt-[60px]">
+      <div className="px-[150px] >sm:md:px-[40px] shrink-0 sm:hidden">
         <KeySvg />
       </div>
 
-      <div className=">sm:pr-[100px]">
+      <div className=">md:pr-[100px] >sm:md:pr-[24px] min-w-0 flex-1">
         <h1
           className={clsx(
             'text-[40px] sm:!text-[28px] sm:!leading-[55px] leading-[1.25] mb-[2.5vw] sm:mb-[25px] font-bold',
@@ -138,7 +144,10 @@ const Vision: React.FC = () => {
   );
 };
 
+const serviceWorks = { dx: '/works/1', newBusiness: '/works/0' };
+
 const Services: React.FC = () => {
+  const strings = useStrings();
   const locale = useLocale();
 
   const openingStrings = useOpeningStrings();
@@ -150,7 +159,9 @@ const Services: React.FC = () => {
           {(index + 1).toString().padStart(2, '0')}
         </span>
 
-        <span className="font-dense font-bold text-[24px]">{item}</span>
+        <span className="font-dense font-bold text-[24px] whitespace-nowrap">
+          {item}
+        </span>
       </div>
     );
   };
@@ -158,28 +169,29 @@ const Services: React.FC = () => {
   return (
     <main
       className={clsx(
-        'flex-1 px-[120px] py-[85px] font-dense text-white',
+        'flex-1 px-[120px] md:px-[56px] py-[85px] font-dense text-white',
         'flex flex-col gap-y-[70px]',
         'sm:hidden',
       )}
     >
-      <div className="flex gap-x-[60px] md:!gap-x-[30px]">
+      <h1 className="sr-only">{strings.servicesTitle}</h1>
+      <div className="flex gap-x-[60px] md:!gap-x-[30px] md:flex-wrap md:gap-y-[28px]">
         <div className="flex flex-col">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <h3 className="text-[60px] leading-none font-bold mb-[0.5rem]">
+            <h2 className="text-[60px] leading-none font-bold mb-[0.5rem] whitespace-nowrap">
               {openingStrings.DXAcceleration}
-            </h3>
+            </h2>
           )}
           {locale === 'en-US' && (
-            <h3 className="text-[80px] leading-none font-bold mb-[1.8rem]">
+            <h2 className="text-[80px] leading-none font-bold mb-[1.8rem]">
               <span className="opacity-60 relative">DX</span>
               <span className="ml-[-25px] inline-block relative top-[40px]">
                 Acceleration
               </span>
-            </h3>
+            </h2>
           )}
 
-          <p className="text-[20px] font-bold leading-tight">
+          <p className="text-[20px] font-bold leading-tight whitespace-nowrap">
             {openingStrings.DXAccelerationSummary.map((d, i) => (
               <Fragment key={i}>
                 {d}
@@ -196,23 +208,27 @@ const Services: React.FC = () => {
         </div>
         {(locale === 'ja-JP' || locale === 'zh-CN') && (
           <div className="pt-[1rem]">
-            <OpeningLink href="/works/0" color="white">
+            <OpeningLink href={serviceWorks.dx} color="white">
               SEE WORKS
             </OpeningLink>
           </div>
         )}
       </div>
 
-      <div className="flex gap-x-[60px] md:!gap-x-[30px] justify-end">
+      <div className="flex gap-x-[60px] md:!gap-x-[30px] justify-end md:flex-wrap md:gap-y-[28px]">
         <div className="flex flex-col justify-end pb-[0.5rem]">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <OpeningLink href="/works/1" color="white" direction="left">
+            <OpeningLink
+              href={serviceWorks.newBusiness}
+              color="white"
+              direction="left"
+            >
               SEE WORKS
             </OpeningLink>
           )}
 
           {locale === 'en-US' && (
-            <Link href="/works/0">
+            <Link href={serviceWorks.newBusiness}>
               <div className="p-[12px] text-white text-[32px] font-dense border-white border-2 leading-none cursor-pointer">
                 SEE WORKS
               </div>
@@ -228,20 +244,20 @@ const Services: React.FC = () => {
 
         <div className="flex flex-col">
           {(locale === 'ja-JP' || locale === 'zh-CN') && (
-            <h3 className="text-[60px] leading-none font-bold mb-[1rem]">
+            <h2 className="text-[60px] leading-none font-bold mb-[1rem] whitespace-nowrap">
               {openingStrings.newBusiness}
-            </h3>
+            </h2>
           )}
           {locale === 'en-US' && (
-            <h3 className="text-[80px] leading-none font-bold mb-[1.8rem]">
+            <h2 className="text-[80px] leading-none font-bold mb-[1.8rem]">
               <span className="opacity-60 relative">Product</span>
               <span className="ml-[-135px] inline-block relative top-[40px]">
                 Incubation
               </span>
-            </h3>
+            </h2>
           )}
 
-          <p className="text-[20px] font-bold leading-tight text-right">
+          <p className="text-[20px] font-bold leading-tight text-right whitespace-nowrap">
             {openingStrings.newBusinessSummary.map((d, i) => (
               <Fragment key={i}>
                 {d}
@@ -256,6 +272,7 @@ const Services: React.FC = () => {
 };
 
 const MobileServices: React.FC = () => {
+  const strings = useStrings();
   const locale = useLocale();
 
   const openingStrings = useOpeningStrings();
@@ -267,6 +284,7 @@ const MobileServices: React.FC = () => {
         '>sm:hidden',
       )}
     >
+      <h1 className="sr-only">{strings.servicesTitle}</h1>
       <h2 className="text-[28px] mb-[0.5rem]">
         {openingStrings.DXAcceleration}
       </h2>
@@ -345,6 +363,7 @@ const Info: React.FC = () => {
       style={{ gridAutoRows: 'min-content' }}
       role="main"
     >
+      <h1 className="sr-only">{strings.infoTitle}</h1>
       {strings.info?.map(([k, v]) => (
         <Fragment key={k}>
           <div
@@ -371,7 +390,7 @@ const MobileInfo: React.VFC = () => {
         'pt-[60px] px-[24px] leading-[65px] font-loose font-bold',
       )}
     >
-      <h2 className="mb-[3rem] text-[50px]">{strings.companyInfo}</h2>
+      <h1 className="mb-[3rem] text-[50px]">{strings.companyInfo}</h1>
 
       <div
         className={clsx(

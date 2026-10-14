@@ -25,10 +25,10 @@ export default function ContactIndex(props: ContactIndexProps) {
     <AdminContainer>
       <div className="px-[4rem] sm:px-[1rem] py-[2rem] sm:py-0">
         <table className={clsx('w-full', styles.table)}>
-          <tbody>
-            <caption className="text-[36px] font-loose mb-[1rem]">
-              Contacts
-            </caption>
+          <caption className="text-[36px] font-loose mb-[1rem]">
+            Contacts
+          </caption>
+          <thead>
             <tr>
               <th scope="col">Date</th>
               <th scope="col">Company</th>
@@ -40,6 +40,8 @@ export default function ContactIndex(props: ContactIndexProps) {
               <th scope="col">Message</th>
               <th scope="col" />
             </tr>
+          </thead>
+          <tbody>
             {data.contacts.map((item) => (
               <tr key={item.id}>
                 <td>{dayjs(item.created_at).format('YYYY-MM-DD HH:mm')}</td>
